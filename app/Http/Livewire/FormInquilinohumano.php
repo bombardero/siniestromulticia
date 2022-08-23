@@ -47,6 +47,7 @@ class FormInquilinohumano extends Component
     public $tipoPersonaAlerta;
     public $formMode = "store";
 
+
     protected $rules = [
             'sueldos' => ['required', 'max:12288'],
             'fotos_dni' => ['required', 'max:12288']            

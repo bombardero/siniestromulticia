@@ -22,7 +22,9 @@ class UsersSeed extends Seeder
             ['name' => 'Operario', 'email' => 'operario@gmail.com', 'password' => bcrypt('12345678'), 'cuit' => '2040783448', 'telefono' => '3815861461', 'province_id' => 90, 'city_id' => 48, 'codigo_postal' => '4000', 'direccion' => 'Agustin Maza 266', 'matricula_pas' => null],
             ['name' => 'Productor', 'email' => 'productor@gmail.com', 'password' => bcrypt('12345678'), 'cuit' => '20407833512', 'telefono' => '3815861461', 'province_id' => 90, 'city_id' => 48, 'codigo_postal' => '4000', 'direccion' => 'Agustin Maza 266', 'matricula_pas' => '50000'],            
             ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('12345678'), 'cuit' => '20407833545', 'telefono' => '3815861467', 'province_id' => 90, 'city_id' => 48, 'codigo_postal' => '4000', 'direccion' => 'Agustin Maza 266'],   
-            ['name' => 'CallCenter', 'email' => 'callcenter@gmail.com', 'password' => bcrypt('12345678'), 'cuit' => '99999999999', 'telefono' => '99999999999', 'province_id' => 90, 'city_id' => 48, 'codigo_postal' => '4000', 'direccion' => 'Agustin Maza 266'],                                 
+            ['name' => 'CallCenter', 'email' => 'callcenter@gmail.com', 'password' => bcrypt('12345678'), 'cuit' => '99999999999', 'telefono' => '99999999999', 'province_id' => 90, 'city_id' => 48, 'codigo_postal' => '4000', 'direccion' => 'Agustin Maza 266'],
+
+            ['name' => 'Siniestros', 'email' => 'siniestro@gmail.com', 'password' => bcrypt('12345678'), 'cuit' => '99999999998', 'telefono' => '99999999998', 'province_id' => 90, 'city_id' => 48, 'codigo_postal' => '4000', 'direccion' => 'Agustin Maza 266'],
         ];
         foreach($users as $user) {
             User::create($user);
@@ -34,5 +36,6 @@ class UsersSeed extends Seeder
         User::where('id', 5)->first()->assignRole('productor');
         User::where('id', 6)->first()->assignRole('admin');
         User::where('id',7)->first()->assignRole('callcenter');
+        User::where('id',8)->first()->assignRole('siniestros');
     }
 }

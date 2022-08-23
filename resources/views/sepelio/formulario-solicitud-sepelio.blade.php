@@ -52,16 +52,7 @@
 	        });
 		}
 
-		$(document).ready(function()
-		{
-				if ($('.js-signature').length) 
-				{
-					$('.js-signature').on('jq.signature.changed', function() {
-						$('#saveBtn').attr('disabled', false);
-					});
-					$('.js-signature').jqSignature();
-				}
-		});
+
 </script>
 
 @endsection

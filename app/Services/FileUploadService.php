@@ -14,6 +14,11 @@ class FileUploadService
 		{
 			throw new Exception("Error Processing Request - s3", 500);
 		}
+		$filesize = strlen(file_get_contents($file));
+		if($filesize > 50000000 ) {
+			throw new Exception("El archivo excede la capacidad maxima (50 mb)", 500);
+		} 
+		
 		$dateName = Carbon::now()->isoFormat('DD-MM-Y h:mm:ss');
 		$name = $documentType.'_'.$dateName;
 		$filePath = $documentType. '/' . $year . '/' . $name;

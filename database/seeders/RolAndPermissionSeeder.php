@@ -26,6 +26,8 @@ class RolAndPermissionSeeder extends Seeder
 
         $role = Role::create(['name' => 'callcenter']);
 
+        $role = Role::create(['name' => 'siniestros']);
+
         $permissions = Permission::create([
             'name' => 'crear-poliza',    
             'name' => 'editar-poliza',

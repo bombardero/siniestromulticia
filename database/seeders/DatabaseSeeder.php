@@ -20,5 +20,10 @@ class DatabaseSeeder extends Seeder
          $this->call(CitiesTableSeeder::class);
          $this->call(UsersSeed::class);
          $this->call(CotizacionSeeder::class);
+         $this->call(TipoCalzadaSeeder::class);
+         $this->call(TipoDocumentoSeeder::class);
+         $this->call(TipoCarnetSeeder::class);
+         $this->call(MarcaSeeder::class);
+         $this->call(ModeloSeeder::class);
     }
 }

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\City;
+use App\Models\Modelo;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/provincias/{id}/localidades',function(Request $request,$id){
+    return City::where('province_id',$id)->get();
+})->name('localidades.index');
+
+Route::get('/marcas/{id}/modelos',function(Request $request,$id){
+    return Modelo::where('marca_id',$id)->get();
+})->name('modelos.index');

@@ -135,7 +135,7 @@
 
               mask: Date,
               min: new Date(1990, 0, 1),
-              max: new Date(date.getFullYear(), date.getMonth() + 1,date.getDate()),
+              max: new Date(date.getFullYear(), date.getMonth(),date.getDate()),
               lazy: true
             });            
         })

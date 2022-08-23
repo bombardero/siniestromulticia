@@ -67,6 +67,10 @@ class LoginController extends Controller
         {
             return route('panel-callcenter');   
         }
+        elseif(Auth::user()->hasRole('siniestros'))
+        {
+            return route('panel-siniestros');
+        }
     }
     
     public function provider(Request $request, $provider)

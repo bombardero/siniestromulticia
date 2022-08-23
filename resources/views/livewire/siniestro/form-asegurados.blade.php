@@ -22,7 +22,7 @@
                     class="form-estilo form-control prueba w-100"  
                     id="fecha_asegurado" 
                     type="text" 
-                    placeholder="Fecha del siniestro(dd.mm.año)*"
+                    placeholder="F. del siniestro(dd.mm.aaaa)*"
                     wire:model.defer="fecha_siniestro">  
                </div>	
                 
@@ -92,12 +92,19 @@
                 </div>	
             </div>  
 
-            <div class="col-12 pt-3">
+            <div class="col-12 col-md-6 pt-3">
                 @error('telefono') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
                 <div class="input-group  ">
                     <input class="form-estilo prueba w-100" type="text" class="form-control" id="telefono" placeholder="  Tel. de contacto*" wire:model.defer="telefono">           
                 </div>	
-            </div>  
+            </div>
+
+            <div class="col-12 col-md-6 pt-3">
+                @error('telefono_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+                <div class="input-group  ">
+                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="telefono_confirmation" placeholder="  Repetir Tel. de contacto*" wire:model.defer="telefono_confirmation">
+                </div>
+            </div>
 
             <div class="col-12 col-md-6 pt-3">
                 @error('email') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
@@ -142,7 +149,7 @@
 
               mask: Date,
               min: new Date(1990, 0, 1),
-              max: new Date(date.getFullYear(), date.getMonth() + 1,date.getDate()),
+              max: new Date(date.getFullYear(), date.getMonth(),date.getDate()),
               lazy: true
             });            
         })

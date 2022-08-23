@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-
+{{--
             <div class="row pt-3 pt-md-5">
                 <div class="col-12 text-center text-md-left compañia-seguro">
                     <p>La compañía de seguros dispone de un Servicio de Atención al Asegurado que atenderá las consultas y reclamos que presenten los
@@ -89,5 +89,53 @@
                     </p>
                 </div>
             </div>
+--}}
+        <div style="background: white;">
+            <div class="row" style="padding-left:25px;padding-top:25px;padding-bottom:25px;">
+                <div class="col-12 col-md-8">
+                    <div class="row">
+                        <div class="col-12 col-md-3" style="border-right: 1px solid #4A4A49;">
+                        N° de inscripción SSN
+                        <br><strong>0857</strong>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            Departamento de Orientación y Asistencia al Asegurado
+                        </div>
+                        <div class="col-12 col-md-3" style="color:#009FE3;border-right: 1px solid #4A4A49;font-size: 20px;">
+                            <strong>0800-666-8400</strong>
+                        </div>
+                        <div class="col-12 col-md-3" style="color:#009FE3;font-size: 20px;">
+                            <strong>www.argentina.gob.ar/ssn</strong>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-4 justify-content-end">
+                    <div class="row">
+                        <div class="col-12 col-md-3"></div>
+                        <div class="col-12 col-md-9">
+                            <img src="{{url('/images/logo_ssn.png')}}" style="height:30px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-left:25px;margin-right:5px;">
+                <div class="col-12 col-md-8" style="background:#F1F1F1;padding-left: 60px;padding-top: 33px;padding-right: 55px;padding-bottom: 33px;margin-bottom: 33px;">
+                    La entidad aseguradora dispone de un <strong>Servicio de Atención al Asegurado</strong> que atenderá las consultas y reclamos que presenten los tomadores de seguros, asegurados, beneficiarios y/o derechohabientes. En caso de que existiera un reclamo ante la entidad aseguradora y que el mismo no haya sido resuelto o haya sido desestimado, total o parcialmente, o que haya sido denegada su admisión, podrá comunicarse con la Superintendencia de Seguros de la Nación por telefono al 0800-666-8400, correo electrónico a <strong>consultas@ssn.gob.ar</strong> o formulario disponible en la página <strong>argentina.gob.ar/ssn</strong>
+                </div>
+                <div class="col-12 col-md-4">
+                    <strong>El servicio de Atención al Asegurado está integrado por:</strong><br><br>
+
+                    RESPONSABLE: <strong>ALDAZABAL, FLORENCIA</strong><br>
+                    Teléfono: 0810-362-0700 - Int: 501<br>
+                    faldazabal@finisterreseguros.com<br><br>
+
+                    SUPLENTE: <strong>BUSTOS, MARIA JIMENA</strong><br>
+                    Teléfono: 0810-362-0700 - Int: 526<br>
+                    jbustos@finisterreseguros.com<br><br>
+
+                </div>
+            </div>
+        </div>
         </div>
     </footer>

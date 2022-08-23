@@ -6,6 +6,9 @@ use App\Mail\MailAsegurado;
 use App\Mail\MailAseguradoCompania;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use App\Models\DenunciaSiniestro;
+use DateTime;
+use Illuminate\Support\Str;
 
 class FormAsegurados extends Component
 {
@@ -17,6 +20,7 @@ class FormAsegurados extends Component
     public $responsable_contacto;
     public $domicilio;
     public $telefono;
+    public $telefono_confirmation;
     public $email;
     public $email_confirmation;
 
@@ -31,12 +35,13 @@ class FormAsegurados extends Component
         	'terminos_condiciones' => 'accepted',
             'dominio' => 'required | max:7',
             'lugar_siniestro' => 'required',
-            'fecha_siniestro' => 'required',
+            'fecha_siniestro' => 'required|min:10|max:10',
             'hora_siniestro' => 'required',
             'codigo_postal' => 'required',
             'responsable_contacto' => 'required',
             'domicilio' => 'required',
             'telefono' => 'required | numeric | digits_between:5,20',
+            'telefono_confirmation' => 'required | numeric | digits_between:5,20 | same:telefono',
             'email' => 'required | email | max: 50 ',
             'email_confirmation' => 'required | same:email',
         ],
@@ -54,7 +59,8 @@ class FormAsegurados extends Component
             'email.required' => 'El email es requerido.',
             'email.email' => 'Escriba un formato valido de email',
             'email_confirmation.required' => 'Por favor, confirme su email',
-            'email_confirmation.same' => 'Los email no coinciden'
+            'email_confirmation.same' => 'Los email no coinciden',
+            'telefono_confirmation.same' => 'Los telefonos no coinciden'
 
         ]);
         
@@ -80,6 +86,23 @@ class FormAsegurados extends Component
        Mail::to($this->email)->send(new MailAsegurado($data));
         //compania
         Mail::to(config('app.mail_siniestro_asegurado'))->send(new MailAseguradoCompania($data));        
+
+        DenunciaSiniestro::create([
+            "state" => 'precarga',
+            "identificador" => Str::uuid(),
+            "precarga_dominio_vehiculo_asegurado" => $this->dominio ? $this->dominio : 'Sin dato registrado',
+            "precarga_fecha_siniestro" => DateTime::createFromFormat('d.m.Y', $this->fecha_siniestro)->format('Y-m-d'),
+            "precarga_hora_siniestro" => $this->hora_siniestro,
+            "precarga_lugar" => $this->lugar_siniestro,
+            "precarga_codigo_postal" => $this->codigo_postal,
+            "precarga_direccion_siniestro" => $this->setNoDeclarado($this->direccion_siniestro),
+            "precarga_conductor_vehiculo_nombre" => $this->setNoDeclarado($this->conductor_siniestro),
+            "precarga_descripcion" => $this->setNoDeclarado($this->descripcion_siniestro),
+            "precarga_responsable_contacto_nombre" => $this->responsable_contacto,
+            "precarga_responsable_contacto_domicilio" => $this->domicilio,
+            "precarga_responsable_contacto_telefono" => $this->telefono,
+            "precarga_responsable_contacto_email" => $this->email
+        ]);
 
         return redirect()->to('/gracias');
     }

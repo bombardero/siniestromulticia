@@ -40,6 +40,26 @@
  
 
     @livewireStyles    
+    <style>
+        textarea {resize: none;}
+        .first-row{margin-bottom: 50px;}
+        .second-row{margin-left:0px;}
+        @media only screen and (max-width: 768px) {
+            .container-page{width: 100% !important;}
+            .contenedor-custom{padding-left: 2px !important;padding-right: 2px !important;}
+            .first-row{margin-bottom: 20px;}
+            .second-row{margin-left:30px;}
+            .margin-bottom-en-desktop{margin-bottom: 0px!important;}
+            .margin-left-en-mobile{margin-left: 20px !important;}
+            .padding-right-en-mobile{padding-right: 50px !important;}
+        }
+        .margin-bottom-en-desktop{margin-bottom: 20px;}
+        .margin-left-en-mobile{margin-left: 0px;}
+        .padding-right-en-mobile{padding-right: 0px;}
+
+        .margin-bottom-en-ambos{margin-bottom: 30px;}
+
+    </style>
 </head>
 <body> 
     <div id="app">
@@ -186,6 +206,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap" async defer></script> 
     <script src="https://unpkg.com/imask"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/konva@8.3.2/konva.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js" integrity="sha512-sn/GHTj+FCxK5wam7k9w4gPPm6zss4Zwl/X9wgrvGMFbnedR8lTUSLdsolDRBRzsX6N+YgG6OWyvn9qaFVXH9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @livewireScripts
 
 
