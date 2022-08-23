@@ -1,0 +1,258 @@
+/* Estilos CELULAR y algunas tablet (xs-sm)*/
+@media (min-width: 0px) and (max-width: 767px) {
+    
+    .imagen-caucion-alquileres-fondo
+   {
+    background-image:none !important;
+    /* Full height */
+
+   }
+     .fondo-garantias-contractuales {
+
+      background-image:none !important;
+      background-color:#ECECEF ;
+;
+   }
+   .fondo-solicitar-seguro {
+    background-image:url('/images/mobile/base_solicitar seguro.svg') !important;
+    /* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position:center bottom;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+
+}
+}
+.boton-cotiza-celeste {
+    letter-spacing: 0.5px;
+    width: 153px;
+    height:36px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: rgba(122, 162, 214, 1);
+    border-color:rgba(122, 162, 214, 1);
+    color:white;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: medium;
+    box-shadow: none !important;
+   }
+
+   .btn-light:hover, .btn-light:active, .btn-light:visited {
+    background-color: rgba(122, 162, 214, 1) !important;
+    box-shadow: none!important;
+    border-color: black !important;
+   
+   }
+   .btn-light:not(:disabled):not(.disabled).active, .btn-light:not(:disabled):not(.disabled):active, .show>.btn-light.dropdown-toggle {
+    color:white;
+    background-color: rgba(122, 162, 214, 1);
+    border-color: rgba(122, 162, 214, 1);
+   }
+   .btn-light.focus, .btn-light:focus {
+    color:white;
+    background-color: rgba(122, 162, 214, 1);
+    border-color:rgba(122, 162, 214, 1);
+    box-shadow: 0 0 0 0.2rem rgba(rgba(122, 162, 214, 1),1);
+   }
+   .open .dropdown-toggle.btn-light { 
+   color: white;
+   background-color: rgba(122, 162, 214, 1); 
+   border-color: rgba(122, 162, 214, 1); 
+   box-shadow: none!important;
+   } 
+   .btn-light .badge { 
+   color: white;
+   background-color: rgba(122, 162, 214, 1); 
+   }
+
+   .imagen-caucion-alquileres-fondo
+   {
+    background-image:url('/images/garantias/caucion_alquileres.svg');
+    /* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position:left bottom;
+    background-repeat: no-repeat;
+    background-size: initial;
+   }
+   .fondo-garantias-contractuales {
+
+    background-image:url('/images/garantias/fondo-contractuales.jpg');
+/* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+
+   .titulo-garantia {
+
+
+
+    font-family: Roboto;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px !important;
+    letter-spacing: 0.02em;
+    color:#545358;
+
+
+   }
+   .subtitulo-garantia {
+
+
+    font-family: Roboto;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color:#545358;
+   }
+
+   .requisitos-necesarios {
+
+    font-family: Roboto;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color:#545358;
+
+
+   }
+   .texto-general {
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color:#545358;
+   }
+   .boton-quiero-violeta {
+
+   letter-spacing: 0.5px;
+   width: 153px;
+   height:36px;
+   max-width: 100%;
+   margin-bottom: 20px;
+   border-radius: 20px;
+   background-color: #9E84AF;
+   border-color:#9E84AA;
+   color:white;
+   opacity: 1;
+   font-size: 14px;
+   font-weight: medium;
+   box-shadow: none !important;
+
+   }
+     .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
+     background-color: #9E84AF !important;
+     box-shadow: none!important;
+     border-color: black !important;
+
+    }
+    .btn-dark:not(:disabled):not(.disabled).active, .btn-dark:not(:disabled):not(.disabled):active, .show>.btn-dark.dropdown-toggle {
+     color:white;
+     background-color: #9E84AF;
+     border-color: #9E84AF;
+    }
+    .btn-dark.focus, .btn-dark:focus {
+     color:white;
+     background-color: #9E84AF;
+     border-color:#9E84AF;
+     box-shadow: 0 0 0 0.2rem rgba(#E95E2A,1);
+    }
+    .open .dropdown-toggle.btn-dark { 
+    color: white;
+    background-color:#9E84AF; 
+    border-color: #9E84AF; 
+    box-shadow: none!important;
+    } 
+    .btn-dark .badge { 
+    color: white;
+    background-color: #9E84AF;
+    } 
+   .fondo-garantias-aduaneras {
+
+      background-image:url('/images/garantias/fondo-aduaneras.jpg');
+  /* Full height */
+      height: 100%;
+      width:100%;
+      /* Center and scale the image nicely */
+      background-position: top;
+      background-repeat: no-repeat;
+      background-size: cover;
+     }
+
+     .boton-azul {
+
+        letter-spacing: 0.5px;
+        width: 153px;
+        height:36px;
+        max-width: 100%;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        background-color: #184071;
+        border-color:#184071;
+        color:white;
+        opacity: 1;
+        font-size: 14px;
+        font-weight: medium;
+        box-shadow: none !important;
+     
+        }
+
+        .btn-danger:hover, .btn-danger:active, .btn-danger:visited {
+            background-color: #184090 !important;
+            box-shadow: none !important;
+            border-color: black !important;
+       
+           }
+           .btn-danger:not(:disabled):not(.disabled).active, .btn-danger:not(:disabled):not(.disabled):active, .show>.btn-danger.dropdown-toggle {
+            color:white;
+            background-color: #184020;
+            border-color: #184071;
+           }
+           .btn-danger.disabled, .btn-danger:disabled {
+            color: #fff;
+            background-color: #184071 !important;
+            border-color: #184071 !important;
+          }
+           .btn-danger.focus, .btn-danger:focus {
+            color:white;
+            background-color: #184071;
+            border-color:#184071;
+            box-shadow: 0 0 0 0.2rem rgba(#184071,1);
+           }
+           .open .dropdown-toggle.btn-danger { 
+           color: white;
+           background-color:#184071; 
+           border-color: #184071; 
+           box-shadow: none!important;
+           } 
+           .btn-danger .badge { 
+           color: white;
+           background-color: #184071;
+           } 
+.fondo-solicitar-seguro {
+    background-image:url('/images/solicitar-seguro.png');
+    /* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position:center bottom;
+    background-repeat: no-repeat;
+    background-size: inherit;
+
+}

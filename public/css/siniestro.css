@@ -1,0 +1,148 @@
+@media (min-width: 0px) and (max-width: 767px) {
+
+    .que-hacer-siniestro {
+        font-size: 20px !important;
+    }
+}
+
+.que-hacer-siniestro {
+
+    font-size: 35px;
+    line-height: 16px;
+    color: #FFFFFF;
+}
+
+.bg-black-siniestro {
+    height: 62px;
+    background-color: #1D1D1B;
+    border-radius: 10px;
+}
+
+.card-siniestro {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.card-siniestro-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 56px;
+}
+
+.soy-asegurado {
+    color: rgba(45, 45, 123, 1);
+}
+
+.soy-tercero {
+    color: rgba(229, 83, 28, 1);
+}
+
+.boton-siniestro-asegurado {
+    letter-spacing: 0.5px;
+    width: 370px;
+    height:38px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: #2D2D7B;
+    border-color:#2D2D7B;
+    color:white;
+    opacity: 1;
+    font-weight: bold;
+    font-size: 14px;
+   
+    box-shadow: none !important;
+   }
+
+   .boton-siniestro-tercero {
+    letter-spacing: 0.5px;
+    width: 370px;
+    height:38px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: #BF4019;
+    border-color:#BF4019;
+    color:white;
+    opacity: 1;
+    font-weight: bold;
+    font-size: 14px;
+   
+    box-shadow: none !important;
+   }
+
+   .legal-siniestro {
+    font-size: 12px;
+    line-height: 25px;
+    color: #545358;
+    
+   }
+
+   .no-califica-denuncia {
+    font-size: 12px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: #BE0000;
+   }
+
+   .siniestros-title {
+    font-size: 36px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #707070;
+   }
+
+   .datos-asegurado-title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #2D2D7B;
+   }
+
+   .terminos-condiciones-entiendo {
+    font-size: 12px;
+    line-height: 25px;
+    color: #545358;
+   }
+
+   .boton-enviar-siniestro {
+    letter-spacing: 0.5px;
+    width: 153px;
+    height:36px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: #2D2D7B;
+    border-color:#2D2D7B;
+    color:white;
+    border-radius: 20px;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: medium;
+    box-shadow: none !important;
+   }
+
+   .campos-obligatorios {
+    font-size: 12px;
+    line-height: 25px;
+    color: #E51C00;
+    
+   }
+
+   #input_container {
+    position:relative;
+    padding:0 0 0 20px;
+    margin:0 20px;
+    background:#ddd;
+    direction: rtl;
+    width: 200px;
+}
+
+#input_fecha_img {
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    width:24px;
+    height:24px;
+}

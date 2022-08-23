@@ -1,0 +1,13 @@
+.preguntas-frecuentes-titulo {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 25px;
+	/* or 156% */
+
+	display: flex;
+	align-items: center;
+	letter-spacing: 0.02em;
+
+	color: #545358;
+	}

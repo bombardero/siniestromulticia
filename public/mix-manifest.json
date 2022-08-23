@@ -1,0 +1,17 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/js/map.js": "/js/map.js",
+    "/css/estilos.css": "/css/estilos.css",
+    "/css/somos-nosotros.css": "/css/somos-nosotros.css",
+    "/css/garantias.css": "/css/garantias.css",
+    "/css/legales.css": "/css/legales.css",
+    "/css/preguntas-frecuentes.css": "/css/preguntas-frecuentes.css",
+    "/css/contacto.css": "/css/contacto.css",
+    "/css/login.css": "/css/login.css",
+    "/css/precio-estimativo-alquileres.css": "/css/precio-estimativo-alquileres.css",
+    "/css/estado-poliza.css": "/css/estado-poliza.css",
+    "/css/formularios.css": "/css/formularios.css",
+    "/css/sepelio.css": "/css/sepelio.css",
+    "/css/siniestro.css": "/css/siniestro.css"
+}

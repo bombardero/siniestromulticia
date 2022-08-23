@@ -1,0 +1,198 @@
+@media (min-width: 0px) and (max-width: 767px) {
+
+}
+
+
+.estado-poliza-titulo {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 25px;
+    color: #184071;
+}
+
+.precio-estimativo-poliza {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;   
+    color: #7AA2D6;
+}
+.monto {
+
+    font-size:26px;
+}
+.completa-datos {
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: #184071;
+    
+
+}
+ /*------------ DATOS POLIZA INCOMPLETOS O PENDIENTES DE APROBACION -------------*/
+.datos-poliza {
+
+    border-radius: 20px;
+    background-color: #FDECDB;
+    border: 1px solid rgba(233, 94, 42, 1);
+
+}
+
+
+
+.informacion-dato-poliza {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #E5531C;
+}
+
+.estado-dato-poliza {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color:#E5531C;
+
+}
+
+.estado-solicitud {
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: #E95E2A;
+}
+
+.estado-solicitud-ok {
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 25px;
+    /* or 156% */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    color: #184071;
+}
+
+ /*----------------------------FIN DATOS POLIZA INCOMPLETOS----------------*/
+
+ /*------------------------------- DATOS POLIZA APROBADOS------------- */
+
+
+ .datos-poliza-ok {
+    background-color: #E4EAF6;
+    border-radius:20px;
+    border: 1px solid rgba(24, 64, 113, 1);
+}
+.informacion-dato-poliza-ok {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #243862;
+    
+}
+
+.estado-dato-poliza-ok {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color:#243862;
+
+}
+
+.estado-solicitud-ok {
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: #243862;
+}
+.formas-pago {
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: rgba(84, 83, 88, 0.5);
+}
+
+.avales-formato {
+    font-style: normal;
+    font-weight: normal;
+
+    font-size: 13px;
+    line-height: 25px;
+    /* or 156% */
+
+    text-align: center;
+
+    color: #184071;
+
+
+}
+
+.cargar-avales {
+
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 25px;
+/* or 156% */
+
+text-align: center;
+
+color: #184071;
+
+}
+
+.documento-formato-texto {
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    text-decoration-line: underline;
+    color: #828282;
+}
+
+
+a.documento-formato-texto:hover
+ {
+  color: #828260 !important;
+  font-weight: bold;
+}
+
+a.tab:hover
+{
+    color:black !important;
+}
+.nav-link-persona
+{
+
+     background: #B2CBEC !important;
+}
+
+.nav-link-persona.active
+{
+    background-color:rgba(24, 64, 113, 1) !important;
+}

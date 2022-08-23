@@ -1,0 +1,1859 @@
+/* ESTILO DISPOSITIVOS MUY PEQUEÑOS */
+  @media (min-width: 0px) and (max-width: 295px) {
+    .imagen-boton-chateamos {
+      font-size:12px !important;
+    }
+
+  .productos-coberturas-title
+  {
+    font-size: 12px !important;
+  }
+
+  }
+/* Estilos CELULAR y algunas tablet (xs-sm)*/
+ @media (min-width: 0px) and (max-width: 767px) {
+  .card-width {
+    width: auto !important;
+    height: auto !important;
+  }
+  .card-autogestion
+  {
+  height: auto !important;
+  }
+  .card-mediopago
+  {
+  height: auto !important;
+  }
+
+  .card-material
+  {
+  height: auto !important;
+  }
+
+  .card-comerciales
+  {
+  height: auto !important;
+  }
+
+  .card-beneficio
+  {
+    height:auto;
+  }
+
+  .card-alta-productor
+  {
+    width:100% !important;
+  }
+
+  .texto-herramientas {
+    width:100% !important;
+  }
+    .productos-coberturas-title
+    {
+      font-size: 28px !important;
+    }
+    .table-sepelio
+    {
+      width:100% !important;
+    }
+    .es-muy-facil {
+     font-size: 34px !important;
+    }
+    .encontra-el-seguro {
+     font-size: 20px !important;
+     line-height: 32px !important;
+     }
+ .conoce-nuestros-productos {
+     font-size: 30px !important;
+     line-height: 30px !important;
+     }
+ .finisterre-pensamos {
+     font-size: 16px;
+     line-height: 30px;
+
+     }
+ #cuarta-seccion {
+
+   background-image:none !important;
+   background-color:#ECECEF !important;
+   /* Full height */
+   height: 100%;
+   width:100%;
+   /* Center and scale the image nicely */
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+
+
+  }
+  .seguro-terceros {
+     line-height: 25px !important;
+     font-style: normal !important;
+     font-weight: normal !important;
+     font-size: 11px !important;
+   }
+   .imagen-boton-chateamos {
+     width: 100% !important;
+   }
+  .fondo-empresa {
+  background-image:none !important;
+  /* Full height */
+  height: 100%;
+  width:100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  .margen-vacio {
+    margin-top:30px !important;
+  }
+
+  .fondo-sepelio {
+  background-color: #F9F4FF !important;
+  background-image: none !important;
+  }
+  .telefono-footer {
+    font-size: 25px !important;
+
+  }
+  .fondo-unite-equipo {
+    background-color:#EBF3FA !important;
+    background-image: none !important;
+
+   }
+ }
+ @media (min-width: 768px) and (max-width: 1200px) {
+  .texto-herramientas {
+  width:100% !important;
+}
+
+  .card-width {
+    width:auto !important;
+    height: auto !important;
+  }
+
+ }
+    /* FIN CELULAR estilos*/
+.header-class {
+ color:#184071 !important;
+ font-weight: bold !important;
+ font-size: 12px !important;
+ line-height: 18px !important;
+ letter-spacing: 0.02em !important;
+}
+.header-alquileres {
+ color: #F8F8F8 !important;
+ font-weight: bold;
+ font-size: 12px;
+ line-height: 18px;
+ letter-spacing: 0.03em;
+}
+.header-estilo-dropdown {
+  font-weight: normal;
+  font-size: 9px;
+  line-height: 25px;
+  /* or 278% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+
+  color: #234077;
+  background-color: #EAEAEA;
+  border-bottom: 0.5px solid #BDC3C7;
+}
+.categoria-seguros {
+ background-color: #EAEAEA;
+
+}
+li.seguros:hover {
+background-color:#C4C4C4 !important;
+}
+body {
+ font-family: 'Roboto' !important;
+
+}
+html {
+ font-family: 'Roboto' !important;
+}
+.bg {
+background-image:url('/images/background-seccion-uno@2x.svg');
+/* Full height */
+height: 100%;
+width:100%;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+.es-muy-facil {
+font-style: normal;
+font-weight: bold;
+font-size: 55px;
+line-height: 50px;
+/* or 91% */
+
+
+color: #545358 !important;
+}
+.facil {
+color: #E95E2A;
+}
+.encontra-el-seguro {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+
+font-size: 24px;
+line-height: 32px;
+
+
+color: #545358;
+}
+.mejor-precio {
+color: #E95E2A;
+}
+.conoce-nuestros-productos {
+font-weight: bold;
+font-size: 36px;
+line-height: 25px;
+/* or 69% */
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #545358;
+
+}
+.finisterre-pensamos {
+font-style: normal;
+font-size: 16px;
+line-height: 30px;
+/* or 69% */
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #545358;
+}
+.porque-elegirnos {
+font-weight: bold;
+font-size: 25px;
+line-height: 32px;
+/* identical to box height, or 128% */
+
+
+color: #545358;
+}
+.encabezado-texto-imagenes {
+font-style:normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 32px;
+/* or 200% */
+
+
+color: #545358;
+}
+.subencabezado-texto-imagenes {
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 22px;
+/* or 157% */
+
+text-align: center;
+
+color: #545358;
+}
+#cuarta-seccion {
+
+background-image:url('/images/fondo-seguro de motos.svg');
+/* Full height */
+height: 100%;
+width:100%;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+.seguro-terceros {
+font-style: normal;
+font-weight: bold;
+font-size: 14px;
+line-height: 25px;
+/* identical to box height, or 179% */
+
+
+color: #545358;
+}
+.seguro-para-motos {
+font-weight: bold;
+font-size: 36px;
+line-height: 30px;
+letter-spacing: -0.02em;
+color: #545358;
+}
+.seguro-mejor-precio {
+font-style: normal;
+font-weight: normal;
+font-size: 25px;
+line-height: 30px;
+/* or 83% */
+
+
+letter-spacing: -0.02em;
+
+color: #545358;
+
+
+}
+.desde-tu-celular {
+font-style: normal;
+font-weight: bold;
+font-size: 16px;
+line-height: 30px;
+letter-spacing: -0.02em;
+color: #545358;
+}
+
+.imagen-boton-chateamos {
+ letter-spacing: 0.5px;
+ width: 370px;
+ height:38px;
+ max-width: 100%;
+ margin-bottom: 20px;
+ border-radius: 20px;
+ background-color: #184071;
+ border-color:#151A44;
+ color:white;
+ opacity: 1;
+ font-weight: bold;
+ font-size: 14px;
+
+ box-shadow: none !important;
+}
+.btn-success:hover, .btn-success:active, .btn-success:visited {
+ background-color: #184090 !important;
+ box-shadow: none!important;
+ border-color: black !important;
+
+}
+.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+ color:white;
+ background-color: #184071;
+ border-color: #151A44;
+}
+.btn-success.focus, .btn-success:focus {
+ color:white;
+ background-color: #184071;
+ border-color:#151A44;
+ box-shadow: 0 0 0 0.2rem rgba(#151A44,1);
+}
+.open .dropdown-toggle.btn-success {
+color: white;
+background-color: #184071;
+border-color: #151A44;
+box-shadow: none!important;
+}
+.btn-success .badge {
+color: white;
+background-color: #184071;
+}
+
+.boton-cotiza {
+ letter-spacing: 0.5px;
+ width: 153px;
+ height:36px;
+ max-width: 100%;
+ margin-bottom: 20px;
+ border-radius: 20px;
+ background-color: #E95E2A;
+ border-color:#E95E2A;
+ color:white;
+ opacity: 1;
+ font-size: 14px;
+ font-weight: medium;
+ box-shadow: none !important;
+}
+.btn-warning:hover, .btn-warning:active, .btn-warning:visited {
+ background-color: #E95E2F !important;
+ box-shadow: none!important;
+ border-color: black !important;
+
+}
+.btn-warning:not(:disabled):not(.disabled).active, .btn-warning:not(:disabled):not(.disabled):active, .show>.btn-warning.dropdown-toggle {
+ color:white;
+ background-color: #E95E2A;
+ border-color: #E95E2A;
+}
+.btn-warning.focus, .btn-warning:focus {
+ color:white;
+ background-color: #E95E2A;
+ border-color:#E95E2A;
+ box-shadow: 0 0 0 0.2rem rgba(#E95E2A,1);
+}
+.btn-warning.disabled, .btn-warning:disabled {
+  color: white;
+  background-color: rgba(196, 196, 196, 1);
+  border-color: rgba(196, 196, 196, 1);
+}
+.btn-warning:hover:disabled {
+  background-color: rgba(196, 196, 196, 1) !important;
+  box-shadow: none!important;
+  border-color: rgba(196, 196, 196, 1) !important;
+}
+.open .dropdown-toggle.btn-warning {
+color: white;
+background-color: #E95E2A;
+border-color: #E95E2A;
+box-shadow: none!important;
+}
+.btn-warning .badge {
+color: white;
+background-color: #E95E2A;
+}
+.card-formulario {
+ border-radius: 30px;
+
+ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+
+ max-width:386px;
+
+
+}
+.cotiza-segundo {
+ color:#7AA2D6;
+ font-weight: bold;
+ font-size: 16px;
+ line-height: 25px;
+ /* or 156% */
+
+ letter-spacing: -0.02em;
+}
+.cotiza-subtitulo {
+ color:#7AA2D6;
+ font-weight: 500px;
+ font-size: 16px;
+ line-height: 25px;
+ /* or 156% */
+
+ letter-spacing: -0.02em;
+}
+.form-estilo {
+
+ border: 1px solid #7AA2D6;
+ box-sizing: border-box;
+ box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+ border-radius: 10px;
+
+}
+
+.form-estilo.focus, .form-estilo:focus {
+ color:#7AA2D6;
+ outline:none !important;
+ border-color: #7AA2D6 !important;
+ box-shadow: 0 0 0 0.2rem rgba(#151A44,1);
+}
+.caucion-alquileres {
+ font-style: normal;
+ font-weight: bold;
+ font-size: 36px;
+ line-height: 30px;
+ /* or 83% */
+
+ letter-spacing: -0.02em;
+
+ color: #184071;
+}
+.caucion-alquileres-subtitulo {
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 25px;
+ /* or 69% */
+
+ letter-spacing: 0.02em;
+
+ color: #000000;
+}
+
+
+.caucion-empresas-subtitulo {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  color: #184071;
+  letter-spacing: -0.02em;
+}
+.sepelio-titulo {
+
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  color: #6E4697;
+
+}
+.sepelio-subtitulo {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #6E4697;
+}
+
+.boton-solicitar-asesoramiento {
+ letter-spacing: 0.5px;
+ width: 370px;
+ height:38px;
+ max-width: 100%;
+ margin-bottom: 20px;
+ border-radius: 20px;
+ background-color: #E95E2A;
+ border-color:#E95E2A;
+ color:white;
+ opacity: 1;
+ font-weight: bold;
+ font-size: 14px;
+
+ box-shadow: none !important;
+}
+.btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+ background-color: #E95E2F !important;
+ box-shadow: none!important;
+ border-color: black !important;
+
+}
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+ color:white;
+ background-color: #E95E2D;
+ border-color: #E95E2A;
+}
+.btn-secondary.focus, .btn-secondary:focus {
+ color:white;
+ background-color: #E95E2A;
+ border-color:#E95E2A;
+ box-shadow: 0 0 0 0.2rem rgba(#151A44,1);
+}
+.open .dropdown-toggle.btn-secondary {
+color: white;
+background-color: #E95E2A;
+border-color: #E95E2A;
+box-shadow: none!important;
+}
+.btn-secondary .badge {
+color: white;
+background-color: #E95E2D;
+}
+
+.fondo-sepelio {
+background-image:url('/images/fondo sepelio.png');
+/* Full height */
+height: 100%;
+width:100%;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+.fondo-unite-equipo {
+background-image:url('/images/trabaja-con-nosotros/blue_bckg.png');
+/* Full height */
+height: 100%;
+width:100%;
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+ }
+ .potencia-tu-carrera-titulo
+ {
+
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  color: #243862;
+
+}
+.potencia-tu-carrera-subtitulo
+{
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #243862;
+}
+.lista-footer {
+
+  margin-bottom:5px !important;
+}
+.enlace-footer {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  /* or 179% */
+
+  text-decoration: none !important;
+  color: #FFFFFF;
+  }
+.texto-footer {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 25px;
+  /* or 250% */
+
+  letter-spacing: 0.02em;
+
+  color: #FFFFFF;
+
+}
+.titulo-footer {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+.subtitulo-footer {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 25px;
+  color: #FFFFFF;
+
+}
+.telefono-footer {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  /* or 139% */
+
+  letter-spacing: -0.05em;
+
+  color: #FFFFFF;
+}
+.organismo-control {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 20px;
+  /* or 200% */
+
+  letter-spacing: 0.02em;
+
+  color: #FFFFFF;
+}
+.compañia-seguro {
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 20px;
+  /* or 200% */
+
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  color: #FFFFFF;
+}
+a:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.form-estilo-solicitar-seguro {
+
+  border: 1px solid rgba(122, 162, 214, 1) !important;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 10px !important;
+
+  color:#7AA2D6;
+ }
+.form-estilo-solicitar-seguro.focus, .form-estilo-solicitar-seguro:focus {
+ color:#7AA2D6;
+ outline:none !important;
+ border-color: #7AA2D6 !important;
+ box-shadow: 0 0 0 0.2rem rgba(#151A44,1);
+}
+ ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:#545358 !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:#545358 !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:#545358 !important;
+}
+
+.persona-juridica {
+  background-color: rgba(24, 64, 113, 1) !important;
+  border-radius: 4px 4px 0px 0px !important;
+  font-weight: bold;
+  font-size: 9px;
+  line-height: 18px;
+  letter-spacing: 0.03em;
+  color: #F8F8F8;
+}
+
+.persona-humana {
+
+  background: #B2CBEC !important;
+  border-radius: 4px 4px 0px 0px !important;
+  font-weight: bold;
+  font-size: 9px;
+  line-height: 18px;
+  letter-spacing: 0.03em;
+  color: #F8F8F8;
+
+}
+
+.tabla-panel {
+  background: #E4EAF6 !important;
+
+
+}
+
+.tabla-cabecera {
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+  color: #044482;
+
+
+}
+.th-padding {
+  padding-top:0.25rem !important;
+  padding-bottom:0.25rem !important;
+}
+
+.tabla-contrato-texto {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+
+  color: #828282;
+}
+a.tabla-contrato-texto:hover
+ {
+  color: #828260 !important;
+  font-weight: bold;
+}
+
+.tabla-texto {
+  font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 25px;
+letter-spacing: -0.02em;
+color: #828282;
+}
+
+.panel-operaciones-title {
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 30px;
+
+  color: #7AA2D6;
+}
+
+.panel-operaciones-subtitle {
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #184071;
+
+}
+
+.borde-tabla {
+  border-bottom: 1px solid #CEDFF4;
+}
+.btn-primary-outline {
+  background-color: transparent;
+  border-color: #ccc;
+}
+
+.card-datos-poliza {
+background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 20px;
+}
+
+
+
+.card-datos-title {
+
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  /* or 179% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* Texto Gris */
+
+  color: #545358;
+}
+
+.card-datos-subtitle
+
+{
+
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  /* or 179% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* Gray 3 */
+
+  color: #828282;
+}
+
+p.monto-estimado:hover
+{
+    color:#7AA2D6 !important;
+}
+
+.si-quieres-ser-productor-text
+{
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #233862 !important;
+}
+
+.si-quieres-ser-productor-subtitle
+{
+  font-size: 15px;
+  line-height: 28px;
+  color: #233862;
+}
+
+.boton-chatear-asesor
+{
+ letter-spacing: 0.5px;
+ height: 36px;
+ width: 239px;
+ max-width: 100%;
+ margin-bottom: 20px;
+ border-radius: 20px;
+ background-color: #184071;
+ border-color:#151A44;
+ color:white;
+ opacity: 1;
+ font-weight: bold;
+ font-size: 14px;
+
+ box-shadow: none !important;
+}
+.seleccionar-rama
+{
+  color: #184071;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+}
+
+.proximamente
+{
+
+  font-size: 9px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 2px;
+  letter-spacing: 0em;
+  color:#E51C00;
+
+}
+
+.label-imagenes-produci-con-nosotros
+{
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  color: #E95E2A;
+}
+
+.mayus
+{
+ text-transform:uppercase;
+}
+.demo-non-form {
+    color: initial;
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    font-family: arial, verdana, sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+}
+
+.demo-container {
+    padding: 0 1em;
+}
+
+.stepwizard-step p {
+
+    margin-top: 10px;
+
+}
+
+.stepwizard-row {
+
+    display: table-row;
+
+}
+
+.stepwizard {
+
+    display: table;
+
+    width: 100%;
+
+    position: relative;
+
+}
+
+.stepwizard-step button[disabled] {
+
+    opacity: 1 !important;
+
+    filter: alpha(opacity=100) !important;
+
+}
+
+.stepwizard-row:before {
+
+    top: 14px;
+
+    bottom: 0;
+
+    position: absolute;
+
+    content: " ";
+
+    width: 100%;
+
+    height: 1px;
+
+    background-color: #ccc;
+
+    z-order: 0;
+
+}
+
+.stepwizard-step {
+
+    display: table-cell;
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+
+
+.displayNone
+{
+
+  display: none;
+
+}
+
+.productos-coberturas
+{
+  width: 100%;
+  height: 98px;
+  background: #184071;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.productos-coberturas-title
+{
+
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color:#F8F8F8;
+
+}
+
+.precio-por-mes
+{
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  color:#E95E2A;
+}
+
+.por-mes-text
+{
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: #E95E2A;
+
+}
+
+.seguro-moto
+{
+  background-color: #ECECEF ;
+
+}
+
+.boton-personalizado-seccion-moto
+{
+  background-color: #6E4697;
+  width: 265px;
+  height: 36px;
+  border-radius: 20px;
+  color:white;
+  font-weight: 500;
+
+}
+.boton-personalizado-seccion-moto:hover {
+  background-color: #6E4680;
+  color: white;
+  font-weight: 700;
+}
+
+.badge-purple
+{
+  background: #6E4697;
+  color:#FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0em;
+}
+
+.como-funciona
+{
+  color:#184071;
+}
+
+.como-funciona:hover {
+  color: #184080;
+}
+
+    .table-striped-sepelio tbody tr:nth-of-type(odd)
+    {
+      background-color: #F5ECFF;
+    }
+
+    .table-hover-sepelio tbody tr:hover
+    {
+      background-color: #AE4DD6;
+      color: white;
+      font-weight: 800;
+    }
+
+    .thead-uno-purple
+    {
+
+      background-color:#6E4697;
+      color:white;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 25px;
+      letter-spacing: -0.02em;
+    }
+    .thead-dos-purple
+    {
+
+      background-color:#815CA7;
+      color:white;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 25px;
+      letter-spacing: -0.02em;
+
+    }
+    .thead-tres-purple
+    {
+
+      background-color:#9173B1;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 25px;
+      letter-spacing: -0.02em;
+      color:white;
+    }
+
+    .tbody-purple
+    {
+      background-color: #E3CEF8;
+    }
+
+    .texto-columnas-tabla
+    {
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 25px;
+      letter-spacing: -0.02em;
+
+    }
+    .table-sepelio
+    {
+      width:50%;
+    }
+    .position-relative
+    {
+      position: relative;
+    }
+    .position-absolute
+    {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        color: white;
+        font-size: 16px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+  .btn-produci-con-nosotros {
+   letter-spacing: 0.5px;
+   width: 370px;
+   height:38px;
+   max-width: 100%;
+   margin-bottom: 20px;
+   border-radius: 20px;
+   background-color: #FF7D05;
+   border-color:#E95E2A;
+   color:white;
+   opacity: 1;
+   font-weight: bold;
+   font-size: 14px;
+
+   box-shadow: none !important;
+  }
+
+  .circula-tranquilo-text {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  color:#6E4697;
+  }
+
+  .seguro-auto
+  {
+    background-color: #F9E4D5;
+  }
+
+  .seguro-auto-title
+  {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    color:#E5531C;
+  }
+
+  .card-title-automotor
+  {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 32px;
+    letter-spacing: 0em;
+    color: #FFFFFF;
+  }
+
+  .card-one-subtitle-automotor
+  {
+   	font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color:#8080F3;
+  }
+
+  .card-two-subtitle-automotor
+  {
+   	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	color: #AD8DCE;
+  }
+
+  .card-three-subtitle-automotor
+  {
+   	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	color: #95C0F4;
+  }
+  .card-four-subtitle-automotor
+  {
+   	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	color: #FFB27D;
+
+  }
+  .background-automotor-card-one
+  {
+    background-color:#2D2D7B;
+  }
+
+   .background-automotor-card-two
+  {
+    background-color:#512466;
+  }
+
+   .background-automotor-card-three
+  {
+    background-color:#184071;
+  }
+
+   .background-automotor-card-four
+  {
+    background-color:#BF4019;
+  }
+
+  .card-automotor
+  {
+  	 border-radius: 20px;
+  }
+
+  .card-one-automotor-border
+  {
+  	border: 1px solid #8080F3;
+  }
+
+  .card-two-automotor-border
+  {
+  	border: 1px solid #9369BF;
+  }
+
+  .card-three-automotor-border
+  {
+  	border: 1px solid #7AA2D6;
+  }
+
+  .card-four-automotor-border
+  {
+  	border: 1px solid #FFB27D;
+  }
+
+  .card-automotor-text
+  {
+
+  	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 25px;
+	color: #FFFFFF;
+  }
+
+
+.card-icon-one
+{
+  list-style-image: url('/images/automotor/dark-violet_check.svg');
+}
+
+.card-icon-two
+{
+  list-style-image: url('/images/automotor/violet-check.svg');
+}
+
+.card-icon-three
+{
+  list-style-image: url('/images/automotor/blue-check.svg');
+}
+
+.card-icon-four
+{
+  list-style-image: url('/images/automotor/orange-check.svg');
+}
+ul.automotor
+{
+	padding-inline-start: 20px !important;
+}
+
+.text-list-automotor
+{
+	font-style: italic;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 25px;
+	color: #FFFFFF;
+
+}
+
+.anexos-automotor
+{
+	font-style: italic;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 25px;
+	letter-spacing: 0.02em;
+	text-decoration-line: underline;
+	color: #545358;
+
+}
+
+a.anexos-automotor:hover
+ {
+  color: #828260 !important;
+  font-weight: bold;
+}
+.formas-pago-text-home
+{
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 25px;
+	letter-spacing: 0.02em;
+	color: #545358;
+}
+
+.card-contact-automotor {
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 20px;
+
+}
+
+.card-seguro-moto
+{
+	background-color: #6E4697;
+	border-radius: 18px;
+}
+
+.card-seguro-moto-title
+{
+	font-style: normal;
+	font-weight: 500;
+	font-size: 22px;
+	line-height: 32px;
+	color: #F99746;
+
+}
+
+.card-seguro-moto-subtitle
+{
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 25px;
+	letter-spacing: -0.02em;
+	color: #FFFFFF;
+}
+
+.form-estilo-automotor-contacto {
+
+ border: 1px solid #FFFFFF;
+ box-sizing: border-box;
+ box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+ border-radius: 10px;
+
+}
+
+.boton-contacto-automotor {
+ letter-spacing: 0.5px;
+ width: 341px;
+ height:36px;
+ max-width: 100%;
+ margin-bottom: 20px;
+ border-radius: 20px;
+ background-color: #E95E2A;
+ border-color:#E95E2A;
+ color:white;
+ opacity: 1;
+ font-size: 14px;
+ font-weight: medium;
+ box-shadow: none !important;
+}
+
+
+.siniestro-footer {
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: #FFFFFF;
+
+}
+
+.horario-footer {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 25px;
+  color: #FFFFFF;
+}
+
+.legales {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 10px;
+  line-height: 25px;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+.panel-admin-title {
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #545358;
+}
+
+a.panel-admin-subtitle:hover {
+  color:#2D2D6B !important;
+}
+
+.panel-admin-subtitle {
+  color:#2D2D7B;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 32px;  
+}
+
+.panel-admin-volver {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+  color: #2D2D7B;
+}
+
+a.panel-admin-volver:hover {
+  color: #2D2D7A;
+}
+
+.panel-admin-table-title {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 32px;
+  color: #2D2D7B;
+}
+
+.ultimo-documento {
+
+  font-style: normal;
+  font-weight: normal;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #2D2D7B;
+}
+
+a.ultimo-documento:hover {
+
+  color:#2D2D7A;
+}
+
+.texto-zona {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  /* or 150% */
+
+  letter-spacing: -0.02em;
+
+  color: #545358;
+}
+
+
+.selector-cotiza-vehiculo {
+ color: #545358;
+ border: 1px solid #E0E0E0;
+ box-sizing: border-box;
+ box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+ border-radius: 10px;
+ height:32px;
+
+}
+
+.selector-cotiza-vehiculo.focus, .selector-cotiza-vehiculo:focus {
+ color:#545358;
+ outline:none !important;
+ border-color: #545358 !important;
+ box-shadow: 0 0 0 0.2rem rgba(#151A44,1);
+}
+
+.options-cotiza {
+  font-size: 14px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #828282;
+}
+
+.cotiza-vehiculo-title {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  color: #545358;
+}
+
+.campos-obligatorios-cotizacion {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: #2D2D7B;
+}
+
+.solicitud-enviada-muchas-gracias-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 25px;
+  text-align: center;
+  color: #E5531C;
+}
+
+.solicitud-enviada-muchas-gracias-subtitle {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  color: #545358;
+
+}
+
+.solicitud-enviada-muchas-gracias-email {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+  color: #545358;
+
+}
+
+.volver {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  text-decoration-line: underline;
+  color: #2D2D7B;
+}
+  a.volver:hover {
+    color: #2D2D7A !important;
+}
+
+
+.bg-cotizacion {
+
+background-image:url('/images/grafica cotizador.svg');
+/* Full height */
+height: 100%;
+width:100%;
+/* Center and scale the image nicely */
+background-position: bottom;
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+
+
+#cover-spin {
+    position:fixed;
+    width:100%;
+    left:0;right:0;top:0;bottom:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+    display:none;
+}
+
+@-webkit-keyframes spin {
+  from {-webkit-transform:rotate(0deg);}
+  to {-webkit-transform:rotate(360deg);}
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
+#cover-spin::after {
+    content:'';
+    display:block;
+    position:absolute;
+    left:48%;top:40%;
+    width:80px;height:80px;
+    border-style:solid;
+    border-radius: 50%;
+    border: 10px solid #f6f;
+    border-top-color: #0e0;
+    border-right-color: #0dd;
+    border-bottom-color: #f90;
+    -webkit-animation: spin .6s linear infinite;
+}
+
+
+.estilo-cotizacion
+{
+  font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 25px;
+letter-spacing: -0.02em;
+
+/* Finisterre */
+
+color: #044482;
+}
+
+.estilo-cotizacion-title
+{
+  font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 25px;
+letter-spacing: -0.02em;
+color: #828282;
+
+}
+
+.card-alta-productor
+{
+  background: #E4EAF6;
+  border-radius: 10px;
+  width:46rem;
+}
+.card-productor-title
+{
+
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 25px;
+  letter-spacing: 0.02em;
+  color: #E95E2A;
+
+}
+.card-productor-subtitle
+{
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 25px;
+  color: #044482;
+}
+
+.card-productor-llegamos
+{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 25px;
+  color: #044482;
+
+}
+
+.texto-herramientas {
+  width:46rem;
+}
+
+.herramientas {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #2D2D7B;
+
+}
+
+.herramientas-subtitle {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #2D2D7B;
+
+}
+
+.cards-autogestion-title
+{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 35px;
+  color: #6E4697;
+}
+
+.cards-autogestion-list
+{
+  font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 25px;
+/* or 179% */
+
+
+color: #545358;
+
+}
+
+.card-autogestion
+{
+  height: 279px;
+}
+
+  .card-mediopago
+  {
+  height: 226px;
+  }
+
+  .card-material
+  {
+  height: 175px;
+  }
+
+  .card-comerciales
+  {
+  height: 177px;
+  }
+
+  .card-beneficio
+  {
+    height:350px;
+  }
+
+  .card-general
+  {
+    border-radius: 10px;
+  }
+
+  .boton-azul-full
+  {
+
+        letter-spacing: 0.5px;
+        width: auto;
+        height:36px;
+        max-width: 100%;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        background-color: #184071;
+        border-color:#184071;
+        color:white;
+        opacity: 1;
+        font-size: 14px;
+        font-weight: medium;
+        box-shadow: none !important;
+ 
+  }
+
+  .campos-obligatorios {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 11px;
+    color: #FFB27D;
+  }
+
+  .campos-obligatorios-asterisco
+  {
+    font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 25px;
+letter-spacing: -0.02em;
+
+color: #E95E2A;
+  }
+
+
+
+  .fondo-uno-productor {
+
+    background-image:url('/images/productor/back1.png');
+/* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+  .fondo-dos-productor {
+
+    background-image:url('/images/productor/back2.png');
+/* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+
+.card-width 
+{
+  width: 23rem;
+}

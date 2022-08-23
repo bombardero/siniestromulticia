@@ -1,0 +1,20 @@
+
+
+
+
+
+
+.legales-titulo {
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 25px;
+	letter-spacing: -0.02em;
+	color: #000000;
+}
+.legales-subtitulo {
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 25px;
+	letter-spacing: -0.02em;
+}

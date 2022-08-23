@@ -1,0 +1,73 @@
+.preguntas-frecuentes-href {
+	color:#E95E2A;
+}
+
+.preguntas-frecuentes-href a:hover
+{
+color:#E95E2A;
+}
+
+.atencion-asegurado {
+
+
+font-size: 25px;
+font-style: normal;
+font-weight: 400;
+line-height: 25px;
+letter-spacing: -0.02em;
+color:#545358;
+
+
+}
+
+.mesa-ayuda {
+	font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 5px;
+letter-spacing: -0.02em;
+color: #545358;
+
+}
+
+.telefono-contacto {
+	font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 20px;
+line-height: 25px;
+letter-spacing: -0.02em;
+
+color: #545358;
+}
+
+.chat-no-disponible {
+	font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 25px;
+/* or 156% */
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #BE4822;
+
+}
+
+.dejanos-telefono {
+	font-family: Roboto;
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 17px;
+/* or 142% */
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #808080;
+
+}

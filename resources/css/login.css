@@ -1,0 +1,87 @@
+@media (min-width: 0px) and (max-width: 767px) {
+
+    .login {
+        background-color: #EBF3FA !important;
+    }
+    .login-card {
+        background-color: #EBF3FA !important;
+        border: 0px solid rgba(0, 0, 0, 0.125) !important;
+    }
+  
+}
+.login-card {
+   
+    border: 0px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+
+.ingresar-redes-sociales-boton {
+background: #FFFFFF;
+border: 1px solid #545358;
+box-sizing: border-box;
+box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+color:#4F4F4F;
+box-shadow: none !important;
+font-size: 14px;
+line-height: 25px;
+/* or 179% */
+
+display: flex;
+align-items: center;
+letter-spacing: -0.02em;
+
+/* Gray 2 */
+
+color: #4F4F4F;
+}
+.ingresar-redes-sociales-boton:hover, .ingresar-redes-sociales-boton:active, .ingresar-redes-sociales-boton:visited {
+ background-color: white; !important;
+ box-shadow: none!important;
+ border-color: black !important;
+
+}
+.ingresar-redes-sociales-boton:not(:disabled):not(.disabled).active, .btn-ingresar-redes-sociales-boton:not(:disabled):not(.disabled):active, .show>.ingresar-redes-sociales-boton.dropdown-toggle {
+ color:white;
+ background-color: white;
+ border-color: #151A44;
+}
+.ingresar-redes-sociales-boton.focus, .ingresar-redes-sociales-boton:focus {
+ color:white;
+ background-color: white;
+ border-color:#151A44;
+ box-shadow: 0 0 0 0.2rem rgba(#151A44,1);
+}
+.open .dropdown-toggle.ingresar-redes-sociales-boton { 
+color: white;
+background-color: white; 
+border-color: #151A44; 
+box-shadow: none!important;
+} 
+.ingresar-redes-sociales-boton .badge { 
+color: white;
+background-color: white; 
+}
+
+.registrarme {
+color:gray;
+
+}
+
+.registrarme a:hover {
+    color:gray;
+  }
+
+.comenza-operar {
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 25px;
+    /* or 156% */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    color: #184071;
+
+}

@@ -1,0 +1,80 @@
+@media (min-width: 0px) and (max-width: 767px) {
+
+}
+
+.seccion-precio-estimativo {
+    background-image:url('/images/home background.svg');
+/* Full height */
+    height: 100%; 
+    width:100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.precio-estimativo-caja {
+    border-radius: 18px;
+    background-color: #C7A4EC;
+
+}
+.precio-estimativo-texto {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+}
+.precio {
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0em;
+
+
+
+}
+
+.seguro-caucion-alquileres-texto {
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 30px;
+    letter-spacing: -0.02em;
+    color: #184071;
+
+}
+.seguro-caucion-alquileres-texto-subtitulo {
+
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 25px;
+    letter-spacing: -0.02em;
+    color: #7AA2D6;
+}
+.formas-de-pago {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    color: #545358;
+
+}
+
+.registrate-pocos-minutos {
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 25px;
+    /* or 156% */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    color: #184071;
+}
