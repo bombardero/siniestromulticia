@@ -15,10 +15,10 @@ class AddColumnsNroPolizaNroDenunciaNroSiniestroEstadoToDenunciaSiniestrosTable 
     {
         Schema::table('denuncia_siniestros', function (Blueprint $table) {
             //
-             $table->text('nro_poliza')->nullable();
-             $table->text('nro_denuncia')->nullable();
-             $table->text('nro_siniestro')->nullable();
-             $table->text('estado')->default('ACEPTADO');
+             $table->string('nro_poliza')->nullable();
+             $table->string('nro_denuncia')->nullable();
+             $table->string('nro_siniestro')->nullable();
+             $table->string('estado')->default('ACEPTADO');
         });
     }
 
