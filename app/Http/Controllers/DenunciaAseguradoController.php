@@ -844,23 +844,23 @@ class DenunciaAseguradoController extends Controller
 
         return view('siniestros.denuncia-asegurados-paso10',["denuncia_siniestro"=>$denuncia_siniestro]);
 
-    }    
+    }
 
     public function paso10store(Request $request)
     {
 
         $identificador = request('id');
-        
-        
+
+
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
         $detalle_siniestro = DetalleSiniestro::where('denuncia_siniestro_id', $denuncia_siniestro->id)->first();
 
 
         if ($detalle_siniestro !== null) {
             $url = $this->uploadGrafico($request);
-            if($url == 'error') {         
+            if($url == 'error') {
                 return back()->withErrors(['tamaño_maximo' => 'Maximo 50 MB de archivo! ']);
-            }               
+            }
             $detalle_siniestro->update([
                 "carga_paso_10_comisaria" => request('comisaria'),
                 "carga_paso_10_acta" => request('acta'),
@@ -874,9 +874,9 @@ class DenunciaAseguradoController extends Controller
         } else {
             $url_detalle = $this->uploadGrafico($request);
 
-            if($url_detalle == 'error') {         
+            if($url_detalle == 'error') {
                 return back()->withErrors(['tamaño_maximo' => 'Maximo 50 MB de archivo! ']);
-            }            
+            }
             DetalleSiniestro::create([
                 "carga_paso_10_comisaria" => request('comisaria'),
                 "carga_paso_10_acta" => request('acta'),
@@ -892,14 +892,14 @@ class DenunciaAseguradoController extends Controller
 
 
 
-        
+
         if($denuncia_siniestro->state < "10"){
             $denuncia_siniestro->state='10';
-        }        
+        }
 
 
         // $photo = [];
-      
+
         // try {
         //     $photo = json_decode($request->graficoManual, true);
         // } catch(\Exception $e) {
@@ -909,12 +909,12 @@ class DenunciaAseguradoController extends Controller
         //     if(isset($photo['filename']) && isset($photo['originalName'])) {
 
         //        $denuncia_siniestro->detalleSiniestro->carga_paso_10_url_detalle = $photo['filename'];
-        // }          
+        // }
         $denuncia_siniestro->save();
 
 
         return redirect()->route("asegurados-denuncias-paso11.create",['id'=> $identificador]);
-    }    
+    }
 
     private function checkIfRedirect(){
         $identificador = request('id');
@@ -924,7 +924,7 @@ class DenunciaAseguradoController extends Controller
 
     public function setDibujo(Request $request)
     {
-        session(['grafico'.Auth::id() => $request->grafico]);        
+        session(['grafico'.Auth::id() => $request->grafico]);
     }
 
     public function uploadGrafico($request)
@@ -932,9 +932,9 @@ class DenunciaAseguradoController extends Controller
 
         if($request->hasFile('graficoManual')) {
             if($request->file('graficoManual')->getSize() >= 10000000) {
-                // throw new Exception("El tamaño del archivo debe tener menos de 50 megas", 500);    
+                // throw new Exception("El tamaño del archivo debe tener menos de 50 megas", 500);
                 return "error";
-            } 
+            }
             $year = Carbon::now()->format('Y');
             $dateName = Carbon::now()->isoFormat('DD-MM-Y h:mm:ss');
             $name = 'grafico'.$dateName;
@@ -942,37 +942,37 @@ class DenunciaAseguradoController extends Controller
 
             //Upload File to s3
             Storage::disk('s3')->put($filePath, fopen($request->file('graficoManual'), 'r+'), 'public');
-         
+
             $url = Storage::disk('s3')->url($filePath);
             return $url;
             }
         elseif(session('grafico' . Auth::id())) {
             $value = session('grafico' . Auth::id());
-            $year = Carbon::now()->format('Y');            
+            $year = Carbon::now()->format('Y');
             if(!$value )
             {
                 throw new Exception("Error Processing Request - s3", 500);
             }
-    
+
             $dateName = Carbon::now()->isoFormat('DD-MM-Y h:mm:ss');
             $name = 'grafico'.$dateName;
             $filePath = 'graficos' . '/' . $year . '/' . $name;
-    
+
             Storage::disk('s3')->put($filePath, file_get_contents($value),'public');
-    
+
             $url = Storage::disk('s3')->url($filePath);
             $request->session()->forget('grafico' . Auth::id());
             return $url;
-        }    
-    }         
-    
+        }
+    }
+
     public function paso11create()
     {
         $identificador = request('id');
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
         return view('siniestros.denuncia-asegurados-paso11',["denuncia_siniestro"=>$denuncia_siniestro, 'identificador' => $identificador]);
 
-    }    
+    }
 
     public function paso12create()
     {
@@ -1004,7 +1004,7 @@ class DenunciaAseguradoController extends Controller
             'documento_numero'=>'required',
             'asegurado_si'=>'required_without:asegurado_no',
             'asegurado_no'=>'required_without:asegurado_si',
-            'asegurado_relacion'=>'required',
+            'asegurado_relacion'=>'required_with:asegurado_no',
             'hora'=>'required',
             'lugar' => 'required'
         ]);
@@ -1036,7 +1036,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro->save();
         return redirect()->route('gracias-denuncia');
     }
-  
+
 
 
 
