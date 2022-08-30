@@ -43,7 +43,7 @@
                 <td>{{$denuncia->id}}</td>
                 <td>{{ \Carbon\Carbon::parse($denuncia->created_at)->format('d/m/Y H:i')}}</td>
                 <td>{{ \Carbon\Carbon::parse($denuncia->precarga_fecha_siniestro)->format('d/m/Y')}}  {{ \Carbon\Carbon::parse($denuncia->precarga_hora_siniestro)->format('H:i')}}</td>
-                <td>{{$denuncia->asegurado->carga_paso_4_asegurado_nombre}}</td>
+                <td>{{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_nombre : ''}}</td>
                 <td>{{$denuncia->precarga_dominio_vehiculo_asegurado}}</td>
                 <td><input onblur="save('poliza',{{route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id)}})" type="text" id="npoliza" name="npoliza" value="1" style="height: 21px;width:70px !important;"></td>
                 <td><input onblur="save('denuncia',{{route('panel-siniestros.denuncia.update.nrodenuncia',$denuncia->id)}})" type="text" id="ndenuncia" name="ndenuncia" value="1" style="height: 21px;width:70px !important;"></td>
