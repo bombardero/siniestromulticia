@@ -16,7 +16,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet"/>
     <!-- Styles -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -34,12 +35,12 @@
     <link rel="stylesheet" href="{{ asset('css/sepelio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mobiscroll.javascript.min.css') }}">
     <link rel="icon" href="{{ asset('images/finisterre-favicon.ico') }}">
-      <script src="https://kit.fontawesome.com/89abc6e7c2.js" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/89abc6e7c2.js" crossorigin="anonymous"></script>-->
 
 
- 
 
-    @livewireStyles    
+
+    @livewireStyles
     <style>
         textarea {resize: none;}
         .first-row{margin-bottom: 50px;}
@@ -61,7 +62,7 @@
 
     </style>
 </head>
-<body> 
+<body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -76,7 +77,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -99,13 +100,13 @@
 
                                 </a>
                                 <a class="dropdown-item header-estilo-dropdown" href="{{ route('home')}}#caucion-alquileres">
-                                   Seguro alquileres 
+                                   Seguro alquileres
                                 </a>
-                          
+
                                 <a class="dropdown-item header-estilo-dropdown" href="{{ route('home') }}#caucion-empresas">
                                    Seguro de caución
                                 </a>
-                          
+
                                 <a class="dropdown-item header-estilo-dropdown" href="{{ route('home') }}#sepelio">
                                    Seguro de sepelio
                                 </a>
@@ -123,7 +124,7 @@
                           <li class="nav-item">
                             <a class="nav-link header-class" href="{{ route('contacto') }}">CONTACTO</a>
                           </li>
-                          
+
                         <!-- Authentication Links -->
                         @guest
 
@@ -136,13 +137,13 @@
                                 <a class="dropdown-item header-estilo-dropdown" href="{{ route('login',['state' => 'cliente']) }}">
                                     Particular
                                 </a>
-                            
+
                                 <a class="dropdown-item header-estilo-dropdown" href="{{ route('login', ['state' => 'inmobiliaria']) }}">
                                     Inmobiliaria
                                 </a>
                                 <a class="dropdown-item header-estilo-dropdown" href="{{ route('login', ['state' => 'productor']) }}">
                                     Productor
-                                </a>                                
+                                </a>
                             </div>
                         </li>
                         @else
@@ -152,29 +153,29 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
-                                    @if(Auth::user()->hasRole('cliente') || Auth::user()->hasRole('inmobiliaria')) 
+                                    @if(Auth::user()->hasRole('cliente') || Auth::user()->hasRole('inmobiliaria'))
                                     <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel',['user' => Auth::user()]) }}">
-                                       
+
                                         Panel
                                     </a>
                                     @elseif(Auth::user()->hasRole('callcenter'))
                                     <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-callcenter')}}">
-                                       
+
                                     Panel Call Center
                                     </a>
                                     @elseif(Auth::user()->hasRole('operario'))
                                     <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-operario')}}">
-                                       
+
                                     Panel operario
                                     </a>
                                     @elseif(Auth::user()->hasRole('productor'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-productor',[Auth::user()])}}">                                       
+                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-productor',[Auth::user()])}}">
                                     Panel productor
                                     </a>
                                     @elseif(Auth::user()->hasRole('admin'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-admin',[Auth::user()])}}">                                       
+                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-admin',[Auth::user()])}}">
                                     Panel administrador
-                                    </a>                                    
+                                    </a>
                                     @endif
                                     <a class="dropdown-item header-estilo-dropdown" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -191,7 +192,7 @@
                     </ul>
                 </div>
             </div>
-            
+
         </nav>
 
         <main class="">
@@ -203,15 +204,15 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> --}}
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap" async defer></script> 
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initMap" async defer></script>
     <script src="https://unpkg.com/imask"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://unpkg.com/konva@8.3.2/konva.min.js"></script>   
+    <script src="https://unpkg.com/konva@8.3.2/konva.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js" integrity="sha512-sn/GHTj+FCxK5wam7k9w4gPPm6zss4Zwl/X9wgrvGMFbnedR8lTUSLdsolDRBRzsX6N+YgG6OWyvn9qaFVXH9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @livewireScripts
 
 
-    
+
 </body>
 @yield('scripts')
 
