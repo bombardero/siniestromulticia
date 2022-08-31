@@ -35,7 +35,7 @@ use App\Http\Controllers\DenunciaAseguradoController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-| 
+|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -132,7 +132,7 @@ Route::post('/monto/update/{id}', [OperarioController::class,'update'])->name('m
 Route::post('/pago/{pago}', [PagoController::class,'store'])->name('pago.store')->middleware('check.pago');
 
 /*Route::get('/precio-estimativo-alquileres/{precio}', function(Request $request){
-   
+
 	return view('precio-estimativo-alquileres', ['precio' => $request->precio]);
 })->name('precio-estimativo-alquileres'); */
 
@@ -201,6 +201,7 @@ Route::post('asegurados/denuncias/paso-6/agregar',[DenunciaAseguradoController::
 
 Route::get('asegurados/denuncias/paso-6/editar',[DenunciaAseguradoController::class,'paso6edit'])->name('asegurados-denuncias-paso6.edit');
 Route::post('asegurados/denuncias/paso-6/editar',[DenunciaAseguradoController::class,'paso6update'])->name('asegurados-denuncias-paso6.update');
+Route::get('asegurados/denuncias/paso-6/delete',[DenunciaAseguradoController::class,'paso6DeleteItem'])->name('asegurados-denuncias-paso6.deleteItem');
 
 Route::get('asegurados/denuncias/paso-7',[DenunciaAseguradoController::class,'paso7create'])->name('asegurados-denuncias-paso7.create');
 Route::post('asegurados/denuncias/paso-7',[DenunciaAseguradoController::class,'paso7store'])->name('asegurados-denuncias-paso7.store');
@@ -210,6 +211,7 @@ Route::post('asegurados/denuncias/paso-7/agregar',[DenunciaAseguradoController::
 
 Route::get('asegurados/denuncias/paso-7/editar',[DenunciaAseguradoController::class,'paso7edit'])->name('asegurados-denuncias-paso7.edit');
 Route::post('asegurados/denuncias/paso-7/editar',[DenunciaAseguradoController::class,'paso7update'])->name('asegurados-denuncias-paso7.update');
+Route::get('asegurados/denuncias/paso-7/delete',[DenunciaAseguradoController::class,'paso7DeleteItem'])->name('asegurados-denuncias-paso7.deleteItem');
 
 
 Route::get('asegurados/denuncias/paso-8',[DenunciaAseguradoController::class,'paso8create'])->name('asegurados-denuncias-paso8.create');
@@ -220,6 +222,7 @@ Route::post('asegurados/denuncias/paso-8/agregar',[DenunciaAseguradoController::
 
 Route::get('asegurados/denuncias/paso-8/editar',[DenunciaAseguradoController::class,'paso8edit'])->name('asegurados-denuncias-paso8.edit');
 Route::post('asegurados/denuncias/paso-8/editar',[DenunciaAseguradoController::class,'paso8update'])->name('asegurados-denuncias-paso8.update');
+Route::get('asegurados/denuncias/paso-8/delete',[DenunciaAseguradoController::class,'paso8DeleteItem'])->name('asegurados-denuncias-paso8.deleteItem');
 
 
 Route::get('asegurados/denuncias/paso-9',[DenunciaAseguradoController::class,'paso9create'])->name('asegurados-denuncias-paso9.create');

@@ -493,7 +493,6 @@ class DenunciaAseguradoController extends Controller
         $identificador = request('id');
         $vehiculo_id = request('v');
         $vehiculo_tercero = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->vehiculoTerceros()->where('id',$vehiculo_id)->firstOrFail();
-        //dd($vehiculo_tercero);
         $modelos = null;
 
         if($vehiculo_tercero != null && $vehiculo_tercero->carga_paso_6_vehiculo_terceros_marca_id !=null){
@@ -506,7 +505,8 @@ class DenunciaAseguradoController extends Controller
 
     }
 
-    public function paso6update(){
+    public function paso6update()
+    {
         $identificador = request('id');
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
         $vehiculo_id = request('v');
@@ -571,8 +571,8 @@ class DenunciaAseguradoController extends Controller
     public function paso7update(){
         $identificador = request('id');
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        $vehiculo_id = request('v');
-        $danioMateriales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$vehiculo_id)->firstOrFail();
+        $danio_materiales_id = request('v');
+        $danioMateriales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$danio_materiales_id)->firstOrFail();
 
         $danioMateriales->update([
             "carga_paso_7_danio_materiales_detalles" => request('danio_detalles'),
@@ -588,6 +588,16 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $identificador]);
     }
 
+    public function paso6DeleteItem()
+    {
+        $identificador = request('id');
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $danio_materiales_id = request('v');
+        $danio_materiales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$danio_materiales_id)->firstOrFail();
+        $danio_materiales->delete();
+        return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $identificador]);
+    }
+
     public function paso8edit(){
         $marcas = Marca::all();
         $tipoCalzadas = TipoCalzada::all();
@@ -601,7 +611,8 @@ class DenunciaAseguradoController extends Controller
         return view('siniestros.denuncia-asegurados-paso8-editar',["lesionados"=>$lesionados,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"tipo_carnets"=>$tipoCarnets]);
     }
 
-    public function paso8update(){
+    public function paso8update()
+    {
         $identificador = request('id');
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
         $vehiculo_id = request('v');
@@ -634,6 +645,8 @@ class DenunciaAseguradoController extends Controller
 
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $identificador]);
     }
+
+
 
     public function paso7create()
     {
@@ -702,6 +715,15 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $identificador]);
     }
 
+    public function paso7DeleteItem()
+    {
+        $identificador = request('id');
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $danio_materiales_id = request('v');
+        $danio_materiales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$danio_materiales_id)->firstOrFail();
+        $danio_materiales->delete();
+        return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $identificador]);
+    }
 
     public function paso8create()
     {
@@ -781,6 +803,16 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro->save();
 
+        return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $identificador]);
+    }
+
+    public function paso8DeleteItem()
+    {
+        $identificador = request('id');
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $lesionado_id = request('v');
+        $lesionado = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->lesionados()->where('id',$lesionado_id)->firstOrFail();
+        $lesionado->delete();
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $identificador]);
     }
 

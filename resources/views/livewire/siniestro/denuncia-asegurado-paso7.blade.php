@@ -53,8 +53,11 @@
                               <tr class="borde-tabla">
                                 <td>{{$danio->carga_paso_7_danio_materiales_nombre}}</td>
                                 <td>{{$danio->carga_paso_7_danio_materiales_detalles}}</td>
-                                <td><a href="{{route('asegurados-denuncias-paso7.edit',['id'=> request('id'),'v'=> $danio->id])}}"><img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"></a></td>
-                                </div>
+                                <td>
+                                    <a href="{{route('asegurados-denuncias-paso7.edit',['id'=> request('id'),'v'=> $danio->id])}}"><img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"></a>
+                                    <a href="{{route('asegurados-denuncias-paso7.deleteItem',['id'=> request('id'),'v'=> $danio->id])}}"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                </td>
+
                               </tr>
                               @endforeach
                               @else
