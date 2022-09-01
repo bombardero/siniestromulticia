@@ -9,6 +9,8 @@
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
                     <form action="/panel-siniestros/buscador" method="get" class="container">
                         <div class="row mb-3">
+                            <input type="date" name="desde" value="{{ isset($desde) ? $desde : Carbon\Carbon::now()->subMonth()->toDateString() }}">
+                            <input type="date" name="hasta" value="{{ isset($hasta) ? $hasta : Carbon\Carbon::now()->toDateString() }}">
                             <select class="form-select col-2" name="estado">
                                 <option value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>Todos</option>
                                 <option value="predenuncia" {{(request()->estado && request()->estado == 'predenuncia') ? 'selected' : ''}}>Predenuncia</option>

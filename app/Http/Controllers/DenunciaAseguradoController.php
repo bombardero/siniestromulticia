@@ -32,6 +32,12 @@ class DenunciaAseguradoController extends Controller
 
     public function buscar(Request $request)
     {
+        $desde = $request->desde ?
+            Carbon::createFromFormat('Y-m-d',$request->desde)->startOfDay()->toDateTimeString() :
+            Carbon::now()->startOfDay()->subMonth()->toDateTimeString();
+        $hasta = $request->hasta ?
+            Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() :
+            Carbon::now()->endOfDay()->toDateTimeString();
         $busqueda = $request->busqueda;
         $estado = null;
         switch ($request->estado)
@@ -65,9 +71,18 @@ class DenunciaAseguradoController extends Controller
                         ->orWhere('carga_paso_4_asegurado_documento_numero','LIKE', "%{$busqueda}%");
             });
         }
+        $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
-        
-        return view('siniestro_backoffice.denuncias.index',["denuncia_siniestros"=>$denuncia_siniestros]);
+
+        $data['denuncia_siniestros'] = $denuncia_siniestros;
+
+        if($request->desde && $request->hasta)
+        {
+            $data['desde'] = $request->desde;
+            $data['hasta'] = $request->hasta;
+        }
+
+        return view('siniestro_backoffice.denuncias.index',$data);
     }
 
     public function updateDenunciaNroPoliza(Request $request){
