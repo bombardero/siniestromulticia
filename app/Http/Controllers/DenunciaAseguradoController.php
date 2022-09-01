@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
 use App\Models\Province;
@@ -23,22 +24,50 @@ use PDF;
 class DenunciaAseguradoController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         $denuncia_siniestros = DenunciaSiniestro::latest()->paginate(10);
         return view('siniestro_backoffice.denuncias.index',["denuncia_siniestros"=>$denuncia_siniestros]);
     }
 
-    public function buscar(Request $request){
-        $input = $request->all();
-
-    if($request->get('busqueda')){
-        $denuncia_siniestros = DenunciaSiniestro::where("precarga_dominio_vehiculo_asegurado", "LIKE", "%{$request->get('busqueda')}%")
-            ->paginate(10);
-       return view('siniestro_backoffice.denuncias.index',["denuncia_siniestros"=>$denuncia_siniestros]);
-    }
-
-    $denuncia_siniestros = DenunciaSiniestro::latest()->paginate(10);
-    return view('siniestro_backoffice.denuncias.index',["denuncia_siniestros"=>$denuncia_siniestros]);
+    public function buscar(Request $request)
+    {
+        $busqueda = $request->busqueda;
+        $estado = null;
+        switch ($request->estado)
+        {
+            case 'predenuncia':
+                $estado = 'precarga';
+                break;
+            case 'incompleto':
+                $estado = ['1','2','3','4','5','6','7','8','9','10','11'];
+                break;
+            case 'completo':
+                $estado = '12';
+                break;
+            default:
+                $estado = null;
+        }
+        $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
+            return $query->where('precarga_dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%")
+                ->orWhere('precarga_conductor_vehiculo_nombre','LIKE', "%{$busqueda}%");
+        })->when($estado, function ($query, $estado) {
+            if(is_array($estado))
+            {
+                return $query->whereIn('state', $estado);
+            }
+            return $query->where('state', $estado);
+        });
+        if($busqueda != null)
+        {
+            $denuncia_siniestros = $denuncia_siniestros->orWhereHas('asegurado', function (Builder $query) use ($busqueda) {
+                return $query->where('carga_paso_4_asegurado_nombre', 'LIKE', "%{$busqueda}%")
+                        ->orWhere('carga_paso_4_asegurado_documento_numero','LIKE', "%{$busqueda}%");
+            });
+        }
+        $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
+        
+        return view('siniestro_backoffice.denuncias.index',["denuncia_siniestros"=>$denuncia_siniestros]);
     }
 
     public function updateDenunciaNroPoliza(Request $request){
