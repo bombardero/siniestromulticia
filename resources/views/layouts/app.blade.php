@@ -61,6 +61,16 @@
         .margin-bottom-en-ambos{margin-bottom: 30px;}
 
     </style>
+
+    @if(env('APP_ENV') == 'test')
+        <style>
+            main {
+                background-image: url('/images/sitio_de_prueba.png');
+                background-repeat: repeat-x;
+            }
+        </style>
+    @endif
+
 </head>
 <body>
     <div id="app">
