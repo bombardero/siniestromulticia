@@ -3,36 +3,46 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-12 pt-5">
+                <div class="col-12 mt-5 mb-5">
 
                     <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
                     <form action="/panel-siniestros/buscador" method="get" class="container">
                         <div class="row mb-3">
-                            <input type="date" name="desde" value="{{ isset($desde) ? $desde : Carbon\Carbon::now()->subMonth()->toDateString() }}">
-                            <input type="date" name="hasta" value="{{ isset($hasta) ? $hasta : Carbon\Carbon::now()->toDateString() }}">
+                            <input type="date" name="desde"
+                                   value="{{ isset($desde) ? $desde : Carbon\Carbon::now()->subMonth()->toDateString() }}">
+                            <input type="date" name="hasta"
+                                   value="{{ isset($hasta) ? $hasta : Carbon\Carbon::now()->toDateString() }}">
                             <select class="form-select col-2" name="estado">
-                                <option value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>Todos</option>
-                                <option value="predenuncia" {{(request()->estado && request()->estado == 'predenuncia') ? 'selected' : ''}}>Predenuncia</option>
-                                <option value="incompleto" {{(request()->estado && request()->estado == 'incompleto') ? 'selected' : ''}}>Incompleto</option>
-                                <option value="completo" {{(request()->estado && request()->estado == 'completo') ? 'selected' : ''}}>Completo</option>
+                                <option
+                                    value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
+                                    Todos
+                                </option>
+                                <option
+                                    value="predenuncia" {{(request()->estado && request()->estado == 'predenuncia') ? 'selected' : ''}}>
+                                    Predenuncia
+                                </option>
+                                <option
+                                    value="incompleto" {{(request()->estado && request()->estado == 'incompleto') ? 'selected' : ''}}>
+                                    Incompleto
+                                </option>
+                                <option
+                                    value="completo" {{(request()->estado && request()->estado == 'completo') ? 'selected' : ''}}>
+                                    Completo
+                                </option>
                             </select>
                             <div class="input-group col-4">
                                 <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}">
                                 <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
                             </div>
                         </div>
-                        {{--
-                        <label>BUSCADOR:</label>
-                        <input type="text" name="busqueda" value="{{request()->busqueda}}">--}}
-
                     </form>
-                    <div class="pt-5">
+                    <div class="mt-3">
                         <div clas="col-12 col-md-6">
 
                         </div>
                         <div class="table-responsive">
-                            <table class="table" style="min-height:200px;margin-bottom: 120px;">
+                            <table class="table">
 
                                 <thead class="thead tabla-panel">
                                 <tr class="tabla-cabecera ">
@@ -52,7 +62,6 @@
                                 </thead>
 
                                 <tbody>
-
                                 @if($denuncia_siniestros)
                                     @foreach($denuncia_siniestros as $denuncia)
                                         <tr class="borde-tabla">
@@ -120,25 +129,20 @@
                                                                 <a href="{{route('panel-siniestros.denuncia.update',$denuncia->id)}}" style="color:#3366BB; font-weight: bold; margin-right:8px; " data-toggle="tooltip" data-placement="top" title="Guardar"><img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/save.png')}}"></a>
                                               --}}
                                             </td>
-
-                        </div>
-                        </tr>
-                        @endforeach
-                        @else
-
-                            <td> No hay denuncias cargadas todavia</td>
-
-                            @endif
-                            </tbody>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <td> No hay denuncias cargadas todavia</td>
+                                @endif
+                                </tbody>
                             </table>
-                            {{$denuncia_siniestros->links('vendor.pagination.bootstrap-4')}}
-
+                            {{ $denuncia_siniestros->links('vendor.pagination.bootstrap-4') }}
+                        </div>
                     </div>
+
                 </div>
 
             </div>
-
-        </div>
         </div>
     </section>
 
