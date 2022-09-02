@@ -7,7 +7,7 @@
 
                     <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
-                    <form action="/panel-siniestros/buscador" method="get" class="container">
+                    <form action="/panel-siniestros/buscador" method="get" class="container" id="buscador">
                         <div class="row mb-3">
                             <div class="input-group input-group-sm col-2 pl-0 pr-1">
                                 <!--
@@ -15,7 +15,10 @@
                                     <span class="input-group-text">Desde</span>
                                 </div>
                                 -->
-                                <input type="date" name="desde" class="form-control" value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}">
+                                <input type="date" name="desde" class="form-control"
+                                       value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}"
+                                       onchange="buscar()"
+                                >
                             </div>
                             <div class="input-group input-group-sm col-2 px-1">
                                 <!--
@@ -23,13 +26,16 @@
                                     <span class="input-group-text">Hasta</span>
                                 </div>
                                 -->
-                                <input type="date" name="hasta" class="form-control" value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}">
+                                <input type="date" name="hasta"
+                                       class="form-control" value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}"
+                                       onchange="buscar()"
+                                >
                             </div>
                             <div class="input-group input-group-sm col-2 px-1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Estado</span>
                                 </div>
-                                <select class="custom-select" name="estado">
+                                <select class="custom-select" name="estado" onchange="buscar()">
                                     <option
                                         value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
                                         Todos
@@ -65,7 +71,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Carga</span>
                                 </div>
-                                <select class="custom-select" name="carga">
+                                <select class="custom-select" name="carga" onchange="buscar()">
                                     <option
                                         value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
                                         Todos
@@ -87,7 +93,7 @@
 
 
                             <div class="input-group input-group-sm col-4 pr-0 pl-1">
-                                <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}">
+                                <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}" onchange="buscar()">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
                                 </div>
@@ -261,6 +267,11 @@
                         alert('Hubo un error.');
                     }
                 })
+        }
+
+        function buscar()
+        {
+            document.getElementById("buscador").submit();
         }
     </script>
 
