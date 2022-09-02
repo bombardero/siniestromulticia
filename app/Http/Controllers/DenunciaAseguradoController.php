@@ -46,7 +46,7 @@ class DenunciaAseguradoController extends Controller
         $estado = $request->estado;
         switch ($request->carga)
         {
-            case 'predenuncia':
+            case 'precarga':
                 $carga = 'precarga';
                 break;
             case 'incompleto':
@@ -61,7 +61,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
             return $query->where('precarga_dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%")
                 ->orWhere('precarga_conductor_vehiculo_nombre','LIKE', "%{$busqueda}%");
-        })->when($carga, function ($query, $carga) {
+        })->when($carga, function ($query) use ($carga) {
             if(is_array($carga))
             {
                 return $query->whereIn('state', $carga);
@@ -70,16 +70,17 @@ class DenunciaAseguradoController extends Controller
         })->when($estado && $estado != 'todos', function ($query) use ($estado) {
             return $query->where('estado', $estado);
         });
+        /*
         if($busqueda != null)
         {
-            $denuncia_siniestros = $denuncia_siniestros->orWhereHas('asegurado', function (Builder $query) use ($busqueda) {
+            $denuncia_siniestros = $denuncia_siniestros->whereHas('asegurado', function (Builder $query) use ($busqueda) {
                 return $query->where('carga_paso_4_asegurado_nombre', 'LIKE', "%{$busqueda}%")
                         ->orWhere('carga_paso_4_asegurado_documento_numero','LIKE', "%{$busqueda}%");
             });
-        }
+        }*/
         $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
-
+        //dd($denuncia_siniestros->latest()->dd());
         $data['denuncia_siniestros'] = $denuncia_siniestros;
 
         return view('siniestro_backoffice.denuncias.index',$data);

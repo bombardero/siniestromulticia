@@ -69,7 +69,7 @@
 
                             <div class="input-group input-group-sm col-2 px-1">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Carga</span>
+                                    <span class="input-group-text">Paso</span>
                                 </div>
                                 <select class="custom-select" name="carga" onchange="buscar()">
                                     <option
@@ -77,8 +77,8 @@
                                         Todos
                                     </option>
                                     <option
-                                        value="predenuncia" {{(request()->carga && request()->carga == 'predenuncia') ? 'selected' : ''}}>
-                                        Predenuncia
+                                        value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>
+                                        Precarga
                                     </option>
                                     <option
                                         value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
@@ -156,11 +156,13 @@
                                                     <option value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>INVESTIGACIÓN</option>
                                                 </select>
                                             </td>
-                                            <td>@if($denuncia->state != 12)
-                                                    <span
-                                                        style="color:#FF9400;">{{'Carga en curso - Paso '.$denuncia->state.'/12'}}</span>
+                                            <td>
+                                                @if($denuncia->state == 'precarga')
+                                                    <span>PRECARGA</span>
+                                                @elseif($denuncia->state == '12')
+                                                    <span>COMPLETO</span>
                                                 @else
-                                                    <span style="color:#545358;">COMPLETO</span>
+                                                    <span>{{ $denuncia->state.'/12' }}</span>
                                                 @endif</td>
                                             <td><a target="_blank"
                                                    href="https://api.whatsapp.com/send?phone=+54{{$denuncia->precarga_responsable_contacto_telefono}}&text=Inicia tu denuncia ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
