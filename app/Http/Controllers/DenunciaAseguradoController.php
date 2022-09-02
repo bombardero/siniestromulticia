@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Siniestro\DenunciaAsegurado;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
@@ -18,7 +19,9 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use PDF;
 
 class DenunciaAseguradoController extends Controller
@@ -1113,6 +1116,16 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route('gracias-denuncia');
     }
 
+
+    public function cambiarEstado(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'estado' => ['required',Rule::in(DenunciaSiniestro::ESTADOS)]
+        ])->validate();
+        $denuncia->estado = $request->estado;
+        $denuncia->save();
+        return response()->json(['status' => true, 'denuncia' => $denuncia]);
+    }
 
 
 

@@ -18,7 +18,7 @@ class AddColumnsNroPolizaNroDenunciaNroSiniestroEstadoToDenunciaSiniestrosTable 
              $table->string('nro_poliza')->nullable();
              $table->string('nro_denuncia')->nullable();
              $table->string('nro_siniestro')->nullable();
-             $table->string('estado')->default('ACEPTADO');
+             $table->string('estado')->default('ingresado');
         });
     }
 

@@ -10,6 +10,8 @@ class DenunciaSiniestro extends Model
 {
     use HasFactory,SoftDeletes;
 
+    const ESTADOS = ['ingresado','aceptado','rechazado','cerrado','legales','investigacion'];
+
     protected $fillable = ["state","identificador", "precarga_dominio_vehiculo_asegurado", "precarga_fecha_siniestro", "precarga_hora_siniestro", "precarga_lugar", "precarga_codigo_postal", "precarga_direccion_siniestro", "precarga_conductor_vehiculo_nombre", "precarga_descripcion", "precarga_responsable_contacto_nombre", "precarga_responsable_contacto_domicilio", "precarga_responsable_contacto_telefono", "precarga_responsable_contacto_email","carga_paso_6_intervino_si","carga_paso_6_intervino_no","carga_paso_6_datos_si","carga_paso_6_datos_no"];
 
     public function lugar(){
@@ -46,11 +48,11 @@ class DenunciaSiniestro extends Model
 
     public function documentosDenuncia(){
         return $this->hasMany(DocumentosDenuncia::class);
-    }    
+    }
 
     public function denunciante(){
         return $this->hasOne(Denunciante::class)->latest();
-    }    
+    }
 
     public function observaciones(){
         return $this->hasMany(Observacion::class)->latest();

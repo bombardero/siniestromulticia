@@ -83,12 +83,13 @@
                                                     type="text" id="nsiniestro" name="nsiniestro" value="1"
                                                     style="height: 21px;width:70px !important;"></td>
                                             <td>
-                                                <select name="select">
-                                                    <option value="aceptado">ACEPTADO</option>
-                                                    <option value="rechazado">RECHAZADO</option>
-                                                    <option value="cerrado">CERRADO</option>
-                                                    <option value="legales">LEGALES</option>
-                                                    <option value="investigacion">INVESTIGACION</option>
+                                                <select name="select" id="estado" onchange="cambiarEstado(this, {{ $denuncia->id  }})">
+                                                    <option value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>INGRESADO</option>
+                                                    <option value="aceptado" {{( $denuncia->estado == 'aceptado') ? 'selected' : '' }}>ACEPTADO</option>
+                                                    <option value="rechazado" {{( $denuncia->estado == 'rechazado') ? 'selected' : '' }}>RECHAZADO</option>
+                                                    <option value="cerrado" {{( $denuncia->estado == 'cerrado') ? 'selected' : '' }}>CERRADO</option>
+                                                    <option value="legales" {{( $denuncia->estado == 'legales') ? 'selected' : '' }}>LEGALES</option>
+                                                    <option value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>INVESTIGACIÓN</option>
                                                 </select>
                                             </td>
                                             <td>@if($denuncia->state != 12)
@@ -147,7 +148,9 @@
     </section>
 
     <script>
-        function eliminar(ruta) {
+        /*
+        function eliminar(ruta)
+        {
             let text = "Confirma desea eliminar la denuncia?";
             if (confirm(text) == true) {
                 text = "You pressed OK!";
@@ -165,6 +168,32 @@
             nro_poliza = document.getElementById('npoliza')
         :
             window.location.href = ruta;
+        }*/
+
+
+
+        function cambiarEstado(estado,denuncia_siniestro_id)
+        {
+            let url = '{{ route('panel-siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+            url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
+
+            $.ajax(
+                {
+                    url: url,
+                    type: 'post',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "estado": estado.value
+                    },
+                    success: function(result)
+                    {
+                        //console.log(result);
+                    },
+                    error: function(error) {
+                        //console.log(error);
+                        alert('Hubo un error.');
+                    }
+                })
         }
     </script>
 
