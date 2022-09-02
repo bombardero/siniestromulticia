@@ -8,64 +8,85 @@
                     <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
                     <form action="/panel-siniestros/buscador" method="get" class="container">
-                        <div class="row">
-                            <label class="col-form-label-sm col-2 mb-0">Desde</label>
-                            <label class="col-form-label-sm col-2 mb-0">Hasta</label>
-                            <label class="col-form-label-sm col-2 mb-0">Estado</label>
-                            <label class="col-form-label-sm col-2 mb-0">Carga</label>
-                        </div>
                         <div class="row mb-3">
-                            <input type="date" name="desde" class="form-control-sm col-2" value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}">
-                            <input type="date" name="hasta" class="form-control-sm col-2" value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}">
-                            <select class="form-select form-control-sm col-2" name="estado">
-                                <option
-                                    value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
-                                    Todos
-                                </option>
-                                <option
-                                    value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>
-                                    Ingresado
-                                </option>
-                                <option
-                                    value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>
-                                    Aceptado
-                                </option>
-                                <option
-                                    value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>
-                                    Rechazado
-                                </option>
-                                <option
-                                    value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>
-                                    Cerrado
-                                </option>
-                                <option
-                                    value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>
-                                    Legales
-                                </option>
-                                <option
-                                    value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
-                                    Investigación
-                                </option>
-                            </select>
-                            <select class="form-select form-control-sm col-2" name="carga">
-                                <option
-                                    value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
-                                    Todos
-                                </option>
-                                <option
-                                    value="predenuncia" {{(request()->carga && request()->carga == 'predenuncia') ? 'selected' : ''}}>
-                                    Predenuncia
-                                </option>
-                                <option
-                                    value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
-                                    Incompleto
-                                </option>
-                                <option
-                                    value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>
-                                    Completo
-                                </option>
-                            </select>
-                            <div class="input-group input-group-sm col-4 px-0">
+                            <div class="input-group input-group-sm col-2 pl-0 pr-1">
+                                <!--
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Desde</span>
+                                </div>
+                                -->
+                                <input type="date" name="desde" class="form-control" value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}">
+                            </div>
+                            <div class="input-group input-group-sm col-2 px-1">
+                                <!--
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Hasta</span>
+                                </div>
+                                -->
+                                <input type="date" name="hasta" class="form-control" value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}">
+                            </div>
+                            <div class="input-group input-group-sm col-2 px-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Estado</span>
+                                </div>
+                                <select class="custom-select" name="estado">
+                                    <option
+                                        value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
+                                        Todos
+                                    </option>
+                                    <option
+                                        value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>
+                                        Ingresado
+                                    </option>
+                                    <option
+                                        value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>
+                                        Aceptado
+                                    </option>
+                                    <option
+                                        value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>
+                                        Rechazado
+                                    </option>
+                                    <option
+                                        value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>
+                                        Cerrado
+                                    </option>
+                                    <option
+                                        value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>
+                                        Legales
+                                    </option>
+                                    <option
+                                        value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
+                                        Investigación
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="input-group input-group-sm col-2 px-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Carga</span>
+                                </div>
+                                <select class="custom-select" name="carga">
+                                    <option
+                                        value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
+                                        Todos
+                                    </option>
+                                    <option
+                                        value="predenuncia" {{(request()->carga && request()->carga == 'predenuncia') ? 'selected' : ''}}>
+                                        Predenuncia
+                                    </option>
+                                    <option
+                                        value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
+                                        Incompleto
+                                    </option>
+                                    <option
+                                        value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>
+                                        Completo
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-group input-group-sm col-4 pr-0 pl-1">
                                 <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
@@ -183,6 +204,15 @@
             </div>
         </div>
     </section>
+
+    <style>
+        /*
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }*/
+    </style>
 
     <script>
         /*
