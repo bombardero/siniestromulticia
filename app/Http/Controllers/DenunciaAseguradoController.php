@@ -42,30 +42,33 @@ class DenunciaAseguradoController extends Controller
             Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() :
             Carbon::now()->endOfDay()->toDateTimeString();
         $busqueda = $request->busqueda;
-        $estado = null;
-        switch ($request->estado)
+        $carga = null;
+        $estado = $request->estado;
+        switch ($request->carga)
         {
             case 'predenuncia':
-                $estado = 'precarga';
+                $carga = 'precarga';
                 break;
             case 'incompleto':
-                $estado = ['1','2','3','4','5','6','7','8','9','10','11'];
+                $carga = ['1','2','3','4','5','6','7','8','9','10','11'];
                 break;
             case 'completo':
-                $estado = '12';
+                $carga = '12';
                 break;
             default:
-                $estado = null;
+                $carga = null;
         }
         $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
             return $query->where('precarga_dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%")
                 ->orWhere('precarga_conductor_vehiculo_nombre','LIKE', "%{$busqueda}%");
-        })->when($estado, function ($query, $estado) {
-            if(is_array($estado))
+        })->when($carga, function ($query, $carga) {
+            if(is_array($carga))
             {
-                return $query->whereIn('state', $estado);
+                return $query->whereIn('state', $carga);
             }
-            return $query->where('state', $estado);
+            return $query->where('state', $carga);
+        })->when($estado && $estado != 'todos', function ($query) use ($estado) {
+            return $query->where('estado', $estado);
         });
         if($busqueda != null)
         {
@@ -78,12 +81,6 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
 
         $data['denuncia_siniestros'] = $denuncia_siniestros;
-
-        if($request->desde && $request->hasta)
-        {
-            $data['desde'] = $request->desde;
-            $data['hasta'] = $request->hasta;
-        }
 
         return view('siniestro_backoffice.denuncias.index',$data);
     }
