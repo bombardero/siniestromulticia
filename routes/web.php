@@ -243,12 +243,10 @@ Route::post('/panel-siniestros/denuncias/{denuncia}/cambiar-estado', [DenunciaAs
 Route::get('/panel-siniestros/denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservaciones'])->name('panel-siniestros.denuncia.observaciones')->middleware('check.siniestro');
 Route::post('/panel-siniestros/denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store')->middleware('check.siniestro');
 Route::get('/panel-siniestros/delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete')->middleware('check.siniestro');
-Route::get('/panel-siniestros/pdf/denuncias/{denuncia}', [DenunciaAseguradoController::class,'generarPDF'])->name('panel-siniestros.denuncia.pdf')->middleware('check.siniestro');
+Route::get('/panel-siniestros/pdf/denuncias/{denuncia}', [DenunciaAseguradoController::class,'generarPDF'])->name('panel-siniestros.denuncia.pdf');
 Route::post('/panel/siniestro/grafico/{grafico}', [DenunciaAseguradoController::class,'setDibujo'])->name('grafico.setGrafico')->middleware('auth');
+Route::get('/panel-siniestros/buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador')->middleware('check.siniestro');
 
 Route::get('/panel-siniestros/update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('panel-siniestros.denuncia.update.nropoliza')->middleware('check.siniestro');
 Route::get('/panel-siniestros/update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('panel-siniestros.denuncia.update.nrodenuncia')->middleware('check.siniestro');
 Route::get('/panel-siniestros/update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro')->middleware('check.siniestro');
-
-
-Route::get('/panel-siniestros/buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador')->middleware('check.siniestro');

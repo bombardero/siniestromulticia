@@ -2,152 +2,168 @@
 @media (min-width: 0px) and (max-width: 767px) {
 
     .somos-nosotros-bg {
-        background-image:url('/images/somos-finisterre/mobile/fondo_somos_finisterre_mobile.png') !important;
+        background-image: url('/images/somos-finisterre/mobile/fondo_somos_finisterre_mobile.png') !important;
         /* Full height */
-        height: 100%; 
-        width:100%;
+        height: 100%;
+        width: 100%;
         /* Center and scale the image nicely */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
 
-}
+    }
+
     .bienvenidos-nueva-era {
         font-size: 20px !important;
 
     }
+
     .mas-digital {
         font-size: 40px !important;
         line-height: 40px !important;
         /* or 100% */
 
-        
+
     }
+
     .somos-finisterre {
         font-size: 30px !important;
     }
+
     .imagen-compromiso {
-        height:140px !important;
+        height: 140px !important;
     }
 }
 
 /* FIN ESTILOS CELULAR ------------------------------------------------ */
-    .somos-nosotros-bg {
-        background-image:url('/images/somos-finisterre/fondo_quienes somos_desktop.svg') !important;
-        /* Full height */
-        height: 100%; 
-        width:100%;
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
+.somos-nosotros-bg {
+    background-image: url('/images/somos-finisterre/fondo_quienes somos_desktop.svg') !important;
+    /* Full height */
+    height: 100%;
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-    }
-    .bienvenidos-nueva-era {
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 32px;
-        /* or 133% */
+}
 
-
-        color: #E95E2A;
-
-    }
-    .mas-digital {
-        font-weight: bold;
-        font-size: 55px;
-        line-height: 60px;
-        /* or 109% */
-        
-        
-        color: #545358;
-        
-    }
-    .somos-finisterre {
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 25px;
-        letter-spacing: 0,02em;
-        color: #545358;
-    }
-    .compañia-experta {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 25px;
-        letter-spacing: 0,02em;
-        color: #545358;
-    }
-
-    .protegemos {
-        font-weight: normal;
-        font-size: 25px;
-        line-height: 35px;
-        letter-spacing: -0.02em;
-        
-        color: #4385D8;
-    }
-    .titulo-iconos {
-        font-weight: bold;
-        font-size: 25px;
-        line-height: 25px;
-        /* or 100% */
-        
-        text-align: center;
-        letter-spacing: -0.02em;
-        
-        color: #545358;
-        
-
-    }
-    .subtitulo-iconos {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 25px;
-        letter-spacing: -0,02em;
-        color: #545358;
-        
-    }
-    .imagen-compromiso {
-        width:87px; 
-        height:108px;
-    }
-    .proteccion-adecuada {
-        font-size: 25px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 25px;
-        letter-spacing: -0,02em;
-        color:rgba(36, 56, 98, 1);
+.bienvenidos-nueva-era {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    /* or 133% */
 
 
+    color: #E95E2A;
 
-    }
-    .proteccion-adecuada-subtitulo {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 25px;
-        letter-spacing: -0,02em;
-        color: #545358;
-    }
+}
 
-    .solicitud-enviada {
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 25px;
-
-        color: #FFFFFF;
+.mas-digital {
+    font-weight: bold;
+    font-size: 55px;
+    line-height: 60px;
+    /* or 109% */
 
 
+    color: #545358;
 
-    }
-    .solicitud-enviada-subtitulo {
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 25px;
+}
 
-        color: #FFFFFF;
-    }
+.somos-finisterre {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0, 02em;
+    color: #545358;
+}
+
+.compañia-experta {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0, 02em;
+    color: #545358;
+}
+
+.protegemos {
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 35px;
+    letter-spacing: -0.02em;
+
+    color: #4385D8;
+}
+
+.titulo-iconos {
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 25px;
+    /* or 100% */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    color: #545358;
+
+
+}
+
+.subtitulo-iconos {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0, 02em;
+    color: #545358;
+
+}
+
+.imagen-compromiso {
+    width: 87px;
+    height: 108px;
+}
+
+.proteccion-adecuada {
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: -0, 02em;
+    color: rgba(36, 56, 98, 1);
+
+
+}
+
+.proteccion-adecuada-subtitulo {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0, 02em;
+    color: #545358;
+}
+
+.solicitud-enviada {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
+.solicitud-enviada a{
+    color: #184071 !important;
+}
+.solicitud-enviada a:hover{
+    color: #184090 !important;
+}
+
+.solicitud-enviada-subtitulo {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+
+    color: #FFFFFF;
+}

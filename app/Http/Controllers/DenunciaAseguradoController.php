@@ -1111,7 +1111,8 @@ class DenunciaAseguradoController extends Controller
             $denuncia_siniestro->state='12';
         }
         $denuncia_siniestro->save();
-        return redirect()->route('gracias-denuncia');
+        $link = route('panel-siniestros.denuncia.pdf', ['denuncia' =>  $denuncia_siniestro->id]);
+        return redirect()->route('gracias-denuncia', ['link' => $link]);
     }
 
 
