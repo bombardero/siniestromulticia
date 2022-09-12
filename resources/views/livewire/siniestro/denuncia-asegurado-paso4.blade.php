@@ -13,7 +13,7 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_nombre" placeholder="*Nombre y apellido" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_nombre):''}}">
+                        <input class='w-100' type="text" name="asegurado_nombre" placeholder="*Nombre y apellido" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->nombre : '' }}">
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                     <div class="input-group  ">
                         <select class='w-100' name="asegurado_documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
                           @foreach($tipo_documentos as $tipo_documento)
-                            <option value="{{$tipo_documento->id}}" {{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_documento_id == $tipo_documento->id ? 'selected':''):''}}>{{$tipo_documento->nombre}}</option>
+                            <option value="{{$tipo_documento->id}}" {{ $denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}>{{ $tipo_documento->nombre }}</option>
                           @endforeach
                         </select>
 
@@ -30,19 +30,19 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_documento_numero):''}}">
+                        <input class='w-100' type="text" name="asegurado_documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->documento_numero : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-8 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_domicilio" placeholder="*Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_domicilio):''}}">
+                        <input class='w-100' type="text" name="asegurado_domicilio" placeholder="*Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->domicilio : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_codigo_postal" placeholder="*Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_codigo_postal):''}}">
+                        <input class='w-100' type="text" name="asegurado_codigo_postal" placeholder="*Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->codigo_postal : '' }}">
                     </div>
                 </div>
 
@@ -59,7 +59,9 @@
                     <div class="input-group  ">
                         <select class='w-100' name="asegurado_provincia_id" id="provincias" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($provincias as $provincia)
-                            <option value="{{$provincia->id}}"{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_provincia_id == $provincia->id ? 'selected':''):''}}>{{$provincia->name}}</option>
+                            <option value="{{ $provincia->id }}"
+                                {{ $denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->province_id == $provincia->id ? 'selected' : '' }}
+                            >{{ $provincia->name }}</option>
 						  @endforeach
 						</select>
 
@@ -71,7 +73,9 @@
                         <select class='w-100' name="asegurado_localidad_id" id="localidades" style="border-radius:10px; height: 33px;background: white;">
                             @if($localidades)
                                 @foreach($localidades as $localidad)
-                                    <option value="{{$localidad->id}}"{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_localidad_id == $localidad->id ? 'selected':''):''}}>{{$localidad->name}}</option>
+                                    <option value="{{ $localidad->id }}"
+                                        {{$denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->city_id == $localidad->id ? 'selected' : '' }}
+                                    >{{ $localidad->name }}</option>
                                 @endforeach
                             @endif
 						</select>
@@ -82,13 +86,17 @@
 
                 <div class="col-12 col-md-8 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_ocupacion" placeholder="*Ocupacion" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_ocupacion):''}}">
+                        <input class='w-100' type="text" name="asegurado_ocupacion" placeholder="*Ocupacion" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->ocupacion : '' }}"
+                        >
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_telefono" placeholder="*Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->asegurado ?($denuncia_siniestro->asegurado->carga_paso_4_asegurado_telefono):''}}">
+                        <input class='w-100' type="text" name="asegurado_telefono" placeholder="*Telefono" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->telefono : '' }}"
+                        >
                     </div>
                 </div>
 

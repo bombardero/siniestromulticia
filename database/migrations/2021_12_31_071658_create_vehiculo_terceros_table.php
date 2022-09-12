@@ -15,57 +15,40 @@ class CreateVehiculoTercerosTable extends Migration
     {
         Schema::create('vehiculo_terceros', function (Blueprint $table) {
             $table->id();
-
-            $table->text('carga_paso_6_vehiculo_terceros_propietario_nombre')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_propietario_telefono')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_propietario_documento_id')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_propietario_documento_numero')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_propietario_codigo_postal')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_propietario_domicilio')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_marca_id')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_modelo_id')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_tipo')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_anio')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_dominio')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_motor')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_chasis')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_particular')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_comercial')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_taxi')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_tp')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_urgencia')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_seguridad')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_detalles')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_nombre')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_telefono')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_documento_id')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_documento_numero')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_codigo_postal')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_domicilio')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_registro')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_carnet_id')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_categoria')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_vencimiento')->nullable();
-
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_alcoholemia_si')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_alcoholemia_no')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_alcoholemia_nego')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_habitual_si')->nullable();
-            $table->text('carga_paso_6_vehiculo_terceros_conductor_habitual_no')->nullable();
-
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->string('propietario_nombre')->nullable();
+            $table->string('propietario_telefono')->nullable();
+            $table->foreignId('propietario_tipo_documento_id')->nullable()->constrained('tipo_documentos');
+            $table->string('propietario_documento_numero',8)->nullable();
+            $table->string('propietario_codigo_postal',8)->nullable();
+            $table->string('propietario_domicilio')->nullable();
+            $table->foreignId('marca_id')->nullable()->constrained('marcas');
+            $table->foreignId('modelo_id')->nullable()->constrained('modelos');
+            $table->string('tipo')->nullable();
+            $table->year('anio')->nullable();
+            $table->string('dominio',7)->nullable();
+            $table->string('motor')->nullable();
+            $table->string('chasis')->nullable();
+            $table->boolean('uso_particular')->nullable();
+            $table->boolean('uso_comercial')->nullable();
+            $table->boolean('uso_taxi_remis')->nullable();
+            $table->boolean('uso_tpp')->nullable();
+            $table->boolean('uso_urgencia')->nullable();
+            $table->boolean('uso_seguridad')->nullable();
+            $table->string('detalles')->nullable();
+            $table->string('conductor_nombre')->nullable();
+            $table->string('conductor_telefono',15)->nullable();
+            $table->foreignId('conductor_tipo_documento_id')->nullable()->constrained('tipo_documentos');
+            $table->string('conductor_documento_numero',8)->nullable();
+            $table->string('conductor_codigo_postal',8)->nullable();
+            $table->string('conductor_domicilio')->nullable();
+            $table->string('conductor_registro')->nullable();
+            $table->foreignId('conductor_tipo_carnet_id')->nullable()->constrained('tipo_carnets');
+            $table->string('conductor_categoria')->nullable();
+            $table->string('conductor_vencimiento',5)->nullable();
+            $table->boolean('conductor_alcoholemia')->nullable();
+            $table->boolean('conductor_alcoholemia_se_nego')->nullable();
+            $table->boolean('conductor_habitual')->nullable();
             $table->timestamps();
         });
     }

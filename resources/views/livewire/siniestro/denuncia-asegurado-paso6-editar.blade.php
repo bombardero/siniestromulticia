@@ -22,13 +22,13 @@
 
                 <div class="col-12 col-md-8">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_nombre" placeholder="Nombre y apellido del propietario" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_propietario_nombre}}">
+                        <input class='w-100' type="text" name="propietario_nombre" placeholder="Nombre y apellido del propietario" style="border-radius:10px; height: 33px;background: white;" value="{{ $vehiculo_tercero->propietario_nombre }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_telefono" placeholder="Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_propietario_telefono}}">
+                        <input class='w-100' type="text" name="propietario_telefono" placeholder="Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{ $vehiculo_tercero->propietario_telefono }}">
                     </div>
                 </div>
 
@@ -36,7 +36,9 @@
                     <div class="input-group  ">
                         <select class='w-100' name="propietario_documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($tipo_documentos as $tipo_documento)
-						  	<option value="{{$tipo_documento->id}}" {{$vehiculo_tercero ?($vehiculo_tercero->carga_paso_6_vehiculo_terceros_propietario_documento_id == $tipo_documento->id ? 'selected':''):''}}>{{$tipo_documento->nombre}}</option>
+						  	<option value="{{ $tipo_documento->id }}"
+                                {{ $vehiculo_tercero->propietario_tipo_documento_id && $vehiculo_tercero->propietario_tipo_documento_id == $tipo_documento->id ? 'selected': '' }}
+                            >{{ $tipo_documento->nombre }}</option>
 						  @endforeach
 						</select>
 
@@ -45,19 +47,22 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_propietario_documento_numero}}">
+                        <input class='w-100' type="text" name="propietario_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->propietario_documento_numero }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_propietario_codigo_postal}}">
+                        <input class='w-100' type="text" name="propietario_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->propietario_codigo_postal }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-12 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_domicilio" placeholder="Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_propietario_domicilio}}">
+                        <input class='w-100' type="text" name="propietario_domicilio" placeholder="Domicilio" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->propietario_domicilio }}">
                     </div>
                 </div>
 
@@ -66,7 +71,8 @@
                         <div class="input-group  ">
                             <select class='w-100' name="vehiculo_marca_id" id="marca_id" style="border-radius:10px; height: 33px;background: white;">
     						  @foreach($marcas as $marca)
-                                <option value="{{$marca->id}}" {{$vehiculo_tercero ?($vehiculo_tercero->carga_paso_6_vehiculo_terceros_marca_id == $marca->id ? 'selected':''):''}}>{{$marca->nombre}}</option>
+                                <option value="{{$marca->id}}" {{ $vehiculo_tercero->marca_id == $marca->id ? 'selected' : '' }}
+                                >{{$marca->nombre}}</option>
                               @endforeach
     						</select>
 
@@ -78,7 +84,8 @@
                             <select class='w-100' name="vehiculo_modelo_id" id="modelo_id" style="border-radius:10px; height: 33px;background: white;">
     						  @if($modelos)
                                     @foreach($modelos as $modelo)
-                                        <option value="{{$modelo->id}}" {{$vehiculo_tercero ?($vehiculo_tercero->carga_paso_6_vehiculo_terceros_modelo_id == $modelo->id ? 'selected':''):''}}>{{$modelo->nombre}}</option>
+                                        <option value="{{$modelo->id}}" {{ $vehiculo_tercero->modelo_id == $modelo->id ? 'selected' : '' }}
+                                        >{{ $modelo->nombre }}</option>
                                     @endforeach
                                 @endif
     						</select>
@@ -88,32 +95,37 @@
 
                     <div class="col-12 col-md-2 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_tipo" placeholder="Tipo" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_tipo}}">
+                            <input class='w-100' type="text" name="vehiculo_tipo" placeholder="Tipo" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $vehiculo_tercero->tipo }}">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-2 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_anio" placeholder="Año" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_anio}}">
+                            <input class='w-100' type="text" name="vehiculo_anio" placeholder="Año" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $vehiculo_tercero->anio }}">
                         </div>
                     </div>
 
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_dominio" placeholder="Dominio" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_dominio}}">
+                            <input class='w-100' type="text" name="vehiculo_dominio" placeholder="Dominio" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $vehiculo_tercero->dominio }}">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_motor" placeholder="Nº de motor" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_motor}}">
+                            <input class='w-100' type="text" name="vehiculo_motor" placeholder="Nº de motor" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $vehiculo_tercero->motor }}">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_chasis" placeholder="Nº de Chasis" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_chasis}}">
+                            <input class='w-100' type="text" name="vehiculo_chasis" placeholder="Nº de Chasis" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $vehiculo_tercero->chasis }}">
                         </div>
                     </div>
 
@@ -129,42 +141,48 @@
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_particular" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_particular == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_particular"
+                            {{ $vehiculo_tercero->uso_particular ? 'checked' : ''}}>
                         <label>Particular</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_comercial" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_comercial == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_comercial"
+                            {{ $vehiculo_tercero->uso_comercial ? 'checked' : '' }}>
                         <label>Comercial</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_taxi" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_taxi == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_taxi"
+                            {{ $vehiculo_tercero->uso_taxi_remis ? 'checked' : '' }}>
                         <label>Taxi/Remis</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_tp" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_tp == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_tp"
+                            {{ $vehiculo_tercero->uso_tpp ? 'checked' : '' }}>
                         <label>TPP</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_urgencia" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_urgencia == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_urgencia"
+                            {{ $vehiculo_tercero->uso_urgencia ? 'checked' : '' }}>
                         <label>Serv/Urgencias</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_seguridad" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_seguridad == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_seguridad"
+                            {{ $vehiculo_tercero->uso_seguridad ? 'checked' : '' }}>
                         <label>Serv/Seguridad</label>
                     </div>
                 </div>
@@ -174,7 +192,8 @@
                 <div class="input-group  ">
                  <div class="col-12 col-md-12 pt-3">
                     <div class="input-group  ">
-                        <textarea class='w-100' type="text" name="vehiculo_detalles" placeholder="Detalles 1500 caracteres" style="border-radius:10px; height: 82px;background: white;" name="vehiculo_detalles">{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_detalles}}</textarea>
+                        <textarea class='w-100' type="text" name="vehiculo_detalles" placeholder="Detalles 1500 caracteres" style="border-radius:10px; height: 82px;background: white;"
+                                  name="vehiculo_detalles">{{ $vehiculo_tercero->detalles }}</textarea>
                     </div>
                 </div>
 
@@ -184,13 +203,15 @@
 
             <div class="col-12 col-md-8 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_nombre" placeholder="Nombre y apellido del conductor" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_nombre}}">
+                        <input class='w-100' type="text" name="conductor_nombre" placeholder="Nombre y apellido del conductor" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->conductor_nombre }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_telefono" placeholder="Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_telefono}}">
+                        <input class='w-100' type="text" name="conductor_telefono" placeholder="Telefono" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->conductor_telefono }}">
                     </div>
                 </div>
 
@@ -198,7 +219,8 @@
                     <div class="input-group  ">
                         <select class='w-100' name="conductor_documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($tipo_documentos as $tipo_documento)
-						  	<option value="{{$tipo_documento->id}}" {{$vehiculo_tercero ?($vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_documento_id == $tipo_documento->id ? 'selected':''):''}}>{{$tipo_documento->nombre}}</option>
+						  	<option value="{{$tipo_documento->id}}" {{ $vehiculo_tercero->conductor_tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}
+                            >{{ $tipo_documento->nombre }}</option>
 						  @endforeach
 						</select>
 
@@ -207,25 +229,29 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_documento_numero}}">
+                        <input class='w-100' type="text" name="conductor_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{$vehiculo_tercero->conductor_documento_numero}}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_codigo_postal}}">
+                        <input class='w-100' type="text" name="conductor_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->conductor_codigo_postal }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-8 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_domicilio" placeholder="Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_domicilio}}">
+                        <input class='w-100' type="text" name="conductor_domicilio" placeholder="Domicilio" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->conductor_domicilio }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_registro" placeholder="Numero de Registro de Conducir" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_registro}}">
+                        <input class='w-100' type="text" name="conductor_registro" placeholder="Numero de Registro de Conducir" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->conductor_registro }}">
                     </div>
                 </div>
 
@@ -233,7 +259,8 @@
                     <div class="input-group  ">
                         <select class='w-100' name="conductor_carnet_id" id="tipo_carnet" style="border-radius:10px; height: 33px;background: white;">
 						  	@foreach($tipo_carnets as $tipo_carnet)
-                                <option value="{{$tipo_carnet->id}}" {{$vehiculo_tercero ?($vehiculo_tercero->carga_paso_3_carnet_id == $tipo_carnet->id ? 'selected':''):''}}>{{$tipo_carnet->nombre}}</option>
+                                <option value="{{$tipo_carnet->id}}" {{  $vehiculo_tercero->conductor_tipo_carnet_id == $tipo_carnet->id ? 'selected' : '' }}
+                                >{{$tipo_carnet->nombre}}</option>
                             @endforeach
 						</select>
                     </div>
@@ -241,13 +268,15 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_categoria" placeholder="Categoria/Clase" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_categoria}}">
+                        <input class='w-100' type="text" name="conductor_categoria" placeholder="Categoria/Clase" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->conductor_categoria }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_vencimiento" placeholder="Vencimiento" style="border-radius:10px; height: 33px;background: white;" value="{{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_vencimiento}}">
+                        <input class='w-100' type="text" name="conductor_vencimiento" placeholder="Vencimiento" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{$vehiculo_tercero->conductor_vencimiento}}">
                     </div>
                 </div>
                 </div>
@@ -260,21 +289,27 @@
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_si" name="conductor_alcoholemia_si" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_alcoholemia_si == 'on' ? 'checked':''}}>
+                        <input type="radio" class="form-check-input" id="checkbox_alcoholemia_si"
+                            name="conductor_alcoholemia" value="1"
+                            {{ $vehiculo_tercero->conductor_alcoholemia ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_no" name="conductor_alcoholemia_no" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_alcoholemia_no == 'on' ? 'checked':''}}>
+                        <input type="radio" class="form-check-input" id="checkbox_alcoholemia_no"
+                            name="conductor_alcoholemia" value="0"
+                            {{$vehiculo_tercero->conductor_alcoholemia === false ? 'checked' : '' }}>
                         <label>No</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_nego" name="conductor_alcoholemia_nego" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_alcoholemia_nego == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input" id="checkbox_alcoholemia_nego"
+                            name="conductor_alcoholemia_se_nego"
+                            {{ $vehiculo_tercero->conductor_alcoholemia_se_nego ? 'checked' : '' }}>
                         <label>Se negó</label>
                     </div>
                 </div>
@@ -286,14 +321,18 @@
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_habitual_si" name="conductor_habitual_si" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_habitual_si == 'on' ? 'checked':''}}>
+                        <input type="radio" class="form-check-input" id="checkbox_habitual_si"
+                            name="conductor_habitual" value="1"
+                            {{ $vehiculo_tercero->conductor_habitual ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_habitual_no" name="conductor_habitual_no" {{$vehiculo_tercero->carga_paso_6_vehiculo_terceros_conductor_habitual_no == 'on' ? 'checked':''}}>
+                        <input type="radio" class="form-check-input" id="checkbox_habitual_no"
+                            name="conductor_habitual_no"
+                            {{ $vehiculo_tercero->conductor_habitual === false ? 'checked' : '' }}>
                         <label>No</label>
                     </div>
                 </div>

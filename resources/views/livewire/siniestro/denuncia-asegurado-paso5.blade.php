@@ -14,7 +14,9 @@
                         <div class="input-group  ">
                             <select class='w-100' name="vehiculo_marca_id" id="marca_id" style="border-radius:10px; height: 33px;background: white;">
     						  @foreach($marcas as $marca)
-                                <option value="{{$marca->id}}" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_marca_id == $marca->id ? 'selected':''):''}}>{{$marca->nombre}}</option>
+                                <option value="{{ $marca->id }}"
+                                    {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->marca_id == $marca->id ? 'selected' : '' }}
+                                >{{ $marca->nombre }}</option>
                               @endforeach
     						</select>
 
@@ -26,7 +28,9 @@
                             <select class='w-100' name="vehiculo_modelo_id" id="modelo_id" style="border-radius:10px; height: 33px;background: white;">
     						  @if($modelos)
                                     @foreach($modelos as $modelo)
-                                        <option value="{{$modelo->id}}"{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_modelo_id == $modelo->id ? 'selected':''):''}}>{{$modelo->nombre}}</option>
+                                        <option value="{{ $modelo->id }}"
+                                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->modelo_id == $modelo->id ? 'selected' : '' }}
+                                        >{{ $modelo->nombre }}</option>
                                     @endforeach
                                 @endif
     						</select>
@@ -36,32 +40,40 @@
 
                     <div class="col-12 col-md-2 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_tipo" placeholder="*Tipo" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_tipo):''}}">
+                            <input class='w-100' type="text" name="vehiculo_tipo" placeholder="*Tipo" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->tipo : '' }}"
+                            >
                         </div>
                     </div>
 
                     <div class="col-12 col-md-2 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_anio" placeholder="*Año" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_anio):''}}">
+                            <input class='w-100' type="text" name="vehiculo_anio" placeholder="*Año" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{$denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->anio : '' }}"
+                            >
                         </div>
                     </div>
 
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_dominio" placeholder="*Dominio" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_dominio == '' ? $denuncia_siniestro->vehiculo->precarga_dominio_vehiculo_asegurado : $denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_dominio ):''}}">
+                            <input class='w-100' type="text" name="vehiculo_dominio" placeholder="*Dominio" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->dominio : '' }}">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_motor" placeholder="*Nº de motor" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_motor):''}}">
+                            <input class='w-100' type="text" name="vehiculo_motor" placeholder="*Nº de motor" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->motor : '' }}"
+                            >
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_chasis" placeholder="*Nº de Chasis" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_chasis):''}}">
+                            <input class='w-100' type="text" name="vehiculo_chasis" placeholder="*Nº de Chasis" style="border-radius:10px; height: 33px;background: white;"
+                                   value="{{ $denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->chasis : '' }}">
                         </div>
                     </div>
 
@@ -76,42 +88,52 @@
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_particular" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_particular == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_particular"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->uso_particular ? 'checked' : '' }}
+                        >
                         <label>Particular</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_comercial" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_comercial == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_comercial"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->uso_comercial ? 'checked' : '' }}
+                        >
                         <label>Comercial</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_taxi" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_taxi == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_taxi"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->uso_taxi ? 'checked' : '' }}
+                        >
                         <label>Taxi/Remis</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_tp" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_tp == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_tp"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->uso_tpp ? 'checked' : '' }}>
                         <label>TPP</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_urgencia" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_urgencia == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_urgencia"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->uso_urgencia ? 'checked' : '' }}
+                        >
                         <label>Serv/Urgencias</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_seguridad" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_seguridad == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_seguridad"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->uso_seguridad ? 'checked' : '' }}>
                         <label>Serv/Seguridad</label>
                     </div>
                 </div>
@@ -130,21 +152,27 @@
 
                 <div class="col-12 col-md-3 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_siniestro_danio" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_siniestro_danio == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1"
+                            name="vehiculo_siniestro_danio"
+                            {{ $denuncia_siniestro->vehiculo &&  $denuncia_siniestro->vehiculo->siniestro_danio ? 'checked' : '' }}>
                         <label>Daños</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_siniestro_robo" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_siniestro_robo == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1"
+                            name="vehiculo_siniestro_robo"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->siniestro_robo ? 'checked' : '' }}>
                         <label>Robo</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_siniestro_incendio" {{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_siniestro_incendio == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1"
+                            name="vehiculo_siniestro_incendio"
+                            {{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->siniestro_incendio ? 'checked' : '' }}>
                         <label>Incendio</label>
                     </div>
                 </div>
@@ -153,7 +181,9 @@
             <div class="input-group  ">
                  <div class="col-12 col-md-12 pt-3">
                     <div class="input-group  ">
-                        <textarea class='w-100' type="text" name="vehiculo_detalles" placeholder="Detalles 1500 caracteres" style="border-radius:10px; height: 82px;background: white;" name="vehiculo_detalles">{{$denuncia_siniestro->vehiculo ?($denuncia_siniestro->vehiculo->carga_paso_5_vehiculo_detalles):''}}</textarea>
+                        <textarea class='w-100' type="text" name="vehiculo_detalles" placeholder="Detalles 1500 caracteres" style="border-radius:10px; height: 82px;background: white;"
+                                  name="vehiculo_detalles"
+                        >{{ $denuncia_siniestro->vehiculo && $denuncia_siniestro->vehiculo->detalles ? $denuncia_siniestro->vehiculo->detalles : '' }}</textarea>
                     </div>
                 </div>
 

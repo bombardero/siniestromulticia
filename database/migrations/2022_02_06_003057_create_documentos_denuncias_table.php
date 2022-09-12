@@ -15,10 +15,11 @@ class CreateDocumentosDenunciasTable extends Migration
     {
         Schema::create('documentos_denuncias', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
             $table->string('nombre');
             $table->string('type');
             $table->string('url');
-            $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
+            $table->string('path');
             $table->timestamps();
         });
     }

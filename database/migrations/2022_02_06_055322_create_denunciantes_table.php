@@ -15,25 +15,17 @@ class CreateDenunciantesTable extends Migration
     {
         Schema::create('denunciantes', function (Blueprint $table) {
             $table->id();
-
-            //denunciante
-            $table->text('carga_paso_12_nombre')->nullable();
-            $table->text('carga_paso_12_telefono')->nullable();
-            $table->text('carga_paso_12_domicilio')->nullable();
-            $table->text('carga_paso_12_codigo_postal')->nullable();
-            $table->text('carga_paso_12_provincia_id')->nullable();
-            $table->text('carga_paso_12_localidad_id')->nullable();
-            $table->text('carga_paso_12_documento_id')->nullable();
-            $table->text('carga_paso_12_documento_numero')->nullable();
-            $table->text('carga_paso_12_asegurado_si')->nullable();
-            $table->text('carga_paso_12_asegurado_no')->nullable();
-            $table->text('carga_paso_12_asegurado_relacion')->nullable();
-            $table->text('carga_paso_12_fecha')->nullable();
-            $table->text('carga_paso_12_hora')->nullable();
-            $table->text('carga_paso_12_lugar')->nullable();
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->string('nombre');
+            $table->string('telefono',15);
+            $table->string('domicilio');
+            $table->string('codigo_postal',8);
+            $table->foreignId('province_id');
+            $table->foreignId('city_id');
+            $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
+            $table->string('documento_numero',8);
+            $table->boolean('asegurado');
+            $table->string('asegurado_relacion')->nullable();
             $table->timestamps();
         });
     }

@@ -15,15 +15,13 @@ class CreateDanioMaterialesTable extends Migration
     {
         Schema::create('danio_materiales', function (Blueprint $table) {
             $table->id();
-            $table->text('carga_paso_7_danio_materiales_detalles')->nullable();
-            $table->text('carga_paso_7_danio_materiales_nombre')->nullable();
-            $table->text('carga_paso_7_danio_materiales_documento_id')->nullable();
-            $table->text('carga_paso_7_danio_materiales_documento_numero')->nullable();
-            $table->text('carga_paso_7_danio_materiales_codigo_postal')->nullable();
-            $table->text('carga_paso_7_danio_materiales_domicilio')->nullable();
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->string('detalles');
+            $table->string('propietario_nombre')->nullable();
+            $table->foreignId('propietario_tipo_documento_id')->nullable()->constrained('tipo_documentos');
+            $table->string('propietario_documento_numero',8)->nullable();
+            $table->string('propietario_codigo_postal',8)->nullable();
+            $table->string('propietario_domicilio')->nullable();
             $table->timestamps();
         });
     }

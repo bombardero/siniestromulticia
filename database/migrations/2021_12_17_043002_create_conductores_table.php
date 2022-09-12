@@ -15,35 +15,28 @@ class CreateConductoresTable extends Migration
     {
         Schema::create('conductores', function (Blueprint $table) {
             $table->id();
-
-            //conductor
-            $table->text('carga_paso_3_nombre')->nullable();
-            $table->text('carga_paso_3_telefono')->nullable();
-            $table->text('carga_paso_3_domicilio')->nullable();
-            $table->text('carga_paso_3_codigo_postal')->nullable();
-            $table->text('carga_paso_3_pais_id')->nullable();
-            $table->text('carga_paso_3_provincia_id')->nullable();
-            $table->text('carga_paso_3_localidad_id')->nullable();
-            $table->text('carga_paso_3_fecha_nacimiento')->nullable();
-            $table->text('carga_paso_3_documento_id')->nullable();
-            $table->text('carga_paso_3_documento_numero')->nullable();
-            $table->text('carga_paso_3_ocupacion')->nullable();
-            $table->text('carga_paso_3_numero_registro')->nullable();
-            $table->text('carga_paso_3_estado_civil')->nullable();
-            $table->text('carga_paso_3_carnet_id')->nullable();
-            $table->text('carga_paso_3_carnet_categoria')->nullable();
-            $table->text('carga_paso_3_carnet_vencimiento')->nullable();
-            $table->text('carga_paso_3_alcoholemia_si')->nullable();
-            $table->text('carga_paso_3_alcoholemia_no')->nullable();
-            $table->text('carga_paso_3_alcoholemia_nego')->nullable();
-            $table->text('carga_paso_3_habitual_si')->nullable();
-            $table->text('carga_paso_3_habitual_no')->nullable();
-            $table->text('carga_paso_3_asegurado_si')->nullable();
-            $table->text('carga_paso_3_asegurado_no')->nullable();
-            $table->text('carga_paso_3_asegurado_relacion')->nullable();
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->string('nombre')->nullable();
+            $table->string('telefono',15)->nullable();
+            $table->string('domicilio')->nullable();
+            $table->string('codigo_postal',8)->nullable();
+            $table->string('pais_id')->nullable();
+            $table->foreignId('province_id')->nullable();
+            $table->foreignId('city_id')->nullable();
+            $table->date('fecha_nacimiento')->nullable();
+            $table->foreignId('tipo_documento_id')->nullable()->constrained('tipo_documentos');
+            $table->string('documento_numero',8)->nullable();
+            $table->string('ocupacion')->nullable();
+            $table->string('numero_registro')->nullable();
+            $table->string('estado_civil')->nullable();
+            $table->foreignId('tipo_carnet_id')->nullable()->constrained('tipo_carnets');
+            $table->string('carnet_categoria')->nullable();
+            $table->string('carnet_vencimiento')->nullable();
+            $table->boolean('alcoholemia')->nullable();
+            $table->boolean('alcoholemia_se_nego')->nullable();
+            $table->boolean('habitual')->nullable();
+            $table->boolean('asegurado')->nullable();
+            $table->string('asegurado_relacion')->nullable();
             $table->timestamps();
         });
     }

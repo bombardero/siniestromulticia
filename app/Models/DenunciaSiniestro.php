@@ -8,53 +8,135 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DenunciaSiniestro extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    const ESTADOS = ['ingresado','aceptado','rechazado','cerrado','legales','investigacion'];
+    const ESTADOS = ['ingresado', 'aceptado', 'rechazado', 'cerrado', 'legales', 'investigacion'];
 
-    protected $fillable = ["state","identificador", "precarga_dominio_vehiculo_asegurado", "precarga_fecha_siniestro", "precarga_hora_siniestro", "precarga_lugar", "precarga_codigo_postal", "precarga_direccion_siniestro", "precarga_conductor_vehiculo_nombre", "precarga_descripcion", "precarga_responsable_contacto_nombre", "precarga_responsable_contacto_domicilio", "precarga_responsable_contacto_telefono", "precarga_responsable_contacto_email","carga_paso_6_intervino_si","carga_paso_6_intervino_no","carga_paso_6_datos_si","carga_paso_6_datos_no"];
+    protected $fillable = [
+        "identificador",
+        "estado_carga",
+        "dominio_vehiculo_asegurado",
+        "fecha",
+        "hora",
+        "lugar_nombre",
+        "codigo_postal",
+        "direccion",
+        "nombre_conductor",
+        "descripcion",
+        "responsable_contacto_nombre",
+        "responsable_contacto_domicilio",
+        "responsable_contacto_telefono",
+        "responsable_contacto_email",
 
-    public function lugar(){
-        return $this->hasOne(LugarSiniestro::class)->latest();
-    }
+        "province_id",
+        "city_id",
+        "calle",
+        "tipo_calzada_id",
+        "calzada_detalle",
+        "interseccion",
+        "cruce_senalizado",
+        "tren",
+        "semaforo",
+        "semaforo_funciona",
+        "semaforo_intermitente",
+        "semaforo_color",
 
-    public function conductor(){
+        "intervino_otro_vehiculo",
+        "intervino_otro_vehiculo_datos",
+
+        "hubo_danios_materiales",
+        "hubo_lesionados",
+
+        "croquis_url",
+        "croquis_path",
+        "croquis_descripcion"
+    ];
+
+    protected $casts = [
+        'cruce_senalizado' => 'boolean',
+        'tren' => 'boolean',
+        'semaforo' => 'boolean',
+        'semaforo_funciona' => 'boolean',
+        "semaforo_intermitente" => 'boolean',
+        'intervino_otro_vehiculo' => 'boolean',
+        'intervino_otro_vehiculo_datos' => 'boolean',
+        'hubo_danios_materiales' => 'boolean',
+        'hubo_lesionados' => 'boolean',
+        'tipo_accidente_frontal' => 'boolean',
+        'tipo_accidente_posterior' => 'boolean',
+        'tipo_accidente_cadena' => 'boolean',
+        'tipo_accidente_lateral' => 'boolean',
+        'tipo_accidente_vuelco' => 'boolean',
+        'tipo_accidente_desplaza' => 'boolean',
+        'tipo_accidente_incendio' => 'boolean',
+        'tipo_accidente_inmersion' => 'boolean',
+        'tipo_accidente_explosion' => 'boolean',
+        'tipo_accidente_carga' => 'boolean',
+        'tipo_accidente_otros' => 'boolean',
+        'lugar_autopista' => 'boolean',
+        'lugar_calle' => 'boolean',
+        'lugar_avenida' => 'boolean',
+        'lugar_curva' => 'boolean',
+        'lugar_pendiente' => 'boolean',
+        'lugar_tunel' => 'boolean',
+        'lugar_puente' => 'boolean',
+        'lugar_otros' => 'boolean',
+        'colision_peaton' => 'boolean',
+        'colision_vehiculo' => 'boolean',
+        'colision_edificio' => 'boolean',
+        'colision_columna' => 'boolean',
+        'colision_animal' => 'boolean',
+        'colision_transporte_publico' => 'boolean',
+    ];
+
+
+    public function conductor()
+    {
         return $this->hasOne(Conductor::class)->latest();
     }
 
-    public function asegurado(){
+    public function asegurado()
+    {
         return $this->hasOne(Asegurado::class)->latest();
     }
 
-    public function vehiculo(){
+    public function vehiculo()
+    {
         return $this->hasOne(Vehiculo::class)->latest();
     }
 
-    public function vehiculoTerceros(){
+    public function vehiculoTerceros()
+    {
         return $this->hasMany(VehiculoTercero::class);
     }
 
-    public function danioMateriales(){
+    public function danioMateriales()
+    {
         return $this->hasMany(DanioMaterial::class);
     }
 
-    public function lesionados(){
+    public function lesionados()
+    {
         return $this->hasMany(Lesionado::class);
     }
 
-    public function detalleSiniestro(){
+    public function detalleSiniestro()
+    {
         return $this->hasOne(DetalleSiniestro::class);
     }
 
-    public function documentosDenuncia(){
+    public function documentosDenuncia()
+    {
         return $this->hasMany(DocumentosDenuncia::class);
     }
 
-    public function denunciante(){
+    public function denunciante()
+    {
         return $this->hasOne(Denunciante::class)->latest();
     }
 
-    public function observaciones(){
+    public function observaciones()
+    {
         return $this->hasMany(Observacion::class)->latest();
     }
 }

@@ -15,28 +15,24 @@ class CreateVehiculosTable extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-
-            //vehiculo
-            $table->text('carga_paso_5_vehiculo_marca_id')->nullable();
-            $table->text('carga_paso_5_vehiculo_modelo_id')->nullable();
-            $table->text('carga_paso_5_vehiculo_tipo')->nullable();
-            $table->text('carga_paso_5_vehiculo_anio')->nullable();
-            $table->text('carga_paso_5_vehiculo_dominio')->nullable();
-            $table->text('carga_paso_5_vehiculo_motor')->nullable();
-            $table->text('carga_paso_5_vehiculo_chasis')->nullable();
-            $table->text('carga_paso_5_vehiculo_particular')->nullable();
-            $table->text('carga_paso_5_vehiculo_comercial')->nullable();
-            $table->text('carga_paso_5_vehiculo_taxi')->nullable();
-            $table->text('carga_paso_5_vehiculo_tp')->nullable();
-            $table->text('carga_paso_5_vehiculo_urgencia')->nullable();
-            $table->text('carga_paso_5_vehiculo_seguridad')->nullable();
-            $table->text('carga_paso_5_vehiculo_siniestro_danio')->nullable();
-            $table->text('carga_paso_5_vehiculo_siniestro_robo')->nullable();
-            $table->text('carga_paso_5_vehiculo_siniestro_incendio')->nullable();
-            $table->text('carga_paso_5_vehiculo_detalles')->nullable();
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->foreignId('marca_id')->constrained('marcas');
+            $table->foreignId('modelo_id')->constrained('modelos');
+            $table->string('tipo');
+            $table->year('anio');
+            $table->string('dominio',7);
+            $table->string('motor');
+            $table->string('chasis');
+            $table->boolean('uso_particular')->nullable();
+            $table->boolean('uso_comercial')->nullable();
+            $table->boolean('uso_taxi_remis')->nullable();
+            $table->boolean('uso_tpp')->nullable();
+            $table->boolean('uso_urgencia')->nullable();
+            $table->boolean('uso_seguridad')->nullable();
+            $table->boolean('siniestro_danio')->nullable();
+            $table->boolean('siniestro_robo')->nullable();
+            $table->boolean('siniestro_incendio')->nullable();
+            $table->string('detalles')->nullable();
             $table->timestamps();
         });
     }

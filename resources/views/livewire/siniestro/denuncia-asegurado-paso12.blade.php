@@ -22,14 +22,16 @@
 
                 <div class="col-12 col-md-1 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_asegurado_si" name="asegurado_si" {{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_asegurado_si == 'on' ? 'checked':''):''}}>
+                        <input type="radio" class="form-check-input" id="checkbox_asegurado_si" name="asegurado" value="1"
+                            {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_asegurado_no" name="asegurado_no" {{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_asegurado_no == 'on' ? 'checked':''):''}}>
+                        <input type="radio" class="form-check-input" id="checkbox_asegurado_no" name="asegurado" value="0"
+                            {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado === false ? 'checked' : '' }}>
                         <label>No</label>
                     </div>
                 </div>
@@ -38,7 +40,8 @@
 
                 <div class="col-12 col-md-4 pt-0 padding-right-en-mobile">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" id='asegurado_relacion' name="asegurado_relacion" placeholder="Relación con el asegurado" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_asegurado_relacion):''}}" disabled>
+                        <input class='w-100' type="text" id='asegurado_relacion' name="asegurado_relacion" placeholder="Relación con el asegurado" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{$denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->asegurado_relacion : '' }}" disabled>
                     </div>
                 </div>
 
@@ -48,16 +51,19 @@
 
             	<div class="col-12 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="nombre" placeholder="Nombre y apellido" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ? ($denuncia_siniestro->denunciante->carga_paso_12_nombre == '' ? $denuncia_siniestro->precarga_denunciante_vehiculo_nombre : $denuncia_siniestro->denunciante->carga_paso_12_nombre ):''}}">
+                        <input class='w-100' type="text" name="nombre" placeholder="Nombre y apellido" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->nombre : '' }}">
                     </div>
                 </div>
 
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <select class='w-100' name="documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
+                        <select class='w-100' name="tipo_documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($tipo_documentos as $tipo_documento)
-						  	<option value="{{$tipo_documento->id}}" {{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_documento_id == $tipo_documento->id ? 'selected':''):''}}>{{$tipo_documento->nombre}}</option>
+						  	<option value="{{$tipo_documento->id}}"
+                                {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->tipo_documento_id == $tipo_documento->id ? 'selected' : ''}}
+                            >{{$tipo_documento->nombre}}</option>
 						  @endforeach
 						</select>
 
@@ -66,13 +72,15 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_documento_numero):''}}">
+                        <input class='w-100' type="text" name="documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->denunciante  ? $denuncia_siniestro->denunciante->documento_numero : ''}}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="telefono" placeholder="*Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_telefono):''}}">
+                        <input class='w-100' type="text" name="telefono" placeholder="*Telefono" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->telefono : ''}}">
                     </div>
                 </div>
 
@@ -80,7 +88,9 @@
                     <div class="input-group  ">
                         <select class='w-100' name="provincia_id" id="provincias" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($provincias as $provincia)
-						  	<option value="{{$provincia->id}}"{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_provincia_id == $provincia->id ? 'selected':''):''}}>{{$provincia->name}}</option>
+						  	<option value="{{$provincia->id}}"
+                                {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->province_id == $provincia->id ? 'selected' : '' }}
+                            >{{$provincia->name}}</option>
 						  @endforeach
 						</select>
 
@@ -88,7 +98,9 @@
                 </div>
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="domicilio" placeholder="*Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_domicilio):''}}">
+                        <input class='w-100' type="text" name="domicilio" placeholder="*Domicilio" style="border-radius:10px; height: 33px;background: white;"
+                            value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante-> domicilio : ''}}"
+                        >
                     </div>
                 </div>
 
@@ -98,7 +110,9 @@
                         <select class='w-100' name="localidad_id" id="localidades" style="border-radius:10px; height: 33px;background: white;">
                             @if($localidades)
                                 @foreach($localidades as $localidad)
-                                    <option value="{{$localidad->id}}"{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_localidad_id == $localidad->id ? 'selected':''):''}}>{{$localidad->name}}</option>
+                                    <option value="{{$localidad->id}}"
+                                        {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->city_id == $localidad->id ? 'selected' : '' }}
+                                    >{{$localidad->name}}</option>
                                 @endforeach
                             @endif
 						</select>
@@ -106,37 +120,12 @@
                     </div>
                 </div>
 
-
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="codigo_postal" placeholder="*Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_codigo_postal):''}}">
+                        <input class='w-100' type="text" name="codigo_postal" placeholder="*Codigo Postal" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->codigo_postal : '' }}">
                     </div>
                 </div>
-
-
-                <div class="col-12 col-md-4 pt-3">
-                    <div class="input-group  ">
-                        <input class='w-100' type="text" name="lugar" placeholder="*Lugar" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_lugar):''}}">
-                    </div>
-                </div>
-
-
-
-
-
-                <div class="col-12 col-md-4 pt-3">
-                    <div class="input-group  ">
-                        <input class='w-100' type="text" name="fecha" placeholder="*Fecha" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_fecha):''}}">
-                    </div>
-                </div>
-
-
-                <div class="col-12 col-md-4 pt-3">
-                    <div class="input-group  ">
-                        <input class='w-100' type="text" name="hora" placeholder="*Hora" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->denunciante ?($denuncia_siniestro->denunciante->carga_paso_12_hora):''}}">
-                    </div>
-                </div>
-
 
                 </div>
 
@@ -197,7 +186,7 @@ $( document ).ready(function() {
 
 
 
- 
+
     $( "#checkbox_asegurado_si" ).click(function() {
         $( "#checkbox_asegurado_no" ).prop('checked', false);
 

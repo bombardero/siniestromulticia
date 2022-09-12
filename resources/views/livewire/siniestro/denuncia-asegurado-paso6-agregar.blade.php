@@ -35,7 +35,7 @@
                     <div class="input-group  ">
                         <select class='w-100' name="propietario_documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($tipo_documentos as $tipo_documento)
-						  	<option value="{{$tipo_documento->id}}" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_documento_id == $tipo_documento->id ? 'selected':''):''}}>{{$tipo_documento->nombre}}</option>
+						  	<option value="{{$tipo_documento->id}}">{{$tipo_documento->nombre}}</option>
 						  @endforeach
 						</select>
 
@@ -128,42 +128,42 @@
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_particular" >
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_particular" >
                         <label>Particular</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_comercial" >
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_comercial" >
                         <label>Comercial</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_taxi" >
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_taxi" >
                         <label>Taxi/Remis</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_tp" >
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_tp" >
                         <label>TPP</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_urgencia" >
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_urgencia" >
                         <label>Serv/Urgencias</label>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1" name="vehiculo_seguridad" >
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="vehiculo_seguridad" >
                         <label>Serv/Seguridad</label>
                     </div>
                 </div>
@@ -259,21 +259,21 @@
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_si" name="conductor_alcoholemia_si">
+                        <input type="radio" class="form-check-input" id="checkbox_alcoholemia_si" name="conductor_alcoholemia" value="1">
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_no" name="conductor_alcoholemia_no" >
+                        <input type="radio" class="form-check-input" id="checkbox_alcoholemia_no" name="conductor_alcoholemia" value="0" >
                         <label>No</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_nego" name="conductor_alcoholemia_nego" >
+                        <input type="checkbox" class="form-check-input" id="checkbox_alcoholemia_nego" name="conductor_alcoholemia_nego" >
                         <label>Se negó</label>
                     </div>
                 </div>
@@ -285,14 +285,14 @@
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_habitual_si" name="conductor_habitual_si" >
+                        <input type="radio" class="form-check-input" id="checkbox_habitual_si" name="conductor_habitual" value="1" >
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_habitual_no" name="conductor_habitual_no" >
+                        <input type="radio" class="form-check-input" id="checkbox_habitual_no" name="conductor_habitual" value="0" >
                         <label>No</label>
                     </div>
                 </div>

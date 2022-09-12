@@ -129,11 +129,11 @@
                                 @if($denuncia_siniestros)
                                     @foreach($denuncia_siniestros as $denuncia)
                                         <tr class="borde-tabla">
-                                            <td>{{$denuncia->id}}</td>
+                                            <td>{{ $denuncia->id }}</td>
                                             <td>{{ \Carbon\Carbon::parse($denuncia->created_at)->format('d/m/Y H:i')}}</td>
                                             <td>{{ \Carbon\Carbon::parse($denuncia->precarga_fecha_siniestro)->format('d/m/Y')}}  {{ \Carbon\Carbon::parse($denuncia->precarga_hora_siniestro)->format('H:i')}}</td>
                                             <td>{{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_nombre : ''}}</td>
-                                            <td>{{$denuncia->precarga_dominio_vehiculo_asegurado}}</td>
+                                            <td>{{$denuncia->dominio_vehiculo_asegurado}}</td>
                                             <td><input
                                                     onblur="save('poliza',{{route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id)}})"
                                                     type="text" id="npoliza" name="npoliza" value="1"
@@ -157,12 +157,12 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                @if($denuncia->state == 'precarga')
+                                                @if($denuncia->estado_carga == 'precarga')
                                                     <span>PRECARGA</span>
-                                                @elseif($denuncia->state == '12')
+                                                @elseif($denuncia->estado_carga == '12')
                                                     <span>COMPLETO</span>
                                                 @else
-                                                    <span>{{ $denuncia->state.'/12' }}</span>
+                                                    <span>{{ $denuncia->estado_carga.'/12' }}</span>
                                                 @endif</td>
                                             <td><a target="_blank"
                                                    href="https://api.whatsapp.com/send?phone=+54{{$denuncia->precarga_responsable_contacto_telefono}}&text=Inicia tu denuncia ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
@@ -184,7 +184,7 @@
                                                    data-toggle="tooltip" data-placement="top" title="Ver"><img
                                                         src="{{url('/images/siniestros/denuncia_asegurado/backoffice/ver.png')}}"></a>
 
-                                                <a href="#" style="color:#3366BB; font-weight: bold; margin-right:8px; "
+                                                <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}" style="color:#3366BB; font-weight: bold; margin-right:8px; "
                                                    data-toggle="tooltip" data-placement="top" title="Editar"><img
                                                         src="{{url('/images/siniestros/denuncia_asegurado/backoffice/editar.png')}}"></a>
 

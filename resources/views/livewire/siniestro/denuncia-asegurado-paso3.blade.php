@@ -13,32 +13,32 @@
 
             	<div class="col-12 col-md-8 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="nombre" placeholder="Nombre y apellido" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ? ($denuncia_siniestro->conductor->carga_paso_3_nombre == '' ? $denuncia_siniestro->precarga_conductor_vehiculo_nombre : $denuncia_siniestro->conductor->carga_paso_3_nombre ):''}}">
+                        <input class='w-100' type="text" name="nombre" placeholder="Nombre y apellido" style="border-radius:10px; height: 33px;background: white;" value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->nombre) ? $denuncia_siniestro->conductor->nombre : $denuncia_siniestro->nombre_conductor }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="telefono" placeholder="*Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_telefono):''}}">
+                        <input class='w-100' type="text" name="telefono" placeholder="*Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->telefono) ? $denuncia_siniestro->conductor->telefono : ''}}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-8 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="domicilio" placeholder="*Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_domicilio):''}}">
+                        <input class='w-100' type="text" name="domicilio" placeholder="*Domicilio" style="border-radius:10px; height: 33px;background: white;" value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->domicilio) ? $denuncia_siniestro->conductor->domicilio : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="codigo_postal" placeholder="*Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_codigo_postal):''}}">
+                        <input class='w-100' type="text" name="codigo_postal" placeholder="*Codigo Postal" style="border-radius:10px; height: 33px;background: white;" value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->codigo_postal) ? $denuncia_siniestro->conductor->codigo_postal : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <select class='w-100' name="paises" id="paises" style="border-radius:10px; height: 33px;background: white;">
-						  <option value="salta">Argentina</option>
+                        <select class='w-100' name="pais_id" id="paises" style="border-radius:10px; height: 33px;background: white;">
+						  <option value="1">Argentina</option>
 						</select>
 
                     </div>
@@ -48,7 +48,8 @@
                     <div class="input-group  ">
                         <select class='w-100' name="provincia_id" id="provincias" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($provincias as $provincia)
-						  	<option value="{{$provincia->id}}"{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_provincia_id == $provincia->id ? 'selected':''):''}}>{{$provincia->name}}</option>
+						  	<option value="{{ $provincia->id }}"
+                                {{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->province_id ==  $provincia->id ? 'selected' : ''}}>{{ $provincia->name }}</option>
 						  @endforeach
 						</select>
 
@@ -60,7 +61,8 @@
                         <select class='w-100' name="localidad_id" id="localidades" style="border-radius:10px; height: 33px;background: white;">
                             @if($localidades)
                                 @foreach($localidades as $localidad)
-                                    <option value="{{$localidad->id}}"{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_localidad_id == $localidad->id ? 'selected':''):''}}>{{$localidad->name}}</option>
+                                    <option value="{{ $localidad->id }}"
+                                        {{$denuncia_siniestro->conductor && $denuncia_siniestro->conductor->city_id == $localidad->id ? 'selected' : '' }}>{{ $localidad->name }}</option>
                                 @endforeach
                             @endif
 						</select>
@@ -71,7 +73,7 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="fecha_nacimiento" placeholder="*Fecha de Nacimiento)" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_fecha_nacimiento):''}}">
+                        <input class='w-100' type="date" name="fecha_nacimiento" placeholder="*Fecha de Nacimiento)" style="border-radius:10px; height: 33px;background: white;" value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->fecha_nacimiento) ? $denuncia_siniestro->conductor->fecha_nacimiento : '' }}">
                     </div>
                 </div>
 
@@ -79,7 +81,8 @@
                     <div class="input-group  ">
                         <select class='w-100' name="documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($tipo_documentos as $tipo_documento)
-						  	<option value="{{$tipo_documento->id}}" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_documento_id == $tipo_documento->id ? 'selected':''):''}}>{{$tipo_documento->nombre}}</option>
+						  	<option value="{{ $tipo_documento->id }}"
+                                {{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->tipo_documento_id == $tipo_documento->id) ? 'selected':''}}>{{$tipo_documento->nombre}}</option>
 						  @endforeach
 						</select>
 
@@ -88,25 +91,25 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_documento_numero):''}}">
+                        <input class='w-100' type="text" name="documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->documento_numero ? $denuncia_siniestro->conductor->documento_numero : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="ocupacion" placeholder="*Ocupacion" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_ocupacion):''}}">
+                        <input class='w-100' type="text" name="ocupacion" placeholder="*Ocupacion" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->ocupacion ? $denuncia_siniestro->conductor->documento_numero : ''}}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="numero_registro" placeholder="*Numero de Registro de Conducir" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_numero_registro):''}}">
+                        <input class='w-100' type="text" name="numero_registro" placeholder="*Numero de Registro de Conducir" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->numero_registro ? $denuncia_siniestro->conductor->numero_registro : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="estado_civil" placeholder="*Estado Civil" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_estado_civil):''}}">
+                        <input class='w-100' type="text" name="estado_civil" placeholder="*Estado Civil" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->estado_civil ? $denuncia_siniestro->conductor->estado_civil : '' }}">
                     </div>
                 </div>
 
@@ -114,7 +117,8 @@
                     <div class="input-group  ">
                         <select class='w-100' name="carnet_id" id="tipo_carnet" style="border-radius:10px; height: 33px;background: white;">
 						  	@foreach($tipo_carnets as $tipo_carnet)
-                                <option value="{{$tipo_carnet->id}}" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_carnet_id == $tipo_carnet->id ? 'selected':''):''}}>{{$tipo_carnet->nombre}}</option>
+                                <option value="{{ $tipo_carnet->id }}"
+                                    {{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->tipo_carnet_id == $tipo_carnet->id ? 'selected' : '' }}>{{ $tipo_carnet->nombre }}</option>
                             @endforeach
 						</select>
                     </div>
@@ -122,13 +126,13 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="carnet_categoria" placeholder="*Categoria/Clase" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_carnet_categoria):''}}">
+                        <input class='w-100' type="text" name="carnet_categoria" placeholder="*Categoria/Clase" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->carnet_categoria ? $denuncia_siniestro->conductor->carnet_categoria : '' }}">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="carnet_vencimiento" placeholder="*Vencimiento" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_carnet_vencimiento):''}}">
+                        <input class='w-100' type="text" name="carnet_vencimiento" placeholder="*Vencimiento" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor  && $denuncia_siniestro->conductor->carnet_vencimiento ? $denuncia_siniestro->conductor->carnet_vencimiento : '' }}">
                     </div>
                 </div>
                 </div>
@@ -141,21 +145,21 @@
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_si" name="alcoholemia_si" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_alcoholemia_si == 'on' ? 'checked':''):''}}>
+                        <input type="radio" wire:model.defer="alcoholemia" class="form-check-input" id="checkbox_alcoholemia_si" name="alcoholemia" value="1" {{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->alcoholemia ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_no" name="alcoholemia_no" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_alcoholemia_no == 'on' ? 'checked':''):''}}>
+                        <input type="radio" wire:model.defer="alcoholemia" class="form-check-input" id="checkbox_alcoholemia_no" name="alcoholemia" value="0" {{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->alcoholemia == false ? 'checked' : ''}}>
                         <label>No</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-2">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_alcoholemia_nego" name="alcoholemia_nego" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_alcoholemia_nego == 'on' ? 'checked':''):''}}>
+                        <input type="checkbox" wire:model.defer="alcoholemia_se_nego" class="form-check-input" id="checkbox_alcoholemia_nego" name="alcoholemia_nego" {{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->alcoholemia_se_nego ? 'checked' : '' }}>
                         <label>Se negó</label>
                     </div>
                 </div>
@@ -167,14 +171,14 @@
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_habitual_si" name="habitual_si" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_habitual_si == 'on' ? 'checked':''):''}}>
+                        <input type="radio" wire:model.defer="habitual" class="form-check-input" id="checkbox_habitual_si" name="habitual" value="1" {{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->habitual) ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_habitual_no" name="habitual_no" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_habitual_no == 'on' ? 'checked':''):''}}>
+                        <input type="radio" wire:model.defer="habitual" class="form-check-input" id="checkbox_habitual_no" name="habitual" value="0" {{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->habitual == false) ? 'checked' : '' }}>
                         <label>No</label>
                     </div>
                 </div>
@@ -192,14 +196,14 @@
 
                 <div class="col-12 col-md-1 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_asegurado_si" name="asegurado_si" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_asegurado_si == 'on' ? 'checked':''):''}}>
+                        <input type="radio" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_asegurado_si" name="asegurado" value="1" {{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->asegurado) ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-1 pt-0">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_asegurado_no" name="asegurado_no" {{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_asegurado_no == 'on' ? 'checked':''):''}}>
+                        <input type="radio" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_asegurado_no" name="asegurado" value="0" {{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->asegurado == false) ? 'checked' : '' }}>
                         <label>No</label>
                     </div>
                 </div>
@@ -208,7 +212,7 @@
 
                 <div class="col-12 col-md-4 pt-0 padding-right-en-mobile">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" id='asegurado_relacion' name="asegurado_relacion" placeholder="Relación con el asegurado" style="border-radius:10px; height: 33px;background: white;" value="{{$denuncia_siniestro->conductor ?($denuncia_siniestro->conductor->carga_paso_3_asegurado_relacion):''}}" disabled>
+                        <input class='w-100' type="text" id='asegurado_relacion' name="asegurado_relacion" placeholder="Relación con el asegurado" style="border-radius:10px; height: 33px;background: white;" value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->asegurado_relacion) ? $denuncia_siniestro->conductor->asegurado_relacion : '' }}" disabled>
                     </div>
                 </div>
 

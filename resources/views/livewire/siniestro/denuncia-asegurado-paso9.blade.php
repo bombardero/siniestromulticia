@@ -15,28 +15,36 @@
                 <div class="input-group  margin-left-en-mobile">
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_si" name="tipo_accidente_frontal" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_frontal == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_frontal"
+                            {{ $denuncia_siniestro->tipo_accidente_frontal ? 'checked' : '' }}>
                         <label>Frontal</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_posterior" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_posterior == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_posterior"
+                            {{ $denuncia_siniestro->tipo_accidente_posterior ? 'checked' : '' }}>
                         <label>Posterior</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_cadena" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_cadena == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_cadena"
+                            {{ $denuncia_siniestro->tipo_accidente_cadena ? 'checked' : '' }}>
                         <label>En cadena</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_lateral" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_lateral == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_lateral"
+                            {{ $denuncia_siniestro->tipo_accidente_lateral ? 'checked' : '' }}>
                         <label>Lateral</label>
                     </div>
                 </div>
@@ -56,28 +64,36 @@
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_si" name="tipo_accidente_vuelco" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_vuelco == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_vuelco"
+                            {{ $denuncia_siniestro->tipo_accidente_vuelco ? 'checked' : '' }}>
                         <label>Vuelco</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_desplaza" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_desplaza == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_desplaza"
+                            {{ $denuncia_siniestro->tipo_accidente_desplaza ? 'checked' : '' }}>
                         <label>Desplaza</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_incendio" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_incendio == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_incendio"
+                            {{ $denuncia_siniestro->tipo_accidente_incendio ? 'checked' : '' }}>
                         <label>Incendio</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_inmersion" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_inmersion == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_inmersion"
+                            {{ $denuncia_siniestro->tipo_accidente_inmersion ? 'checked' : '' }}>
                         <label>Inmersión</label>
                     </div>
                 </div>
@@ -97,21 +113,27 @@
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_si" name="tipo_accidente_explosion" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_explosion == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_explosion"
+                            {{ $denuncia_siniestro->tipo_accidente_explosion ? 'checked' : '' }}>
                         <label>Explosión</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_carga" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_carga == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_carga"
+                            {{ $denuncia_siniestro->tipo_accidente_carga ? 'checked' : '' }}>
                         <label>Daños a la carga</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="tipo_accidente_otros" {{$denuncia_siniestro->carga_paso_9_tipo_accidente_otros == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="tipo_accidente_otros"
+                            {{ $denuncia_siniestro->tipo_accidente_otros ? 'checked' : '' }}>
                         <label>Otros</label>
                     </div>
                 </div>
@@ -130,28 +152,36 @@
                 <div class="input-group  margin-left-en-mobile">
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_si" name="lugar_autopista" {{$denuncia_siniestro->carga_paso_9_lugar_autopista == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_autopista"
+                            {{ $denuncia_siniestro->lugar_autopista ? 'checked' : '' }}>
                         <label>En autopista</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="lugar_calle" {{$denuncia_siniestro->carga_paso_9_lugar_calle == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_calle"
+                            {{ $denuncia_siniestro->lugar_calle ? 'checked' : '' }}>
                         <label>En calle</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="lugar_avenida" {{$denuncia_siniestro->carga_paso_9_lugar_avenida == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_avenida"
+                            {{ $denuncia_siniestro->lugar_avenida ? 'checked' : '' }}>
                         <label>En avenida</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="lugar_curva" {{$denuncia_siniestro->carga_paso_9_lugar_curva == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_curva"
+                            {{ $denuncia_siniestro->lugar_curva ? 'checked' : '' }}>
                         <label>En curva</label>
                     </div>
                 </div>
@@ -165,28 +195,36 @@
                 <div class="input-group  margin-left-en-mobile">
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_si" name="lugar_pendiente" {{$denuncia_siniestro->carga_paso_9_lugar_pendiente == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_pendiente"
+                            {{ $denuncia_siniestro->lugar_pendiente ? 'checked' : '' }}>
                         <label>En pendiente</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="lugar_tunel" {{$denuncia_siniestro->carga_paso_9_lugar_tunel == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_tunel"
+                            {{ $denuncia_siniestro->lugar_tunel ? 'checked' : '' }}>
                         <label>En túnel</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="lugar_sobrepuente" {{$denuncia_siniestro->carga_paso_9_lugar_sobrepuente == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_sobrepuente"
+                            {{ $denuncia_siniestro->lugar_puente ? 'checked' : '' }}>
                         <label>Sobre puente</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="lugar_otros" {{$denuncia_siniestro->carga_paso_9_lugar_otros == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="lugar_otros"
+                            {{ $denuncia_siniestro->lugar_otros ? 'checked' : '' }}>
                         <label>Otros</label>
                     </div>
                 </div>
@@ -212,21 +250,27 @@
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_peaton" {{$denuncia_siniestro->carga_paso_9_colision_peaton == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_peaton"
+                            {{ $denuncia_siniestro->colision_peaton ? 'checked' : '' }}>
                         <label>Peatón</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_vehiculo" {{$denuncia_siniestro->carga_paso_9_colision_vehiculo == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_vehiculo"
+                            {{ $denuncia_siniestro->colision_vehiculo ? 'checked' : '' }}>
                         <label>Vehículo</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_edificio" {{$denuncia_siniestro->carga_paso_9_colision_edificio == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_edificio"
+                            {{ $denuncia_siniestro->colision_edificio ? 'checked' : '' }}>
                         <label>Edificio</label>
                     </div>
                 </div>
@@ -244,21 +288,27 @@
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_columna" {{$denuncia_siniestro->carga_paso_9_colision_columna == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_columna"
+                            {{ $denuncia_siniestro->colision_columna ? 'checked' : '' }}>
                         <label>Columna</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_animal" {{$denuncia_siniestro->carga_paso_9_colision_animal == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_animal"
+                            {{ $denuncia_siniestro->colision_animal ? 'checked' : '' }}>
                         <label>Animal</label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_transporte" {{$denuncia_siniestro->carga_paso_9_colision_transporte == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_transporte"
+                            {{ $denuncia_siniestro->colision_transporte_publico ? 'checked' : '' }}>
                         <label>Transporte público</label>
                     </div>
                 </div>
@@ -276,7 +326,9 @@
 
                 <div class="col-12 col-md-3">
                     <div class="input-group  ">
-                        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="checkbox_intervino_no" name="colision_otros" {{$denuncia_siniestro->carga_paso_9_colision_otros == 'on' ? 'checked':''}}>
+                        <input type="checkbox" class="form-check-input"
+                            name="colision_otros"
+                            {{ $denuncia_siniestro->colision_otros ? 'checked' : '' }}>
                         <label>Otros</label>
                     </div>
                 </div>

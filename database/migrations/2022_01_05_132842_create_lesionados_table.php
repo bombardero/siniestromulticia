@@ -15,29 +15,21 @@ class CreateLesionadosTable extends Migration
     {
         Schema::create('lesionados', function (Blueprint $table) {
             $table->id();
-            $table->text('carga_paso_8_lesionado_nombre')->nullable();
-            $table->text('carga_paso_8_lesionado_telefono')->nullable();
-            $table->text('carga_paso_8_lesionado_documento_id')->nullable();
-            $table->text('carga_paso_8_lesionado_documento_numero')->nullable();
-            $table->text('carga_paso_8_lesionado_codigo_postal')->nullable();
-            $table->text('carga_paso_8_lesionado_domicilio')->nullable();
-            $table->text('carga_paso_8_lesionado_estado_civil')->nullable();
-            $table->text('carga_paso_8_lesionado_fecha_nacimiento')->nullable();
-            $table->text('carga_paso_8_lesionado_relacion')->nullable();
-            $table->text('carga_paso_8_lesionado_conductor')->nullable();
-            $table->text('carga_paso_8_lesionado_pasajero_otro')->nullable();
-            $table->text('carga_paso_8_lesionado_peaton')->nullable();
-            $table->text('carga_paso_8_lesionado_pasajero_asegurado')->nullable();
-            $table->text('carga_paso_8_lesionado_leve')->nullable();
-            $table->text('carga_paso_8_lesionado_grave')->nullable();
-            $table->text('carga_paso_8_lesionado_mortal')->nullable();
-            $table->text('carga_paso_8_lesionado_alcoholemia_si')->nullable();
-            $table->text('carga_paso_8_lesionado_alcoholemia_no')->nullable();
-            $table->text('carga_paso_8_lesionado_alcoholemia_nego')->nullable();
-            $table->text('carga_paso_8_lesionado_centro_asistencial')->nullable();
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->string('nombre')->nullable();
+            $table->string('telefono',15)->nullable();
+            $table->foreignId('tipo_documento_id')->nullable()->constrained('tipo_documentos');
+            $table->string('documento_numero',8)->nullable();
+            $table->string('codigo_postal',8)->nullable();
+            $table->string('domicilio')->nullable();
+            $table->string('estado_civil')->nullable();
+            $table->date('fecha_nacimiento')->nullable();
+            $table->string('relacion')->nullable();
+            $table->enum('tipo',['conductor','pasajero_otro_vehiculo','peaton','pasajero_vehiculo_asegurado'])->nullable();
+            $table->enum('gravedad_lesion',['leve','grave','mortal'])->nullable();
+            $table->boolean('alcoholemia')->nullable();
+            $table->boolean('alcoholemia_se_nego')->nullable();
+            $table->string('centro_asistencial')->nullable();
             $table->timestamps();
         });
     }

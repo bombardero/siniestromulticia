@@ -26,18 +26,18 @@
 
                     <div class="col-12 col-md-1">
                         <div class="input-group  ">
-                            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
+                            <input type="radio" class="form-check-input" value="1"
                                    id="checkbox_intervino_si"
-                                   name="intervino_si" {{$denuncia_siniestro->carga_paso_6_intervino_si == 'on' ? 'checked':''}}>
+                                   name="intervino_otro_vehiculo" {{ $denuncia_siniestro->intervino_otro_vehiculo ? 'checked' : '' }}>
                             <label>Si</label>
                         </div>
                     </div>
 
                     <div class="col-12 col-md-3">
                         <div class="input-group  ">
-                            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
-                                   id="checkbox_intervino_no"
-                                   name="intervino_no" {{$denuncia_siniestro->carga_paso_6_intervino_no == 'on' ? 'checked':''}}>
+                            <input type="radio" class="form-check-input" value="0"
+                                   id="intervino_otro_vehiculo"
+                                   name="intervino_otro_vehiculo" {{ $denuncia_siniestro->intervino_otro_vehiculo === false ? 'checked' : ''}}>
                             <label>No</label>
                         </div>
                     </div>
@@ -51,18 +51,18 @@
 
                     <div class="col-12 col-md-1">
                         <div class="input-group  ">
-                            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
+                            <input type="radio" class="form-check-input" value="1"
                                    id="checkbox_datos_si"
-                                   name="datos_si" {{$denuncia_siniestro->carga_paso_6_datos_si == 'on' ? 'checked':''}}>
+                                   name="intervino_otro_vehiculo_datos" {{$denuncia_siniestro->intervino_otro_vehiculo_datos ? 'checked' : ''}}>
                             <label>Si</label>
                         </div>
                     </div>
 
                     <div class="col-12 col-md-1">
                         <div class="input-group  ">
-                            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
+                            <input type="radio" class="form-check-input" value="0"
                                    id="checkbox_datos_no"
-                                   name="datos_no" {{$denuncia_siniestro->carga_paso_6_datos_no == 'on' ? 'checked':''}}>
+                                   name="intervino_otro_vehiculo_datos" {{ $denuncia_siniestro->intervino_otro_vehiculo_datos === false ? 'checked' : '' }}>
                             <label>No</label>
                         </div>
                     </div>
@@ -78,13 +78,13 @@
                         @if($denuncia_siniestro->vehiculoTerceros)
                             @foreach($denuncia_siniestro->vehiculoTerceros as $vehiculo)
                                 <tr class="borde-tabla">
-                                    <td>{{$vehiculo->carga_paso_6_vehiculo_terceros_propietario_nombre}}</td>
-                                    <td>{{\App\Models\Marca::where('id',$vehiculo->carga_paso_6_vehiculo_terceros_marca_id)->first()->nombre}} {{\App\Models\Modelo::where('id',$vehiculo->carga_paso_6_vehiculo_terceros_modelo_id)->first()->nombre}}</td>
-                                    <td>{{$vehiculo->carga_paso_6_vehiculo_terceros_detalles}}</td>
+                                    <td>{{$vehiculo->propietario_nombre}}</td>
+                                    <td>{{\App\Models\Marca::where('id',$vehiculo->marca_id)->first()->nombre}} {{\App\Models\Modelo::where('id',$vehiculo->modelo_id)->first()->nombre}}</td>
+                                    <td>{{$vehiculo->detalles}}</td>
                                     <td>
                                         <a href="{{route('asegurados-denuncias-paso6.edit',['id'=> request('id'),'v'=> $vehiculo->id])}}"><img
                                                 src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"></a>
-                                        <a href="{{route('asegurados-denuncias-paso6.delete',['id'=> request('id'),'v'=> $vehiculo->id])}}"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                        <a href="{{route('asegurados-denuncias-paso6.deleteItem',['id'=> request('id'),'v'=> $vehiculo->id])}}"><i class="fa-solid fa-trash-can text-danger"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

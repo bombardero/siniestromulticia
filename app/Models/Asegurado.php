@@ -9,7 +9,18 @@ class Asegurado extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["carga_paso_4_asegurado_nombre", "carga_paso_4_asegurado_documento_id", "carga_paso_4_asegurado_documento_numero", "carga_paso_4_asegurado_domicilio", "carga_paso_4_asegurado_codigo_postal", "carga_paso_4_asegurado_pais_id", "carga_paso_4_asegurado_provincia_id", "carga_paso_4_asegurado_localidad_id", "carga_paso_4_asegurado_ocupacion", "carga_paso_4_asegurado_telefono"];
+    protected $fillable = [
+        "nombre",
+        "tipo_documento_id",
+        "documento_numero",
+        "domicilio",
+        "codigo_postal",
+        "pais_id",
+        "province_id",
+        "city_id",
+        "ocupacion",
+        "telefono"
+    ];
 
     public function denuncia(){
         return $this->belongsTo(DenunciaSiniestro::class);

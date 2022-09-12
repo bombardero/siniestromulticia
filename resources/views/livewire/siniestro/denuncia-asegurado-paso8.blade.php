@@ -27,18 +27,18 @@
 
                     <div class="col-12 col-md-1">
                         <div class="input-group  ">
-                            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
-                                   id="checkbox_lesionados_si"
-                                   name="lesionados_si" {{$denuncia_siniestro->carga_paso_8_lesionados_si == 'on' ? 'checked':''}}>
+                            <input type="radio" class="form-check-input" id="checkbox_lesionados_si"
+                                name="lesionados" value="1"
+                                {{ $denuncia_siniestro->hubo_lesionados ? 'checked' : '' }}>
                             <label>Si</label>
                         </div>
                     </div>
 
                     <div class="col-12 col-md-1">
                         <div class="input-group  ">
-                            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
-                                   id="checkbox_lesionados_no"
-                                   name="lesionados_no" {{$denuncia_siniestro->carga_paso_8_lesionados_no == 'on' ? 'checked':''}}>
+                            <input type="radio" class="form-check-input" id="checkbox_lesionados_no"
+                                name="lesionados" value="0"
+                                {{$denuncia_siniestro->hubo_lesionados === false ? 'checked' : '' }}>
                             <label>No</label>
                         </div>
                     </div>
@@ -60,12 +60,11 @@
 
                     <table class="table" style="margin-bottom: 120px;">
                         <tbody>
-
                         @if($denuncia_siniestro->lesionados)
                             @foreach($denuncia_siniestro->lesionados as $lesionado)
                                 <tr class="borde-tabla">
-                                    <td><b>Lesiones a</b> {{$lesionado->carga_paso_8_lesionado_nombre}}</td>
-                                    <td>{{$lesionado->carga_paso_8_lesionado_relacion}}</td>
+                                    <td><b>Lesiones a</b> {{$lesionado->nombre}}</td>
+                                    <td>{{$lesionado->relacion}}</td>
                                     <td>
                                         <a href="{{route('asegurados-denuncias-paso8.edit',['id'=> request('id'),'v'=> $lesionado->id])}}">
                                             <img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}">
@@ -74,23 +73,15 @@
                                             <i class="fa-solid fa-trash-can text-danger"></i>
                                         </a>
                                     </td>
-
                                 </tr>
                             @endforeach
                         @else
-
                             <td> No hay lesionados cargados todavia</td>
-
                         @endif
                         </tbody>
 
                     </table>
-                    {{--
-                    {{$denuncia_siniestro->links('vendor.pagination.bootstrap-4')}}
-                 --}}
-
                 </div>
-
                 {{-- FIN TABLE*********************************  --}}
 
 

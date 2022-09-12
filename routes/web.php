@@ -244,7 +244,7 @@ Route::get('/panel-siniestros/denuncias/{denuncia}/observaciones', [DenunciaAseg
 Route::post('/panel-siniestros/denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store')->middleware('check.siniestro');
 Route::get('/panel-siniestros/delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete')->middleware('check.siniestro');
 Route::get('/panel-siniestros/pdf/denuncias/{denuncia}', [DenunciaAseguradoController::class,'generarPDF'])->name('panel-siniestros.denuncia.pdf');
-Route::post('/panel/siniestro/grafico/{grafico}', [DenunciaAseguradoController::class,'setDibujo'])->name('grafico.setGrafico')->middleware('auth');
+Route::post('/panel/siniestro/croquis/', [DenunciaAseguradoController::class,'storeCroquis'])->name('asegurados-denuncias.storeCroquis');
 Route::get('/panel-siniestros/buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador')->middleware('check.siniestro');
 
 Route::get('/panel-siniestros/update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('panel-siniestros.denuncia.update.nropoliza')->middleware('check.siniestro');

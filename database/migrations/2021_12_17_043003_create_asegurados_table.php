@@ -15,21 +15,17 @@ class CreateAseguradosTable extends Migration
     {
         Schema::create('asegurados', function (Blueprint $table) {
             $table->id();
-
-            //asegurado
-            $table->text('carga_paso_4_asegurado_nombre')->nullable();
-            $table->text('carga_paso_4_asegurado_documento_id')->nullable();
-            $table->text('carga_paso_4_asegurado_documento_numero')->nullable();
-            $table->text('carga_paso_4_asegurado_domicilio')->nullable();
-            $table->text('carga_paso_4_asegurado_codigo_postal')->nullable();
-            $table->text('carga_paso_4_asegurado_pais_id')->nullable();
-            $table->text('carga_paso_4_asegurado_provincia_id')->nullable();
-            $table->text('carga_paso_4_asegurado_localidad_id')->nullable();
-            $table->text('carga_paso_4_asegurado_ocupacion')->nullable();
-            $table->text('carga_paso_4_asegurado_telefono')->nullable();
-
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-
+            $table->string('nombre');
+            $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
+            $table->string('documento_numero',8);
+            $table->string('domicilio');
+            $table->string('codigo_postal',8);
+            $table->string('pais_id');
+            $table->foreignId('province_id');
+            $table->foreignId('city_id');
+            $table->string('ocupacion');
+            $table->string('telefono',15);
             $table->timestamps();
         });
     }
