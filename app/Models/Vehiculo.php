@@ -41,6 +41,6 @@ class Vehiculo extends Model
 
     public function modelo()
     {
-        return $this->belongsTo(modelo::class, 'modelo_id');
+        return $this->belongsTo(Modelo::class, 'modelo_id');
     }
 }
