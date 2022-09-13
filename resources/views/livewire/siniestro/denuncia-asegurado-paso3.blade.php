@@ -97,7 +97,7 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="ocupacion" placeholder="*Ocupacion" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->ocupacion ? $denuncia_siniestro->conductor->documento_numero : ''}}">
+                        <input class='w-100' type="text" name="ocupacion" placeholder="*Ocupacion" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->ocupacion ? $denuncia_siniestro->conductor->ocupacion : ''}}">
                     </div>
                 </div>
 
