@@ -15,7 +15,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-4">
-                                        <p class="pt-3" style="color:red;">Estado Actual: <b>{{$denuncia->state}}</b>
+                                        <p class="pt-3" style="color:red;">Estado Actual: <b>{{$denuncia->estado_carga}}</b>
                                         </p>
                                     </div>
 
@@ -41,20 +41,27 @@
 
                             <div class="row pt-4">
                                 <div class="col-12 col-md-4">
-                                    <p>Fecha del Siniestro: {{$denuncia->precarga_fecha_siniestro}}</p>
+                                    <p>Fecha del Siniestro: {{$denuncia->fecha}}</p>
                                 </div>
                                 <div class="col-12 col-md-4">
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <p>Hora del Siniestro: {{$denuncia->precarga_hora_siniestro}}</p>
+                                    <p>Hora del Siniestro: {{$denuncia->hora}}</p>
                                 </div>
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-12">
                                     <p>Estado del
-                                        Tiempo: {{$denuncia->carga_paso_1_diurno == 'on' ? ' Diurno. ':''}} {{$denuncia->carga_paso_1_nocturno == 'on' ? ' Nocturno. ':''}} {{$denuncia->carga_paso_1_seco == 'on' ? ' Seco. ':''}} {{$denuncia->carga_paso_1_lluvia == 'on' ? ' Lluvia. ':''}} {{$denuncia->carga_paso_1_niebla == 'on' ? ' Niebla. ':''}} {{$denuncia->carga_paso_1_despejado == 'on' ? ' Despejado. ':''}} {{$denuncia->carga_paso_1_nieve == 'on' ? ' Nieve. ':''}} {{$denuncia->carga_paso_1_granizo == 'on' ? ' Granizo. ':''}} {{$denuncia->carga_paso_1_otros == 'on' ? ' Otros. ':''}} {{$denuncia->carga_paso_1_otros_detalle}}</p>
+                                        Tiempo: {{$denuncia->momento_dia != null ? $denuncia->momento_dia : '' }}
+                                        {{ $denuncia->estado_tiempo_seco ? ' Seco. ' : ''}}
+                                        {{$denuncia->estado_tiempo_lluvia ? ' Lluvia. ' : ''}}
+                                        {{$denuncia->estado_tiempo_niebla ? ' Niebla. ':''}}
+                                        {{$denuncia->estado_tiempo_despejado ? ' Despejado. ':''}}
+                                        {{$denuncia->estado_tiempo_nieve ? ' Nieve. ':''}}
+                                        {{$denuncia->estado_tiempo_granizo == 'on' ? ' Granizo. ':''}}
+                                        {{$denuncia->carga_paso_1_otros_detalle}}</p>
                                 </div>
                             </div>
 
@@ -73,35 +80,35 @@
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Provincia: {{ $denuncia->lugar ? \App\Models\Province::where('id',$denuncia->lugar->carga_paso_2_provincia_id)->first()->name : '' }}</p>
+                                        Provincia: {{ $denuncia->province_id != null ? $denuncia->provincia->name : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Localidad: {{ $denuncia->lugar ? \App\Models\City::where('id',$denuncia->lugar->carga_paso_2_localidad_id)->first()->name : ''}}</p>
+                                        Localidad: {{ $denuncia->city_id != null ? $denuncia->localidad->name : '' }}</p>
                                 </div>
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
-                                    <p>Calle/Ruta: {{ $denuncia->lugar ? $denuncia->lugar->carga_paso_2_calle : ''}}</p>
+                                    <p>Calle/Ruta: {{ $denuncia->calle }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Tipo
-                                        Calzada: {{ $denuncia->lugar ? \App\Models\TipoCalzada::where('id',$denuncia->lugar->carga_paso_2_calzada_id)->first()->nombre : ''}}</p>
+                                        Calzada: {{ $denuncia->tipo_calzada_id != null ? $denuncia->tipoCalzada->nombre : ''}}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Detalle
-                                        Calzada: {{ $denuncia->lugar ? $denuncia->lugar->carga_paso_2_calzada_detalle : ''}}</p>
+                                        Calzada: {{ $denuncia->calzada_detalle }}</p>
                                 </div>
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-8">
                                     <p>
-                                        Intersección: {{ $denuncia->lugar ? $denuncia->lugar->carga_paso_2_interseccion : ''}}</p>
+                                        Intersección: {{ $denuncia->interseccion }}</p>
                                 </div>
                             </div>
                         </div>
@@ -116,24 +123,24 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-8">
                                     <p>Nombre y
-                                        Apellido: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_nombre : ''}}</p>
+                                        Apellido: {{ $denuncia->conductor ? $denuncia->conductor->nombre : ''}}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Teléfono: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_telefono : ''}}</p>
+                                        Teléfono: {{ $denuncia->conductor ? $denuncia->conductor->telefono : ''}}</p>
                                 </div>
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-8">
                                     <p>
-                                        Domicilio: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_domicilio : ''}}</p>
+                                        Domicilio: {{ $denuncia->conductor ? $denuncia->conductor->domicilio : ''}}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Código
-                                        Postal: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_codigo_postal : ''}}</p>
+                                        Postal: {{ $denuncia->conductor ? $denuncia->conductor->codigo_postal : ''}}</p>
                                 </div>
                             </div>
 
@@ -145,12 +152,12 @@
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Provincia: {{ $denuncia->conductor ? \App\Models\Province::where('id',$denuncia->conductor->carga_paso_3_provincia_id)->first()->name : '' }}</p>
+                                        Provincia: {{ $denuncia->conductor ? $denuncia->conductor->provincia->name : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Localidad: {{ $denuncia->conductor ? \App\Models\City::where('id',$denuncia->conductor->carga_paso_3_localidad_id)->first()->name : '' }}</p>
+                                        Localidad: {{ $denuncia->conductor ? $denuncia->conductor->localidad->name : '' }}</p>
                                 </div>
                             </div>
 
@@ -162,12 +169,12 @@
 
                                 <div class="col-12 col-md-4">
                                     <p>Documento
-                                        Tipo: {{ $denuncia->conductor ? \App\Models\TipoDocumento::where('id',$denuncia->conductor->carga_paso_3_documento_id)->first()->nombre : ''}}</p>
+                                        Tipo: {{ $denuncia->conductor ? $denuncia->conductor->tipoDocumento->nombre : ''}}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Documento
-                                        Número: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_documento_numero : '' }}</p>
+                                        Número: {{ $denuncia->conductor ? $denuncia->conductor->documento_numero : '' }}</p>
                                 </div>
                             </div>
 
@@ -175,17 +182,17 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Ocupación: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_ocupacion : '' }}</p>
+                                        Ocupación: {{ $denuncia->conductor ? $denuncia->conductor->ocupacion : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>N de
-                                        Registro: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_numero_registro : '' }}</p>
+                                        Registro: {{ $denuncia->conductor ? $denuncia->conductor->numero_registro : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Estado
-                                        Civil: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_estado_civil : '' }}</p>
+                                        Civil: {{ $denuncia->conductor ? $denuncia->conductor->estado_civil : '' }}</p>
                                 </div>
 
                             </div>
@@ -197,12 +204,12 @@
 
                                 <div class="col-12 col-md-4">
                                     <p>Licencia
-                                        Categoria: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_carnet_categoria : '' }}</p>
+                                        Categoria: {{ $denuncia->conductor ? $denuncia->conductor->carnet_categoria : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Licencia
-                                        Vencimiento: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_carnet_vencimiento : ''}}</p>
+                                        Vencimiento: {{ $denuncia->conductor ? $denuncia->conductor->carnet_vencimiento : ''}}</p>
                                 </div>
                             </div>
                         </div>
@@ -217,29 +224,29 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>Nombre y
-                                        Apellido: {{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_nombre : '' }}</p>
+                                        Apellido: {{ $denuncia->asegurado ? $denuncia->asegurado->nombre : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Tipo
-                                        Documento: {{ $denuncia->asegurado ? \App\Models\TipoDocumento::where('id',$denuncia->asegurado->carga_paso_4_asegurado_documento_id)->first()->nombre : '' }} </p>
+                                        Documento: {{ $denuncia->asegurado ? $denuncia->asegurado->tipoDocumento->nombre : '' }} </p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Número
-                                        Documento: {{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_documento_numero : '' }}</p>
+                                        Documento: {{ $denuncia->asegurado ? $denuncia->asegurado->documento_numero : '' }}</p>
                                 </div>
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-8">
                                     <p>
-                                        Domicilio: {{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_domicilio : '' }}</p>
+                                        Domicilio: {{ $denuncia->asegurado ? $denuncia->asegurado->domicilio : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>Código
-                                        Postal: {{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_codigo_postal : '' }}</p>
+                                        Postal: {{ $denuncia->asegurado ? $denuncia->asegurado->codigo_postal : '' }}</p>
                                 </div>
                             </div>
 
@@ -251,24 +258,24 @@
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Provincia: {{ $denuncia->asegurado ? \App\Models\Province::where('id',$denuncia->asegurado->carga_paso_4_asegurado_provincia_id)->first()->name : '' }}</p>
+                                        Provincia: {{ $denuncia->asegurado ? $denuncia->asegurado->provincia->name : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Localidad: {{ $denuncia->asegurado ? \App\Models\City::where('id',$denuncia->asegurado->carga_paso_4_asegurado_localidad_id)->first()->name : '' }}</p>
+                                        Localidad: {{ $denuncia->asegurado ? $denuncia->asegurado->localidad->name : '' }}</p>
                                 </div>
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Ocupación: {{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_ocupacion : '' }}</p>
+                                        Ocupación: {{ $denuncia->asegurado ? $denuncia->asegurado->ocupacion : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Teléfono: {{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_telefono : '' }}</p>
+                                        Teléfono: {{ $denuncia->asegurado ? $denuncia->asegurado->telefono : '' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -283,22 +290,22 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Marca: {{ $denuncia->vehiculo ? \App\Models\Marca::where('id',$denuncia->vehiculo->carga_paso_5_vehiculo_marca_id)->first()->nombre : '' }}</p>
+                                        Marca: {{ $denuncia->vehiculo ? $denuncia->vehiculo->marca->nombre : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Modelo: {{ $denuncia->vehiculo ? \App\Models\Modelo::where('id',$denuncia->vehiculo->carga_paso_5_vehiculo_modelo_id)->first()->nombre : '' }}</p>
+                                        Modelo: {{ $denuncia->vehiculo ? $denuncia->vehiculo->modelo->nombre : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Tipo: {{ $denuncia->vehiculo ? $denuncia->vehiculo->carga_paso_5_vehiculo_tipo : '' }}</p>
+                                        Tipo: {{ $denuncia->vehiculo ? $denuncia->vehiculo->tipo : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Año: {{ $denuncia->vehiculo ? $denuncia->vehiculo->carga_paso_5_vehiculo_anio : '' }}</p>
+                                        Año: {{ $denuncia->vehiculo ? $denuncia->vehiculo->anio : '' }}</p>
                                 </div>
 
                             </div>
@@ -306,17 +313,17 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Dominio: {{ $denuncia->vehiculo ? $denuncia->vehiculo->carga_paso_5_vehiculo_dominio : '' }}</p>
+                                        Dominio: {{ $denuncia->vehiculo ? $denuncia->vehiculo->dominio : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Motor: {{ $denuncia->vehiculo ? $denuncia->vehiculo->carga_paso_5_vehiculo_motor : '' }}</p>
+                                        Motor: {{ $denuncia->vehiculo ? $denuncia->vehiculo->motor : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Chasis: {{ $denuncia->vehiculo ? $denuncia->vehiculo->carga_paso_5_vehiculo_chasis : '' }}</p>
+                                        Chasis: {{ $denuncia->vehiculo ? $denuncia->vehiculo->chasis : '' }}</p>
                                 </div>
                             </div>
 
@@ -325,22 +332,22 @@
                                     <p>
                                         Uso:
                                         @if($denuncia->vehiculo)
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_particular == 'on' ? ' Particular. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_comercial == 'on' ? ' Comercial. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_taxi == 'on' ? ' Taxi. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_tp == 'on' ? ' Transporte Publico. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_urgencia == 'on' ? ' Transporte de Urgencia. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_seguridad == 'on' ? ' Transporte de Seguridad. ':''}}</p>
-                                    @endif
+                                            {{$denuncia->vehiculo->uso_particular ? ' Particular. ':''}}
+                                            {{$denuncia->vehiculo->uso_comercial ? ' Comercial. ':''}}
+                                            {{$denuncia->vehiculo->uso_taxi ? ' Taxi. ':''}}
+                                            {{$denuncia->vehiculo->uso_tpp ? ' Transporte Publico. ':''}}
+                                            {{$denuncia->vehiculo->uso_urgencia ? ' Transporte de Urgencia. ':''}}
+                                            {{$denuncia->vehiculo->uso_seguridad ? ' Transporte de Seguridad. ':''}}</p>
+                                       @endif
                                 </div>
 
                                 <div class="col-12 col-md-6">
                                     <p>
                                         Tipo Siniestro:
                                         @if($denuncia->vehiculo)
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_siniestro_danio == 'on' ? ' Daño. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_siniestro_robo == 'on' ? ' Robo. ':''}}
-                                            {{$denuncia->vehiculo->carga_paso_5_vehiculo_siniestro_incendio == 'on' ? ' Incendio. ':''}}
+                                            {{$denuncia->vehiculo->siniestro_danio ? ' Daño. ':''}}
+                                            {{$denuncia->vehiculo->siniestro_robo ? ' Robo. ':''}}
+                                            {{$denuncia->vehiculo->siniestro_incendio ? ' Incendio. ':''}}
                                         @endif
                                     </p>
                                 </div>
@@ -349,7 +356,7 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Detalles: {{ $denuncia->vehiculo ? $denuncia->vehiculo->carga_paso_5_vehiculo_detalles : '' }}</p>
+                                        Detalles: {{ $denuncia->vehiculo ? $denuncia->vehiculo->detalles : '' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -363,22 +370,22 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Comisaria: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_comisaria : '' }}</p>
+                                        Comisaria: {{ $denuncia->denuncia_policial_comisaria }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Acta: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSIniestro->carga_paso_10_acta : '' }} </p>
+                                        Acta: {{ $denuncia->denuncia_policial_acta }} </p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Folio: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_folio : '' }}</p>
+                                        Folio: {{ $denuncia->denuncia_policial_folio }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Sumario: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_sumario : '' }}</p>
+                                        Sumario: {{ $denuncia->denuncia_policial_sumario }}</p>
                                 </div>
 
                             </div>
@@ -386,17 +393,17 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Juzgado: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_juzgado : ''}}</p>
+                                        Juzgado: {{ $denuncia->denuncia_policial_juzgado }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Secretaria: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_secretaria : '' }}</p>
+                                        Secretaria: {{ $denuncia->denuncia_policial_secretaria }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Descripcion: {{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_descripcion : '' }}</p>
+                                        Descripcion: {{ $denuncia->croquis_descripcion }}</p>
                                 </div>
                             </div>
 
@@ -406,7 +413,7 @@
                                 </div>
                                 <div class="col-12 col-md-12 p-5">
                                     <img class="w-100" id="graficoBD"
-                                         src="{{ $denuncia->detalleSiniestro ? $denuncia->detalleSiniestro->carga_paso_10_url_detalle : '' }}"
+                                         src="{{ $denuncia->croquis_url }}"
                                          alt="">
                                 </div>
                             </div>
@@ -429,21 +436,18 @@
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 1)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'dni')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 1)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
 
                                                         </div>
@@ -459,28 +463,22 @@
                                     <div class="text-center col-12 col-md-4 ">
                                         <p class="documentos-denuncia-title">*Cédula verde o título </p>
                                         <p class="ambos-lados">(Foto de ambos lados)</p>
-
-
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 2)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'cedula')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 2)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
-
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -499,23 +497,19 @@
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 3)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'carnet')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 3)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
-
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -545,23 +539,19 @@
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 4)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'vehiculo')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 4)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
-
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -587,21 +577,18 @@
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 5)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'recibo')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 5)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
 
                                                         </div>
@@ -621,23 +608,19 @@
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 6)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'exposicion_policial')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 6)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
-
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -657,21 +640,18 @@
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
                                                 {{-- TIPO 1 = DNI --}}
-                                                @foreach($denuncia->documentosDenuncia()->where('type', 7)->get() as $archivo)
+                                                @foreach($denuncia->documentosDenuncia()->where('type', 'habilitacion')->get() as $archivo)
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <p>
                                                                 <a target="_blank" class="documento-formato-texto pt-2"
                                                                    href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                     class="pl-2 fas fa-check"></i>
-
-                                                                @if($denuncia->documentosDenuncia()->where('type', 7)->count() > 1)
-                                                                    <button
-                                                                        style="border:none;background: none;"
-                                                                        id="confirmacion-popupa"><i
-                                                                            class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                @endif
+                                                                <button
+                                                                    style="border:none;background: none;"
+                                                                    id="confirmacion-popupa"><i
+                                                                        class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </p>
 
                                                         </div>
@@ -727,40 +707,24 @@
 
                                         <div class="col-12 col-md-4">
                                             <p>
-                                                Provincia: {{ $denuncia->denunciante ? \App\Models\Province::where('id',$denuncia->denunciante->carga_paso_12_provincia_id)->first()->name : '' }}</p>
+                                                Provincia: {{ $denuncia->denunciante ? $denuncia->denunciante->provincia->name : '' }}</p>
                                         </div>
 
                                         <div class="col-12 col-md-4">
                                             <p>
-                                                Localidad: {{ $denuncia->denunciante ? \App\Models\City::where('id',$denuncia->denunciante->carga_paso_12_localidad_id)->first()->name : '' }}</p>
+                                                Localidad: {{ $denuncia->denunciante ? $denuncia->denunciante->localidad->name : '' }}</p>
                                         </div>
                                     </div>
 
                                     <div class="row pt-0">
                                         <div class="col-12 col-md-4">
-                                            <p>
-                                                Fecha {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_fecha : '' }}</p>
-                                        </div>
-
-                                        <div class="col-12 col-md-4">
-                                            <p>
-                                                Hora {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_hora : '' }}</p>
-                                        </div>
-
-
-                                        <div class="col-12 col-md-4">
-                                            <p>
-                                                Lugar {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_lugar : '' }}</p>
+                                            <p>Documento
+                                                Tipo: {{$denuncia->denunciante ? $denuncia->denunciante->tipoDocumento->nombre : '' }}</p>
                                         </div>
 
                                         <div class="col-12 col-md-4">
                                             <p>Documento
-                                                Tipo: {{$denuncia->denunciante ? \App\Models\TipoDocumento::where('id',$denuncia->denunciante->carga_paso_12_documento_id)->first()->nombre : '' }}</p>
-                                        </div>
-
-                                        <div class="col-12 col-md-4">
-                                            <p>Documento
-                                                Número: {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_documento_numero : '' }}</p>
+                                                Número: {{ $denuncia->denunciante ? $denuncia->denunciante->documento_numero : '' }}</p>
                                         </div>
                                     </div>
                                 </div>

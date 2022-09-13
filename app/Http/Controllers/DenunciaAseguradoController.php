@@ -98,8 +98,8 @@ class DenunciaAseguradoController extends Controller
         dd($request->npol);
     }
 
-    public function show(DenunciaSiniestro $denuncia){
-
+    public function show(DenunciaSiniestro $denuncia)
+    {
         return view('siniestro_backoffice.denuncias.show',["denuncia"=>$denuncia]);
     }
 

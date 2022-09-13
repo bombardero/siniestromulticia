@@ -29,7 +29,18 @@ class Vehiculo extends Model
         "detalles"
     ];
 
-    public function denuncia(){
+    public function denuncia()
+    {
         return $this->belongsTo(DenunciaSiniestro::class);
+    }
+
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class, 'marca_id');
+    }
+
+    public function modelo()
+    {
+        return $this->belongsTo(modelo::class, 'modelo_id');
     }
 }

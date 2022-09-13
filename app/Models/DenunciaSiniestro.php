@@ -89,6 +89,20 @@ class DenunciaSiniestro extends Model
         'colision_transporte_publico' => 'boolean',
     ];
 
+    public function provincia()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+
+    public function localidad()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function tipoCalzada()
+    {
+        return $this->belongsTo(TipoCalzada::class);
+    }
 
     public function conductor()
     {

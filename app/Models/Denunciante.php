@@ -29,4 +29,19 @@ class Denunciante extends Model
     public function denuncia(){
         return $this->belongsTo(DenunciaSiniestro::class);
     }
+
+    public function provincia()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+
+    public function localidad()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
+    }
 }
