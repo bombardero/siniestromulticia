@@ -22,7 +22,7 @@
 
                 <div class="col-12 col-md-1 pt-0">
                     <div class="input-group  ">
-                        <input type="radio" class="form-check-input" id="checkbox_asegurado_si" name="asegurado" value="1"
+                        <input type="radio" class="form-check-input" id="asegurado_si" name="asegurado" value="1"
                             {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado ? 'checked' : '' }}>
                         <label>Si</label>
                     </div>
@@ -30,7 +30,7 @@
 
                 <div class="col-12 col-md-1 pt-0">
                     <div class="input-group  ">
-                        <input type="radio" class="form-check-input" id="checkbox_asegurado_no" name="asegurado" value="0"
+                        <input type="radio" class="form-check-input" id="asegurado_no" name="asegurado" value="0"
                             {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado === false ? 'checked' : '' }}>
                         <label>No</label>
                     </div>
@@ -51,7 +51,7 @@
 
             	<div class="col-12 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="nombre" placeholder="Nombre y apellido" style="border-radius:10px; height: 33px;background: white;"
+                        <input class='w-100' type="text" id="nombre" name="nombre" placeholder="Nombre y apellido" style="border-radius:10px; height: 33px;background: white;"
                                value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->nombre : '' }}">
                     </div>
                 </div>
@@ -59,7 +59,7 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <select class='w-100' name="tipo_documento_id" id="tipo_documentos" style="border-radius:10px; height: 33px;background: white;">
+                        <select class='w-100' name="tipo_documento_id" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($tipo_documentos as $tipo_documento)
 						  	<option value="{{$tipo_documento->id}}"
                                 {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->tipo_documento_id == $tipo_documento->id ? 'selected' : ''}}
@@ -72,7 +72,7 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;"
+                        <input class='w-100' type="text" id="documento_numero" name="documento_numero" placeholder="*Documento numero" style="border-radius:10px; height: 33px;background: white;"
                                value="{{ $denuncia_siniestro->denunciante  ? $denuncia_siniestro->denunciante->documento_numero : ''}}">
                     </div>
                 </div>
@@ -86,7 +86,7 @@
 
                 <div class="col-12 pt-3">
                     <div class="input-group  ">
-                        <select class='w-100' name="provincia_id" id="provincias" style="border-radius:10px; height: 33px;background: white;">
+                        <select class='w-100' id="provincias" name="provincia_id" style="border-radius:10px; height: 33px;background: white;">
 						  @foreach($provincias as $provincia)
 						  	<option value="{{$provincia->id}}"
                                 {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->province_id == $provincia->id ? 'selected' : '' }}
@@ -187,38 +187,32 @@ $( document ).ready(function() {
 
 
 
-    $( "#checkbox_asegurado_si" ).click(function() {
-        $( "#checkbox_asegurado_no" ).prop('checked', false);
-
-        if($(this).prop("checked") == true){
-            $( "#asegurado_relacion" ).prop('disabled',true);
-
-        }else if($(this).prop("checked") == false){
-
-            if($( "#checkbox_asegurado_no" ).prop("checked") == true){
-                $( "#asegurado_relacion" ).prop('disabled',false);
-            }
-
-        }
+    $( "#asegurado_si" ).click(function() {
+        $( "#asegurado_relacion" ).prop('disabled',true);
+        $( "#nombre" ).prop('disabled',true);
+        $('input[name="nombre"]').prop('disabled',true);
+        $('select[name="tipo_documento_id"]').prop('disabled',true);
+        $('input[name="documento_numero"]').prop('disabled',true);
+        $('input[name="telefono"]').prop('disabled',true);
+        $('select[name="provincia_id"]').prop('disabled',true);
+        $('select[name="localidad_id"]').prop('disabled',true);
+        $('input[name="domicilio"]').prop('disabled',true);
+        $('input[name="codigo_postal"]').prop('disabled',true);
 
     });
 
-    $( "#checkbox_asegurado_no" ).click(function() {
-        $( "#checkbox_asegurado_si" ).prop('checked', false);
-
-        if($(this).prop("checked") == true){
-            $( "#asegurado_relacion" ).prop('disabled',false);
-
-        }else if($(this).prop("checked") == false){
-            $( "#asegurado_relacion" ).prop('disabled',true);
-        }
-
-    });
-
-    if($( "#checkbox_asegurado_no" ).prop("checked") == true){
+    $( "#asegurado_no" ).click(function() {
         $( "#asegurado_relacion" ).prop('disabled',false);
-
-    }
+        $( "#nombre" ).prop('disabled',false);
+        $('input[name="nombre"]').prop('disabled',false);
+        $('select[name="tipo_documento_id"]').prop('disabled',false);
+        $('input[name="documento_numero"]').prop('disabled',false);
+        $('input[name="telefono"]').prop('disabled',false);
+        $('select[name="provincia_id"]').prop('disabled',false);
+        $('select[name="localidad_id"]').prop('disabled',false);
+        $('input[name="domicilio"]').prop('disabled',false);
+        $('input[name="codigo_postal"]').prop('disabled',false);
+    });
 
 
 </script>

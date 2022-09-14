@@ -632,30 +632,6 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $identificador]);
     }
 
-    public function paso7edit()
-    {
-        $vehiculo_id = request('v');
-        $danio = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail()->danioMateriales()->where('id',$vehiculo_id)->firstOrFail();
-        $tipoDocumentos = TipoDocumento::all();
-        return view('siniestros.denuncia-asegurados-paso7-editar',["danio"=>$danio,"tipo_documentos"=>$tipoDocumentos]);
-    }
-
-    public function paso7update(Request $request)
-    {
-        $danioMateriales = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->danioMateriales()->where('id',$request->v)->firstOrFail();
-
-        $danioMateriales->update([
-            "detalles" => $request->danio_detalles,
-            "propietario_nombre" => $request->propietario_nombre,
-            "propietario_tipo_documento_id" => $request->propietario_documento_id,
-            "propietario_documento_numero" => $request->propietario_documento_numero,
-            "propietario_codigo_postal" => $request->propietario_codigo_postal,
-            "propietario_domicilio" => $request->propietario_domicilio
-        ]);
-
-        return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
-    }
-
     public function paso7create()
     {
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
@@ -689,9 +665,43 @@ class DenunciaAseguradoController extends Controller
 
     public function paso7agregarstore(Request $request)
     {
+        $rules =  [
+            'detalles' => 'required|max:255'
+        ];
+        Validator::make($request->all(),$rules)->validate();
+
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
         $denuncia_siniestro->danioMateriales()->create([
+            "detalles" => $request->detalles,
+            "propietario_nombre" => $request->propietario_nombre,
+            "propietario_tipo_documento_id" => $request->propietario_documento_id,
+            "propietario_documento_numero" => $request->propietario_documento_numero,
+            "propietario_codigo_postal" => $request->propietario_codigo_postal,
+            "propietario_domicilio" => $request->propietario_domicilio
+        ]);
+
+        return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
+    }
+
+    public function paso7edit()
+    {
+        $vehiculo_id = request('v');
+        $danio = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail()->danioMateriales()->where('id',$vehiculo_id)->firstOrFail();
+        $tipoDocumentos = TipoDocumento::all();
+        return view('siniestros.denuncia-asegurados-paso7-editar',["danio"=>$danio,"tipo_documentos"=>$tipoDocumentos]);
+    }
+
+    public function paso7update(Request $request)
+    {
+        $rules =  [
+            'detalles' => 'required|max:255'
+        ];
+        Validator::make($request->all(),$rules)->validate();
+
+        $danioMateriales = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->danioMateriales()->where('id',$request->v)->firstOrFail();
+
+        $danioMateriales->update([
             "detalles" => $request->danio_detalles,
             "propietario_nombre" => $request->propietario_nombre,
             "propietario_tipo_documento_id" => $request->propietario_documento_id,
@@ -706,7 +716,6 @@ class DenunciaAseguradoController extends Controller
     public function paso7DeleteItem()
     {
         $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
         $danio_materiales_id = request('v');
         $danio_materiales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$danio_materiales_id)->firstOrFail();
         $danio_materiales->delete();
@@ -746,6 +755,11 @@ class DenunciaAseguradoController extends Controller
 
     public function paso8agregarstore(Request $request)
     {
+        $rules =  [
+            'tipo' => 'required',
+        ];
+        Validator::make($request->all(),$rules)->validate();
+
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
         $denuncia_siniestro->lesionados()->create([
@@ -1018,32 +1032,47 @@ class DenunciaAseguradoController extends Controller
 
     public function paso12store(Request $request)
     {
-        $validated = request()->validate([
-            'nombre'=>'required',
-            'telefono'=>'required',
-            'domicilio'=>'required',
-            'codigo_postal'=> 'required',
-            'tipo_documento_id' => 'required',
-            'documento_numero'=>'required',
+        $rules = [
             'asegurado'=>'required',
             'asegurado_relacion'=>'required_if:asegurado,0',
-        ]);
+            'nombre'=>'required_if:asegurado,0',
+            'telefono'=>'required_if:asegurado,0',
+            'domicilio'=>'required_if:asegurado,0',
+            'codigo_postal'=> 'required_if:asegurado,0',
+            'tipo_documento_id' => 'required_if:asegurado,0',
+            'documento_numero'=>'required_if:asegurado,0'
+        ];
+
+        $messages = [
+            'asegurado_relacion.required_if'=>'La relación con el asegurado es requerido en caso de no ser el asegurado.',
+            'nombre.required_if'=>'El nombre es requerido en caso de no ser el asegurado.',
+            'telefono.required_if'=>'El teléfono es requerido en caso de no ser el asegurado.',
+            'domiciclio.required_if'=>'El domicilio es requerido en caso de no ser el asegurado.',
+            'provincia_id.required_if'=>'La provincia es requerida en caso de no ser el asegurado.',
+            'localidad_id.required_if'=>'La localidad es requerida en caso de no ser el asegurado.',
+            'domicilio.required_if'=>'El domicilio es requerida en caso de no ser el asegurado.',
+            'tipo_documento_id.required_if'=>'El tipo de documento es requerido en caso de no ser el asegurado.',
+            'documento_numero.required_if'=>'El número de documento es requerido en caso de no ser el asegurado.',
+            'codigo_postal.required_if'=>'El código postal es requerido en caso de no ser el asegurado.',
+        ];
+
+        Validator::make($request->all(),$rules,$messages)->validate();
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
         if(!$denuncia_siniestro->denunciante)
         {
             $denuncia_siniestro->denunciante()->create([
-                "nombre" => $request->nombre,
-                "telefono" => $request->telefono,
-                "domicilio" => $request->domicilio,
-                "codigo_postal" => $request->codigo_postal,
-                "province_id" => $request->provincia_id,
-                "city_id" => $request->localidad_id,
-                "tipo_documento_id" => $request->tipo_documento_id,
-                "documento_numero" => $request->documento_numero,
+                "nombre" => !$request->asegurado ? $request->nombre : $denuncia_siniestro->asegurado->nombre,
+                "telefono" => !$request->asegurado ? $request->telefono : $denuncia_siniestro->asegurado->telefono,
+                "domicilio" => !$request->asegurado ? $request->domicilio : $denuncia_siniestro->asegurado->domicilio,
+                "codigo_postal" => !$request->asegurado ? $request->codigo_postal : $denuncia_siniestro->asegurado->codigo_postal,
+                "province_id" => !$request->asegurado ? $request->provincia_id : $denuncia_siniestro->asegurado->province_id,
+                "city_id" => !$request->asegurado ? $request->localidad_id : $denuncia_siniestro->asegurado->city_id,
+                "tipo_documento_id" => !$request->asegurado ? $request->tipo_documento_id : $denuncia_siniestro->asegurado->tipo_documento_id,
+                "documento_numero" => !$request->asegurado ? $request->documento_numero : $denuncia_siniestro->asegurado->documento_numero,
                 "asegurado" => $request->asegurado,
-                "asegurado_relacion" => $request->asegurado_relacion,
+                "asegurado_relacion" => !$request->asegurado ? $request->asegurado_relacion : null,
             ]);
         } else {
             $denuncia_siniestro->denunciante->nombre = $request->nombre;

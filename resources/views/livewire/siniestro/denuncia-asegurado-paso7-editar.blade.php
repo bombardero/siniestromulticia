@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-12 pt-3">
                     <div class="input-group  ">
                         <label style="margin-bottom:28px;"><b>1. Item de daños</b></label>
-                        <textarea class='w-100' type="text" name="danio_detalles"
+                        <textarea class='w-100' type="text" name="detalles"
                                   placeholder="*Detalles de los daños a las cosas 1500 caracteres"
                                   style="border-radius:10px; height: 82px;background: white;"
                                   name="vehiculo_detalles">{{$danio->detalles}}</textarea>

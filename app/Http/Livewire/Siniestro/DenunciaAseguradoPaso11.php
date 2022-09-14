@@ -151,8 +151,11 @@ class DenunciaAseguradoPaso11 extends Component
     public function eliminarArchivo($id)
     {
         $archivo = DocumentosDenuncia::find($id);
-        FileUploadService::delete($archivo->path);
-        $archivo->delete();
+        if($archivo)
+        {
+            FileUploadService::delete($archivo->path);
+            $archivo->delete();
+        }
         return redirect()->route("asegurados-denuncias-paso11.create",['id'=> $this->identificador]);
     }
 }
