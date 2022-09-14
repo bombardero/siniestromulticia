@@ -28,7 +28,11 @@
 
                 <div class="col-12 col-md-4">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_telefono" placeholder="Telefono" style="border-radius:10px; height: 33px;background: white;" value="{{ $vehiculo_tercero->propietario_telefono }}">
+                        <input class='w-100' type="text" name="propietario_telefono" placeholder="Telefono"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->propietario_telefono }}"
+                               maxlength="15"
+                        >
                     </div>
                 </div>
 
@@ -48,14 +52,18 @@
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
                         <input class='w-100' type="text" name="propietario_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;"
-                               value="{{ $vehiculo_tercero->propietario_documento_numero }}">
+                               value="{{ $vehiculo_tercero->propietario_documento_numero }}"
+                               maxlength="8"
+                        >
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
                         <input class='w-100' type="text" name="propietario_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;"
-                               value="{{ $vehiculo_tercero->propietario_codigo_postal }}">
+                               value="{{ $vehiculo_tercero->propietario_codigo_postal }}"
+                               maxlength="8"
+                        >
                     </div>
                 </div>
 
@@ -69,11 +77,12 @@
                 <div class="input-group first-row">
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <select class='w-100' name="vehiculo_marca_id" id="marca_id" style="border-radius:10px; height: 33px;background: white;">
-    						  @foreach($marcas as $marca)
-                                <option value="{{$marca->id}}" {{ $vehiculo_tercero->marca_id == $marca->id ? 'selected' : '' }}
-                                >{{$marca->nombre}}</option>
-                              @endforeach
+                            <select class='w-100' name="marca_id" id="marca_id" style="border-radius:10px; height: 33px;background: white;">
+    						    @foreach($marcas as $marca)
+                                    <option value="{{$marca->id}}" {{ $vehiculo_tercero->marca_id == $marca->id ? 'selected' : '' }}
+                                    >{{$marca->nombre}}</option>
+                                @endforeach
+                                <option value="otra" {{ $vehiculo_tercero->marca_id == null ? 'selected' : '' }}>Otra</option>
     						</select>
 
                         </div>
@@ -81,12 +90,15 @@
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <select class='w-100' name="vehiculo_modelo_id" id="modelo_id" style="border-radius:10px; height: 33px;background: white;">
+                            <select class='w-100' name="modelo_id" id="modelo_id" style="border-radius:10px; height: 33px;background: white;">
     						  @if($modelos)
                                     @foreach($modelos as $modelo)
                                         <option value="{{$modelo->id}}" {{ $vehiculo_tercero->modelo_id == $modelo->id ? 'selected' : '' }}
                                         >{{ $modelo->nombre }}</option>
                                     @endforeach
+                                    @if($vehiculo_tercero->modelo_id == null)
+                                        <option value="otro" selected>Otro</option>
+                                    @endif
                                 @endif
     						</select>
 
@@ -103,15 +115,27 @@
                     <div class="col-12 col-md-2 pt-3">
                         <div class="input-group  ">
                             <input class='w-100' type="text" name="vehiculo_anio" placeholder="Año" style="border-radius:10px; height: 33px;background: white;"
-                                   value="{{ $vehiculo_tercero->anio }}">
+                                   value="{{ $vehiculo_tercero->anio }}" maxlength="4">
                         </div>
                     </div>
+
+                    <div class="input-group col-12 col-md-4 pt-3 otro_marca_modelo {{ $vehiculo_tercero->marca_id ? 'd-none' : ''  }}">
+                        <input class='w-100' type="text" name="marca" placeholder="Marca" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->otra_marca }}"
+                        >
+                    </div>
+                    <div class="input-group col-12 col-md-4 pt-3 otro_marca_modelo {{ $vehiculo_tercero->modelo_id ? 'd-none' : ''  }}">
+                        <input class='w-100' type="text" name="modelo" placeholder="Modelo" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $vehiculo_tercero->otro_modelo }}"
+                        >
+                    </div>
+                    <div class="col-12 col-md-4 pt-3 otro_marca_modelo {{ $vehiculo_tercero->marca_id && $vehiculo_tercero->modelo_id ? 'd-none' : ''  }}"></div>
 
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
                             <input class='w-100' type="text" name="vehiculo_dominio" placeholder="Dominio" style="border-radius:10px; height: 33px;background: white;"
-                                   value="{{ $vehiculo_tercero->dominio }}">
+                                   value="{{ $vehiculo_tercero->dominio }}" maxlength="7">
                         </div>
                     </div>
 
@@ -230,14 +254,14 @@
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
                         <input class='w-100' type="text" name="conductor_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;"
-                               value="{{$vehiculo_tercero->conductor_documento_numero}}">
+                               value="{{$vehiculo_tercero->conductor_documento_numero}}" maxlength="8">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
                         <input class='w-100' type="text" name="conductor_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;"
-                               value="{{ $vehiculo_tercero->conductor_codigo_postal }}">
+                               value="{{ $vehiculo_tercero->conductor_codigo_postal }}" maxlength="8">
                     </div>
                 </div>
 
@@ -269,14 +293,14 @@
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
                         <input class='w-100' type="text" name="conductor_categoria" placeholder="Categoria/Clase" style="border-radius:10px; height: 33px;background: white;"
-                               value="{{ $vehiculo_tercero->conductor_categoria }}">
+                               value="{{ $vehiculo_tercero->conductor_categoria }}" maxlength="5">
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
                         <input class='w-100' type="text" name="conductor_vencimiento" placeholder="Vencimiento" style="border-radius:10px; height: 33px;background: white;"
-                               value="{{$vehiculo_tercero->conductor_vencimiento}}">
+                               value="{{$vehiculo_tercero->conductor_vencimiento}}" maxlength="5">
                     </div>
                 </div>
                 </div>
@@ -367,25 +391,31 @@
 $( document ).ready(function() {
 	$( "#marca_id" ).change(function() {
 		marca_id =$( "#marca_id" ).val();
-		console.log(marca_id);
-	  $.ajax(
-			{
-				url: '/api/marcas/'+marca_id+'/modelos',
-				type: 'get',
-				dataType: 'json',
-				success: function(modelos)
-				{
-					$('#modelo_id').empty();
-					modelos.forEach(modelo =>
-					{
-						$('#modelo_id').append($('<option>', {
-						    value: modelo['id'],
-						    text: modelo['nombre']
-						}));
-					})
+        $('#modelo_id').empty();
+        if(marca_id == 'otra')
+        {
+            $(".otro_marca_modelo").removeClass('d-none');
+            $('#modelo_id').append($('<option>', {value: 'otro', text: 'Otro'}));
+        } else
+        {
+            $(".otro_marca_modelo").addClass('d-none');
+            $.ajax({
+                url: '/api/marcas/'+marca_id+'/modelos',
+                type: 'get',
+                dataType: 'json',
+                success: function(modelos)
+                {
+                    modelos.forEach(modelo =>
+                    {
+                        $('#modelo_id').append($('<option>', {
+                            value: modelo['id'],
+                            text: modelo['nombre']
+                        }));
+                    })
 
-				}
-			})
+                }
+            })
+        }
 
 
 	});

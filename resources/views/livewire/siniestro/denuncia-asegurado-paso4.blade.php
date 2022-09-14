@@ -13,7 +13,9 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="asegurado_nombre" placeholder="*Nombre y apellido" style="border-radius:10px; height: 33px;background: white;" value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->nombre : '' }}">
+                        <input class='w-100' type="text" name="asegurado_nombre" placeholder="*Nombre y apellido" style="border-radius:10px; height: 33px;background: white;"
+                               value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->nombre : '' }}"
+                        >
                     </div>
                 </div>
 

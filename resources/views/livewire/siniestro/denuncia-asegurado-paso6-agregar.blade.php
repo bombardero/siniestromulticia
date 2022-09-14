@@ -12,7 +12,6 @@
             <div class="input-group  margin-bottom-en-ambos margin">
 
 
-
                 <div class="col-12 col-md-12 pt-3">
                     <div class="input-group  ">
                         <label style="margin-bottom:28px;"><b>1. Vehiculo</b></label>
@@ -44,13 +43,19 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class="w-100" type="text" name="propietario_documento_numero"
+                            placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;"
+                            maxlength="8"
+                        >
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="propietario_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class="w-100" type="text" name="propietario_codigo_postal" placeholder="Codigo Postal"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               maxlength="8"
+                        >
                     </div>
                 </div>
 
@@ -63,25 +68,24 @@
                 <div class="input-group first-row">
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <select class='w-100' name="vehiculo_marca_id" id="marca_id" style="border-radius:10px; height: 33px;background: white;">
+                            <select class='w-100' name="marca_id" id="marca_id" style="border-radius:10px; height: 33px;background: white;">
     						  @foreach($marcas as $marca)
                                 <option value="{{$marca->id}}">{{$marca->nombre}}</option>
                               @endforeach
+                              <option value="otra">Otra</option>
     						</select>
-
                         </div>
                     </div>
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <select class='w-100' name="vehiculo_modelo_id" id="modelo_id" style="border-radius:10px; height: 33px;background: white;">
+                            <select class='w-100' name="modelo_id" id="modelo_id" style="border-radius:10px; height: 33px;background: white;">
     						  @if($modelos)
                                     @foreach($modelos as $modelo)
                                         <option value="{{$modelo->id}}">{{$modelo->nombre}}</option>
                                     @endforeach
                                 @endif
     						</select>
-
                         </div>
                     </div>
 
@@ -93,14 +97,27 @@
 
                     <div class="col-12 col-md-2 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_anio" placeholder="Año" style="border-radius:10px; height: 33px;background: white;" >
+                            <input class='w-100' type="text" name="vehiculo_anio" placeholder="Año"
+                                   style="border-radius:10px; height: 33px;background: white;"
+                                   maxlength="4"
+                            >
                         </div>
                     </div>
 
+                    <div class="input-group col-12 col-md-4 pt-3 otro_marca_modelo d-none">
+                        <input class='w-100' type="text" name="marca" placeholder="Marca" style="border-radius:10px; height: 33px;background: white;">
+                    </div>
+                    <div class="input-group col-12 col-md-4 pt-3 otro_marca_modelo d-none">
+                        <input class='w-100' type="text" name="modelo" placeholder="Modelo" style="border-radius:10px; height: 33px;background: white;">
+                    </div>
+                    <div class="col-12 col-md-4 pt-3 otro_marca_modelo d-none"></div>
 
                     <div class="col-12 col-md-4 pt-3">
                         <div class="input-group  ">
-                            <input class='w-100' type="text" name="vehiculo_dominio" placeholder="Dominio" style="border-radius:10px; height: 33px;background: white;">
+                            <input class='w-100' type="text" name="vehiculo_dominio" placeholder="Dominio"
+                                   style="border-radius:10px; height: 33px;background: white;"
+                                   maxlength="7"
+                            >
                         </div>
                     </div>
 
@@ -189,7 +206,10 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_telefono" placeholder="Telefono" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class='w-100' type="text" name="conductor_telefono" placeholder="Telefono"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               maxlength="15"
+                        >
                     </div>
                 </div>
 
@@ -206,13 +226,19 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_documento_numero" placeholder="Documento numero" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class='w-100' type="text" name="conductor_documento_numero" placeholder="Documento numero"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               maxlength="8"
+                        >
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_codigo_postal" placeholder="Codigo Postal" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class='w-100' type="text" name="conductor_codigo_postal" placeholder="Codigo Postal"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               maxlength="8"
+                        >
                     </div>
                 </div>
 
@@ -240,13 +266,19 @@
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_categoria" placeholder="Categoria/Clase" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class='w-100' type="text" name="conductor_categoria" placeholder="Categoria/Clase"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               maxlength="5"
+                        >
                     </div>
                 </div>
 
                 <div class="col-12 col-md-4 pt-3">
                     <div class="input-group  ">
-                        <input class='w-100' type="text" name="conductor_vencimiento" placeholder="Vencimiento" style="border-radius:10px; height: 33px;background: white;" >
+                        <input class='w-100' type="text" name="conductor_vencimiento" placeholder="Vencimiento"
+                               style="border-radius:10px; height: 33px;background: white;"
+                               maxlength="5"
+                        >
                     </div>
                 </div>
                 </div>
@@ -324,33 +356,39 @@
 
 @section('scripts')
 <script type="text/javascript">
-$( document ).ready(function() {
-	$( "#marca_id" ).change(function() {
-		marca_id =$( "#marca_id" ).val();
-		console.log(marca_id);
-	  $.ajax(
-			{
-				url: '/api/marcas/'+marca_id+'/modelos',
-				type: 'get',
-				dataType: 'json',
-				success: function(modelos)
-				{
-					$('#modelo_id').empty();
-					modelos.forEach(modelo =>
-					{
-						$('#modelo_id').append($('<option>', {
-						    value: modelo['id'],
-						    text: modelo['nombre']
-						}));
-					})
+    $( document ).ready(function() {
+        $( "#marca_id" ).change(function() {
+            marca_id =$( "#marca_id" ).val();
+            $('#modelo_id').empty();
+            if(marca_id == 'otra')
+            {
+                $(".otro_marca_modelo").removeClass('d-none');
+                $('#modelo_id').append($('<option>', {value: 'otro', text: 'Otro'}));
+            } else
+            {
+                $(".otro_marca_modelo").addClass('d-none');
+                $.ajax({
+                    url: '/api/marcas/'+marca_id+'/modelos',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(modelos)
+                    {
+                        modelos.forEach(modelo =>
+                        {
+                            $('#modelo_id').append($('<option>', {
+                                value: modelo['id'],
+                                text: modelo['nombre']
+                            }));
+                        })
 
-				}
-			})
+                    }
+                })
+            }
 
 
-	});
+        });
 
-});
+    });
 
     $( "#checkbox_alcoholemia_si" ).click(function() {
         $( "#checkbox_alcoholemia_no" ).prop('checked', false);

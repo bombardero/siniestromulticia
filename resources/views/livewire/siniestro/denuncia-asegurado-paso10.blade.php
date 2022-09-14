@@ -17,7 +17,7 @@
         <div class="container w-100 pt-3 contenedor-custom"
              style="background-image:url('/images/background_siniestro_stepper.png') !important;background-size: cover; background-repeat: no-repeat;min-height: 400px;border-radius: 30px;padding-left: 48px;padding-top: 32px;">
             <span
-                style="color:#6e4697;font-size: 24px;margin-left: 18px;"><b>Paso 10 </b>| 12 <b>Datos del asegurado</b></span>
+                style="color:#6e4697;font-size: 24px;margin-left: 18px;"><b>Paso 10 </b>| 12 <b>Datos del Siniestro</b></span>
             <span style="color:red;">
               @if($errors->any())
                     <input type="hidden" id="error" value="1">

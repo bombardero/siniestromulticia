@@ -79,7 +79,10 @@
                             @foreach($denuncia_siniestro->vehiculoTerceros as $vehiculo)
                                 <tr class="borde-tabla">
                                     <td>{{$vehiculo->propietario_nombre}}</td>
-                                    <td>{{\App\Models\Marca::where('id',$vehiculo->marca_id)->first()->nombre}} {{\App\Models\Modelo::where('id',$vehiculo->modelo_id)->first()->nombre}}</td>
+                                    <td>
+                                        {{ $vehiculo->marca_id ? $vehiculo->marca->nombre : $vehiculo->otra_marca }}
+                                        {{ $vehiculo->modelo_id ? $vehiculo->modelo->nombre : $vehiculo->otro_modelo }}
+                                    </td>
                                     <td>{{$vehiculo->detalles}}</td>
                                     <td>
                                         <a href="{{route('asegurados-denuncias-paso6.edit',['id'=> request('id'),'v'=> $vehiculo->id])}}"><img

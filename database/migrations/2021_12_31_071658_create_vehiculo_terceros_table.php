@@ -24,6 +24,8 @@ class CreateVehiculoTercerosTable extends Migration
             $table->string('propietario_domicilio')->nullable();
             $table->foreignId('marca_id')->nullable()->constrained('marcas');
             $table->foreignId('modelo_id')->nullable()->constrained('modelos');
+            $table->string('otra_marca')->nullable();
+            $table->string('otro_modelo')->nullable();
             $table->string('tipo')->nullable();
             $table->year('anio')->nullable();
             $table->string('dominio',7)->nullable();

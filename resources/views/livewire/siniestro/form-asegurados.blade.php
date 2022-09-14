@@ -5,7 +5,7 @@
         </div>
         <div class="form-check">
             <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1">
-            <label class="terminos-condiciones-entiendo" for="exampleCheck1">Entiendo que esto y realizando una <b>notificacion para INICIAR tramite de denuncia,</b>  un primer contacto con la compañía y no califica como Denuncia propiamente dicha. </label>
+            <label class="terminos-condiciones-entiendo" for="exampleCheck1">Entiendo que estoy realizando una <b>notificacion para INICIAR el trámite de denuncia,</b>  un primer contacto con la compañía y no califica como denuncia propiamente dicha. </label>
             @error('terminos_condiciones') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="pt-3 form-group row">

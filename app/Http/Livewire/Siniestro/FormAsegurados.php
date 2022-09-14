@@ -33,9 +33,9 @@ class FormAsegurados extends Component
     {
         return $validateAsegurable = $this->validate([
         	'terminos_condiciones' => 'accepted',
-            'dominio' => 'required | max:7',
+            'dominio' => 'required|max:7',
+            'fecha' => 'required|date',
             'lugar_siniestro' => 'required',
-            'fecha' => 'required|min:10|max:10',
             'hora' => 'required',
             'codigo_postal' => 'required',
             'responsable_contacto' => 'required',

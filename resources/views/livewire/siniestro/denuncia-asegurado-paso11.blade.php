@@ -184,8 +184,8 @@
 
                 <div class="text-center col-12 col-md-12 ">
                     <p class="documentos-denuncia-title">*Fotos vehículo Asegurado </p>
-                    <p class="ambos-lados">Obligatorio 4 fotos:1 de cada lateral, adelante, atrás: donde se vean los
-                        daños y al menos uno con patente visible y completa.</p>
+                    <p class="ambos-lados">Obligatorio 4 fotos: una de cada lateral, adelante, atrás. Dónde se vean los
+                        daños y al menos una con patente completa visible.</p>
 
                     <input type="file" id="foto_vehiculo" name="foto_vehiculo"
                            wire:change="$emit('single_file_choosed_vehiculo')">
@@ -244,8 +244,8 @@
                     <hr style="border:1px solid lightgray;">
                 </div>
                 <div class="text-center col-12 col-md-4 ">
-                    <p class="documentos-denuncia-title">Último recibo del seguro </p>
-                    <p class="ambos-lados">Pagado</p>
+                    <p class="documentos-denuncia-title">Último recibo del seguro</p>
+                    <p class="ambos-lados">Comprobante de tranferencia/débido</p>
 
                     <input type="file" id="foto_recibo" name="fotos_recibo"
                            wire:change="$emit('single_file_choosed_recibo')">
@@ -294,7 +294,7 @@
 
                 <div class="text-center col-12 col-md-4 ">
                     <p class="documentos-denuncia-title">Exposición policial</p>
-                    <p class="ambos-lados">o denuncia de Tránsito</p>
+                    <p class="ambos-lados">Denuncia de Tránsito</p>
 
                     <input type="file" id="foto_policial" name="fotos_policial"
                            wire:change="$emit('single_file_choosed_policial')">
@@ -341,7 +341,7 @@
 
                 <div class="text-center col-12 col-md-4 ">
                     <p class="documentos-denuncia-title">Habilitación municipal </p>
-                    <p class="ambos-lados">(Sólo taxis y remises)</p>
+                    <p class="ambos-lados">Sólo para taxis y remises</p>
 
                     <input type="file" id="foto_habilitacion" name="foto_habilitacion"
                            wire:change="$emit('single_file_choosed_habilitacion')">

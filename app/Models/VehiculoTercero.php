@@ -18,6 +18,8 @@ class VehiculoTercero extends Model
         "propietario_domicilio",
         "marca_id",
         "modelo_id",
+        "otra_marca",
+        "otro_modelo",
         "tipo",
         "anio",
         "dominio",
@@ -45,8 +47,19 @@ class VehiculoTercero extends Model
         "conductor_habitual"
     ];
 
-    public function denuncia(){
+    public function denuncia()
+    {
         return $this->belongsTo(DenunciaSiniestro::class);
+    }
+
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class, 'marca_id');
+    }
+
+    public function modelo()
+    {
+        return $this->belongsTo(Modelo::class, 'modelo_id');
     }
 
 }

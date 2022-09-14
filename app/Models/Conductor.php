@@ -34,6 +34,10 @@ class Conductor extends Model
         "asegurado_relacion"
     ];
 
+    protected $casts = [
+        'asegurado' => 'boolean',
+    ];
+
     public function denuncia()
     {
         return $this->belongsTo(DenunciaSiniestro::class);

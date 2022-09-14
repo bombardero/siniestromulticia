@@ -16,13 +16,15 @@ class CreateVehiculosTable extends Migration
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-            $table->foreignId('marca_id')->constrained('marcas');
-            $table->foreignId('modelo_id')->constrained('modelos');
+            $table->string('dominio',7);
             $table->string('tipo');
             $table->year('anio');
-            $table->string('dominio',7);
             $table->string('motor');
             $table->string('chasis');
+            $table->foreignId('marca_id')->nullable()->constrained('marcas');
+            $table->foreignId('modelo_id')->nullable()->constrained('modelos');
+            $table->string('otra_marca')->nullable();
+            $table->string('otro_modelo')->nullable();
             $table->boolean('uso_particular')->nullable();
             $table->boolean('uso_comercial')->nullable();
             $table->boolean('uso_taxi_remis')->nullable();
