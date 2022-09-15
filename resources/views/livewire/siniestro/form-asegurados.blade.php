@@ -105,14 +105,14 @@
                 @error('telefono_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
 
-            <div class="col-12 col-md-6 pt-3">
+            <div class="col-12 col-md-6">
                 <label for="email">Email (*)</label>
                 <input type="text" id="email" class="form-control form-estilo"
                        placeholder="Email de contacto" wire:model.defer="email">
                 @error('email') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
 
-            <div class="col-12 col-md-6 pt-3">
+            <div class="col-12 col-md-6">
                 <label for="email">Confirmar Email (*)</label>
                 <input type="text" id="email_confirmation" class="form-control form-estilo"
                        placeholder="Repetir email de contacto" wire:model.defer="email_confirmation">
