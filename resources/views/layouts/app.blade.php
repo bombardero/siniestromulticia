@@ -20,7 +20,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet"/>
     <!-- Styles -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/somos-nosotros.css') }}">
     <link rel="stylesheet" href="{{ asset('css/garantias.css') }}">
