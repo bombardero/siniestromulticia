@@ -1,139 +1,136 @@
 <div>
-    <form class="w-75 mx-auto" wire:submit.prevent="submit">
-        <div class="pt-5 col-12">
-            <p class="datos-asegurado-title">Datos del asegurado</p>
+    <form class="px-5 mx-auto container" wire:submit.prevent="submit">
+        <div class="row">
+            <p class="col-12 mt-5 datos-asegurado-title">Datos del asegurado</p>
         </div>
+
         <div class="form-check">
-            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input" id="exampleCheck1">
-            <label class="terminos-condiciones-entiendo" for="exampleCheck1">Entiendo que estoy realizando una <b>notificacion para INICIAR el trámite de denuncia,</b>  un primer contacto con la compañía y no califica como denuncia propiamente dicha. </label>
+            <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
+                   id="checkTerminosCondiciones">
+            <label class="form-check-label" for="checkTerminosCondiciones">Entiendo que estoy realizando una <b>notificacion
+                    para INICIAR el trámite de denuncia,</b> un primer contacto con la compañía y no califica como
+                denuncia propiamente dicha. </label>
             @error('terminos_condiciones') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
         </div>
-        <div class="pt-3 form-group row">
-            <div class="col-12 col-md-6">
-               @error('dominio') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-               <div class="input-group  ">
-                  <input maxlength="7" class="form-estilo prueba w-100" type="text" class="form-control" id="dominio" placeholder=" Dominio del vehiculo*" wire:model.defer="dominio">
-               </div>
-           </div>
-           <div class="col-12 col-md-3 pt-3 pt-md-0">
-               @error('fecha_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-               <div class="input-group input_container ">
-                   <input
-                    class="form-estilo form-control prueba w-100"
-                    id="fecha"
-                    type="date"
-                    name="fecha"
-                    placeholder="F. del siniestro(dd.mm.aaaa)*"
-                    wire:model.defer="fecha">
-               </div>
 
-           </div>
+        <div class="row mt-3">
 
-           <div class="col-12 col-md-3 pt-3 pt-md-0">
-               @error('hora_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-               <div class="input-group input_container ">
-                   <input
-                    class="form-estilo form-control prueba w-100"
-                    id="hora"
-                    type="time"
-                    name="hora"
-                    placeholder="Hora del siniestro(HH:mm)"
-                    wire:model.defer="hora">
-               </div>
+            <div class="form-group col-12 col-md-6">
+                <label for="dominio">Dominio (*)</label>
+                <input type="text" maxlength="7" class="form-control form-estilo" id="dominio"
+                       wire:model.defer="dominio">
+                @error('dominio') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+            </div>
 
-           </div>
+            <div class="form-group col-12 col-md-3">
+                <label for="fecha">Fecha del Siniestro (*)</label>
+                <input type="date" id="fecha" name="fecha" class="form-control form-estilo"
+                       wire:model.defer="fecha">
+                @error('fecha') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="form-group col-12 col-md-3">
+                <label for="fecha">Hora del Siniestro (*)</label>
+                <input type="time" id="hora" name="hora" class="form-control form-estilo"
+                       wire:model.defer="hora">
+                @error('hora') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+            </div>
 
 
-           <div class="col-12 col-md-6 pt-3">
+            <div class="form-group col-12 col-md-6">
+                <label for="lugar_siniestro">Lugar del Siniestro (*)</label>
+                <input type="text" id="lugar_siniestro" class="form-control form-estilo"
+                       wire:model.defer="lugar_siniestro">
                 @error('lugar_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="lugar_siniestro" placeholder="  Lugar del siniestro*" wire:model.defer="lugar_siniestro">
-                </div>
             </div>
 
-            <div class="col-12 col-md-6 pt-3">
+            <div class="form-group col-12 col-md-6">
+                <label for="codigo_postal">Código Postal (*)</label>
+                <input type="text" id="codigo_postal" class="form-control form-estilo"
+                       wire:model.defer="codigo_postal">
                 @error('codigo_postal') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="codigo_postal" placeholder="  CP*" wire:model.defer="codigo_postal">
-                </div>
             </div>
 
-            <div class="col-12 col-md-12 pt-3">
+            <div class="form-group col-12 col-md-12">
+                <label for="direccion_siniestro">Dirección del Siniestro</label>
+                <input type="text" id="direccion_siniestro" class="form-control form-estilo"
+                       wire:model.defer="direccion_siniestro">
                 @error('direccion_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="direccion_siniestro" placeholder="  Dirección del siniestro" wire:model.defer="direccion_siniestro">
-                </div>
             </div>
 
-            <div class="col-12 col-md-12 pt-3">
+            <div class="form-group col-12 col-md-12">
+                <label for="conductor_siniestro">Nombre completo del conductor</label>
+                <input type="text" id="conductor_siniestro" name="conductor_siniestro" class="form-control form-estilo"
+                       wire:model.defer="conductor_siniestro">
                 @error('conductor_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="conductor_siniestro" placeholder="  Conductor del vehículo al momento del siniestro" wire:model.defer="conductor_siniestro">
-                </div>
             </div>
 
-            <div class="col-12 col-md-12 pt-3">
+            <div class="form-group col-12 col-md-12 pt-3">
+                <label for="descripcion_siniestro">Descripción del Siniestro</label>
+                <textarea id="descripcion_siniestro" class="form-control form-estilo" maxlength="65535"
+                          style="resize: none;height: 100px;"
+                          wire:model.defer="descripcion_siniestro"></textarea>
                 @error('descripcion_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <textarea class="form-estilo prueba w-100" style="resize: none;height: 100px;" class="form-control" id="descripcion_siniestro" placeholder="  Descripción del siniestro (max: 1500 caracteres)" maxlength="1500" wire:model.defer="descripcion_siniestro"></textarea>
-                </div>
+
             </div>
 
-            <div class="col-12 col-md-6 pt-3 pt-md-5 ">
+            <div class="form-group col-12 col-md-6">
+                <label for="responsable_contacto">Responsable de contacto (*)</label>
+                <input type="text" id="responsable_contacto" class="form-control form-estilo" maxlength="255"
+                       placeholder="Nombre completo"
+                       wire:model.defer="responsable_contacto">
                 @error('responsable_contacto') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="responsable_contacto" placeholder="  Responsable de contacto:* Nombre y apellido" wire:model.defer="responsable_contacto">
-                </div>
             </div>
 
 
-            <div class="col-12 col-md-6 pt-3 pt-md-5">
+            <div class="form-group col-12 col-md-6">
+                <label for="domicilio">Domicilio (*)</label>
+                <input type="text" id="domicilio" class="form-control form-estilo" maxlength="255"
+                       placeholder="Domicilio del contacto" wire:model.defer="domicilio">
                 @error('domicilio') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="domicilio" placeholder="  Domicilio*" wire:model.defer="domicilio">
-                </div>
             </div>
 
-            <div class="col-12 col-md-6 pt-3">
+            <div class="form-group col-12 col-md-6">
+                <label for="telefono">Telefono (*)</label>
+                <input type="text" id="telefono" class="form-control form-estilo"
+                       placeholder="Telefono de contacto"
+                       wire:model.defer="telefono">
                 @error('telefono') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="telefono" placeholder="  Tel. de contacto*" wire:model.defer="telefono">
-                </div>
             </div>
 
-            <div class="col-12 col-md-6 pt-3">
+            <div class="form-group col-12 col-md-6">
+                <label for="telefono">Confirmar telefono (*)</label>
+                <input type="text" id="telefono_confirmation" class="form-control form-estilo"
+                       placeholder="Repetir teléfono de contacto" wire:model.defer="telefono_confirmation">
                 @error('telefono_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="telefono_confirmation" placeholder="  Repetir Tel. de contacto*" wire:model.defer="telefono_confirmation">
-                </div>
             </div>
 
             <div class="col-12 col-md-6 pt-3">
+                <label for="email">Email (*)</label>
+                <input type="text" id="email" class="form-control form-estilo"
+                       placeholder="Email de contacto" wire:model.defer="email">
                 @error('email') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="email" placeholder="  Email de contacto*" wire:model.defer="email">
-                </div>
             </div>
 
             <div class="col-12 col-md-6 pt-3">
+                <label for="email">Confirmar Email (*)</label>
+                <input type="text" id="email_confirmation" class="form-control form-estilo"
+                       placeholder="Repetir email de contacto" wire:model.defer="email_confirmation">
                 @error('email_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-                <div class="input-group  ">
-                    <input class="form-estilo prueba w-100" type="text" class="form-control" id="email_confirmation" placeholder="  Repetir email de contacto*" wire:model.defer="email_confirmation">
-                </div>
             </div>
-            <div class="col-12 text-right">
-                <p class="campos-obligatorios pt-3">*Campos son obligatorios.</p>
-            </div>
-       </div>
 
-        <div class="col-12 text-center text-md-right">
-            <a id="hablemos3" target="_blank" class="" href="">
-                <button type="submit" class="mt-3 boton-enviar-siniestro btn ">Enviar</button>
-            </a>
-            <div wire:loading class="spinner-border" role="status">
-                 <span class="sr-only">Cargando...</span>
-                 <span class="sr-only">Cargando...</span>
+            <div class="col-12 text-right">
+                <p class="campos-obligatorios pt-3">(*) Campos son obligatorios.</p>
+            </div>
+
+            <div class="col-12 text-center text-md-right mt-3">
+                <div wire:loading class="spinner-border" role="status">
+                    <span class="sr-only">Cargando...</span>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                <button type="submit" class="boton-enviar-siniestro btn">Enviar</button>
             </div>
         </div>
+
     </form>
 </div>

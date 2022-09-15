@@ -24,7 +24,7 @@ class CreateDenunciaSiniestrosTable extends Migration
             $table->string('codigo_postal');
             $table->string('direccion');
             $table->string('nombre_conductor');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->string('responsable_contacto_nombre');
             $table->string('responsable_contacto_domicilio');
             $table->string('responsable_contacto_telefono');

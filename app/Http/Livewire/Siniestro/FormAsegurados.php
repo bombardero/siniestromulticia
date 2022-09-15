@@ -34,16 +34,15 @@ class FormAsegurados extends Component
         return $validateAsegurable = $this->validate([
         	'terminos_condiciones' => 'accepted',
             'dominio' => 'required|max:7',
-            'fecha' => 'required|date',
+            'fecha' => 'required|date|before_or_equal:today',
             'lugar_siniestro' => 'required',
             'hora' => 'required',
             'codigo_postal' => 'required',
             'responsable_contacto' => 'required',
             'domicilio' => 'required',
-            'telefono' => 'required | numeric | digits_between:5,20',
-            'telefono_confirmation' => 'required | numeric | digits_between:5,20 | same:telefono',
-            'email' => 'required | email | max: 50 ',
-            'email_confirmation' => 'required | same:email',
+            'telefono' => 'required|numeric|digits_between:5,20|confirmed',
+            'email' => 'required|email|max:50|confirmed',
+            'descripcion_siniestro' => 'nullable|max:65535',
         ],
         [
             'responsable_contacto.required' => 'Responsable de contacto requerido',
@@ -58,10 +57,7 @@ class FormAsegurados extends Component
             'telefono.digits_between' => 'El telefono debe tener por lo menos 5 caracteres y como máximo 20' ,
             'email.required' => 'El email es requerido.',
             'email.email' => 'Escriba un formato valido de email',
-            'email_confirmation.required' => 'Por favor, confirme su email',
-            'email_confirmation.same' => 'Los email no coinciden',
             'telefono_confirmation.same' => 'Los telefonos no coinciden'
-
         ]);
 
     }
