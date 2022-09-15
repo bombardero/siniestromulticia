@@ -59,8 +59,9 @@
             </div>
 
             <div class="form-group col-12 col-md-12">
-                <label for="conductor_siniestro">Nombre completo del conductor</label>
+                <label for="conductor_siniestro">Nombre del conductor</label>
                 <input type="text" id="conductor_siniestro" name="conductor_siniestro" class="form-control form-estilo"
+                       placeholder="Nombre completo"
                        wire:model.defer="conductor_siniestro">
                 @error('conductor_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
