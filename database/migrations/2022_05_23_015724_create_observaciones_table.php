@@ -17,7 +17,7 @@ class CreateObservacionesTable extends Migration
             $table->id();
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
             $table->foreignId('user_id')->constrained('users');
-            $table->longText('detalle');
+            $table->text('detalle');
             $table->timestamps();
         });
     }

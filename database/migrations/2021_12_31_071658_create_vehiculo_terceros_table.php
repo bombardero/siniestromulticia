@@ -37,7 +37,7 @@ class CreateVehiculoTercerosTable extends Migration
             $table->boolean('uso_tpp')->nullable();
             $table->boolean('uso_urgencia')->nullable();
             $table->boolean('uso_seguridad')->nullable();
-            $table->string('detalles')->nullable();
+            $table->text('detalles')->nullable();
             $table->string('conductor_nombre')->nullable();
             $table->string('conductor_telefono',15)->nullable();
             $table->foreignId('conductor_tipo_documento_id')->nullable()->constrained('tipo_documentos');

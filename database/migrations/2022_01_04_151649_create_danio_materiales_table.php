@@ -16,7 +16,7 @@ class CreateDanioMaterialesTable extends Migration
         Schema::create('danio_materiales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('denuncia_siniestro_id')->constrained('denuncia_siniestros');
-            $table->string('detalles');
+            $table->text('detalles');
             $table->string('propietario_nombre')->nullable();
             $table->foreignId('propietario_tipo_documento_id')->nullable()->constrained('tipo_documentos');
             $table->string('propietario_documento_numero',8)->nullable();

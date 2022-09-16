@@ -34,7 +34,7 @@ class CreateVehiculosTable extends Migration
             $table->boolean('siniestro_danio')->nullable();
             $table->boolean('siniestro_robo')->nullable();
             $table->boolean('siniestro_incendio')->nullable();
-            $table->string('detalles')->nullable();
+            $table->text('detalles')->nullable();
             $table->timestamps();
         });
     }

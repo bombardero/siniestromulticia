@@ -10,9 +10,9 @@
                 </div>
             </div>
         </div>
- 
+
         @livewire('siniestro.denuncia-asegurado-paso11', ['denuncia_siniestro' => $denuncia_siniestro, 'identificador' => $identificador])
-     
+
 
 @endsection
 
@@ -22,11 +22,11 @@
     window.livewire.on('single_file_choosed_dni', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_dni', reader.result);
@@ -36,20 +36,20 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
+
      </script>
 
 <script>
     window.livewire.on('single_file_choosed_cedula', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_cedula', reader.result);
@@ -59,20 +59,20 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
-</script>     
+
+</script>
 
 <script>
     window.livewire.on('single_file_choosed_carnet', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_carnet', reader.result);
@@ -82,20 +82,20 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
-</script>       
+
+</script>
 
 <script>
     window.livewire.on('single_file_choosed_vehiculo', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_vehiculo', reader.result);
@@ -105,19 +105,19 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
-</script>       
+
+</script>
 <script>
     window.livewire.on('single_file_choosed_recibo', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_recibo', reader.result);
@@ -127,19 +127,19 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
-</script>   
+
+</script>
 <script>
     window.livewire.on('single_file_choosed_policial', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_policial', reader.result);
@@ -149,19 +149,19 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
-</script>   
+
+</script>
 <script>
     window.livewire.on('single_file_choosed_habilitacion', function() {
         console.log("test");
                 try {
-    
+
                     let file = event.target.files[0];
                     if(file){
                         let reader = new FileReader();
-    
+
                         reader.onloadend = () => {
                             console.log(reader.result);
                             window.livewire.emit('upload_habilitacion', reader.result);
@@ -171,8 +171,8 @@
                 } catch (error) {
                     console.log(error);
                 }
-    
+
             });
-    
-</script>   
+
+</script>
 @endsection
