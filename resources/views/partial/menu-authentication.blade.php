@@ -17,22 +17,13 @@
                     Panel Call Center
                 </a>
             @elseif(Auth::user()->hasRole('operario'))
-                <a class="dropdown-item" href="{{ route('panel-operario')}}">
-
-                    Panel operario
-                </a>
+                <a class="dropdown-item" href="{{ route('panel-operario')}}">Panel operario</a>
             @elseif(Auth::user()->hasRole('productor'))
-                <a class="dropdown-item" href="{{ route('panel-productor',[Auth::user()])}}">
-                    Panel productor
-                </a>
+                <a class="dropdown-item" href="{{ route('panel-productor')}}">Panel productor</a>
             @elseif(Auth::user()->hasRole('admin'))
-                <a class="dropdown-item" href="{{ route('panel-admin',[Auth::user()])}}">
-                    Panel administrador
-                </a>
+                <a class="dropdown-item" href="{{ route('panel-admin')}}">Panel administrador</a>
             @elseif(Auth::user()->hasRole('siniestros'))
-                <a class="dropdown-item" href="{{ route('panel-siniestros',[Auth::user()])}}">
-                    Panel Siniestros
-                </a>
+                <a class="dropdown-item" href="{{ route('panel-siniestros')}}">Panel Siniestros</a>
             @endif
 
             <div class="dropdown-divider"></div>
