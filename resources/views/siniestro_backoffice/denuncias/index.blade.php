@@ -1,103 +1,126 @@
-@extends('layouts.app')
+@extends('layouts.backoffice')
 @section('content')
     <section>
-        <div class="container">
+        <div class="container-fluid px-5">
             <div class="row">
                 <div class="col-12 mt-5 mb-5">
 
                     <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
-                    <form action="/panel-siniestros/buscador" method="get" class="container" id="buscador">
+                    <form action="/panel-siniestros/buscador" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
-                            <div class="input-group input-group-sm col-2 pl-0 pr-1">
-                                <!--
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Desde</span>
+                            <div class="col-12 col-md-1 pl-0 pr-1">
+                                <div class="form-label-group">
+                                    <input type="date" name="desde" id="desde" class="form-control form-control-sm"
+                                           value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}"
+                                           onchange="buscar()"
+                                    >
+                                    <label for="desde">Desde</label>
                                 </div>
-                                -->
-                                <input type="date" name="desde" class="form-control"
-                                       value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}"
-                                       onchange="buscar()"
-                                >
                             </div>
-                            <div class="input-group input-group-sm col-2 px-1">
-                                <!--
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Hasta</span>
+                            <div class="col-12 col-md-1 px-1">
+                                <div class="form-label-group">
+                                    <input type="date" name="hasta" id="hasta"
+                                           class="form-control form-control-sm"
+                                           value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}"
+                                           onchange="buscar()"
+                                    >
+                                    <label for="hasta">Hasta</label>
                                 </div>
-                                -->
-                                <input type="date" name="hasta"
-                                       class="form-control" value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}"
-                                       onchange="buscar()"
-                                >
                             </div>
-                            <div class="input-group input-group-sm col-2 px-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Estado</span>
+                            <div class="col-12 col-md-1 px-1">
+                                <div class="form-label-group">
+                                    <select class="custom-select form-control form-control-sm" name="estado" id="estado" onchange="buscar()">
+                                        <option
+                                            value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
+                                            Todos
+                                        </option>
+                                        <option
+                                            value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>
+                                            Ingresado
+                                        </option>
+                                        <option
+                                            value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>
+                                            Aceptado
+                                        </option>
+                                        <option
+                                            value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>
+                                            Rechazado
+                                        </option>
+                                        <option
+                                            value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>
+                                            Cerrado
+                                        </option>
+                                        <option
+                                            value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>
+                                            Legales
+                                        </option>
+                                        <option
+                                            value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
+                                            Investigación
+                                        </option>
+                                    </select>
+                                    <label for="estado">Estado</label>
                                 </div>
-                                <select class="custom-select" name="estado" onchange="buscar()">
-                                    <option
-                                        value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
-                                        Todos
-                                    </option>
-                                    <option
-                                        value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>
-                                        Ingresado
-                                    </option>
-                                    <option
-                                        value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>
-                                        Aceptado
-                                    </option>
-                                    <option
-                                        value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>
-                                        Rechazado
-                                    </option>
-                                    <option
-                                        value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>
-                                        Cerrado
-                                    </option>
-                                    <option
-                                        value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>
-                                        Legales
-                                    </option>
-                                    <option
-                                        value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
-                                        Investigación
-                                    </option>
-                                </select>
                             </div>
 
-                            <div class="input-group input-group-sm col-2 px-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Paso</span>
+                            <div class="col-12 col-md-1 px-1">
+                                <div class="form-label-group">
+                                    <select class="custom-select form-control form-control-sm" name="cobertura" onchange="buscar()">
+                                        <option
+                                            value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>
+                                            Todas
+                                        </option>
+                                        <option
+                                            value="RC" {{(request()->cobertura && request()->cobertura == 'RC') ? 'selected' : ''}}>
+                                            RC
+                                        </option>
+                                        <option
+                                            value="Casco" {{(request()->cobertura && request()->cobertura == 'Casco') ? 'selected' : ''}}>
+                                            Casco
+                                        </option>
+                                        <option
+                                            value="RC con Casco" {{(request()->cobertura && request()->cobertura == 'RC con Casco') ? 'selected' : ''}}>
+                                            RC con Casco
+                                        </option>
+                                    </select>
+                                    <label for="">Cobertura</label>
                                 </div>
-                                <select class="custom-select" name="carga" onchange="buscar()">
-                                    <option
-                                        value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
-                                        Todos
-                                    </option>
-                                    <option
-                                        value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>
-                                        Precarga
-                                    </option>
-                                    <option
-                                        value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
-                                        Incompleto
-                                    </option>
-                                    <option
-                                        value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>
-                                        Completo
-                                    </option>
-                                </select>
                             </div>
 
 
-                            <div class="input-group input-group-sm col-4 pr-0 pl-1">
-                                <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}" onchange="buscar()">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
+                            <div class="col-12 col-md-1 px-1">
+                                <div class="form-label-group">
+                                    <select class="custom-select form-control form-control-sm" name="carga" id="carga" onchange="buscar()">
+                                        <option
+                                            value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
+                                            Todos
+                                        </option>
+                                        <option
+                                            value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>
+                                            Precarga
+                                        </option>
+                                        <option
+                                            value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
+                                            Incompleto
+                                        </option>
+                                        <option
+                                            value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>
+                                            Completo
+                                        </option>
+                                    </select>
+                                    <label for="carga">Carga</label>
                                 </div>
+                            </div>
 
+
+                            <div class="col-12 col-md-2 px-1 pr-0 pl-1">
+                                <div class="form-label-group input-group">
+                                    <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}" onchange="buscar()">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -111,14 +134,15 @@
                                 <thead class="thead tabla-panel">
                                 <tr class="tabla-cabecera ">
                                     <th class="th-padding" scope="col">ID</th>
-                                    <th class="th-padding" scope="col">F CREACIÓN</th>
-                                    <th class="th-padding" scope="col">F SINIESTRO</th>
+                                    <th class="th-padding" scope="col">FECHA CREACIÓN</th>
+                                    <th class="th-padding" scope="col">FECHA SINIESTRO</th>
                                     <th class="th-padding" scope="col">ASEGURADO</th>
                                     <th class="th-padding" scope="col">DOMINIO</th>
-                                    <th class="th-padding" scope="col">N°POLIZA</th>
-                                    <th class="th-padding" scope="col">N°DENUNCIA</th>
-                                    <th class="th-padding" scope="col">N°SINIESTRO</th>
+                                    <th class="th-padding" scope="col">N° POLIZA</th>
+                                    <th class="th-padding" scope="col">N° DENUNCIA</th>
+                                    <th class="th-padding" scope="col">N° SINIESTRO</th>
                                     <th class="th-padding" scope="col">ESTADO</th>
+                                    <th class="th-padding" scope="col">COBERTURA</th>
                                     <th class="th-padding" scope="col">PASO</th>
                                     <th class="th-padding" scope="col">LINK</th>
                                     <th class="th-padding" scope="col">OPERACIONES</th>
@@ -154,6 +178,14 @@
                                                     <option value="cerrado" {{( $denuncia->estado == 'cerrado') ? 'selected' : '' }}>CERRADO</option>
                                                     <option value="legales" {{( $denuncia->estado == 'legales') ? 'selected' : '' }}>LEGALES</option>
                                                     <option value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>INVESTIGACIÓN</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="select" id="cobertura_activa" onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
+                                                    <option value="" {{( $denuncia->cobertura_activa == null) ? 'selected' : '' }}>Ninguna</option>
+                                                    <option value="RC" {{( $denuncia->cobertura_activa == 'RC') ? 'selected' : '' }}>RC</option>
+                                                    <option value="Casco" {{( $denuncia->cobertura_activa == 'Casco') ? 'selected' : '' }}>Casco</option>
+                                                    <option value="RC con Casco" {{( $denuncia->cobertura_activa == 'RC con Casco') ? 'selected' : '' }}>RC con Casco</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -246,12 +278,11 @@
         }*/
 
 
-
         function cambiarEstado(estado,denuncia_siniestro_id)
         {
             let url = '{{ route('panel-siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
             url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
-
+            showLoading();
             $.ajax(
                 {
                     url: url,
@@ -267,6 +298,36 @@
                     error: function(error) {
                         //console.log(error);
                         alert('Hubo un error.');
+                    },
+                    complete: function(jqXHR , textStatus) {
+                        hideLoading();
+                    }
+                })
+        }
+
+        function cambiarCoberturaActiva(cobertura,denuncia_siniestro_id)
+        {
+            let url = '{{ route('panel-siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+            url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
+            showLoading();
+            $.ajax(
+                {
+                    url: url,
+                    type: 'post',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "cobertura_activa": cobertura.value
+                    },
+                    success: function(result)
+                    {
+                        //console.log(result);
+                    },
+                    error: function(error) {
+                        //console.log(error);
+                        alert('Hubo un error.');
+                    },
+                    complete: function(jqXHR , textStatus) {
+                        hideLoading();
                     }
                 })
         }

@@ -11,6 +11,7 @@ class DenunciaSiniestro extends Model
     use HasFactory, SoftDeletes;
 
     const ESTADOS = ['ingresado', 'aceptado', 'rechazado', 'cerrado', 'legales', 'investigacion'];
+    const COBERTURAS_ACTIVAS = ['RC', 'Casco', 'RC con Casco'];
 
     protected $fillable = [
         "identificador",

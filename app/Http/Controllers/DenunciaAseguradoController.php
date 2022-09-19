@@ -44,6 +44,7 @@ class DenunciaAseguradoController extends Controller
         $busqueda = $request->busqueda;
         $carga = null;
         $estado = $request->estado;
+        $cobertura = $request->cobertura;
         switch ($request->carga)
         {
             case 'precarga':
@@ -59,8 +60,9 @@ class DenunciaAseguradoController extends Controller
                 $carga = null;
         }
         $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
-            return $query->where('precarga_dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%")
-                ->orWhere('precarga_conductor_vehiculo_nombre','LIKE', "%{$busqueda}%");
+            return $query->where('dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%")
+                ->orWhere('responsable_contacto_nombre','LIKE', "%{$busqueda}%")
+                ->orWhere('nombre_conductor','LIKE', "%{$busqueda}%");
         })->when($carga, function ($query) use ($carga) {
             if(is_array($carga))
             {
@@ -69,6 +71,8 @@ class DenunciaAseguradoController extends Controller
             return $query->where('state', $carga);
         })->when($estado && $estado != 'todos', function ($query) use ($estado) {
             return $query->where('estado', $estado);
+        })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
+            return $query->where('cobertura_activa', $cobertura);
         });
         /*
         if($busqueda != null)
@@ -1135,7 +1139,17 @@ class DenunciaAseguradoController extends Controller
         ])->validate();
         $denuncia->estado = $request->estado;
         $denuncia->save();
-        return response()->json(['status' => true, 'denuncia' => $denuncia]);
+        return response()->json(['status' => true]);
+    }
+
+    public function cambiarCoberturaActiva(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'cobertura_activa' => ['nullable',Rule::in(DenunciaSiniestro::COBERTURAS_ACTIVAS)]
+        ])->validate();
+        $denuncia->cobertura_activa = $request->cobertura_activa;
+        $denuncia->save();
+        return response()->json(['status' => true]);
     }
 
 

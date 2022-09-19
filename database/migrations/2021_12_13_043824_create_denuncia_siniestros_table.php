@@ -100,6 +100,7 @@ class CreateDenunciaSiniestrosTable extends Migration
             $table->string('nro_poliza')->nullable();
             $table->string('nro_denuncia')->nullable();
             $table->string('nro_siniestro')->nullable();
+            $table->string('cobertura_activa')->nullable();
             $table->string('estado')->default('ingresado');
 
             $table->timestamps();
