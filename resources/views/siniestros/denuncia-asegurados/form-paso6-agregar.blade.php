@@ -25,7 +25,7 @@
                     <label for="propietario_nombre">Nombre y Apellido</label>
                     <input type="text" name="propietario_nombre" id="propietario_nombre"
                            placeholder="Nombre completo" class="form-control form-estilo"
-                           maxlength="15"
+                           maxlength="255"
                     >
                 </div>
             </div>
