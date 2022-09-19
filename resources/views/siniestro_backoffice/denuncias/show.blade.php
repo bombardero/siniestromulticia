@@ -15,7 +15,8 @@
                                     </div>
 
                                     <div class="col-12 col-md-4">
-                                        <p class="pt-3" style="color:red;">Estado Actual: <b>{{$denuncia->estado_carga}}</b>
+                                        <p class="pt-3" style="color:red;">Estado Actual:
+                                            <b>{{$denuncia->estado_carga}}</b>
                                         </p>
                                     </div>
 
@@ -67,10 +68,13 @@
 
                         </div>
 
-                        <p class="pt-3 panel-operaciones-subtitle"
-                           style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">Lugar del
-                            Siniestro <img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                           style="position:absolute; right:50px;"></p>
+                        <div class="pt-3 panel-operaciones-subtitle mb-3"
+                             style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                            Lugar del Siniestro
+                            <a href="{{ route('asegurados-denuncias-paso2.create',['id' => $denuncia->identificador]) }}"
+                               class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                Editar</a>
+                        </div>
 
                         <div style="padding-left:8px;padding-right:8px;">
                             <div class="row pt-0">
@@ -113,11 +117,13 @@
                             </div>
                         </div>
 
-                        <p class="pt-3 panel-operaciones-subtitle"
-                           style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">Datos del
-                            conductor del vehiculo asegurado <img
-                                src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                style="position:absolute; right:50px;"></p>
+                        <div class="pt-3 panel-operaciones-subtitle mb-3"
+                             style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                            Datos del conductor del vehiculo asegurado
+                            <a href="{{ route('asegurados-denuncias-paso3.create',['id' => $denuncia->identificador]) }}"
+                               class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                Editar</a>
+                        </div>
 
                         <div style="padding-left:8px;padding-right:8px;">
                             <div class="row pt-0">
@@ -215,10 +221,13 @@
                         </div>
 
 
-                        <p class="pt-3 panel-operaciones-subtitle"
-                           style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">Datos del
-                            asegurado <img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                           style="position:absolute; right:50px;"></p>
+                        <div class="pt-3 panel-operaciones-subtitle mb-3"
+                             style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                            Datos del asegurado
+                            <a href="{{ route('asegurados-denuncias-paso4.create',['id' => $denuncia->identificador]) }}"
+                               class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                Editar</a>
+                        </div>
 
                         <div style="padding-left:8px;padding-right:8px;">
                             <div class="row pt-0">
@@ -281,10 +290,12 @@
                         </div>
 
 
-                        <p class="pt-3 panel-operaciones-subtitle"
-                           style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">Datos del
-                            vehiculo asegurado <img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                                    style="position:absolute; right:50px;"></p>
+                        <p class="pt-3 panel-operaciones-subtitle mb-3" style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                            Datos del vehiculo asegurado
+                            <a href="{{ route('asegurados-denuncias-paso5.create',['id' => $denuncia->identificador]) }}"
+                               class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                Editar</a>
+                        </p>
 
                         <div style="padding-left:8px;padding-right:8px;">
                             <div class="row pt-0">
@@ -338,7 +349,7 @@
                                             {{$denuncia->vehiculo->uso_tpp ? ' Transporte Publico. ':''}}
                                             {{$denuncia->vehiculo->uso_urgencia ? ' Transporte de Urgencia. ':''}}
                                             {{$denuncia->vehiculo->uso_seguridad ? ' Transporte de Seguridad. ':''}}</p>
-                                       @endif
+                                    @endif
                                 </div>
 
                                 <div class="col-12 col-md-6">
@@ -361,10 +372,12 @@
                             </div>
                         </div>
 
-                        <p class="pt-3 panel-operaciones-subtitle"
-                           style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">Detalles
-                            del siniestro <img src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                               style="position:absolute; right:50px;"></p>
+                        <p class="pt-3 panel-operaciones-subtitle mb-3" style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                            Detalles del siniestro
+                            <a href="{{ route('asegurados-denuncias-paso10.create',['id' => $denuncia->identificador]) }}"
+                               class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                Editar</a>
+                        </p>
 
                         <div style="padding-left:8px;padding-right:8px;">
                             <div class="row pt-0">
@@ -419,11 +432,12 @@
                             </div>
 
 
-                            <p class="pt-3 panel-operaciones-subtitle"
-                               style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
-                                Documentos de la denuncia<img
-                                    src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                    style="position:absolute; right:50px;"></p>
+                            <p class="pt-3 panel-operaciones-subtitle mb-3" style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                                Documentos de la denuncia
+                                <a href="{{ route('asegurados-denuncias-paso11.create',['id' => $denuncia->identificador]) }}"
+                                   class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                    Editar</a>
+                            </p>
 
                             <div style="padding-left:8px;padding-right:8px;">
                                 <div class="form-group row ">
@@ -492,7 +506,8 @@
                                         <p class="documentos-denuncia-title">*Carnet de conducir </p>
                                         <p class="ambos-lados">(Foto de ambos lados)</p>
 
-                                        <input type="file" id="foto_carnet" name="foto_carnet" wire:change="$emit('single_file_choosed_carnet')">
+                                        <input type="file" id="foto_carnet" name="foto_carnet"
+                                               wire:change="$emit('single_file_choosed_carnet')">
 
                                         <div>
                                             @if(count($denuncia->documentosDenuncia) > 0)
@@ -668,11 +683,12 @@
 
                                 </div>
 
-                                <p class="pt-3 panel-operaciones-subtitle"
-                                   style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
-                                    Datos del denunciante <img
-                                        src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                        style="position:absolute; right:50px;"></p>
+                                <p class="pt-3 panel-operaciones-subtitle mb-3" style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
+                                    Datos del denunciante
+                                    <a href="{{ route('asegurados-denuncias-paso12.create',['id' => $denuncia->identificador]) }}"
+                                       class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                        Editar</a>
+                                </p>
 
                                 <div style="padding-left:8px;padding-right:8px;">
                                     <div class="row pt-0">
@@ -730,12 +746,13 @@
                                 </div>
 
 
-                                <p class="pt-3 panel-operaciones-subtitle"
+                                <div class="pt-3 panel-operaciones-subtitle mb-3"
                                    style="background: #E9E7EB;color:#545358;padding-bottom: 12px;padding-left: 12px;">
-                                    Observaciones <a
-                                        href="{{route('panel-siniestros.denuncia.observaciones',['denuncia'=>$denuncia])}}"><img
-                                            src="{{url('/images/siniestros/denuncia_asegurado/editar.png')}}"
-                                            style="position:absolute; right:50px;"></a></p>
+                                    Observaciones
+                                    <a href="{{ route('panel-siniestros.denuncia.observaciones',['denuncia' => $denuncia]) }}"
+                                       class="badge badge-secondary float-right mr-3"><i class="fa-solid fa-pen-to-square"></i>
+                                        Agregar</a>
+                                </div>
                                 <table class="table" style="min-height:200px;margin-bottom: 120px;">
 
                                     <thead class="thead tabla-panel">
