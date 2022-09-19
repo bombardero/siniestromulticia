@@ -136,69 +136,8 @@
                           </li>
 
                         <!-- Authentication Links -->
-                        @guest
+                        @include('partial.menu-authentication')
 
-                           <li class="nav-item dropdown seguros" style="background: #7AA2D6; border-radius:4px;">
-                            <a id="navbarDropdown2 " class="header-alquileres nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                ALQUILERES
-                            </a>
-
-                            <div class="dropdown-menu categoria-seguros"aria-labelledby="navbarDropdown2">
-                                <a class="dropdown-item header-estilo-dropdown" href="{{ route('login',['state' => 'cliente']) }}">
-                                    Particular
-                                </a>
-
-                                <a class="dropdown-item header-estilo-dropdown" href="{{ route('login', ['state' => 'inmobiliaria']) }}">
-                                    Inmobiliaria
-                                </a>
-                                <a class="dropdown-item header-estilo-dropdown" href="{{ route('login', ['state' => 'productor']) }}">
-                                    Productor
-                                </a>
-                            </div>
-                        </li>
-                        @else
-                            <li class="nav-item dropdown " style="background: #7AA2D6; border-radius: 4px;">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle header-alquileres" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
-                                    @if(Auth::user()->hasRole('cliente') || Auth::user()->hasRole('inmobiliaria'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel',['user' => Auth::user()]) }}">
-
-                                        Panel
-                                    </a>
-                                    @elseif(Auth::user()->hasRole('callcenter'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-callcenter')}}">
-
-                                    Panel Call Center
-                                    </a>
-                                    @elseif(Auth::user()->hasRole('operario'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-operario')}}">
-
-                                    Panel operario
-                                    </a>
-                                    @elseif(Auth::user()->hasRole('productor'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-productor',[Auth::user()])}}">
-                                    Panel productor
-                                    </a>
-                                    @elseif(Auth::user()->hasRole('admin'))
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('panel-admin',[Auth::user()])}}">
-                                    Panel administrador
-                                    </a>
-                                    @endif
-                                    <a class="dropdown-item header-estilo-dropdown" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Cerrar sesión
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
                     </ul>
                 </div>
             </div>
