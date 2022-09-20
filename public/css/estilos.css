@@ -6,6 +6,10 @@
     border-radius: 30px;
 }
 
+.invalid-feedback{
+    display: block;
+}
+
 #block-loading {
     display: flex;
     justify-content: center;

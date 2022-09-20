@@ -53,12 +53,15 @@
                 </div>
             </div>
 
-            <div class="form-group col-12 col-md-4">
-                <label for="dominio">Calle o Ruta</label>
-                <input type="text" id="calle" name="calle"
-                       class="form-control form-estilo"
-                       maxlength="255"
-                       value="{{ $denuncia_siniestro->calle }}">
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="dominio">Calle o Ruta *</label>
+                    <input type="text" id="calle" name="calle"
+                           class="form-control form-estilo @error('calle') is-invalid @enderror"
+                           maxlength="255"
+                           value="{{ $denuncia_siniestro->calle }}">
+                    @error('calle') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
             </div>
 
             <div class="col-12 col-md-4">
@@ -173,29 +176,13 @@
                 </div>
             </div>
 
-        </div>
-
-
-        <span style="color:red;">
-                            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-                        </span>
-
-        <a class="mt-3 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso1.create',['id'=> request('id'),'noredirect'=>true])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-3 boton-enviar-siniestro btn " value='SIGUIENTE'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+            <div class="col-12">
+                <a class="mt-3 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso1.create',['id'=> request('id'),'noredirect'=>true])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-3 boton-enviar-siniestro btn " value='SIGUIENTE'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
     </div>
 </form>

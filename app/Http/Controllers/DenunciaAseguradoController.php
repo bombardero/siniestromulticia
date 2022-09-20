@@ -248,8 +248,8 @@ class DenunciaAseguradoController extends Controller
             'carnet_categoria'=>'required',
             'carnet_vencimiento'=>'required',
             'alcoholemia'=>'required',
-            //'alcoholemia_se_nego'=>'required',
             'asegurado'=>'required',
+            'asegurado_relacion' => 'required_if:asegurado,0'
         ]);
 
         $identificador = $request->id;
@@ -498,7 +498,27 @@ class DenunciaAseguradoController extends Controller
 
     public function paso6store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'intervino_otro_vehiculo' => 'required',
+            'intervino_otro_vehiculo_datos' => 'required',
+            'vehiculos' => 'nullable'
+        ]);
+
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+
+        $validator->after(function ($validator) use ($request, $denuncia_siniestro) {
+            if ($request->intervino_otro_vehiculo && $request->intervino_otro_vehiculo_datos && $denuncia_siniestro->vehiculoTerceros()->count() == 0) {
+                $validator->errors()->add('vehiculos', 'Debe agregar al menos un vehículo');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
         $denuncia_siniestro->intervino_otro_vehiculo = $request->intervino_otro_vehiculo;
         $denuncia_siniestro->intervino_otro_vehiculo_datos = $request->intervino_otro_vehiculo_datos;
 
@@ -648,11 +668,28 @@ class DenunciaAseguradoController extends Controller
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 7,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas]);
     }
 
-    public function paso7store()
+    public function paso7store(Request $request)
     {
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        $denuncia_siniestro->hubo_danios_materiales = request('hubo_danios_materiales');
+        $validator = Validator::make($request->all(), [
+            'hubo_danios_materiales' => 'required',
+            'danios_materiales' => 'nullable'
+        ]);
+
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+
+        $validator->after(function ($validator) use ($request, $denuncia_siniestro) {
+            if ($request->hubo_danios_materiales && $denuncia_siniestro->danioMateriales()->count() == 0) {
+                $validator->errors()->add('danios_materiales', 'Debe agregar al menos un daño material');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $denuncia_siniestro->hubo_danios_materiales = $request->hubo_danios_materiales;
 
         if($denuncia_siniestro->estado_carga < "7")
         {
@@ -661,7 +698,7 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro->save();
 
-        return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $identificador]);
+        return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
 
     public function paso7agregarcreate()
@@ -745,11 +782,29 @@ class DenunciaAseguradoController extends Controller
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro, "paso" => 8]);
     }
 
-    public function paso8store()
+    public function paso8store(Request $request)
     {
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        $denuncia_siniestro->hubo_lesionados = request('lesionados');
+        $validator = Validator::make($request->all(), [
+            'hubo_lesionados' => 'required',
+            'lesionados' => 'nullable'
+        ]);
+
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+
+        $validator->after(function ($validator) use ($request, $denuncia_siniestro) {
+            if ($request->hubo_lesionados && $denuncia_siniestro->lesionados()->count() == 0) {
+                $validator->errors()->add('lesionados', 'Debe agregar al menos un lesionado');
+            }
+        });
+
+        if ($validator->fails()) {
+            return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+        $denuncia_siniestro->hubo_lesionados = $request->lesionados;
 
         if($denuncia_siniestro->estado_carga < "8")
         {
@@ -758,7 +813,7 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro->save();
 
-        return redirect()->route("asegurados-denuncias-paso9.create",['id'=> $identificador]);
+        return redirect()->route("asegurados-denuncias-paso9.create",['id'=> $request->id]);
     }
 
 

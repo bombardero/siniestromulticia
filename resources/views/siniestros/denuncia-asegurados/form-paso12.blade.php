@@ -26,31 +26,37 @@
             <div class="col-12 col-md-1">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="asegurado_si" name="asegurado" value="1"
-                        {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado ? 'checked' : '' }}>
+                        {{ old('asegurado') == '1' || ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado) ? 'checked' : '' }}>
                     <label for="asegurado_si">Si</label>
                 </div>
             </div>
 
-            <div class="col-12 col-md-1">
+            <div class="col-12 col-md-8">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="asegurado_no" name="asegurado" value="0"
-                        {{ $denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado === false ? 'checked' : '' }}>
+                        {{ old('asegurado') == '0' || ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado === false) ? 'checked' : '' }}>
                     <label for="asegurado_no">No</label>
                 </div>
             </div>
 
-            <div class="col-12 col-md-7"></div>
 
-            <div class="col-12 col-md-3 pt-2">
+            @error('asegurado')
+                    <div class="col-12 col-md-9 offset-sm-3">
+                        <span class="invalid-feedback pl-2 mt-0">{{ $message }}</span>
+                    </div>
+            @enderror
+
+            <div class="col-12 col-md-3 pt-2 mt-2">
                 <label for="asegurado_relacion">Relación con el asegurado</label>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mt-2">
                 <div class="form-group">
                     <input type="text" id='asegurado_relacion' name="asegurado_relacion"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_relacion') is-invalid @enderror"
                            value="{{$denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->asegurado_relacion : '' }}"
-                           disabled>
+                           {{ old('asegurado') == '0' || ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado === false) ? '' : 'disabled'}}>
+                    @error('asegurado_relacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -58,8 +64,9 @@
                 <div class="form-group">
                     <label for="nombre">Nombre y Apellido</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre completo"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('nombre') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->nombre : '' }}">
+                    @error('nombre') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -80,8 +87,9 @@
                 <div class="form-group">
                     <label for="documento_numero">Número de Documento</label>
                     <input type="text" id="documento_numero" name="documento_numero" maxlength="8"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('documento_numero') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->denunciante  ? $denuncia_siniestro->denunciante->documento_numero : ''}}">
+                    @error('documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -89,8 +97,9 @@
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
                     <input type="text" name="telefono" id="telefono" maxlength="15"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('telefono') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->telefono : ''}}">
+                    @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -125,9 +134,10 @@
                 <div class="form-group">
                     <label for="domicilio">Domicilio</label>
                     <input type="text" name="domicilio" id="domicilio"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('domicilio') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante-> domicilio : ''}}"
                     >
+                    @error('domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -135,33 +145,21 @@
                 <div class="form-group">
                     <label for="codigo_postal">Código Postal</label>
                     <input type="text" name="codigo_postal" id="codigo_postal"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('codigo_postal') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->codigo_postal : '' }}">
+                    @error('codigo_postal') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
-
         </div>
 
-
-        <span style="color:red;">
-            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-        </span>
-
-        <a class="mt-5 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso11.create',['id'=> request('id')])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='FINALIZAR'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso11.create',['id'=> request('id')])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='FINALIZAR'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
     </div>
 </form>

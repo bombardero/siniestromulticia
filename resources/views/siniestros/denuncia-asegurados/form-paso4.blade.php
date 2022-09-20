@@ -23,9 +23,10 @@
                 <div class="form-group">
                     <label for="asegurado_nombre">Nombre y Apellido *</label>
                     <input type="text" name="asegurado_nombre" placeholder="Nombre completo"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_nombre') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->nombre : '' }}"
                     >
+                    @error('asegurado_nombre') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -39,7 +40,6 @@
                                 value="{{$tipo_documento->id}}" {{ $denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}>{{ $tipo_documento->nombre }}</option>
                         @endforeach
                     </select>
-
                 </div>
             </div>
 
@@ -47,26 +47,29 @@
                 <div class="form-group">
                     <label for="asegurado_documento_numero">Número de Documento *</label>
                     <input type="text" name="asegurado_documento_numero" id="asegurado_documento_numero"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_documento_numero') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->documento_numero : '' }}">
+                    @error('asegurado_documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="col-12 col-md-8">
-                <label for="asegurado_domicilio">Domicilio *</label>
                 <div class="form-group">
+                    <label for="asegurado_domicilio">Domicilio *</label>
                     <input type="text" name="asegurado_domicilio" id="asegurado_domicilio"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_domicilio') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->domicilio : '' }}">
+                    @error('asegurado_domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="col-12 col-md-4">
-                <label for="asegurado_codigo_postal">Código Postal *</label>
                 <div class="form-group">
+                    <label for="asegurado_codigo_postal">Código Postal *</label>
                     <input type="text" name="asegurado_codigo_postal" id="asegurado_codigo_postal"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_domicilio') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->codigo_postal : '' }}">
+                    @error('asegurado_domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -103,7 +106,6 @@
                             >{{ $localidad->name }}</option>
                         @endforeach
                     </select>
-
                 </div>
             </div>
 
@@ -111,8 +113,9 @@
                 <div class="form-group">
                     <label for="asegurado_ocupacion">Ocupación *</label>
                     <input type="text" id="asegurado_ocupacion" name="asegurado_ocupacion"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_ocupacion') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->ocupacion : '' }}">
+                    @error('asegurado_ocupacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -120,33 +123,21 @@
                 <div class="form-group">
                     <label for="asegurado_telefono">Teléfono *</label>
                     <input type="text" id="asegurado_telefono" name="asegurado_telefono"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_telefono') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->telefono : '' }}">
+                    @error('asegurado_telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
-
         </div>
 
-        <span style="color:red;">
-                            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-                        </span>
-
-        <a class="mt-5 boton-enviar-siniestro btn"
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso3.create',['id'=> request('id')])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn" value='SIGUIENTE'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn"
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso3.create',['id'=> request('id')])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn" value='SIGUIENTE'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
     </div>
 </form>

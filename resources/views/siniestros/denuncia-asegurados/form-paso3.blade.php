@@ -20,8 +20,10 @@
                 <div class="form-group">
                     <label for="nombre">Nombre *</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre completo"
-                           class="form-control form-estilo" maxlength="255"
+                           class="form-control form-estilo @error('nombre') is-invalid @enderror"
+                           maxlength="255"
                            value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->nombre) ? $denuncia_siniestro->conductor->nombre : $denuncia_siniestro->nombre_conductor }}">
+                    @error('nombre') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -29,8 +31,9 @@
                 <div class="form-group">
                     <label for="telefono">Teléfono *</label>
                     <input type="text" id="telefono" name="telefono"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('telefono') is-invalid @enderror"
                            value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->telefono) ? $denuncia_siniestro->conductor->telefono : ''}}">
+                    @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -38,8 +41,9 @@
                 <div class="form-group">
                     <label for="domicilio">Domicilio *</label>
                     <input type="text" id="domicilio" name="domicilio"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('domicilio') is-invalid @enderror"
                            value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->domicilio) ? $denuncia_siniestro->conductor->domicilio : '' }}">
+                    @error('domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -47,8 +51,9 @@
                 <div class="form-group">
                     <label for="codigo_postal">Código Postal *</label>
                     <input type="text" id="codigo_postal" name="codigo_postal"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('codigo_postal') is-invalid @enderror"
                            value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->codigo_postal) ? $denuncia_siniestro->conductor->codigo_postal : '' }}">
+                    @error('codigo_postal') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -88,16 +93,17 @@
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                    <label for="fecha_nacimiento">Fecha de Nacimiento *</label>
                     <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('fecha_nacimiento') is-invalid @enderror"
                            value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->fecha_nacimiento) ? $denuncia_siniestro->conductor->fecha_nacimiento : '' }}">
+                    @error('fecha_nacimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="tipo_documentos">País</label>
+                    <label for="tipo_documentos">Tipo de Documento</label>
                     <select name="documento_id" id="tipo_documentos" class="custom-select form-estilo">
                         @foreach($tipo_documentos as $tipo_documento)
                             <option value="{{ $tipo_documento->id }}"
@@ -111,8 +117,9 @@
                 <div class="form-group">
                     <label for="documento_numero">Número de Documento *</label>
                     <input type="text" id="documento_numero" name="documento_numero"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('documento_numero') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->documento_numero ? $denuncia_siniestro->conductor->documento_numero : '' }}">
+                    @error('documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -120,8 +127,9 @@
                 <div class="form-group">
                     <label for="ocupacion">Ocupación *</label>
                     <input type="text" id="ocupacion" name="ocupacion"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('ocupacion') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->ocupacion ? $denuncia_siniestro->conductor->ocupacion : ''}}">
+                    @error('ocupacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -129,8 +137,9 @@
                 <div class="form-group">
                     <label for="numero_registro">Numero de Reg. de Conducir *</label>
                     <input type="text" id="numero_registro" name="numero_registro"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('numero_registro') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->numero_registro ? $denuncia_siniestro->conductor->numero_registro : '' }}">
+                    @error('numero_registro') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -138,8 +147,9 @@
                 <div class="form-group">
                     <label for="estado_civil">Estado Civil *</label>
                     <input type="text" id="estado_civil" name="estado_civil"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('estado_civil') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->estado_civil ? $denuncia_siniestro->conductor->estado_civil : '' }}">
+                    @error('estado_civil') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -159,8 +169,9 @@
                 <div class="form-group">
                     <label for="carnet_categoria">Categoría/Clase del Carnet</label>
                     <input type="text" id="carnet_categoria" name="carnet_categoria"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('carnet_categoria') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->carnet_categoria ? $denuncia_siniestro->conductor->carnet_categoria : '' }}">
+                    @error('carnet_categoria') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -168,8 +179,9 @@
                 <div class="form-group">
                     <label for="carnet_vencimiento">Vencimiento</label>
                     <input type="text" id="carnet_vencimiento" name="carnet_vencimiento"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('carnet_vencimiento') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor  && $denuncia_siniestro->conductor->carnet_vencimiento ? $denuncia_siniestro->conductor->carnet_vencimiento : '' }}">
+                    @error('carnet_vencimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
         </div>
@@ -205,6 +217,10 @@
                     <label for="checkbox_alcoholemia_nego" class="form-check-label">Se negó</label>
                 </div>
             </div>
+
+            <div class="col-12 col-md-8 offset-md-4">
+                @error('alcoholemia') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+            </div>
         </div>
 
         <div class="row mt-3">
@@ -237,7 +253,7 @@
             </div>
 
             <div class="col-12 col-md-4">
-                <label><b>*Es el propio asegurado</b></label>
+                <label><b>Es el propio asegurado *</b></label>
             </div>
 
             <div class="col-12 col-md-1">
@@ -257,8 +273,12 @@
                     <label for="checkbox_asegurado_no" class="form-check-label">No</label>
                 </div>
             </div>
+
+            <div class="col-12 col-md-8 offset-md-4">
+                @error('asegurado') <span class="invalid-feedback pl-2 mt-0 text-danger">{{ $message }}</span> @enderror
+            </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
                 <label for="asegurado_relacion" class="pt-2">Relación con el asegurado</label>
             </div>
@@ -266,35 +286,22 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <input type="text" id='asegurado_relacion' name="asegurado_relacion"
-                           class="form-control form-estilo"
+                           class="form-control form-estilo @error('asegurado_relacion') is-invalid @enderror"
                            value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->asegurado_relacion) ? $denuncia_siniestro->conductor->asegurado_relacion : '' }}"
                            disabled>
+                    @error('asegurado_relacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
-
-
         </div>
 
-        <span style="color:red;">
-                            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-                        </span>
-
-        <a class="mt-5 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso2.create',['id'=> request('id')])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso2.create',['id'=> request('id')])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
     </div>
 </form>
@@ -322,29 +329,6 @@
                         }
                     })
             });
-        });
-
-        $("#checkbox_alcoholemia_si").click(function () {
-            $("#checkbox_alcoholemia_no").prop('checked', false);
-            $("#checkbox_alcoholemia_nego").prop('checked', false);
-        });
-
-        $("#checkbox_alcoholemia_no").click(function () {
-            $("#checkbox_alcoholemia_si").prop('checked', false);
-            $("#checkbox_alcoholemia_nego").prop('checked', false);
-        });
-
-        $("#checkbox_alcoholemia_nego").click(function () {
-            $("#checkbox_alcoholemia_si").prop('checked', false);
-            $("#checkbox_alcoholemia_no").prop('checked', false);
-        });
-
-        $("#checkbox_habitual_si").click(function () {
-            $("#checkbox_habitual_no").prop('checked', false);
-        });
-
-        $("#checkbox_habitual_no").click(function () {
-            $("#checkbox_habitual_si").prop('checked', false);
         });
 
         $("#checkbox_asegurado_si").click(function () {

@@ -24,8 +24,8 @@
             <div class="col-12 col-md-1">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="checkbox_lesionados_si"
-                           name="lesionados" value="1"
-                        {{ $denuncia_siniestro->hubo_lesionados ? 'checked' : '' }}>
+                           name="hubo_lesionados" value="1"
+                        {{ old('hubo_lesionados') == '1' || $denuncia_siniestro->hubo_lesionados ? 'checked' : '' }}>
                     <label for="checkbox_lesionados_si">Si</label>
                 </div>
             </div>
@@ -33,8 +33,8 @@
             <div class="col-12 col-md-1">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="checkbox_lesionados_no"
-                           name="lesionados" value="0"
-                        {{$denuncia_siniestro->hubo_lesionados === false ? 'checked' : '' }}>
+                           name="hubo_lesionados" value="0"
+                        {{ old('hubo_lesionados') == '0' || $denuncia_siniestro->hubo_lesionados === false ? 'checked' : '' }}>
                     <label>No</label>
                 </div>
             </div>
@@ -44,6 +44,10 @@
                     <img src="/images/siniestros/denuncia_asegurado/informacion_rojo.png" style="margin-bottom: 2px;">
                     No incluye al conductor del vehículo asegurado
                 </label>
+            </div>
+
+            <div class="col-12 col-md-8 offset-sm-4">
+                @error('hubo_lesionados') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
             </div>
 
         </div>
@@ -86,30 +90,24 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                @error('lesionados') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+            </div>
+
         </div>
 
-        <span style="color:red;">
-                            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-                        </span>
-
-        <a class="mt-5 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso7.create',['id'=> request('id')])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso7.create',['id'=> request('id')])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
+
     </div>
+
 </form>
 
 @section('scripts')

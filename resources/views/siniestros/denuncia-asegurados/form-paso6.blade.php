@@ -24,22 +24,26 @@
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" value="1"
                            id="checkbox_intervino_si" name="intervino_otro_vehiculo"
-                        {{ $denuncia_siniestro->intervino_otro_vehiculo ? 'checked' : '' }}>
-                    <label>Si</label>
+                        {{ old('intervino_otro_vehiculo') == "1" || $denuncia_siniestro->intervino_otro_vehiculo ? 'checked' : '' }}>
+                    <label for="checkbox_intervino_si">Si</label>
                 </div>
             </div>
 
             <div class="col-12 col-md-1">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" value="0"
-                           id="intervino_otro_vehiculo" name="intervino_otro_vehiculo"
-                        {{ $denuncia_siniestro->intervino_otro_vehiculo === false ? 'checked' : ''}}>
-                    <label>No</label>
+                           id="checkbox_intervino_no" name="intervino_otro_vehiculo"
+                        {{ old('intervino_otro_vehiculo') == "0" || $denuncia_siniestro->intervino_otro_vehiculo === false ? 'checked' : ''}}>
+                    <label for="checkbox_intervino_no">No</label>
                 </div>
+            </div>
+
+            <div class="col-12 col-md-8 offset-md-4">
+                @error('intervino_otro_vehiculo') <span class="invalid-feedback pl-2 mt-0">{{ $message }}</span> @enderror
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
                 <label><b>Tengo los datos *</b></label>
             </div>
@@ -47,17 +51,22 @@
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" value="1"
                            id="checkbox_datos_si"
-                           name="intervino_otro_vehiculo_datos" {{$denuncia_siniestro->intervino_otro_vehiculo_datos ? 'checked' : ''}}>
-                    <label>Si</label>
+                           name="intervino_otro_vehiculo_datos"
+                        {{ old('intervino_otro_vehiculo_datos') == "1" || $denuncia_siniestro->intervino_otro_vehiculo_datos ? 'checked' : ''}}>
+                    <label for="checkbox_datos_si">Si</label>
                 </div>
             </div>
             <div class="col-12 col-md-1">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" value="0"
                            id="checkbox_datos_no" name="intervino_otro_vehiculo_datos"
-                        {{ $denuncia_siniestro->intervino_otro_vehiculo_datos === false ? 'checked' : '' }}>
-                    <label>No</label>
+                        {{ old('intervino_otro_vehiculo_datos') == "0" || $denuncia_siniestro->intervino_otro_vehiculo_datos === false ? 'checked' : '' }}>
+                    <label for="checkbox_datos_no">No</label>
                 </div>
+            </div>
+
+            <div class="col-12 col-md-8 offset-md-4">
+                @error('intervino_otro_vehiculo_datos') <span class="invalid-feedback pl-2 mt-0">{{ $message }}</span> @enderror
             </div>
         </div>
 
@@ -89,37 +98,30 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-12 col-md-12">
-                <div class="input-group  ">
+            <div class="col-12">
+                <div class="input-group">
                     <a href="{{route('asegurados-denuncias-paso6agregar.create',['id'=> request('id')])}}"
                        style="color:#6E4697;"><img
                             src="{{url('/images/siniestros/denuncia_asegurado/agregar.png')}}"/>
                         Agregar vehiculo</a>
                 </div>
             </div>
+
+            <div class="col-12">
+                @error('vehiculos') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+            </div>
         </div>
 
-        <span style="color:red;">
-            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-        </span>
-
-        <a class="mt-5 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso5.create',['id'=> request('id')])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso5.create',['id'=> request('id')])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
+
     </div>
 </form>
 
@@ -150,24 +152,6 @@
             });
 
         });
-
-        $("#checkbox_intervino_si").click(function () {
-            $("#checkbox_intervino_no").prop('checked', false);
-        });
-
-        $("#checkbox_intervino_no").click(function () {
-            $("#checkbox_intervino_si").prop('checked', false);
-        });
-
-        $("#checkbox_datos_si").click(function () {
-            $("#checkbox_datos_no").prop('checked', false);
-        });
-
-        $("#checkbox_datos_no").click(function () {
-            $("#checkbox_datos_si").prop('checked', false);
-        });
-
-
     </script>
 
 @endsection

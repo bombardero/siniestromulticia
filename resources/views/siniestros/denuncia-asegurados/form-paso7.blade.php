@@ -25,7 +25,7 @@
                     <input type="radio" class="form-check-input" id="checkbox_danio_si"
                            name="hubo_danios_materiales"
                            value="1"
-                        {{ $denuncia_siniestro->hubo_danios_materiales ? 'checked' : '' }}>
+                        {{ old('hubo_danios_materiales') == '1' || $denuncia_siniestro->hubo_danios_materiales ? 'checked' : '' }}>
                     <label>Si</label>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <input type="radio" class="form-check-input" id="checkbox_danio_no"
                            name="hubo_danios_materiales"
                            value="0"
-                        {{$denuncia_siniestro->hubo_danios_materiales === false ? 'checked' : '' }}>
+                        {{ old('hubo_danios_materiales') == '0' || $denuncia_siniestro->hubo_danios_materiales === false ? 'checked' : '' }}>
                     <label>No</label>
                 </div>
             </div>
@@ -45,6 +45,10 @@
                     Ejemplo: animales, inmuebles, carteles, semáforos, mobiliario público, bicicletas, etc.
                     <br>*No incluye daños a otros vehículos
                 </label>
+            </div>
+
+            <div class="col-12 col-md-8 offset-sm-4">
+                @error('hubo_danios_materiales') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
             </div>
 
         </div>
@@ -91,30 +95,25 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                @error('danios_materiales') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+            </div>
+
         </div>
 
-        <span style="color:red;">
-                            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-                        </span>
-
-        <a class="mt-5 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso6.create',['id'=> request('id')])}}'>ANTERIOR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
-               style="background:#6e4697;font-weight: bold;"/>
-    </div>
-
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso6.create',['id'=> request('id')])}}'>ANTERIOR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='SIGUIENTE'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
+
+
     </div>
+
 </form>
 
 @section('scripts')
