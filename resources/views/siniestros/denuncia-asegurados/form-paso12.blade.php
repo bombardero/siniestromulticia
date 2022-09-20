@@ -96,7 +96,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" id="telefono" maxlength="15"
+                    <input type="tel" name="telefono" id="telefono" maxlength="15"
                            class="form-control form-estilo @error('telefono') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->telefono : ''}}">
                     @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror

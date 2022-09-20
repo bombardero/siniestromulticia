@@ -33,7 +33,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="propietario_telefono">Teléfono</label>
-                    <input type="text" name="propietario_telefono" id="propietario_telefono"
+                    <input type="tel" name="propietario_telefono" id="propietario_telefono"
                            class="form-control form-estilo" maxlength="15">
                 </div>
             </div>
@@ -129,7 +129,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="vehiculo_anio">Año</label>
-                    <input type="text" name="vehiculo_anio" id="vehiculo_anio"
+                    <input type="tel" name="vehiculo_anio" id="vehiculo_anio"
                            class="form-control form-estilo"
                            maxlength="4"
                     >
@@ -236,7 +236,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="conductor_telefono">Teléfono</label>
-                    <input type="text" name="conductor_telefono" id="conductor_telefono"
+                    <input type="tel" name="conductor_telefono" id="conductor_telefono"
                            maxlength="15" class="form-control form-estilo">
                 </div>
             </div>
@@ -315,6 +315,7 @@
                     <label for="conductor_vencimiento">Vencimiento</label>
                     <input type="text" name="conductor_vencimiento" id="conductor_vencimiento"
                            maxlength="5" class="form-control form-estilo"
+                           placeholder="00/00"
                     >
                 </div>
             </div>

@@ -27,7 +27,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="lesionado_telefono">Teléfono</label>
-                    <input type="text" name="lesionado_telefono" id="lesionado_telefono" maxlength="15"
+                    <input type="tel" name="lesionado_telefono" id="lesionado_telefono" maxlength="15"
                            class="form-control form-estilo">
                 </div>
             </div>
