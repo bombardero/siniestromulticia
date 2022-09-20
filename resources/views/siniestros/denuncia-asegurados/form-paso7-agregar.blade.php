@@ -21,11 +21,12 @@
 
             <div class="col-12">
                 <div class="form-group">
-                    <label for="Detalles">Detalle los daños</label>
+                    <label for="Detalles">Detalle los daños *</label>
                     <textarea type="text" name="detalles" id="detalles"
                               placeholder="Describa los daños"
-                              class="form-control form-estilo"
+                              class="form-control form-estilo @error('detalles') is-invalid @enderror"
                     ></textarea>
+                    @error('detalles') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -75,31 +76,20 @@
                            class="form-control form-estilo" maxlength="255">
                 </div>
             </div>
-
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a class="mt-5 boton-enviar-siniestro btn "
+                   style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
+                   href='{{route('asegurados-denuncias-paso7.create',['id'=> request('id')])}}'>CANCELAR</a>
+                <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='GUARDAR'
+                       style="background:#6e4697;font-weight: bold;"/>
+            </div>
         </div>
 
-        <span style="color:red;">
-                            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-                        </span>
 
-        <a class="mt-5 boton-enviar-siniestro btn "
-           style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-           href='{{route('asegurados-denuncias-paso7.create',['id'=> request('id')])}}'>CANCELAR</a>
-        <input type="submit" class="mt-5 boton-enviar-siniestro btn " value='GUARDAR'
-               style="background:#6e4697;font-weight: bold;"/>
     </div>
 
-
-    <div class="col-12 text-center text-md-right">
-        <div wire:loading class="spinner-border" role="status">
-            <span class="sr-only">Cargando...</span>
-            <span class="sr-only">Cargando...</span>
-        </div>
-    </div>
 </form>
 
 @section('scripts')
