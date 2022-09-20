@@ -651,13 +651,11 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $identificador]);
     }
 
-    public function paso6DeleteItem()
+    public function paso6DeleteItem(Request $request)
     {
-        $identificador = request('id');
-        $danio_materiales_id = request('v');
-        $danio_materiales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$danio_materiales_id)->firstOrFail();
-        $danio_materiales->delete();
-        return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $identificador]);
+        $vehiculo_terceros = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
+        $vehiculo_terceros->delete();
+        return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
     }
 
     public function paso7create()
