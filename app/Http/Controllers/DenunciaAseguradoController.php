@@ -169,7 +169,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro->estado_tiempo_granizo = $request->granizo == 'on';
         $denuncia_siniestro->estado_tiempo_otros_detalles = ($request->otros == 'on' && $request->otros_detalles != '') ? $request->otros_detalles : null;
 
-        if($denuncia_siniestro->estado_carga < "1" || $denuncia_siniestro->estado_carga == 'precarga')
+        if($denuncia_siniestro->estado_carga == 'precarga')
         {
             $denuncia_siniestro->estado_carga = "1";
             $denuncia_siniestro->save();
@@ -211,7 +211,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro->semaforo_intermitente = $request->semaforo_intermitente ==  'on';
         $denuncia_siniestro->semaforo_color = $request->semaforo_color;
 
-        if($denuncia_siniestro->estado_carga < "2")
+        if($denuncia_siniestro->estado_carga == "1")
         {
             $denuncia_siniestro->estado_carga = "2";
             $denuncia_siniestro->save();
@@ -306,7 +306,7 @@ class DenunciaAseguradoController extends Controller
             $denuncia_siniestro->conductor->save();
         }
 
-        if($denuncia_siniestro->estado_carga < "3")
+        if($denuncia_siniestro->estado_carga == "2")
         {
             $denuncia_siniestro->estado_carga = '3';
             $denuncia_siniestro->save();
@@ -386,7 +386,7 @@ class DenunciaAseguradoController extends Controller
             $denuncia_siniestro->asegurado->save();
         }
 
-        if($denuncia_siniestro->estado_carga < "4")
+        if($denuncia_siniestro->estado_carga == "3")
         {
             $denuncia_siniestro->estado_carga = '4';
             $denuncia_siniestro->save();
@@ -478,7 +478,7 @@ class DenunciaAseguradoController extends Controller
             $denuncia_siniestro->vehiculo->save();
         }
 
-        if($denuncia_siniestro->estado_carga < "5")
+        if($denuncia_siniestro->estado_carga == "4")
         {
             $denuncia_siniestro->estado_carga = '5';
             $denuncia_siniestro->save();
@@ -522,7 +522,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro->intervino_otro_vehiculo = $request->intervino_otro_vehiculo;
         $denuncia_siniestro->intervino_otro_vehiculo_datos = $request->intervino_otro_vehiculo_datos;
 
-        if($denuncia_siniestro->estado_carga < "6")
+        if($denuncia_siniestro->estado_carga == "5")
         {
             $denuncia_siniestro->estado_carga = '6';
 
@@ -646,7 +646,6 @@ class DenunciaAseguradoController extends Controller
             "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_se_nego == 'on',
             "conductor_habitual" => $request->conductor_habitual_si,
         ]);
-        //$denuncia_siniestro->save();
 
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $identificador]);
     }
@@ -689,9 +688,9 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro->hubo_danios_materiales = $request->hubo_danios_materiales;
 
-        if($denuncia_siniestro->estado_carga < "7")
+        if($denuncia_siniestro->estado_carga == "6")
         {
-            $denuncia_siniestro->estado_carga='7';
+            $denuncia_siniestro->estado_carga = '7';
         }
 
         $denuncia_siniestro->save();
@@ -804,9 +803,9 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $denuncia_siniestro->hubo_lesionados = $request->lesionados;
 
-        if($denuncia_siniestro->estado_carga < "8")
+        if($denuncia_siniestro->estado_carga == "7")
         {
-            $denuncia_siniestro->estado_carga='8';
+            $denuncia_siniestro->estado_carga = '8';
         }
 
         $denuncia_siniestro->save();
@@ -945,9 +944,9 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro->colision_transporte_publico = $request->colision_transporte == 'on';
         $denuncia_siniestro->colision_otros = $request->colision_otros == 'on';
 
-        if($denuncia_siniestro->estado_carga < "9")
+        if($denuncia_siniestro->estado_carga == "8")
         {
-            $denuncia_siniestro->estado_carga='9';
+            $denuncia_siniestro->estado_carga = '9';
         }
         $denuncia_siniestro->save();
 
@@ -1012,7 +1011,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro->denuncia_policial_juzgado = $request->juzgado;
         $denuncia_siniestro->denuncia_policial_secretaria = $request->secretaria;
 
-        if($denuncia_siniestro->estado_carga < "10")
+        if($denuncia_siniestro->estado_carga == "9")
         {
             $denuncia_siniestro->estado_carga = '10';
         }
@@ -1189,7 +1188,7 @@ class DenunciaAseguradoController extends Controller
             $denuncia_siniestro->denunciante->save();
         }
 
-        if($denuncia_siniestro->estado_carga < "12")
+        if($denuncia_siniestro->estado_carga == "11")
         {
             $denuncia_siniestro->estado_carga = '12';
             $denuncia_siniestro->save();

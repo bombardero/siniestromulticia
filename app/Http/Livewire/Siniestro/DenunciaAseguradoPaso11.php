@@ -74,10 +74,10 @@ class DenunciaAseguradoPaso11 extends Component
         }
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$this->identificador)->firstOrFail();
-
-        if($denuncia_siniestro->estado_carga < "11")
+        if($denuncia_siniestro->estado_carga == "10")
         {
             $denuncia_siniestro->estado_carga = '11';
+            $denuncia_siniestro->save();
         }
 
         return redirect()->route("asegurados-denuncias-paso12.create",['id'=> $this->identificador]);
