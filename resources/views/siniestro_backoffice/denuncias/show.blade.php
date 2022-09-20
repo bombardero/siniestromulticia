@@ -21,20 +21,16 @@
                                     </div>
 
                                     <div class="col-12 col-md-4">
-                                        <img
-                                            src="{{url('/images/siniestros/denuncia_asegurado/backoffice/aprobar.png')}}"
-                                            style="position:absolute; right:170px;margin-top: 15px;">
-                                        <img
-                                            src="{{url('/images/siniestros/denuncia_asegurado/backoffice/rechazar.png')}}"
-                                            style="position:absolute; right:130px;margin-top: 15px;">
-                                        <a href="{{route('panel-siniestros.denuncia.pdf',$denuncia->id)}}">
-                                            <img
-                                                src="{{url('/images/siniestros/denuncia_asegurado/backoffice/bajarpdf.png')}}"
-                                                style="position:absolute; right:90px;margin-top: 17px;">
-                                        </a>
-                                        <img
-                                            src="{{url('/images/siniestros/denuncia_asegurado/backoffice/eliminar.png')}}"
-                                            style="position:absolute; right:50px;margin-top: 17px;">
+                                        <div class="d-flex pt-3">
+                                            <img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/aprobar.png')}}" class="px-2">
+                                            <img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/rechazar.png')}}" class="px-2">
+                                            <a href="{{route('panel-siniestros.denuncia.pdf',$denuncia->id)}}">
+                                                <img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/bajarpdf.png')}}" class="px-2">
+                                            </a>
+                                            <a href="{{ route('panel-siniestros.denuncia.delete',$denuncia->id) }}" class="px-2 btn-eliminar text-danger" title="Eliminar">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -780,4 +776,18 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+<script>
+
+    $('.btn-eliminar').click(function (event) {
+        let result = confirm('¿Confirma desea eliminar la denuncia?');
+        if (!result) {
+            event.preventDefault();
+            return false;
+        }
+        showLoading();
+        })
+</script>
 @endsection

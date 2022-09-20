@@ -30,7 +30,8 @@
                             </div>
                             <div class="col-12 col-md-1 px-1">
                                 <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="estado" id="estado" onchange="buscar()">
+                                    <select class="custom-select form-control form-control-sm" name="estado" id="estado"
+                                            onchange="buscar()">
                                         <option
                                             value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
                                             Todos
@@ -66,7 +67,8 @@
 
                             <div class="col-12 col-md-1 px-1">
                                 <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="cobertura" onchange="buscar()">
+                                    <select class="custom-select form-control form-control-sm" name="cobertura"
+                                            onchange="buscar()">
                                         <option
                                             value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>
                                             Todas
@@ -91,7 +93,8 @@
 
                             <div class="col-12 col-md-1 px-1">
                                 <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="carga" id="carga" onchange="buscar()">
+                                    <select class="custom-select form-control form-control-sm" name="carga" id="carga"
+                                            onchange="buscar()">
                                         <option
                                             value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
                                             Todos
@@ -116,7 +119,8 @@
 
                             <div class="col-12 col-md-2 px-1 pr-0 pl-1">
                                 <div class="form-label-group input-group">
-                                    <input type="text" name="busqueda" class="form-control" value="{{request()->busqueda}}" onchange="buscar()">
+                                    <input type="text" name="busqueda" class="form-control"
+                                           value="{{request()->busqueda}}" onchange="buscar()">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
                                     </div>
@@ -171,21 +175,53 @@
                                                     type="text" id="nsiniestro" name="nsiniestro" value="1"
                                                     style="height: 21px;width:70px !important;"></td>
                                             <td>
-                                                <select name="select" id="estado" onchange="cambiarEstado(this, {{ $denuncia->id  }})">
-                                                    <option value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>INGRESADO</option>
-                                                    <option value="aceptado" {{( $denuncia->estado == 'aceptado') ? 'selected' : '' }}>ACEPTADO</option>
-                                                    <option value="rechazado" {{( $denuncia->estado == 'rechazado') ? 'selected' : '' }}>RECHAZADO</option>
-                                                    <option value="cerrado" {{( $denuncia->estado == 'cerrado') ? 'selected' : '' }}>CERRADO</option>
-                                                    <option value="legales" {{( $denuncia->estado == 'legales') ? 'selected' : '' }}>LEGALES</option>
-                                                    <option value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>INVESTIGACIÓN</option>
+                                                <select name="select" id="estado"
+                                                        onchange="cambiarEstado(this, {{ $denuncia->id  }})">
+                                                    <option
+                                                        value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>
+                                                        INGRESADO
+                                                    </option>
+                                                    <option
+                                                        value="aceptado" {{( $denuncia->estado == 'aceptado') ? 'selected' : '' }}>
+                                                        ACEPTADO
+                                                    </option>
+                                                    <option
+                                                        value="rechazado" {{( $denuncia->estado == 'rechazado') ? 'selected' : '' }}>
+                                                        RECHAZADO
+                                                    </option>
+                                                    <option
+                                                        value="cerrado" {{( $denuncia->estado == 'cerrado') ? 'selected' : '' }}>
+                                                        CERRADO
+                                                    </option>
+                                                    <option
+                                                        value="legales" {{( $denuncia->estado == 'legales') ? 'selected' : '' }}>
+                                                        LEGALES
+                                                    </option>
+                                                    <option
+                                                        value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>
+                                                        INVESTIGACIÓN
+                                                    </option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="select" id="cobertura_activa" onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
-                                                    <option value="" {{( $denuncia->cobertura_activa == null) ? 'selected' : '' }}>Ninguna</option>
-                                                    <option value="RC" {{( $denuncia->cobertura_activa == 'RC') ? 'selected' : '' }}>RC</option>
-                                                    <option value="Casco" {{( $denuncia->cobertura_activa == 'Casco') ? 'selected' : '' }}>Casco</option>
-                                                    <option value="RC con Casco" {{( $denuncia->cobertura_activa == 'RC con Casco') ? 'selected' : '' }}>RC con Casco</option>
+                                                <select name="select" id="cobertura_activa"
+                                                        onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
+                                                    <option
+                                                        value="" {{( $denuncia->cobertura_activa == null) ? 'selected' : '' }}>
+                                                        Ninguna
+                                                    </option>
+                                                    <option
+                                                        value="RC" {{( $denuncia->cobertura_activa == 'RC') ? 'selected' : '' }}>
+                                                        RC
+                                                    </option>
+                                                    <option
+                                                        value="Casco" {{( $denuncia->cobertura_activa == 'Casco') ? 'selected' : '' }}>
+                                                        Casco
+                                                    </option>
+                                                    <option
+                                                        value="RC con Casco" {{( $denuncia->cobertura_activa == 'RC con Casco') ? 'selected' : '' }}>
+                                                        RC con Casco
+                                                    </option>
                                                 </select>
                                             </td>
                                             <td>
@@ -216,17 +252,14 @@
                                                    data-toggle="tooltip" data-placement="top" title="Ver"><img
                                                         src="{{url('/images/siniestros/denuncia_asegurado/backoffice/ver.png')}}"></a>
 
-                                                <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}" style="color:#3366BB; font-weight: bold; margin-right:8px; "
+                                                <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
+                                                   style="color:#3366BB; font-weight: bold; margin-right:8px; "
                                                    data-toggle="tooltip" data-placement="top" title="Editar"><img
                                                         src="{{url('/images/siniestros/denuncia_asegurado/backoffice/editar.png')}}"></a>
 
-                                                <a onclick="eliminar('{{route('panel-siniestros.denuncia.delete',$denuncia->id)}}')"
-                                                   href="#" style="color:#3366BB; font-weight: bold; margin-right:8px; "
-                                                   data-toggle="tooltip" data-placement="top" title="Eliminar"><img
-                                                        src="{{url('/images/siniestros/denuncia_asegurado/backoffice/eliminar.png')}}"></a>
-                                                {{--
-                                                                <a href="{{route('panel-siniestros.denuncia.update',$denuncia->id)}}" style="color:#3366BB; font-weight: bold; margin-right:8px; " data-toggle="tooltip" data-placement="top" title="Guardar"><img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/save.png')}}"></a>
-                                              --}}
+                                                <a href="{{route('panel-siniestros.denuncia.delete',$denuncia->id)}}" class="btn-eliminar text-danger" title="Eliminar">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -245,97 +278,83 @@
         </div>
     </section>
 
-    <style>
-        /*
-        input[type="date"]::-webkit-inner-spin-button,
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }*/
-    </style>
+@endsection
 
-    <script>
-        /*
-        function eliminar(ruta)
-        {
-            let text = "Confirma desea eliminar la denuncia?";
-            if (confirm(text) == true) {
-                text = "You pressed OK!";
+@section('scripts')
+<script>
 
-                window.location.href = ruta;
-
-            } else {
-                text = "You canceled!";
-            }
+    $('.btn-eliminar').click(function (event) {
+        let result = confirm('¿Confirma desea eliminar la denuncia?');
+        if (!result) {
+            event.preventDefault();
+            return false;
         }
+        showLoading();
+    })
 
-        function save(entidad, ruta) {
-            //alert(entidad);
-            console.log(entidad);
-            nro_poliza = document.getElementById('npoliza')
-        :
-            window.location.href = ruta;
-        }*/
+    /*
+    function save(entidad, ruta) {
+        //alert(entidad);
+        console.log(entidad);
+        nro_poliza = document.getElementById('npoliza')
+    :
+        window.location.href = ruta;
+    }*/
 
 
-        function cambiarEstado(estado,denuncia_siniestro_id)
-        {
-            let url = '{{ route('panel-siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-            url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
-            showLoading();
-            $.ajax(
-                {
-                    url: url,
-                    type: 'post',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "estado": estado.value
-                    },
-                    success: function(result)
-                    {
-                        //console.log(result);
-                    },
-                    error: function(error) {
-                        //console.log(error);
-                        alert('Hubo un error.');
-                    },
-                    complete: function(jqXHR , textStatus) {
-                        hideLoading();
-                    }
-                })
-        }
+    function cambiarEstado(estado, denuncia_siniestro_id) {
+        let url = '{{ route('panel-siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
+        showLoading();
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "estado": estado.value
+                },
+                success: function (result) {
+                    //console.log(result);
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
+    }
 
-        function cambiarCoberturaActiva(cobertura,denuncia_siniestro_id)
-        {
-            let url = '{{ route('panel-siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-            url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
-            showLoading();
-            $.ajax(
-                {
-                    url: url,
-                    type: 'post',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "cobertura_activa": cobertura.value
-                    },
-                    success: function(result)
-                    {
-                        //console.log(result);
-                    },
-                    error: function(error) {
-                        //console.log(error);
-                        alert('Hubo un error.');
-                    },
-                    complete: function(jqXHR , textStatus) {
-                        hideLoading();
-                    }
-                })
-        }
+    function cambiarCoberturaActiva(cobertura, denuncia_siniestro_id) {
+        let url = '{{ route('panel-siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
+        showLoading();
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "cobertura_activa": cobertura.value
+                },
+                success: function (result) {
+                    //console.log(result);
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
+    }
 
-        function buscar()
-        {
-            document.getElementById("buscador").submit();
-        }
-    </script>
+    function buscar() {
+        document.getElementById("buscador").submit();
+    }
+</script>
 
 @endsection
