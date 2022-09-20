@@ -14,14 +14,6 @@
     <div class="container form-denuncia-siniestro mt-3 p-4">
 
         <span style="color:#6e4697;font-size: 24px;"><b>Paso 10 </b>| 12 <b>Datos del Siniestro</b></span>
-        <span style="color:red;">
-              @if($errors->any())
-                <input type="hidden" id="error" value="1">
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            @endif
-        </span>
 
         <div class="row">
             <div class="col-12">
@@ -193,9 +185,13 @@
                     </div>
                 </div>
                 <div class="col-12 pt-3">
-                        <button id="clearBtn" class="btn boton-azul">Limpiar</button>
+                        <button id="clearBtn" class="btn boton-azul mb-0">Limpiar</button>
                         &nbsp
-                        <button disabled id="saveBtn" class="btn boton-azul">Confirmar Dibujo</button>
+                        <button disabled id="saveBtn" class="btn boton-azul mb-0">Confirmar Dibujo</button>
+                </div>
+
+                <div class="col-12">
+                    @error('graficoManual') <span class="invalid-feedback pl-2" style="font-size: .9em;"><b>{{ $message }}</b></span> @enderror
                 </div>
 
                 <div id="previewImg"></div>
@@ -223,7 +219,6 @@
 
                                     </div>
                                 </label>
-                                <p>@error('graficoManual') <span class="text-danger">{{ $message }}</span> @enderror
                                 </p>
                                 @if(isset($denuncia_siniestro->croquis_url))
                                     <div id="databaseIMG" class="row">
@@ -256,7 +251,7 @@
             <hr class="mt-3">
 
 
-            <div class="col-12">
+            <div class="col-12 mt-3">
                 <div class="form-group">
                     <label for="description">Descripción</label>
                     <textarea name="description" id="description" rows="4"

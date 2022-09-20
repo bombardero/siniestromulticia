@@ -966,7 +966,19 @@ class DenunciaAseguradoController extends Controller
 
     public function paso10store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'graficoManual' => 'nullable'
+        ]);
+
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+
+        if(!$denuncia_siniestro->croquis_url && !$request->hasFile('graficoManual') )
+        {
+            $validator->errors()->add('graficoManual', 'Debe crear un croquis o cargar una imagen.');
+            return redirect()->route("asegurados-denuncias-paso10.create",['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         if($request->hasFile('graficoManual'))
         {
