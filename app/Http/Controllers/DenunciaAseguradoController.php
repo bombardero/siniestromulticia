@@ -307,6 +307,22 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->conductor->save();
             }
 
+            if($denuncia_siniestro->conductor->asegurado)
+            {
+                $denuncia_siniestro->asegurado()->create([
+                    "nombre" => $denuncia_siniestro->conductor->nombre,
+                    "tipo_documento_id" => $denuncia_siniestro->conductor->tipo_documento_id,
+                    "documento_numero" => $denuncia_siniestro->conductor->documento_numero,
+                    "domicilio" => $denuncia_siniestro->conductor->domicilio,
+                    "codigo_postal" => $denuncia_siniestro->conductor->codigo_postal,
+                    "pais_id" => $denuncia_siniestro->conductor->pais_id,
+                    "province_id" => $denuncia_siniestro->conductor->province_id,
+                    "city_id" => $denuncia_siniestro->conductor->city_id,
+                    "ocupacion" => $denuncia_siniestro->conductor->ocupacion,
+                    "telefono" => $denuncia_siniestro->conductor->telefono
+                ]);
+            }
+
             if($denuncia_siniestro->estado_carga == "2")
             {
                 $denuncia_siniestro->estado_carga = '3';
@@ -325,25 +341,6 @@ class DenunciaAseguradoController extends Controller
         $tipoDocumentos = TipoDocumento::all();
         $localidades = City::where('province_id', $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->province_id : 1 )->orderBy('name')->get();
         $denuncia_siniestro->load('conductor');
-
-        if($denuncia_siniestro->canEdit())
-        {
-            if($denuncia_siniestro->conductor->asegurado && !$denuncia_siniestro->asegurado)
-            {
-                $denuncia_siniestro->asegurado()->create([
-                    "nombre" => $denuncia_siniestro->conductor->nombre,
-                    "tipo_documento_id" => $denuncia_siniestro->conductor->tipo_documento_id,
-                    "documento_numero" => $denuncia_siniestro->conductor->documento_numero,
-                    "domicilio" => $denuncia_siniestro->conductor->domicilio,
-                    "codigo_postal" => $denuncia_siniestro->conductor->codigo_postal,
-                    "pais_id" => $denuncia_siniestro->conductor->pais_id,
-                    "province_id" => $denuncia_siniestro->conductor->province_id,
-                    "city_id" => $denuncia_siniestro->conductor->city_id,
-                    "ocupacion" => $denuncia_siniestro->conductor->ocupacion,
-                    "telefono" => $denuncia_siniestro->conductor->telefono
-                ]);
-            }
-        }
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 4,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"localidades"=>$localidades]);
     }
