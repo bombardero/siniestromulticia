@@ -690,24 +690,24 @@
                                     <div class="row pt-0">
                                         <div class="col-12 col-md-8">
                                             <p>Nombre y
-                                                Apellido: {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_nombre : '' }}</p>
+                                                Apellido: {{ $denuncia->denunciante ? $denuncia->denunciante->nombre : '' }}</p>
                                         </div>
 
                                         <div class="col-12 col-md-4">
                                             <p>
-                                                Teléfono: {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_telefono : '' }}</p>
+                                                Teléfono: {{ $denuncia->denunciante ? $denuncia->denunciante->telefono : '' }}</p>
                                         </div>
                                     </div>
 
                                     <div class="row pt-0">
                                         <div class="col-12 col-md-8">
                                             <p>
-                                                Domicilio: {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_domicilio : '' }}</p>
+                                                Domicilio: {{ $denuncia->denunciante ? $denuncia->denunciante->domicilio : '' }}</p>
                                         </div>
 
                                         <div class="col-12 col-md-4">
                                             <p>Código
-                                                Postal: {{ $denuncia->denunciante ? $denuncia->denunciante->carga_paso_12_codigo_postal : '' }}</p>
+                                                Postal: {{ $denuncia->denunciante ? $denuncia->denunciante->codigo_postal : '' }}</p>
                                         </div>
                                     </div>
 
