@@ -307,7 +307,7 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->conductor->save();
             }
 
-            if($denuncia_siniestro->conductor->asegurado)
+            if($denuncia_siniestro->conductor->asegurado && !$denuncia_siniestro->asegurado)
             {
                 $denuncia_siniestro->asegurado()->create([
                     "nombre" => $denuncia_siniestro->conductor->nombre,
