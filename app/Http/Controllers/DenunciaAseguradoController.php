@@ -135,26 +135,18 @@ class DenunciaAseguradoController extends Controller
         return $pdf->download('denuncia.pdf');
     }
 
-    public function paso1create()
+    public function paso1create(Request $request)
     {
-        $identificador = request('id');
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         if(request('noredirect')==null)
         {
             $paso = $this->checkIfRedirect();
             if($paso != "1" && $paso != "precarga"){
                 $nameredirect="asegurados-denuncias-paso".$paso.".create";
-                return redirect()->route($nameredirect,['id'=> $identificador]);
+                return redirect()->route($nameredirect,['id'=> $request->id]);
             }
         }
-
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro, "paso" => 1]);
-    }
-
-    private function checkCanEdit(DenunciaSiniestro $denuncia)
-    {
-
     }
 
     public function paso1store(Request $request)
@@ -185,12 +177,11 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso2.create",['id'=> $request->id]);
     }
 
-    public function paso2create()
+    public function paso2create(Request $request)
     {
-        $provincias = Province::orderBy('name')->get();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
         $localidades = City::where('province_id', $denuncia_siniestro->province_id != null ? $denuncia_siniestro->province_id : 1)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 2,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"localidades"=>$localidades]);
@@ -230,14 +221,13 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso3.create",['id'=> $identificador]);
     }
 
-    public function paso3create()
+    public function paso3create(Request $request)
     {
-        $provincias = Province::orderBy('name')->get();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
         $tipoCarnets = TipoCarnet::all();
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
         $localidades = City::where('province_id',$denuncia_siniestro->conductor ? $denuncia_siniestro->conductor->province_id : 1)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 3,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"tipo_carnets"=>$tipoCarnets,"localidades"=>$localidades]);
@@ -327,10 +317,9 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso4.create",['id'=> $identificador]);
     }
 
-    public function paso4create()
+    public function paso4create(Request $request)
     {
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
@@ -412,14 +401,18 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso5.create",['id'=> $request->id]);
     }
 
-    public function paso5create()
+    public function paso5create(Request $request)
     {
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $marcas = Marca::all();
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
         $modelos = Modelo::where('marca_id', $denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->marca_id : 1)->get();
 
-        return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro, "paso" => 5, "marcas"=>$marcas,"modelos"=>$modelos]);
+        return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
+            "denuncia_siniestro"=>$denuncia_siniestro,
+            "paso" => 5,
+            "marcas"=>$marcas,
+            "modelos"=>$modelos
+        ]);
     }
 
     public function paso5store(Request $request)
@@ -507,13 +500,18 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
     }
 
-    public function paso6create()
+    public function paso6create(Request $request)
     {
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
         $tipoCalzadas = TipoCalzada::all();
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
 
-        return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 6,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas]);
+        return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
+            "denuncia_siniestro"=>$denuncia_siniestro,
+            "paso" => 6,
+            "provincias"=>$provincias,
+            "tipo_calzadas"=>$tipoCalzadas
+        ]);
     }
 
     public function paso6store(Request $request)
@@ -554,15 +552,22 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
 
-    public function paso6agregarcreate()
+    public function paso6agregarcreate(Request $request)
     {
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoDocumentos = TipoDocumento::all();
         $tipoCarnets = TipoCarnet::all();
         $marcas = Marca::all();
         $modelos = Modelo::where('marca_id',1)->get();
 
-        return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => "6-agregar","tipo_documentos"=>$tipoDocumentos,"tipo_carnets"=>$tipoCarnets,"marcas"=>$marcas,"modelos"=>$modelos]);
+        return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
+            "denuncia_siniestro"=>$denuncia_siniestro,
+            "paso" => "6-agregar",
+            "tipo_documentos"=>$tipoDocumentos,
+            "tipo_carnets"=>$tipoCarnets,
+            "marcas"=>$marcas,
+            "modelos"=>$modelos
+        ]);
     }
 
     public function paso6agregarstore(Request $request)
@@ -613,18 +618,24 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
     }
 
-    public function paso6edit(){
-        $marcas = Marca::all();
+    public function paso6edit(Request $request)
+    {
+        $vehiculo_tercero = DenunciaSiniestro::where("identificador",)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
         $tipoCarnets = TipoCarnet::all();
-
-        $identificador = request('id');
-        $vehiculo_id = request('v');
-        $vehiculo_tercero = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->vehiculoTerceros()->where('id',$vehiculo_id)->firstOrFail();
+        $marcas = Marca::all();
         $modelos = Modelo::where('marca_id', $vehiculo_tercero->marca_id != null ? $vehiculo_tercero->marca_id : 1 )->get();
 
-        return view('siniestros.denuncia-asegurados.denuncia-asegurados',["vehiculo_tercero"=>$vehiculo_tercero,"paso" => "6-editar","tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"tipo_carnets"=>$tipoCarnets,"marcas"=>$marcas,"modelos"=>$modelos]);
+        return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
+            "vehiculo_tercero"=>$vehiculo_tercero,
+            "paso" => "6-editar",
+            "tipo_calzadas"=>$tipoCalzadas,
+            "tipo_documentos"=>$tipoDocumentos,
+            "tipo_carnets"=>$tipoCarnets,
+            "marcas"=>$marcas,
+            "modelos"=>$modelos
+        ]);
     }
 
     public function paso6update(Request $request)
@@ -690,7 +701,12 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
         $provincias = Province::orderBy('name')->get();
         $tipoCalzadas = TipoCalzada::all();
-        return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 7,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas]);
+        return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
+            "denuncia_siniestro"=>$denuncia_siniestro,
+            "paso" => 7,
+            "provincias"=>$provincias,
+            "tipo_calzadas"=>$tipoCalzadas
+        ]);
     }
 
     public function paso7store(Request $request)
@@ -730,9 +746,9 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
 
-    public function paso7agregarcreate()
+    public function paso7agregarcreate(Request $request)
     {
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoDocumentos = TipoDocumento::all();
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "denuncia_siniestro"=>$denuncia_siniestro,
@@ -765,10 +781,9 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
 
-    public function paso7edit()
+    public function paso7edit(Request $request)
     {
-        $vehiculo_id = request('v');
-        $danio = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail()->danioMateriales()->where('id',$vehiculo_id)->firstOrFail();
+        $danio = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->danioMateriales()->where('id',$request->v)->firstOrFail();
         $tipoDocumentos = TipoDocumento::all();
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "danio"=>$danio,
@@ -811,9 +826,9 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
 
-    public function paso8create()
+    public function paso8create(Request $request)
     {
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $denuncia_siniestro->load('lesionados');
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro, "paso" => 8]);
     }
@@ -857,9 +872,9 @@ class DenunciaAseguradoController extends Controller
     }
 
 
-    public function paso8agregarcreate()
+    public function paso8agregarcreate(Request $request)
     {
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoDocumentos = TipoDocumento::all();
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "denuncia_siniestro"=>$denuncia_siniestro,
@@ -900,9 +915,9 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
 
-    public function paso8edit()
+    public function paso8edit(Request $request)
     {
-        $lesionado = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail()->lesionados()->where('id',request('v'))->firstOrFail();
+        $lesionado = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->lesionados()->where('id',$request->v)->firstOrFail();
         $tipoDocumentos = TipoDocumento::all();
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "lesionado"=>$lesionado,
@@ -949,12 +964,11 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
 
-    public function paso9create()
+    public function paso9create(Request $request)
     {
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
         $tipoCalzadas = TipoCalzada::all();
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "denuncia_siniestro"=>$denuncia_siniestro,
@@ -966,7 +980,8 @@ class DenunciaAseguradoController extends Controller
 
     public function paso9store(Request $request)
     {
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+
         if($denuncia_siniestro->canEdit())
         {
             $denuncia_siniestro->tipo_accidente_frontal = $request->tipo_accidente_frontal == 'on';
@@ -1003,12 +1018,12 @@ class DenunciaAseguradoController extends Controller
             $denuncia_siniestro->save();
         }
 
-        return redirect()->route("asegurados-denuncias-paso10.create",['id'=> request('id')]);
+        return redirect()->route("asegurados-denuncias-paso10.create",['id'=> $request->id]);
     }
 
-    public function paso10create()
+    public function paso10create(Request $request)
     {
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "denuncia_siniestro" => $denuncia_siniestro,
             "paso" => 10,
@@ -1159,24 +1174,18 @@ class DenunciaAseguradoController extends Controller
         }
     }
 
-    public function paso11create()
+    public function paso11create(Request $request)
     {
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        return view('siniestros.denuncia-asegurados.form-paso11',[
-            "denuncia_siniestro"=>$denuncia_siniestro,
-            'identificador' => $identificador
-        ]);
-
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
+        return view('siniestros.denuncia-asegurados.form-paso11', ["denuncia_siniestro"=>$denuncia_siniestro ]);
     }
 
-    public function paso12create()
+    public function paso12create(Request $request)
     {
-        $provincias = Province::orderBy('name')->get();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
         $localidades = City::where('province_id',$denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->province_id : 1)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
@@ -1256,7 +1265,7 @@ class DenunciaAseguradoController extends Controller
             }
         }
 
-        $link = route('panel-siniestros.denuncia.pdf', ['denuncia' =>  $denuncia_siniestro->id]);
+        $link = route('asegurados-denuncias.pdf', ['denuncia' =>  $denuncia_siniestro->id]);
         return redirect()->route('gracias-denuncia', ['link' => $link]);
     }
 
@@ -1280,7 +1289,5 @@ class DenunciaAseguradoController extends Controller
         $denuncia->save();
         return response()->json(['status' => true]);
     }
-
-
 
 }

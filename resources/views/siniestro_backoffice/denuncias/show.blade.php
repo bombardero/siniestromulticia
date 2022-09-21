@@ -24,7 +24,7 @@
                                         <div class="d-flex pt-3">
                                             <img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/aprobar.png')}}" class="px-2">
                                             <img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/rechazar.png')}}" class="px-2">
-                                            <a href="{{route('panel-siniestros.denuncia.pdf',$denuncia->id)}}">
+                                            <a href="{{route('asegurados-denuncias.pdf',$denuncia->id)}}">
                                                 <img src="{{url('/images/siniestros/denuncia_asegurado/backoffice/bajarpdf.png')}}" class="px-2">
                                             </a>
                                             <a href="{{ route('panel-siniestros.denuncia.delete',$denuncia->id) }}" class="px-2 btn-eliminar text-danger" title="Eliminar">

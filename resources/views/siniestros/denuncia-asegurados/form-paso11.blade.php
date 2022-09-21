@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        @livewire('siniestro.denuncia-asegurado-paso11', ['denuncia_siniestro' => $denuncia_siniestro, 'identificador' => $identificador])
+        @livewire('siniestro.denuncia-asegurado-paso11', ['denuncia_siniestro' => $denuncia_siniestro, 'identificador' => $denuncia_siniestro->identificador])
 
 
 @endsection

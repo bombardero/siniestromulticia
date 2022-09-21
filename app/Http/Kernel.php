@@ -66,12 +66,13 @@ class Kernel extends HttpKernel
         'check.productor' => \App\Http\Middleware\CheckProductor::class,
         'check.solicitud' => \App\Http\Middleware\CheckSolicitud::class,
         'check.operario' => \App\Http\Middleware\CheckOperario::class,
-        'check.callcenter' => CheckCallCenter::class, 
+        'check.callcenter' => CheckCallCenter::class,
         'check.siniestro' => \App\Http\Middleware\CheckSiniestro::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'canEditDenuncia' => \App\Http\Middleware\CanEditDenuncia::class
     ];
 }
