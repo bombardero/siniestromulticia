@@ -233,7 +233,7 @@
                                                     <span>{{ $denuncia->estado_carga.'/12' }}</span>
                                                 @endif</td>
                                             <td><a target="_blank"
-                                                   href="https://api.whatsapp.com/send?phone=+54{{$denuncia->precarga_responsable_contacto_telefono}}&text=Inicia tu denuncia ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
+                                                   href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
                                                    style="color:#3366BB; font-weight: bold; " data-toggle="tooltip"
                                                    data-placement="top" title="Enviar link denuncia"><img
                                                         src="{{url('/images/siniestros/denuncia_asegurado/backoffice/link_no_enviado.png')}}"></a>

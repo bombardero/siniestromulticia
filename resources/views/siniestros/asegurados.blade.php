@@ -6,8 +6,6 @@
             <div class="col-12 text-center ">
                 <h2 class="pt-5 text-center es-muy-facil">Estamos para <strong class="facil">asistirte</strong></h2>
             </div>
-
-
         </div>
         @livewire('siniestro.form-asegurados')
 

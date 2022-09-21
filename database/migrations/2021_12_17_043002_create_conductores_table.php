@@ -31,7 +31,7 @@ class CreateConductoresTable extends Migration
             $table->string('estado_civil')->nullable();
             $table->foreignId('tipo_carnet_id')->nullable()->constrained('tipo_carnets');
             $table->string('carnet_categoria')->nullable();
-            $table->string('carnet_vencimiento')->nullable();
+            $table->date('carnet_vencimiento')->nullable();
             $table->boolean('alcoholemia')->nullable();
             $table->boolean('alcoholemia_se_nego')->nullable();
             $table->boolean('habitual')->nullable();

@@ -178,9 +178,8 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="carnet_vencimiento">Vencimiento</label>
-                    <input type="tel" id="carnet_vencimiento" name="carnet_vencimiento"
+                    <input type="date" id="carnet_vencimiento" name="carnet_vencimiento"
                            class="form-control form-estilo @error('carnet_vencimiento') is-invalid @enderror"
-                           placeholder="00/00" maxlength="5"
                            value="{{ $denuncia_siniestro->conductor  && $denuncia_siniestro->conductor->carnet_vencimiento ? $denuncia_siniestro->conductor->carnet_vencimiento : '' }}">
                     @error('carnet_vencimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>

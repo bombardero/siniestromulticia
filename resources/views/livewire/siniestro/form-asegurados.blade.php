@@ -92,30 +92,42 @@
             </div>
 
             <div class="form-group col-12 col-md-6">
-                <label for="telefono">Telefono (*)</label>
-                <input type="text" id="telefono" class="form-control form-estilo"
-                       placeholder="Telefono de contacto"
-                       wire:model.defer="telefono">
+                <label for="telefono">Teléfono móvil (*)</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text form-estilo">+54</span>
+                    </div>
+                    <input type="tel" class="form-control form-estilo"
+                           id="telefono"
+                           wire:model.defer="telefono"
+                           placeholder="Sin 0 y sin 15">
+                </div>
                 @error('telefono') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group col-12 col-md-6">
-                <label for="telefono">Confirmar telefono (*)</label>
-                <input type="text" id="telefono_confirmation" class="form-control form-estilo"
-                       placeholder="Repetir teléfono de contacto" wire:model.defer="telefono_confirmation">
+                <label for="telefono">Confirmar teléfono móvil (*)</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text form-estilo">+54</span>
+                    </div>
+                    <input type="tel" class="form-control form-estilo" wire:model.defer="telefono_confirmation"
+                           placeholder="Sin 0 y sin 15"
+                    >
+                </div>
                 @error('telefono_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="email">Email (*)</label>
-                <input type="text" id="email" class="form-control form-estilo"
+                <input type="email" id="email" class="form-control form-estilo"
                        placeholder="Email de contacto" wire:model.defer="email">
                 @error('email') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="email">Confirmar Email (*)</label>
-                <input type="text" id="email_confirmation" class="form-control form-estilo"
+                <input type="email" id="email_confirmation" class="form-control form-estilo"
                        placeholder="Repetir email de contacto" wire:model.defer="email_confirmation">
                 @error('email_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
