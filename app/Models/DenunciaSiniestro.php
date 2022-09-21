@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class DenunciaSiniestro extends Model
 {
@@ -153,5 +154,10 @@ class DenunciaSiniestro extends Model
     public function observaciones()
     {
         return $this->hasMany(Observacion::class)->latest();
+    }
+
+    public function canEdit()
+    {
+        return Auth::check() || $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12);
     }
 }

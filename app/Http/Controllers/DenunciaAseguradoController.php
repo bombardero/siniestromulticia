@@ -152,30 +152,37 @@ class DenunciaAseguradoController extends Controller
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro, "paso" => 1]);
     }
 
+    private function checkCanEdit(DenunciaSiniestro $denuncia)
+    {
+
+    }
+
     public function paso1store(Request $request)
     {
         $validated = request()->validate([
             'momento_dia'=> ['required',Rule::in(['diurno', 'nocturno'])]
         ]);
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        $identificador = $request->id;
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        $denuncia_siniestro->momento_dia = $request->momento_dia;
-        $denuncia_siniestro->estado_tiempo_seco = $request->seco == 'on';
-        $denuncia_siniestro->estado_tiempo_lluvia = $request->lluvia == 'on';
-        $denuncia_siniestro->estado_tiempo_niebla = $request->niebla == 'on';
-        $denuncia_siniestro->estado_tiempo_despejado = $request->despejado == 'on';
-        $denuncia_siniestro->estado_tiempo_nieve = $request->nieve == 'on';
-        $denuncia_siniestro->estado_tiempo_granizo = $request->granizo == 'on';
-        $denuncia_siniestro->estado_tiempo_otros_detalles = ($request->otros == 'on' && $request->otros_detalles != '') ? $request->otros_detalles : null;
-
-        if($denuncia_siniestro->estado_carga == 'precarga')
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->estado_carga = "1";
+            $denuncia_siniestro->momento_dia = $request->momento_dia;
+            $denuncia_siniestro->estado_tiempo_seco = $request->seco == 'on';
+            $denuncia_siniestro->estado_tiempo_lluvia = $request->lluvia == 'on';
+            $denuncia_siniestro->estado_tiempo_niebla = $request->niebla == 'on';
+            $denuncia_siniestro->estado_tiempo_despejado = $request->despejado == 'on';
+            $denuncia_siniestro->estado_tiempo_nieve = $request->nieve == 'on';
+            $denuncia_siniestro->estado_tiempo_granizo = $request->granizo == 'on';
+            $denuncia_siniestro->estado_tiempo_otros_detalles = ($request->otros == 'on' && $request->otros_detalles != '') ? $request->otros_detalles : null;
+
+            if($denuncia_siniestro->estado_carga == 'precarga')
+            {
+                $denuncia_siniestro->estado_carga = "1";
+            }
             $denuncia_siniestro->save();
         }
 
-        return redirect()->route("asegurados-denuncias-paso2.create",['id'=> $identificador]);
+        return redirect()->route("asegurados-denuncias-paso2.create",['id'=> $request->id]);
     }
 
     public function paso2create()
@@ -196,24 +203,27 @@ class DenunciaAseguradoController extends Controller
         ]);
 
         $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        $denuncia_siniestro->province_id = $request->provincia_id;
-        $denuncia_siniestro->city_id = $request->localidad_id;
-        $denuncia_siniestro->calle = $request->calle;
-        $denuncia_siniestro->tipo_calzada_id = $request->calzada_id;
-        $denuncia_siniestro->calzada_detalle = $request->calzada_detalle;
-        $denuncia_siniestro->interseccion = $request->interseccion;
-        $denuncia_siniestro->cruce_senalizado = $request->cruce_senalizado ==  'on';
-        $denuncia_siniestro->tren = $request->tren;
-        $denuncia_siniestro->semaforo = $request->semaforo ==  'on';
-        $denuncia_siniestro->semaforo_funciona = $request->semaforo_funciona ==  'on';
-        $denuncia_siniestro->semaforo_intermitente = $request->semaforo_intermitente ==  'on';
-        $denuncia_siniestro->semaforo_color = $request->semaforo_color;
-
-        if($denuncia_siniestro->estado_carga == "1")
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->estado_carga = "2";
+            $denuncia_siniestro->province_id = $request->provincia_id;
+            $denuncia_siniestro->city_id = $request->localidad_id;
+            $denuncia_siniestro->calle = $request->calle;
+            $denuncia_siniestro->tipo_calzada_id = $request->calzada_id;
+            $denuncia_siniestro->calzada_detalle = $request->calzada_detalle;
+            $denuncia_siniestro->interseccion = $request->interseccion;
+            $denuncia_siniestro->cruce_senalizado = $request->cruce_senalizado ==  'on';
+            $denuncia_siniestro->tren = $request->tren;
+            $denuncia_siniestro->semaforo = $request->semaforo ==  'on';
+            $denuncia_siniestro->semaforo_funciona = $request->semaforo_funciona ==  'on';
+            $denuncia_siniestro->semaforo_intermitente = $request->semaforo_intermitente ==  'on';
+            $denuncia_siniestro->semaforo_color = $request->semaforo_color;
+
+            if($denuncia_siniestro->estado_carga == "1")
+            {
+                $denuncia_siniestro->estado_carga = "2";
+            }
             $denuncia_siniestro->save();
         }
 
@@ -255,61 +265,63 @@ class DenunciaAseguradoController extends Controller
         $identificador = $request->id;
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
 
-
-        if(!$denuncia_siniestro->conductor)
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->conductor()->create([
-                "nombre" => $request->nombre,
-                "telefono" => $request->telefono,
-                "domicilio" => $request->domicilio,
-                "codigo_postal" => $request->codigo_postal,
-                "pais_id" => $request->pais_id,
-                "province_id" => $request->provincia_id,
-                "city_id" => $request->localidad_id,
-                "fecha_nacimiento" => $request->fecha_nacimiento,
-                "tipo_documento_id" => $request->documento_id,
-                "documento_numero" => $request->documento_numero,
-                "ocupacion" => $request->ocupacion,
-                "numero_registro" => $request->numero_registro,
-                "estado_civil" => $request->estado_civil,
-                "tipo_carnet_id" => $request->carnet_id,
-                "carnet_categoria" => $request->carnet_categoria,
-                "carnet_vencimiento" => $request->carnet_vencimiento,
-                "alcoholemia" => $request->alcoholemia,
-                "alcoholemia_se_nego" => $request->alcoholemia_nego == 'on',
-                "habitual" => $request->habitual,
-                "asegurado" => $request->asegurado,
-                "asegurado_relacion" => $request->asegurado_relacion
-            ]);
-        } else {
-            $denuncia_siniestro->conductor->nombre = $request->nombre;
-            $denuncia_siniestro->conductor->telefono = $request->telefono;
-            $denuncia_siniestro->conductor->domicilio = $request->domicilio;
-            $denuncia_siniestro->conductor->codigo_postal = $request->codigo_postal;
-            $denuncia_siniestro->conductor->pais_id = $request->pais_id;
-            $denuncia_siniestro->conductor->province_id = $request->provincia_id;
-            $denuncia_siniestro->conductor->city_id = $request->localidad_id;
-            $denuncia_siniestro->conductor->fecha_nacimiento = $request->fecha_nacimiento;
-            $denuncia_siniestro->conductor->tipo_documento_id = $request->documento_id;
-            $denuncia_siniestro->conductor->documento_numero = $request->documento_numero;
-            $denuncia_siniestro->conductor->ocupacion = $request->ocupacion;
-            $denuncia_siniestro->conductor->numero_registro = $request->numero_registro;
-            $denuncia_siniestro->conductor->estado_civil = $request->estado_civil;
-            $denuncia_siniestro->conductor->tipo_carnet_id = $request->carnet_id;
-            $denuncia_siniestro->conductor->carnet_categoria = $request->carnet_categoria;
-            $denuncia_siniestro->conductor->carnet_vencimiento = $request->carnet_vencimiento;
-            $denuncia_siniestro->conductor->alcoholemia = $request->alcoholemia;
-            $denuncia_siniestro->conductor->alcoholemia_se_nego = $request->alcoholemia_nego == 'on';
-            $denuncia_siniestro->conductor->habitual = $request->habitual;
-            $denuncia_siniestro->conductor->asegurado = $request->asegurado;
-            $denuncia_siniestro->conductor->asegurado_relacion = $request->asegurado_relacion;
-            $denuncia_siniestro->conductor->save();
-        }
+            if(!$denuncia_siniestro->conductor)
+            {
+                $denuncia_siniestro->conductor()->create([
+                    "nombre" => $request->nombre,
+                    "telefono" => $request->telefono,
+                    "domicilio" => $request->domicilio,
+                    "codigo_postal" => $request->codigo_postal,
+                    "pais_id" => $request->pais_id,
+                    "province_id" => $request->provincia_id,
+                    "city_id" => $request->localidad_id,
+                    "fecha_nacimiento" => $request->fecha_nacimiento,
+                    "tipo_documento_id" => $request->documento_id,
+                    "documento_numero" => $request->documento_numero,
+                    "ocupacion" => $request->ocupacion,
+                    "numero_registro" => $request->numero_registro,
+                    "estado_civil" => $request->estado_civil,
+                    "tipo_carnet_id" => $request->carnet_id,
+                    "carnet_categoria" => $request->carnet_categoria,
+                    "carnet_vencimiento" => $request->carnet_vencimiento,
+                    "alcoholemia" => $request->alcoholemia,
+                    "alcoholemia_se_nego" => $request->alcoholemia_nego == 'on',
+                    "habitual" => $request->habitual,
+                    "asegurado" => $request->asegurado,
+                    "asegurado_relacion" => $request->asegurado_relacion
+                ]);
+            } else {
+                $denuncia_siniestro->conductor->nombre = $request->nombre;
+                $denuncia_siniestro->conductor->telefono = $request->telefono;
+                $denuncia_siniestro->conductor->domicilio = $request->domicilio;
+                $denuncia_siniestro->conductor->codigo_postal = $request->codigo_postal;
+                $denuncia_siniestro->conductor->pais_id = $request->pais_id;
+                $denuncia_siniestro->conductor->province_id = $request->provincia_id;
+                $denuncia_siniestro->conductor->city_id = $request->localidad_id;
+                $denuncia_siniestro->conductor->fecha_nacimiento = $request->fecha_nacimiento;
+                $denuncia_siniestro->conductor->tipo_documento_id = $request->documento_id;
+                $denuncia_siniestro->conductor->documento_numero = $request->documento_numero;
+                $denuncia_siniestro->conductor->ocupacion = $request->ocupacion;
+                $denuncia_siniestro->conductor->numero_registro = $request->numero_registro;
+                $denuncia_siniestro->conductor->estado_civil = $request->estado_civil;
+                $denuncia_siniestro->conductor->tipo_carnet_id = $request->carnet_id;
+                $denuncia_siniestro->conductor->carnet_categoria = $request->carnet_categoria;
+                $denuncia_siniestro->conductor->carnet_vencimiento = $request->carnet_vencimiento;
+                $denuncia_siniestro->conductor->alcoholemia = $request->alcoholemia;
+                $denuncia_siniestro->conductor->alcoholemia_se_nego = $request->alcoholemia_nego == 'on';
+                $denuncia_siniestro->conductor->habitual = $request->habitual;
+                $denuncia_siniestro->conductor->asegurado = $request->asegurado;
+                $denuncia_siniestro->conductor->asegurado_relacion = $request->asegurado_relacion;
+                $denuncia_siniestro->conductor->save();
+            }
 
-        if($denuncia_siniestro->estado_carga == "2")
-        {
-            $denuncia_siniestro->estado_carga = '3';
-            $denuncia_siniestro->save();
+            if($denuncia_siniestro->estado_carga == "2")
+            {
+                $denuncia_siniestro->estado_carga = '3';
+                $denuncia_siniestro->save();
+            }
         }
 
         return redirect()->route("asegurados-denuncias-paso4.create",['id'=> $identificador]);
@@ -325,20 +337,23 @@ class DenunciaAseguradoController extends Controller
         $localidades = City::where('province_id', $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->province_id : 1 )->orderBy('name')->get();
         $denuncia_siniestro->load('conductor');
 
-        if($denuncia_siniestro->conductor->asegurado && !$denuncia_siniestro->asegurado)
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->asegurado()->create([
-                "nombre" => $denuncia_siniestro->conductor->nombre,
-                "tipo_documento_id" => $denuncia_siniestro->conductor->tipo_documento_id,
-                "documento_numero" => $denuncia_siniestro->conductor->documento_numero,
-                "domicilio" => $denuncia_siniestro->conductor->domicilio,
-                "codigo_postal" => $denuncia_siniestro->conductor->codigo_postal,
-                "pais_id" => $denuncia_siniestro->conductor->pais_id,
-                "province_id" => $denuncia_siniestro->conductor->province_id,
-                "city_id" => $denuncia_siniestro->conductor->city_id,
-                "ocupacion" => $denuncia_siniestro->conductor->ocupacion,
-                "telefono" => $denuncia_siniestro->conductor->telefono
-            ]);
+            if($denuncia_siniestro->conductor->asegurado && !$denuncia_siniestro->asegurado)
+            {
+                $denuncia_siniestro->asegurado()->create([
+                    "nombre" => $denuncia_siniestro->conductor->nombre,
+                    "tipo_documento_id" => $denuncia_siniestro->conductor->tipo_documento_id,
+                    "documento_numero" => $denuncia_siniestro->conductor->documento_numero,
+                    "domicilio" => $denuncia_siniestro->conductor->domicilio,
+                    "codigo_postal" => $denuncia_siniestro->conductor->codigo_postal,
+                    "pais_id" => $denuncia_siniestro->conductor->pais_id,
+                    "province_id" => $denuncia_siniestro->conductor->province_id,
+                    "city_id" => $denuncia_siniestro->conductor->city_id,
+                    "ocupacion" => $denuncia_siniestro->conductor->ocupacion,
+                    "telefono" => $denuncia_siniestro->conductor->telefono
+                ]);
+            }
         }
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 4,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"localidades"=>$localidades]);
@@ -355,44 +370,46 @@ class DenunciaAseguradoController extends Controller
             'asegurado_telefono'=>'required',
         ]);
 
-        $identificador = $request->id;
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
+        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        if(!$denuncia_siniestro->asegurado)
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->asegurado()->create([
-                "nombre" => $request->asegurado_nombre,
-                "tipo_documento_id" => $request->asegurado_documento_id,
-                "documento_numero" => $request->asegurado_documento_numero,
-                "domicilio" => $request->asegurado_domicilio,
-                "codigo_postal" => $request->asegurado_codigo_postal,
-                "pais_id" => $request->asegurado_pais_id,
-                "province_id" => $request->asegurado_provincia_id,
-                "city_id" => $request->asegurado_localidad_id,
-                "ocupacion" => $request->asegurado_ocupacion,
-                "telefono" => $request->asegurado_telefono
-            ]);
-        } else {
-            $denuncia_siniestro->asegurado->nombre = $request->asegurado_nombre;
-            $denuncia_siniestro->asegurado->tipo_documento_id = $request->asegurado_documento_id;
-            $denuncia_siniestro->asegurado->documento_numero = $request->asegurado_documento_numero;
-            $denuncia_siniestro->asegurado->domicilio = $request->asegurado_domicilio;
-            $denuncia_siniestro->asegurado->codigo_postal = $request->asegurado_codigo_postal;
-            $denuncia_siniestro->asegurado->pais_id = $request->asegurado_pais_id;
-            $denuncia_siniestro->asegurado->province_id = $request->asegurado_provincia_id;
-            $denuncia_siniestro->asegurado->city_id = $request->asegurado_localidad_id;
-            $denuncia_siniestro->asegurado->ocupacion = $request->asegurado_ocupacion;
-            $denuncia_siniestro->asegurado->telefono = $request->asegurado_telefono;
-            $denuncia_siniestro->asegurado->save();
+            if(!$denuncia_siniestro->asegurado)
+            {
+                $denuncia_siniestro->asegurado()->create([
+                    "nombre" => $request->asegurado_nombre,
+                    "tipo_documento_id" => $request->asegurado_documento_id,
+                    "documento_numero" => $request->asegurado_documento_numero,
+                    "domicilio" => $request->asegurado_domicilio,
+                    "codigo_postal" => $request->asegurado_codigo_postal,
+                    "pais_id" => $request->asegurado_pais_id,
+                    "province_id" => $request->asegurado_provincia_id,
+                    "city_id" => $request->asegurado_localidad_id,
+                    "ocupacion" => $request->asegurado_ocupacion,
+                    "telefono" => $request->asegurado_telefono
+                ]);
+            } else {
+                $denuncia_siniestro->asegurado->nombre = $request->asegurado_nombre;
+                $denuncia_siniestro->asegurado->tipo_documento_id = $request->asegurado_documento_id;
+                $denuncia_siniestro->asegurado->documento_numero = $request->asegurado_documento_numero;
+                $denuncia_siniestro->asegurado->domicilio = $request->asegurado_domicilio;
+                $denuncia_siniestro->asegurado->codigo_postal = $request->asegurado_codigo_postal;
+                $denuncia_siniestro->asegurado->pais_id = $request->asegurado_pais_id;
+                $denuncia_siniestro->asegurado->province_id = $request->asegurado_provincia_id;
+                $denuncia_siniestro->asegurado->city_id = $request->asegurado_localidad_id;
+                $denuncia_siniestro->asegurado->ocupacion = $request->asegurado_ocupacion;
+                $denuncia_siniestro->asegurado->telefono = $request->asegurado_telefono;
+                $denuncia_siniestro->asegurado->save();
+            }
+
+            if($denuncia_siniestro->estado_carga == "3")
+            {
+                $denuncia_siniestro->estado_carga = '4';
+                $denuncia_siniestro->save();
+            }
         }
 
-        if($denuncia_siniestro->estado_carga == "3")
-        {
-            $denuncia_siniestro->estado_carga = '4';
-            $denuncia_siniestro->save();
-        }
-
-        return redirect()->route("asegurados-denuncias-paso5.create",['id'=> $identificador]);
+        return redirect()->route("asegurados-denuncias-paso5.create",['id'=> $request->id]);
     }
 
     public function paso5create()
@@ -432,56 +449,59 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        if(!$denuncia_siniestro->vehiculo)
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->vehiculo()->create([
-                "marca_id" => $request->marca_id != 'otra' ? $request->marca_id : null,
-                "modelo_id" => $request->modelo_id != 'otro' ? $request->modelo_id : null,
-                "otra_marca" => $request->marca,
-                "otro_modelo" => $request->modelo,
-                "tipo" => $request->vehiculo_tipo,
-                "anio" => $request->vehiculo_anio,
-                "dominio" => $request->vehiculo_dominio,
-                "motor" => $request->vehiculo_motor,
-                "chasis" => $request->vehiculo_chasis,
-                "uso_particular" => $request->vehiculo_particular  == 'on',
-                "uso_comercial" => $request->vehiculo_comercial  == 'on',
-                "uso_taxi_remis" => $request->vehiculo_taxi  == 'on',
-                "uso_tpp" => $request->vehiculo_tp == 'on',
-                "uso_urgencia" => $request->vehiculo_urgencia  == 'on',
-                "uso_seguridad" => $request->vehiculo_seguridad  == 'on',
-                "siniestro_danio" => $request->vehiculo_siniestro_danio  == 'on',
-                "siniestro_robo" => $request->vehiculo_siniestro_robo  == 'on',
-                "siniestro_incendio" => $request->vehiculo_siniestro_incendio  == 'on',
-                "detalles" => $request->vehiculo_detalles
-            ]);
-        } else {
-            $denuncia_siniestro->vehiculo->marca_id = $request->marca_id != 'otra' ? $request->marca_id : null;
-            $denuncia_siniestro->vehiculo->modelo_id = $request->modelo_id != 'otro' ? $request->modelo_id : null;
-            $denuncia_siniestro->vehiculo->otra_marca = $request->marca;
-            $denuncia_siniestro->vehiculo->otro_modelo = $request->modelo;
-            $denuncia_siniestro->vehiculo->tipo = $request->vehiculo_tipo;
-            $denuncia_siniestro->vehiculo->anio = $request->vehiculo_anio;
-            $denuncia_siniestro->vehiculo->dominio = $request->vehiculo_dominio;
-            $denuncia_siniestro->vehiculo->motor = $request->vehiculo_motor;
-            $denuncia_siniestro->vehiculo->chasis = $request->vehiculo_chasis;
-            $denuncia_siniestro->vehiculo->uso_particular = $request->vehiculo_particular == 'on';
-            $denuncia_siniestro->vehiculo->uso_comercial = $request->vehiculo_comercial == 'on';
-            $denuncia_siniestro->vehiculo->uso_taxi_remis = $request->vehiculo_taxi  == 'on';
-            $denuncia_siniestro->vehiculo->uso_tpp = $request->vehiculo_tp == 'on';
-            $denuncia_siniestro->vehiculo->uso_urgencia = $request->vehiculo_urgencia  == 'on';
-            $denuncia_siniestro->vehiculo->uso_seguridad = $request->vehiculo_seguridad  == 'on';
-            $denuncia_siniestro->vehiculo->siniestro_danio = $request->vehiculo_siniestro_danio  == 'on';
-            $denuncia_siniestro->vehiculo->siniestro_robo = $request->vehiculo_siniestro_robo  == 'on';
-            $denuncia_siniestro->vehiculo->siniestro_incendio = $request->vehiculo_siniestro_incendio  == 'on';
-            $denuncia_siniestro->vehiculo->detalles = $request->vehiculo_detalles;
-            $denuncia_siniestro->vehiculo->save();
-        }
+            if(!$denuncia_siniestro->vehiculo)
+            {
+                $denuncia_siniestro->vehiculo()->create([
+                    "marca_id" => $request->marca_id != 'otra' ? $request->marca_id : null,
+                    "modelo_id" => $request->modelo_id != 'otro' ? $request->modelo_id : null,
+                    "otra_marca" => $request->marca,
+                    "otro_modelo" => $request->modelo,
+                    "tipo" => $request->vehiculo_tipo,
+                    "anio" => $request->vehiculo_anio,
+                    "dominio" => $request->vehiculo_dominio,
+                    "motor" => $request->vehiculo_motor,
+                    "chasis" => $request->vehiculo_chasis,
+                    "uso_particular" => $request->vehiculo_particular  == 'on',
+                    "uso_comercial" => $request->vehiculo_comercial  == 'on',
+                    "uso_taxi_remis" => $request->vehiculo_taxi  == 'on',
+                    "uso_tpp" => $request->vehiculo_tp == 'on',
+                    "uso_urgencia" => $request->vehiculo_urgencia  == 'on',
+                    "uso_seguridad" => $request->vehiculo_seguridad  == 'on',
+                    "siniestro_danio" => $request->vehiculo_siniestro_danio  == 'on',
+                    "siniestro_robo" => $request->vehiculo_siniestro_robo  == 'on',
+                    "siniestro_incendio" => $request->vehiculo_siniestro_incendio  == 'on',
+                    "detalles" => $request->vehiculo_detalles
+                ]);
+            } else {
+                $denuncia_siniestro->vehiculo->marca_id = $request->marca_id != 'otra' ? $request->marca_id : null;
+                $denuncia_siniestro->vehiculo->modelo_id = $request->modelo_id != 'otro' ? $request->modelo_id : null;
+                $denuncia_siniestro->vehiculo->otra_marca = $request->marca;
+                $denuncia_siniestro->vehiculo->otro_modelo = $request->modelo;
+                $denuncia_siniestro->vehiculo->tipo = $request->vehiculo_tipo;
+                $denuncia_siniestro->vehiculo->anio = $request->vehiculo_anio;
+                $denuncia_siniestro->vehiculo->dominio = $request->vehiculo_dominio;
+                $denuncia_siniestro->vehiculo->motor = $request->vehiculo_motor;
+                $denuncia_siniestro->vehiculo->chasis = $request->vehiculo_chasis;
+                $denuncia_siniestro->vehiculo->uso_particular = $request->vehiculo_particular == 'on';
+                $denuncia_siniestro->vehiculo->uso_comercial = $request->vehiculo_comercial == 'on';
+                $denuncia_siniestro->vehiculo->uso_taxi_remis = $request->vehiculo_taxi  == 'on';
+                $denuncia_siniestro->vehiculo->uso_tpp = $request->vehiculo_tp == 'on';
+                $denuncia_siniestro->vehiculo->uso_urgencia = $request->vehiculo_urgencia  == 'on';
+                $denuncia_siniestro->vehiculo->uso_seguridad = $request->vehiculo_seguridad  == 'on';
+                $denuncia_siniestro->vehiculo->siniestro_danio = $request->vehiculo_siniestro_danio  == 'on';
+                $denuncia_siniestro->vehiculo->siniestro_robo = $request->vehiculo_siniestro_robo  == 'on';
+                $denuncia_siniestro->vehiculo->siniestro_incendio = $request->vehiculo_siniestro_incendio  == 'on';
+                $denuncia_siniestro->vehiculo->detalles = $request->vehiculo_detalles;
+                $denuncia_siniestro->vehiculo->save();
+            }
 
-        if($denuncia_siniestro->estado_carga == "4")
-        {
-            $denuncia_siniestro->estado_carga = '5';
-            $denuncia_siniestro->save();
+            if($denuncia_siniestro->estado_carga == "4")
+            {
+                $denuncia_siniestro->estado_carga = '5';
+                $denuncia_siniestro->save();
+            }
         }
 
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
@@ -518,16 +538,18 @@ class DenunciaAseguradoController extends Controller
                 ->withInput();
         }
 
-
-        $denuncia_siniestro->intervino_otro_vehiculo = $request->intervino_otro_vehiculo;
-        $denuncia_siniestro->intervino_otro_vehiculo_datos = $request->intervino_otro_vehiculo_datos;
-
-        if($denuncia_siniestro->estado_carga == "5")
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->estado_carga = '6';
+            $denuncia_siniestro->intervino_otro_vehiculo = $request->intervino_otro_vehiculo;
+            $denuncia_siniestro->intervino_otro_vehiculo_datos = $request->intervino_otro_vehiculo_datos;
 
+            if($denuncia_siniestro->estado_carga == "5")
+            {
+                $denuncia_siniestro->estado_carga = '6';
+
+            }
+            $denuncia_siniestro->save();
         }
-        $denuncia_siniestro->save();
 
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
@@ -547,43 +569,46 @@ class DenunciaAseguradoController extends Controller
     {
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        $denuncia_siniestro->vehiculoTerceros()->create([
-            "propietario_nombre" => $request->propietario_nombre,
-            "propietario_telefono" => $request->propietario_telefono,
-            "propietario_tipo_documento_id" => $request->propietario_documento_id,
-            "propietario_documento_numero" => $request->propietario_documento_numero,
-            "propietario_codigo_postal" => $request->propietario_codigo_postal,
-            "propietario_domicilio" => $request->propietario_domicilio,
-            "marca_id" => $request->marca_id != 'otra' ? $request->marca_id : null,
-            "modelo_id" => $request->modelo_id != 'otro' ? $request->modelo_id : null,
-            "otra_marca" => $request->marca,
-            "otro_modelo" => $request->modelo,
-            "tipo" => $request->vehiculo_tipo,
-            "anio" => $request->vehiculo_anio,
-            "dominio" => $request->vehiculo_dominio,
-            "motor" => $request->vehiculo_motor,
-            "chasis" => $request->vehiculo_chasis,
-            "uso_particular" => $request->vehiculo_particular == 'on',
-            "uso_comercial" => $request->vehiculo_comercial == 'on',
-            "uso_taxi_remis" => $request->vehiculo_taxi == 'on',
-            "uso_tpp" => $request->vehiculo_tp == 'on',
-            "uso_urgencia" => $request->vehiculo_urgencia == 'on',
-            "uso_seguridad" => $request->vehiculo_seguridad == 'on',
-            "detalles" => $request->vehiculo_detalles,
-            "conductor_nombre" => $request->conductor_nombre,
-            "conductor_telefono" => $request->conductor_telefono,
-            "conductor_tipo_documento_id" => $request->conductor_documento_id,
-            "conductor_documento_numero" => $request->conductor_documento_numero,
-            "conductor_codigo_postal" => $request->conductor_codigo_postal,
-            "conductor_domicilio" => $request->conductor_domicilio,
-            "conductor_registro" => $request->conductor_registro,
-            "conductor_tipo_carnet_id" => $request->conductor_carnet_id,
-            "conductor_categoria" => $request->conductor_categoria,
-            "conductor_vencimiento" => $request->conductor_vencimiento,
-            "conductor_alcoholemia" => $request->conductor_alcoholemia_si,
-            "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_nego,
-            "conductor_habitual" => $request->conductor_habitual_si,
-        ]);
+        if($denuncia_siniestro->canEdit())
+        {
+            $denuncia_siniestro->vehiculoTerceros()->create([
+                "propietario_nombre" => $request->propietario_nombre,
+                "propietario_telefono" => $request->propietario_telefono,
+                "propietario_tipo_documento_id" => $request->propietario_documento_id,
+                "propietario_documento_numero" => $request->propietario_documento_numero,
+                "propietario_codigo_postal" => $request->propietario_codigo_postal,
+                "propietario_domicilio" => $request->propietario_domicilio,
+                "marca_id" => $request->marca_id != 'otra' ? $request->marca_id : null,
+                "modelo_id" => $request->modelo_id != 'otro' ? $request->modelo_id : null,
+                "otra_marca" => $request->marca,
+                "otro_modelo" => $request->modelo,
+                "tipo" => $request->vehiculo_tipo,
+                "anio" => $request->vehiculo_anio,
+                "dominio" => $request->vehiculo_dominio,
+                "motor" => $request->vehiculo_motor,
+                "chasis" => $request->vehiculo_chasis,
+                "uso_particular" => $request->vehiculo_particular == 'on',
+                "uso_comercial" => $request->vehiculo_comercial == 'on',
+                "uso_taxi_remis" => $request->vehiculo_taxi == 'on',
+                "uso_tpp" => $request->vehiculo_tp == 'on',
+                "uso_urgencia" => $request->vehiculo_urgencia == 'on',
+                "uso_seguridad" => $request->vehiculo_seguridad == 'on',
+                "detalles" => $request->vehiculo_detalles,
+                "conductor_nombre" => $request->conductor_nombre,
+                "conductor_telefono" => $request->conductor_telefono,
+                "conductor_tipo_documento_id" => $request->conductor_documento_id,
+                "conductor_documento_numero" => $request->conductor_documento_numero,
+                "conductor_codigo_postal" => $request->conductor_codigo_postal,
+                "conductor_domicilio" => $request->conductor_domicilio,
+                "conductor_registro" => $request->conductor_registro,
+                "conductor_tipo_carnet_id" => $request->conductor_carnet_id,
+                "conductor_categoria" => $request->conductor_categoria,
+                "conductor_vencimiento" => $request->conductor_vencimiento,
+                "conductor_alcoholemia" => $request->conductor_alcoholemia_si,
+                "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_nego,
+                "conductor_habitual" => $request->conductor_habitual_si,
+            ]);
+        }
 
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
     }
@@ -604,56 +629,59 @@ class DenunciaAseguradoController extends Controller
 
     public function paso6update(Request $request)
     {
-        $identificador = request('id');
-        $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        $vehiculo_id = request('v');
-        $vehiculo_tercero = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->vehiculoTerceros()->where('id',$vehiculo_id)->firstOrFail();
+        $vehiculo_tercero = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
 
-        $vehiculo_tercero->update([
-            "propietario_nombre" => $request->propietario_nombre,
-            "propietario_telefono" => $request->propietario_telefono,
-            "propietario_tipo_documento_id" => $request->propietario_documento_id,
-            "propietario_documento_numero" => $request->propietario_documento_numero,
-            "propietario_codigo_postal" => $request->propietario_codigo_postal,
-            "propietario_domicilio" => $request->propietario_domicilio,
-            "marca_id" => is_numeric($request->marca_id) ? $request->marca_id : null,
-            "modelo_id" => is_numeric($request->modelo_id) ? $request->modelo_id : null,
-            "otra_marca" => !is_numeric($request->marca_id) ? $request->marca : null,
-            "otro_modelo" => !is_numeric($request->modelo_id) ? $request->modelo : null,
-            "tipo" => $request->vehiculo_tipo,
-            "anio" => $request->vehiculo_anio,
-            "dominio" => $request->vehiculo_dominio,
-            "motor" => $request->vehiculo_motor,
-            "chasis" => $request->vehiculo_chasis,
-            "uso_particular" => $request->vehiculo_particular == 'on',
-            "uso_comercial" => $request->vehiculo_comercial == 'on',
-            "uso_taxi_remis" => $request->vehiculo_taxi == 'on',
-            "uso_tpp" => $request->vehiculo_tp == 'on',
-            "uso_urgencia" => $request->vehiculo_urgencia == 'on',
-            "uso_seguridad" => $request->vehiculo_seguridad == 'on',
-            "detalles" => $request->vehiculo_detalles,
-            "conductor_nombre" => $request->conductor_nombre,
-            "conductor_telefono" => $request->conductor_telefono,
-            "conductor_tipo_documento_id" => $request->conductor_documento_id,
-            "conductor_documento_numero" => $request->conductor_documento_numero,
-            "conductor_codigo_postal" => $request->conductor_codigo_postal,
-            "conductor_domicilio" => $request->conductor_domicilio,
-            "conductor_registro" => $request->conductor_registro,
-            "conductor_tipo_carnet_id" => $request->conductor_carnet_id,
-            "conductor_categoria" => $request->conductor_categoria,
-            "conductor_vencimiento" => $request->conductor_vencimiento,
-            "conductor_alcoholemia" => $request->conductor_alcoholemia,
-            "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_se_nego == 'on',
-            "conductor_habitual" => $request->conductor_habitual_si,
-        ]);
+        if($vehiculo_tercero->denuncia->canEdit())
+        {
+            $vehiculo_tercero->update([
+                "propietario_nombre" => $request->propietario_nombre,
+                "propietario_telefono" => $request->propietario_telefono,
+                "propietario_tipo_documento_id" => $request->propietario_documento_id,
+                "propietario_documento_numero" => $request->propietario_documento_numero,
+                "propietario_codigo_postal" => $request->propietario_codigo_postal,
+                "propietario_domicilio" => $request->propietario_domicilio,
+                "marca_id" => is_numeric($request->marca_id) ? $request->marca_id : null,
+                "modelo_id" => is_numeric($request->modelo_id) ? $request->modelo_id : null,
+                "otra_marca" => !is_numeric($request->marca_id) ? $request->marca : null,
+                "otro_modelo" => !is_numeric($request->modelo_id) ? $request->modelo : null,
+                "tipo" => $request->vehiculo_tipo,
+                "anio" => $request->vehiculo_anio,
+                "dominio" => $request->vehiculo_dominio,
+                "motor" => $request->vehiculo_motor,
+                "chasis" => $request->vehiculo_chasis,
+                "uso_particular" => $request->vehiculo_particular == 'on',
+                "uso_comercial" => $request->vehiculo_comercial == 'on',
+                "uso_taxi_remis" => $request->vehiculo_taxi == 'on',
+                "uso_tpp" => $request->vehiculo_tp == 'on',
+                "uso_urgencia" => $request->vehiculo_urgencia == 'on',
+                "uso_seguridad" => $request->vehiculo_seguridad == 'on',
+                "detalles" => $request->vehiculo_detalles,
+                "conductor_nombre" => $request->conductor_nombre,
+                "conductor_telefono" => $request->conductor_telefono,
+                "conductor_tipo_documento_id" => $request->conductor_documento_id,
+                "conductor_documento_numero" => $request->conductor_documento_numero,
+                "conductor_codigo_postal" => $request->conductor_codigo_postal,
+                "conductor_domicilio" => $request->conductor_domicilio,
+                "conductor_registro" => $request->conductor_registro,
+                "conductor_tipo_carnet_id" => $request->conductor_carnet_id,
+                "conductor_categoria" => $request->conductor_categoria,
+                "conductor_vencimiento" => $request->conductor_vencimiento,
+                "conductor_alcoholemia" => $request->conductor_alcoholemia,
+                "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_se_nego == 'on',
+                "conductor_habitual" => $request->conductor_habitual_si,
+            ]);
+        }
 
-        return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $identificador]);
+        return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
     }
 
     public function paso6DeleteItem(Request $request)
     {
-        $vehiculo_terceros = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
-        $vehiculo_terceros->delete();
+        $vehiculo_tercero = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
+        if($vehiculo_tercero->denuncia->canEdit())
+        {
+            $vehiculo_tercero->delete();
+        }
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
     }
 
@@ -686,14 +714,18 @@ class DenunciaAseguradoController extends Controller
                 ->withInput();
         }
 
-        $denuncia_siniestro->hubo_danios_materiales = $request->hubo_danios_materiales;
-
-        if($denuncia_siniestro->estado_carga == "6")
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->estado_carga = '7';
+            $denuncia_siniestro->hubo_danios_materiales = $request->hubo_danios_materiales;
+
+            if($denuncia_siniestro->estado_carga == "6")
+            {
+                $denuncia_siniestro->estado_carga = '7';
+            }
+
+            $denuncia_siniestro->save();
         }
 
-        $denuncia_siniestro->save();
 
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
@@ -718,14 +750,17 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        $denuncia_siniestro->danioMateriales()->create([
-            "detalles" => $request->detalles,
-            "propietario_nombre" => $request->propietario_nombre,
-            "propietario_tipo_documento_id" => $request->propietario_documento_id,
-            "propietario_documento_numero" => $request->propietario_documento_numero,
-            "propietario_codigo_postal" => $request->propietario_codigo_postal,
-            "propietario_domicilio" => $request->propietario_domicilio
-        ]);
+        if($denuncia_siniestro->canEdit())
+        {
+            $denuncia_siniestro->danioMateriales()->create([
+                "detalles" => $request->detalles,
+                "propietario_nombre" => $request->propietario_nombre,
+                "propietario_tipo_documento_id" => $request->propietario_documento_id,
+                "propietario_documento_numero" => $request->propietario_documento_numero,
+                "propietario_codigo_postal" => $request->propietario_codigo_postal,
+                "propietario_domicilio" => $request->propietario_domicilio
+            ]);
+        }
 
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
@@ -749,27 +784,31 @@ class DenunciaAseguradoController extends Controller
         ];
         Validator::make($request->all(),$rules)->validate();
 
-        $danioMateriales = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->danioMateriales()->where('id',$request->v)->firstOrFail();
+        $danio_materiales = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->danioMateriales()->where('id',$request->v)->firstOrFail();
 
-        $danioMateriales->update([
-            "detalles" => $request->danio_detalles,
-            "propietario_nombre" => $request->propietario_nombre,
-            "propietario_tipo_documento_id" => $request->propietario_documento_id,
-            "propietario_documento_numero" => $request->propietario_documento_numero,
-            "propietario_codigo_postal" => $request->propietario_codigo_postal,
-            "propietario_domicilio" => $request->propietario_domicilio
-        ]);
+        if($danio_materiales->denuncia->canEdit())
+        {
+            $danio_materiales->update([
+                "detalles" => $request->detalles,
+                "propietario_nombre" => $request->propietario_nombre,
+                "propietario_tipo_documento_id" => $request->propietario_documento_id,
+                "propietario_documento_numero" => $request->propietario_documento_numero,
+                "propietario_codigo_postal" => $request->propietario_codigo_postal,
+                "propietario_domicilio" => $request->propietario_domicilio
+            ]);
+        }
 
         return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
 
-    public function paso7DeleteItem()
+    public function paso7DeleteItem(Request $request)
     {
-        $identificador = request('id');
-        $danio_materiales_id = request('v');
-        $danio_materiales = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->danioMateriales()->where('id',$danio_materiales_id)->firstOrFail();
-        $danio_materiales->delete();
-        return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $identificador]);
+        $danio_materiales = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->danioMateriales()->where('id',$request->v)->firstOrFail();
+        if($danio_materiales->denuncia->canEdit())
+        {
+            $danio_materiales->delete();
+        }
+        return redirect()->route("asegurados-denuncias-paso7.create",['id'=> $request->id]);
     }
 
     public function paso8create()
@@ -801,14 +840,18 @@ class DenunciaAseguradoController extends Controller
         }
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
-        $denuncia_siniestro->hubo_lesionados = $request->lesionados;
 
-        if($denuncia_siniestro->estado_carga == "7")
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->estado_carga = '8';
-        }
+            $denuncia_siniestro->hubo_lesionados = $request->hubo_lesionados;
 
-        $denuncia_siniestro->save();
+            if($denuncia_siniestro->estado_carga == "7")
+            {
+                $denuncia_siniestro->estado_carga = '8';
+            }
+
+            $denuncia_siniestro->save();
+        }
 
         return redirect()->route("asegurados-denuncias-paso9.create",['id'=> $request->id]);
     }
@@ -834,22 +877,25 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        $denuncia_siniestro->lesionados()->create([
-            "nombre" => $request->lesionado_nombre,
-            "telefono" => $request->lesionado_telefono,
-            "tipo_documento_id" => $request->lesionado_documento_id,
-            "documento_numero" => $request->lesionado_documento_numero,
-            "codigo_postal" => $request->lesionado_codigo_postal,
-            "domicilio" => $request->lesionado_domicilio,
-            "estado_civil" => $request->lesionado_estado_civil,
-            "fecha_nacimiento" => $request->lesionado_fecha_nacimiento,
-            "relacion" => $request->lesionado_relacion,
-            "tipo" => $request->tipo,
-            "gravedad_lesion" => $request->gravedad_lesion,
-            "alcoholemia" => $request->alcoholemia,
-            "alcoholemia_se_nego" => $request->lesionado_alcoholemia_nego == 'on',
-            "centro_asistencial" => $request->lesionado_centro_asistencial
-        ]);
+        if($denuncia_siniestro->canEdit())
+        {
+            $denuncia_siniestro->lesionados()->create([
+                "nombre" => $request->lesionado_nombre,
+                "telefono" => $request->lesionado_telefono,
+                "tipo_documento_id" => $request->lesionado_documento_id,
+                "documento_numero" => $request->lesionado_documento_numero,
+                "codigo_postal" => $request->lesionado_codigo_postal,
+                "domicilio" => $request->lesionado_domicilio,
+                "estado_civil" => $request->lesionado_estado_civil,
+                "fecha_nacimiento" => $request->lesionado_fecha_nacimiento,
+                "relacion" => $request->lesionado_relacion,
+                "tipo" => $request->tipo,
+                "gravedad_lesion" => $request->gravedad_lesion,
+                "alcoholemia" => $request->alcoholemia,
+                "alcoholemia_se_nego" => $request->lesionado_alcoholemia_nego == 'on',
+                "centro_asistencial" => $request->lesionado_centro_asistencial
+            ]);
+        }
 
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
@@ -869,34 +915,38 @@ class DenunciaAseguradoController extends Controller
     {
         $lesionado = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->lesionados()->where('id',$request->v)->firstOrFail();
 
-        $lesionado->update([
-            "nombre" => $request->lesionado_nombre,
-            "telefono" => $request->lesionado_telefono,
-            "tipo_documento_id" => $request->lesionado_documento_id,
-            "documento_numero" => $request->lesionado_documento_numero,
-            "codigo_postal" => $request->lesionado_codigo_postal,
-            "domicilio" => $request->lesionado_domicilio,
-            "estado_civil" => $request->lesionado_estado_civil,
-            "fecha_nacimiento" => $request->lesionado_fecha_nacimiento,
-            "relacion" => $request->lesionado_relacion,
-            "tipo" => $request->tipo,
-            "gravedad_lesion" => $request->gravedad_lesion,
-            "alcoholemia" => $request->alcoholemia,
-            "alcoholemia_no" => $request->lesionado_alcoholemia_no,
-            "alcoholemia_se_nego" => $request->alcoholemia_se_nego == 'on',
-            "centro_asistencial" => $request->lesionado_centro_asistencial
-        ]);
+        if($lesionado->denuncia->canEdit())
+        {
+            $lesionado->update([
+                "nombre" => $request->lesionado_nombre,
+                "telefono" => $request->lesionado_telefono,
+                "tipo_documento_id" => $request->lesionado_documento_id,
+                "documento_numero" => $request->lesionado_documento_numero,
+                "codigo_postal" => $request->lesionado_codigo_postal,
+                "domicilio" => $request->lesionado_domicilio,
+                "estado_civil" => $request->lesionado_estado_civil,
+                "fecha_nacimiento" => $request->lesionado_fecha_nacimiento,
+                "relacion" => $request->lesionado_relacion,
+                "tipo" => $request->tipo,
+                "gravedad_lesion" => $request->gravedad_lesion,
+                "alcoholemia" => $request->alcoholemia,
+                "alcoholemia_no" => $request->lesionado_alcoholemia_no,
+                "alcoholemia_se_nego" => $request->alcoholemia_se_nego == 'on',
+                "centro_asistencial" => $request->lesionado_centro_asistencial
+            ]);
+        }
 
         return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
 
-    public function paso8DeleteItem()
+    public function paso8DeleteItem(Request $request)
     {
-        $identificador = request('id');
-        $lesionado_id = request('v');
-        $lesionado = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail()->lesionados()->where('id',$lesionado_id)->firstOrFail();
-        $lesionado->delete();
-        return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $identificador]);
+        $lesionado = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->lesionados()->where('id',$request->v)->firstOrFail();
+        if($lesionado->denuncia->canEdit())
+        {
+            $lesionado->delete();
+        }
+        return redirect()->route("asegurados-denuncias-paso8.create",['id'=> $request->id]);
     }
 
     public function paso9create()
@@ -917,39 +967,41 @@ class DenunciaAseguradoController extends Controller
     public function paso9store(Request $request)
     {
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",request('id'))->firstOrFail();
-        $denuncia_siniestro->tipo_accidente_frontal = $request->tipo_accidente_frontal == 'on';
-        $denuncia_siniestro->tipo_accidente_posterior = $request->tipo_accidente_posterior == 'on';
-        $denuncia_siniestro->tipo_accidente_cadena = $request->tipo_accidente_cadena == 'on';
-        $denuncia_siniestro->tipo_accidente_lateral = $request->tipo_accidente_lateral == 'on';
-        $denuncia_siniestro->tipo_accidente_vuelco = $request->tipo_accidente_vuelco == 'on';
-        $denuncia_siniestro->tipo_accidente_desplaza = $request->tipo_accidente_desplaza == 'on';
-        $denuncia_siniestro->tipo_accidente_incendio = $request->tipo_accidente_incendio == 'on';
-        $denuncia_siniestro->tipo_accidente_inmersion = $request->tipo_accidente_inmersion == 'on';
-        $denuncia_siniestro->tipo_accidente_explosion = $request->tipo_accidente_explosion == 'on';
-        $denuncia_siniestro->tipo_accidente_carga = $request->tipo_accidente_carga == 'on';
-        $denuncia_siniestro->tipo_accidente_otros = $request->tipo_accidente_otros == 'on';
-        $denuncia_siniestro->lugar_autopista = $request->lugar_autopista == 'on';
-        $denuncia_siniestro->lugar_calle = $request->lugar_calle == 'on';
-        $denuncia_siniestro->lugar_avenida = $request->lugar_avenida == 'on';
-        $denuncia_siniestro->lugar_curva = $request->lugar_curva == 'on';
-        $denuncia_siniestro->lugar_pendiente = $request->lugar_pendiente == 'on';
-        $denuncia_siniestro->lugar_tunel = $request->lugar_tunel == 'on';
-        $denuncia_siniestro->lugar_puente = $request->lugar_sobrepuente == 'on';
-        $denuncia_siniestro->lugar_otros = $request->lugar_otros == 'on';
-        $denuncia_siniestro->colision_peaton = $request->colision_peaton == 'on';
-        $denuncia_siniestro->colision_vehiculo = $request->colision_vehiculo == 'on';
-        $denuncia_siniestro->colision_edificio = $request->colision_edificio == 'on';
-        $denuncia_siniestro->colision_columna = $request->colision_columna == 'on';
-        $denuncia_siniestro->colision_animal = $request->colision_animal == 'on';
-        $denuncia_siniestro->colision_transporte_publico = $request->colision_transporte == 'on';
-        $denuncia_siniestro->colision_otros = $request->colision_otros == 'on';
-
-        if($denuncia_siniestro->estado_carga == "8")
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->estado_carga = '9';
-        }
-        $denuncia_siniestro->save();
+            $denuncia_siniestro->tipo_accidente_frontal = $request->tipo_accidente_frontal == 'on';
+            $denuncia_siniestro->tipo_accidente_posterior = $request->tipo_accidente_posterior == 'on';
+            $denuncia_siniestro->tipo_accidente_cadena = $request->tipo_accidente_cadena == 'on';
+            $denuncia_siniestro->tipo_accidente_lateral = $request->tipo_accidente_lateral == 'on';
+            $denuncia_siniestro->tipo_accidente_vuelco = $request->tipo_accidente_vuelco == 'on';
+            $denuncia_siniestro->tipo_accidente_desplaza = $request->tipo_accidente_desplaza == 'on';
+            $denuncia_siniestro->tipo_accidente_incendio = $request->tipo_accidente_incendio == 'on';
+            $denuncia_siniestro->tipo_accidente_inmersion = $request->tipo_accidente_inmersion == 'on';
+            $denuncia_siniestro->tipo_accidente_explosion = $request->tipo_accidente_explosion == 'on';
+            $denuncia_siniestro->tipo_accidente_carga = $request->tipo_accidente_carga == 'on';
+            $denuncia_siniestro->tipo_accidente_otros = $request->tipo_accidente_otros == 'on';
+            $denuncia_siniestro->lugar_autopista = $request->lugar_autopista == 'on';
+            $denuncia_siniestro->lugar_calle = $request->lugar_calle == 'on';
+            $denuncia_siniestro->lugar_avenida = $request->lugar_avenida == 'on';
+            $denuncia_siniestro->lugar_curva = $request->lugar_curva == 'on';
+            $denuncia_siniestro->lugar_pendiente = $request->lugar_pendiente == 'on';
+            $denuncia_siniestro->lugar_tunel = $request->lugar_tunel == 'on';
+            $denuncia_siniestro->lugar_puente = $request->lugar_sobrepuente == 'on';
+            $denuncia_siniestro->lugar_otros = $request->lugar_otros == 'on';
+            $denuncia_siniestro->colision_peaton = $request->colision_peaton == 'on';
+            $denuncia_siniestro->colision_vehiculo = $request->colision_vehiculo == 'on';
+            $denuncia_siniestro->colision_edificio = $request->colision_edificio == 'on';
+            $denuncia_siniestro->colision_columna = $request->colision_columna == 'on';
+            $denuncia_siniestro->colision_animal = $request->colision_animal == 'on';
+            $denuncia_siniestro->colision_transporte_publico = $request->colision_transporte == 'on';
+            $denuncia_siniestro->colision_otros = $request->colision_otros == 'on';
 
+            if($denuncia_siniestro->estado_carga == "8")
+            {
+                $denuncia_siniestro->estado_carga = '9';
+            }
+            $denuncia_siniestro->save();
+        }
 
         return redirect()->route("asegurados-denuncias-paso10.create",['id'=> request('id')]);
     }
@@ -979,44 +1031,48 @@ class DenunciaAseguradoController extends Controller
                 ->withInput();
         }
 
-        if($request->hasFile('graficoManual'))
+        if($denuncia_siniestro->canEdit())
         {
-            if($request->file('graficoManual')->getSize() >= 10000000)
+            if($request->hasFile('graficoManual'))
             {
-                return back()->withErrors(['tamaño_maximo' => 'Maximo 50 MB de archivo! ']);
+                if($request->file('graficoManual')->getSize() >= 10000000)
+                {
+                    return back()->withErrors(['tamaño_maximo' => 'Maximo 50 MB de archivo! ']);
+                }
+
+                if($denuncia_siniestro->croquis_url)
+                {
+                    Storage::disk('s3')->delete($denuncia_siniestro->croquis_path);
+                }
+
+                $filePath = $this->getCroquisPath($denuncia_siniestro);
+                Storage::disk('s3')->put($filePath, fopen($request->file('graficoManual'), 'r+'), 'public');
+                $url = Storage::disk('s3')->url($filePath);
+
+                if($url)
+                {
+                    $denuncia_siniestro->croquis_url = $url;
+                    $denuncia_siniestro->croquis_path = $filePath;
+                    $denuncia_siniestro->save();
+                }
             }
 
-            if($denuncia_siniestro->croquis_url)
+            $denuncia_siniestro->croquis_descripcion = $request->description;
+            $denuncia_siniestro->denuncia_policial_comisaria = $request->comisaria;
+            $denuncia_siniestro->denuncia_policial_acta = $request->acta;
+            $denuncia_siniestro->denuncia_policial_folio = $request->folio;
+            $denuncia_siniestro->denuncia_policial_sumario = $request->sumario;
+            $denuncia_siniestro->denuncia_policial_juzgado = $request->juzgado;
+            $denuncia_siniestro->denuncia_policial_secretaria = $request->secretaria;
+
+            if($denuncia_siniestro->estado_carga == "9")
             {
-                Storage::disk('s3')->delete($denuncia_siniestro->croquis_path);
+                $denuncia_siniestro->estado_carga = '10';
             }
 
-            $filePath = $this->getCroquisPath($denuncia_siniestro);
-            Storage::disk('s3')->put($filePath, fopen($request->file('graficoManual'), 'r+'), 'public');
-            $url = Storage::disk('s3')->url($filePath);
-
-            if($url)
-            {
-                $denuncia_siniestro->croquis_url = $url;
-                $denuncia_siniestro->croquis_path = $filePath;
-                $denuncia_siniestro->save();
-            }
+            $denuncia_siniestro->save();
         }
 
-        $denuncia_siniestro->croquis_descripcion = $request->description;
-        $denuncia_siniestro->denuncia_policial_comisaria = $request->comisaria;
-        $denuncia_siniestro->denuncia_policial_acta = $request->acta;
-        $denuncia_siniestro->denuncia_policial_folio = $request->folio;
-        $denuncia_siniestro->denuncia_policial_sumario = $request->sumario;
-        $denuncia_siniestro->denuncia_policial_juzgado = $request->juzgado;
-        $denuncia_siniestro->denuncia_policial_secretaria = $request->secretaria;
-
-        if($denuncia_siniestro->estado_carga == "9")
-        {
-            $denuncia_siniestro->estado_carga = '10';
-        }
-
-        $denuncia_siniestro->save();
 
         return redirect()->route("asegurados-denuncias-paso11.create",['id'=> $request->id]);
     }
@@ -1037,20 +1093,23 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia = DenunciaSiniestro::findOrFail($request->id);
 
-        if($denuncia->croquis_url)
+        if($denuncia->canEdit())
         {
-            Storage::disk('s3')->delete($denuncia->croquis_path);
-        }
+            if($denuncia->croquis_url)
+            {
+                Storage::disk('s3')->delete($denuncia->croquis_path);
+            }
 
-        $filePath = $this->getCroquisPath($denuncia);
-        Storage::disk('s3')->put($filePath, file_get_contents($request->croquis),'public');
-        $url = Storage::disk('s3')->url($filePath);
+            $filePath = $this->getCroquisPath($denuncia);
+            Storage::disk('s3')->put($filePath, file_get_contents($request->croquis),'public');
+            $url = Storage::disk('s3')->url($filePath);
 
-        if($url)
-        {
-            $denuncia->croquis_url = $url;
-            $denuncia->croquis_path = $filePath;
-            $denuncia->save();
+            if($url)
+            {
+                $denuncia->croquis_url = $url;
+                $denuncia->croquis_path = $filePath;
+                $denuncia->save();
+            }
         }
 
         return response()->json([ 'status' => true]);
@@ -1160,38 +1219,41 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
-        if(!$denuncia_siniestro->denunciante)
+        if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->denunciante()->create([
-                "nombre" => !$request->asegurado ? $request->nombre : $denuncia_siniestro->asegurado->nombre,
-                "telefono" => !$request->asegurado ? $request->telefono : $denuncia_siniestro->asegurado->telefono,
-                "domicilio" => !$request->asegurado ? $request->domicilio : $denuncia_siniestro->asegurado->domicilio,
-                "codigo_postal" => !$request->asegurado ? $request->codigo_postal : $denuncia_siniestro->asegurado->codigo_postal,
-                "province_id" => !$request->asegurado ? $request->provincia_id : $denuncia_siniestro->asegurado->province_id,
-                "city_id" => !$request->asegurado ? $request->localidad_id : $denuncia_siniestro->asegurado->city_id,
-                "tipo_documento_id" => !$request->asegurado ? $request->tipo_documento_id : $denuncia_siniestro->asegurado->tipo_documento_id,
-                "documento_numero" => !$request->asegurado ? $request->documento_numero : $denuncia_siniestro->asegurado->documento_numero,
-                "asegurado" => $request->asegurado,
-                "asegurado_relacion" => !$request->asegurado ? $request->asegurado_relacion : null,
-            ]);
-        } else {
-            $denuncia_siniestro->denunciante->nombre = $request->nombre;
-            $denuncia_siniestro->denunciante->telefono = $request->telefono;
-            $denuncia_siniestro->denunciante->domicilio = $request->domicilio;
-            $denuncia_siniestro->denunciante->codigo_postal = $request->codigo_postal;
-            $denuncia_siniestro->denunciante->province_id = $request->provincia_id;
-            $denuncia_siniestro->denunciante->city_id = $request->localidad_id;
-            $denuncia_siniestro->denunciante->tipo_documento_id = $request->tipo_documento_id;
-            $denuncia_siniestro->denunciante->documento_numero = $request->documento_numero;
-            $denuncia_siniestro->denunciante->asegurado = $request->asegurado;
-            $denuncia_siniestro->denunciante->asegurado_relacion = $request->asegurado_relacion;
-            $denuncia_siniestro->denunciante->save();
-        }
+            if(!$denuncia_siniestro->denunciante)
+            {
+                $denuncia_siniestro->denunciante()->create([
+                    "nombre" => !$request->asegurado ? $request->nombre : $denuncia_siniestro->asegurado->nombre,
+                    "telefono" => !$request->asegurado ? $request->telefono : $denuncia_siniestro->asegurado->telefono,
+                    "domicilio" => !$request->asegurado ? $request->domicilio : $denuncia_siniestro->asegurado->domicilio,
+                    "codigo_postal" => !$request->asegurado ? $request->codigo_postal : $denuncia_siniestro->asegurado->codigo_postal,
+                    "province_id" => !$request->asegurado ? $request->provincia_id : $denuncia_siniestro->asegurado->province_id,
+                    "city_id" => !$request->asegurado ? $request->localidad_id : $denuncia_siniestro->asegurado->city_id,
+                    "tipo_documento_id" => !$request->asegurado ? $request->tipo_documento_id : $denuncia_siniestro->asegurado->tipo_documento_id,
+                    "documento_numero" => !$request->asegurado ? $request->documento_numero : $denuncia_siniestro->asegurado->documento_numero,
+                    "asegurado" => $request->asegurado,
+                    "asegurado_relacion" => !$request->asegurado ? $request->asegurado_relacion : null,
+                ]);
+            } else {
+                $denuncia_siniestro->denunciante->nombre = $request->nombre;
+                $denuncia_siniestro->denunciante->telefono = $request->telefono;
+                $denuncia_siniestro->denunciante->domicilio = $request->domicilio;
+                $denuncia_siniestro->denunciante->codigo_postal = $request->codigo_postal;
+                $denuncia_siniestro->denunciante->province_id = $request->provincia_id;
+                $denuncia_siniestro->denunciante->city_id = $request->localidad_id;
+                $denuncia_siniestro->denunciante->tipo_documento_id = $request->tipo_documento_id;
+                $denuncia_siniestro->denunciante->documento_numero = $request->documento_numero;
+                $denuncia_siniestro->denunciante->asegurado = $request->asegurado;
+                $denuncia_siniestro->denunciante->asegurado_relacion = $request->asegurado_relacion;
+                $denuncia_siniestro->denunciante->save();
+            }
 
-        if($denuncia_siniestro->estado_carga == "11")
-        {
-            $denuncia_siniestro->estado_carga = '12';
-            $denuncia_siniestro->save();
+            if($denuncia_siniestro->estado_carga == "11")
+            {
+                $denuncia_siniestro->estado_carga = '12';
+                $denuncia_siniestro->save();
+            }
         }
 
         $link = route('panel-siniestros.denuncia.pdf', ['denuncia' =>  $denuncia_siniestro->id]);

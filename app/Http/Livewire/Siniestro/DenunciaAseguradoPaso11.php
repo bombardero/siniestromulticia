@@ -74,7 +74,8 @@ class DenunciaAseguradoPaso11 extends Component
         }
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$this->identificador)->firstOrFail();
-        if($denuncia_siniestro->estado_carga == "10")
+
+        if($denuncia_siniestro->canEdit() && $denuncia_siniestro->estado_carga == "10")
         {
             $denuncia_siniestro->estado_carga = '11';
             $denuncia_siniestro->save();
@@ -97,19 +98,23 @@ class DenunciaAseguradoPaso11 extends Component
             return ;
         }
 
-        $data = $this->getDocumentoPathAndName($type);
-        $url = FileUploadService::upload($file,$data['path']);
+        if($this->denuncia_siniestro->canEdit())
+        {
+            $data = $this->getDocumentoPathAndName($type);
+            $url = FileUploadService::upload($file,$data['path']);
 
-        $this->denuncia_siniestro->documentosDenuncia()->create([
-            'nombre' => $data['name'],
-            'type' => $type,
-            'url' => $url,
-            'path' => $data['path'],
-        ]);
+            $this->denuncia_siniestro->documentosDenuncia()->create([
+                'nombre' => $data['name'],
+                'type' => $type,
+                'url' => $url,
+                'path' => $data['path'],
+            ]);
 
-        $documents_number = $this->denuncia_siniestro->documentosDenuncia()->where('type', $type)->count();
-        if(!$documents_number > 0){
-            $this->validate();
+            $documents_number = $this->denuncia_siniestro->documentosDenuncia()->where('type', $type)->count();
+            if(!$documents_number > 0)
+            {
+                $this->validate();
+            }
         }
     }
 
@@ -150,12 +155,16 @@ class DenunciaAseguradoPaso11 extends Component
 
     public function eliminarArchivo($id)
     {
-        $archivo = DocumentosDenuncia::find($id);
-        if($archivo)
+        if($this->denuncia_siniestro->canEdit())
         {
-            FileUploadService::delete($archivo->path);
-            $archivo->delete();
+            $archivo = DocumentosDenuncia::find($id);
+            if($archivo)
+            {
+                FileUploadService::delete($archivo->path);
+                $archivo->delete();
+            }
         }
+
         return redirect()->route("asegurados-denuncias-paso11.create",['id'=> $this->identificador]);
     }
 }

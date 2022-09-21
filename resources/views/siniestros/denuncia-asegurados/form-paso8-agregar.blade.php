@@ -99,6 +99,12 @@
                 </div>
             </div>
 
+            <div class="col-12 mt-2">
+                <div class="form-group mb-0">
+                    <label>Tipos *</label>
+                </div>
+            </div>
+
             <div class="col-6 col-md-6">
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="conductor"

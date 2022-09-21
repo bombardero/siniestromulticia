@@ -30,4 +30,9 @@ class Lesionado extends Model
         'alcoholemia' => 'boolean',
         'alcoholemia_se_nego' => 'boolean',
     ];
+
+    public function denuncia()
+    {
+        return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
+    }
 }

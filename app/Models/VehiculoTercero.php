@@ -49,7 +49,7 @@ class VehiculoTercero extends Model
 
     public function denuncia()
     {
-        return $this->belongsTo(DenunciaSiniestro::class);
+        return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
     }
 
     public function marca()

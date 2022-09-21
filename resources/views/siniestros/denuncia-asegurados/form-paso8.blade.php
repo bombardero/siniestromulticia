@@ -35,7 +35,7 @@
                     <input type="radio" class="form-check-input" id="checkbox_lesionados_no"
                            name="hubo_lesionados" value="0"
                         {{ old('hubo_lesionados') == '0' || $denuncia_siniestro->hubo_lesionados === false ? 'checked' : '' }}>
-                    <label>No</label>
+                    <label for="checkbox_lesionados_no">No</label>
                 </div>
             </div>
 

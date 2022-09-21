@@ -27,8 +27,7 @@
                     <textarea type="text" name="detalles" id="detalles"
                               placeholder="Describa los daños"
                               class="form-control form-estilo @error('detalles') is-invalid @enderror"
-                              value="{{$danio->detalles}}"
-                    ></textarea>
+                    >{{ $danio->detalles}}</textarea>
                     @error('detalles') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>

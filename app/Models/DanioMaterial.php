@@ -19,4 +19,9 @@ class DanioMaterial extends Model
         "propietario_codigo_postal",
         "propietario_domicilio"
     ];
+
+    public function denuncia()
+    {
+        return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
+    }
 }

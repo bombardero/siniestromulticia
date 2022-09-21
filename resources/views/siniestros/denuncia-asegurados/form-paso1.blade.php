@@ -2,13 +2,20 @@
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 
-    <label style="font-size: 12px">
-        Los campos marcados con un asterisco son obligatorios. Los datos ingresados seran guardados automaticamente en
-        nuestro sistema.
-    </label>
-    <label class="text-danger" style="font-size: 12px">
-        <img src="/images/siniestros/denuncia_asegurado/informacion_rojo.png" style="margin-bottom: 2px;"> Se
-        recomienda cargar este formulario desde una computadora</label>
+    <div class="row">
+            <label class="col-12" style="font-size: 12px">
+                Los campos marcados con un asterisco son obligatorios. Los datos ingresados seran guardados automaticamente en
+                nuestro sistema.
+            </label>
+            <label class="col-12 text-danger" style="font-size: 12px">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Se recomienda cargar este formulario desde una computadora
+            </label>
+            <label class="col-12 text-danger" style="font-size: 12px">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Tenga en cuenta que una vez completados todos los pasos no podrá editar la denuncia.
+            </label>
+    </div>
 
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
