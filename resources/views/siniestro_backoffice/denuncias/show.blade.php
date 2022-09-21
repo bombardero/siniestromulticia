@@ -297,12 +297,12 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Marca: {{ $denuncia->vehiculo ? $denuncia->vehiculo->marca->nombre : '' }}</p>
+                                        Marca: {{ $denuncia->vehiculo ? ($denuncia->vehiculo->marca ? $denuncia->vehiculo->marca->nombre : $denuncia->vehiculo->otra_marca) : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
                                     <p>
-                                        Modelo: {{ $denuncia->vehiculo ? $denuncia->vehiculo->modelo->nombre : '' }}</p>
+                                        Modelo: {{ $denuncia->vehiculo ? ($denuncia->vehiculo->modelo ? $denuncia->vehiculo->modelo->nombre : $denuncia->vehiculo->otro_modelo) : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-3">
