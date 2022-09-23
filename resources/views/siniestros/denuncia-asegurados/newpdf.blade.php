@@ -756,6 +756,159 @@
     @endforeach
 
     <div class="panel panel-default mt-3">
+        <div class="panel-heading">Daños materiales</div>
+    </div>
+
+    <table class="table tb-content pb-0">
+        <tr>
+            <td colspan="3">
+                <b>Hubo daños materiales:</b>
+                {{ $denuncia->hubo_danios_materiales !== null ? ($denuncia->hubo_danios_materiales ? 'Si' : 'No') : ''}}
+            </td>
+        </tr>
+    </table>
+
+    @foreach($denuncia->danioMateriales as $danio)
+        <table class="table tb-content pb-0">
+            <tr>
+                <td colspan="3">
+                    <span>Detalle de los daños: </span>
+                    {{ $danio->detalles }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span>Nombre y Apellido del Propietario: </span>
+                    {{ $danio->propietario_nombre }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Tipo de Documento: </span>
+                    {{ $danio->tipoDocumento->nombre }}
+                </td>
+                <td>
+                    <span>N° de Documento: </span>
+                    {{ $danio->propietario_documento_numero }}
+                </td>
+                <td>
+                    <span>CP: </span>
+                    {{ $danio->propietario_codigo_postal }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Domicilio: </span>
+                    {{ $danio->propietario_domicilio }}
+                </td>
+            </tr>
+        </table>
+    @endforeach
+
+    <div class="panel panel-default mt-3">
+        <div class="panel-heading">Lesionados</div>
+    </div>
+
+    <table class="table tb-content pb-0">
+        <tr>
+            <td colspan="3">
+                <b>Hubo personas lesionadas:</b>
+                {{ $denuncia->hubo_lesionados !== null ? ($denuncia->hubo_lesionados ? 'Si' : 'No') : ''}}
+            </td>
+        </tr>
+    </table>
+
+    @foreach($denuncia->lesionados as $lesionado)
+        <table class="table tb-content pb-0">
+            <tr>
+                <td colspan="4">
+                    <span>Nombre y Apellido: </span>
+                    {{ $lesionado->nombre }}
+                </td>
+                <td colspan="2">
+                    <span>Teléfono: </span>
+                    {{ $lesionado->telefono }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span>Tipo de Documento: </span>
+                    {{ $lesionado->tipoDocumento->nombre }}
+                </td>
+                <td colspan="2">
+                    <span>N° de Documento: </span>
+                    {{ $lesionado->documento_numero }}
+                </td>
+                <td colspan="2">
+                    <span>CP: </span>
+                    {{ $lesionado->codigo_postal }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <span>Domicilio: </span>
+                    {{ $lesionado->domicilio }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span>Estado Civil: </span>
+                    {{ $lesionado->estado_civil }}
+                </td>
+                <td colspan="2">
+                    <span>Fecha de Nacimiento: </span>
+                    {{ $lesionado->fecha_nacimiento->format('d/m/Y') }}
+                </td>
+                <td colspan="2">
+                    <span>Relación con el asegurado: </span>
+                    {{ $lesionado->relacion }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <span>Tipo: </span>
+                    @switch($lesionado->tipo)
+                        @case('conductor')
+                            Conductor del vehículo
+                            @break
+                        @case('pasajero_otro_vehiculo')
+                            Pasajero de otro vehículo
+                            @break
+                        @case('pasajero_vehiculo_asegurado')
+                            Pasajero de vehículo asegurado
+                            @break
+                        @case('peaton')
+                            Peatón
+                            @break
+                    @endswitch
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <span>Gravedad de Lesiones: </span>
+                    {{ $lesionado->gravedad_lesion }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span>Examen de alcoholemia: </span>
+                    {{ $lesionado->alcoholemia ? 'Si' : 'No' }}
+                </td>
+                <td colspan="4">
+                    <span>Se negó: </span>
+                    {{ $lesionado->alcoholemia_se_nego ? 'Si' : 'No' }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <span>Centro Asistencial: </span>
+                    {{ $lesionado->centro_asistencial }}
+                </td>
+            </tr>
+        </table>
+    @endforeach
+
+    <div class="panel panel-default mt-3">
         <div class="panel-heading">Detalles del Denunciante</div>
         <table class="table tb-content pb-0">
             <tr>
@@ -804,7 +957,7 @@
                     {{ $denuncia->denunciante ? ($denuncia->denunciante->asegurado ? 'Si' : 'No' ) : '' }}
                 </td>
                 <td colspan="2">
-                    <b>Reación: </b>
+                    <b>Relación: </b>
                     {{ $denuncia->denunciante ? $denuncia->denunciante->asegurado_relacion : '' }}
                 </td>
             </tr>

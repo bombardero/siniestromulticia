@@ -24,4 +24,9 @@ class DanioMaterial extends Model
     {
         return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
     }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'propietario_tipo_documento_id');
+    }
 }

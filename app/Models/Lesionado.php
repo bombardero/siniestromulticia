@@ -31,8 +31,15 @@ class Lesionado extends Model
         'alcoholemia_se_nego' => 'boolean',
     ];
 
+    protected $dates = ['fecha_nacimiento'];
+
     public function denuncia()
     {
         return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
+    }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
     }
 }
