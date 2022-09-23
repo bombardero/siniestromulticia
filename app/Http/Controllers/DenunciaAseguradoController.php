@@ -135,7 +135,7 @@ class DenunciaAseguradoController extends Controller
         $pdf = PDF::loadView('siniestros.denuncia-asegurados.newpdf', $data);
         $pdf->setPaper( 'a4' );
 
-        //return view('siniestros.denuncia-asegurados.newpdf', $data);
+        return view('siniestros.denuncia-asegurados.newpdf', $data);
         //return $pdf->download('denuncia.pdf');
         return $pdf->stream();
     }

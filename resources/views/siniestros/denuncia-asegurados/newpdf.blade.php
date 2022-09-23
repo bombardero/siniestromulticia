@@ -234,55 +234,67 @@
             <tr>
                 <td>
                     <b>Fecha de Nacimiento: </b>
+                    {{ $denuncia->conductor ? $denuncia->conductor->fecha_nacimiento->format('d/m/Y') : '' }}
                 </td>
                 <td>
                     <b>Tipo de Documento: </b>
-
+                    {{ $denuncia->conductor ? $denuncia->conductor->tipoDocumento->nombre : '' }}
                 </td>
                 <td>
                     <b>N° de Documento: </b>
-
+                    {{ $denuncia->conductor ? $denuncia->conductor->documento_numero : '' }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <b>Ocupación: </b>
+                    {{ $denuncia->conductor ? $denuncia->conductor->ocupacion : '' }}
                 </td>
                 <td>
                     <b>N° de Reg. de Conducir: </b>
-
+                    {{ $denuncia->conductor ? $denuncia->conductor->numero_registro : '' }}
                 </td>
                 <td>
                     <b>Estado Civil: </b>
-
+                    {{ $denuncia->conductor ? $denuncia->conductor->estado_civil : '' }}
                 </td>
             </tr>
             <tr>
                 <td>
                     <b>Tipo de Carnet: </b>
+                    {{ $denuncia->conductor ? $denuncia->conductor->tipoCarnet->nombre : '' }}
                 </td>
                 <td>
                     <b>Categoria del Carnet: </b>
-
+                    {{ $denuncia->conductor ? $denuncia->conductor->carnet_categoria : '' }}
                 </td>
                 <td>
                     <b>Vencimiento: </b>
-
+                    {{ $denuncia->conductor ? $denuncia->conductor->carnet_vencimiento->format('d/m/Y') : '' }}
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="1">
                     <b>Examen de alcoholemia: </b>
+                    {{ $denuncia->conductor ? ($denuncia->conductor->conductor_alcoholemia ? 'Si' : 'No') : '' }}
+                </td>
+                <td colspan="1">
+                    <b>Se negó: </b>
+                    {{ $denuncia->conductor ? ($denuncia->conductor->alcoholemia_se_nego ? 'Si' : 'No') : '' }}
                 </td>
                 <td colspan="1">
                     <b>Conductor habitual: </b>
+                    {{ $denuncia->conductor ? ($denuncia->conductor->habitual ? 'Si' : 'No') : '' }}
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="1">
                     <b>Es el propio asegurado: </b>
-
-                    Relación con el asegurado
+                    {{ $denuncia->conductor ? ($denuncia->conductor->asegurado ? 'Si' : 'No') : '' }}
+                </td>
+                <td colspan="1">
+                    <b>Relación con el asegurado: </b>
+                    {{ $denuncia->conductor ? $denuncia->conductor->asegurado_relacion : '' }}
                 </td>
             </tr>
         </table>
@@ -293,18 +305,22 @@
         <table class="table tb-content pb-0">
             <tr>
                 <td colspan="2">
-                    <b>Nombre y Apellido: </b>{{ $denuncia->asegurado ? $denuncia->asegurado->nombre : '' }}
+                    <b>Nombre y Apellido: </b>
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->nombre : '' }}
                 </td>
                 <td>
-                    <b>Teléfono: </b>{{ $denuncia->asegurado ? $denuncia->asegurado->telefono : '' }}
+                    <b>Teléfono: </b>
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->telefono : '' }}
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <b>Domicilio: </b>{{ $denuncia->asegurado ? $denuncia->asegurado->domicilio : '' }}
+                    <b>Domicilio: </b>
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->domicilio : '' }}
                 </td>
                 <td>
-                    <b>CP: </b>{{ $denuncia->asegurado ? $denuncia->asegurado->codigo_postal : '' }}
+                    <b>CP: </b>
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->codigo_postal : '' }}
                 </td>
             </tr>
             <tr>
@@ -323,14 +339,15 @@
             <tr>
                 <td>
                     <b>Ocupación: </b>
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->ocupacion : '' }}
                 </td>
                 <td>
                     <b>Tipo de Documento: </b>
-
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->tipoDocumento->nombre : '' }}
                 </td>
                 <td>
                     <b>N° de Documento: </b>
-
+                    {{ $denuncia->asegurado ? $denuncia->asegurado->documento_numero : '' }}
                 </td>
             </tr>
         </table>

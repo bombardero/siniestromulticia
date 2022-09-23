@@ -38,6 +38,8 @@ class Conductor extends Model
         'asegurado' => 'boolean',
     ];
 
+    protected $dates = ['carnet_vencimiento', 'fecha_nacimiento'];
+
     public function denuncia()
     {
         return $this->belongsTo(DenunciaSiniestro::class);
@@ -56,5 +58,10 @@ class Conductor extends Model
     public function tipoDocumento()
     {
         return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
+    }
+
+    public function tipoCarnet()
+    {
+        return $this->belongsTo(TipoCarnet::class, 'tipo_carnet_id');
     }
 }
