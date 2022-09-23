@@ -34,7 +34,7 @@ class VehiculoTercero extends Model
         "detalles",
         "conductor_nombre",
         "conductor_telefono",
-        "conductor_documento_id",
+        "conductor_tipo_documento_id",
         "conductor_documento_numero",
         "conductor_codigo_postal",
         "conductor_domicilio",
@@ -45,6 +45,18 @@ class VehiculoTercero extends Model
         "conductor_alcoholemia",
         "conductor_alcoholemia_se_nego",
         "conductor_habitual"
+    ];
+
+    protected $casts = [
+        'uso_particular' => 'boolean',
+        'uso_comercial' => 'boolean',
+        'uso_taxi' => 'boolean',
+        'uso_tpp' => 'boolean',
+        'uso_urgencia' => 'boolean',
+        'uso_seguridad' => 'boolean',
+        'conductor_alcoholemia' => 'boolean',
+        'conductor_alcoholemia_se_nego' => 'boolean',
+        'conductor_habitual' => 'boolean',
     ];
 
     public function denuncia()
@@ -60,6 +72,21 @@ class VehiculoTercero extends Model
     public function modelo()
     {
         return $this->belongsTo(Modelo::class, 'modelo_id');
+    }
+
+    public function tipoDocumentoPropietario()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'propietario_tipo_documento_id');
+    }
+
+    public function tipoDocumentoConductor()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'conductor_tipo_documento_id');
+    }
+
+    public function tipoCarnetConductor()
+    {
+        return $this->belongsTo(TipoCarnet::class, 'conductor_tipo_carnet_id');
     }
 
 }

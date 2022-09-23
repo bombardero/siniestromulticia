@@ -130,9 +130,14 @@ class DenunciaAseguradoController extends Controller
         $data=[
             'denuncia' =>$denuncia
         ];
-        $pdf = PDF::loadView('pdf', $data);
+        PDF::setOptions(['dpi' => 150,'isPhpEnabled' => true, "isRemoteEnabled" => true]);
 
-        return $pdf->download('denuncia.pdf');
+        $pdf = PDF::loadView('siniestros.denuncia-asegurados.newpdf', $data);
+        $pdf->setPaper( 'a4' );
+
+        //return view('siniestros.denuncia-asegurados.newpdf', $data);
+        //return $pdf->download('denuncia.pdf');
+        return $pdf->stream();
     }
 
     public function paso1create(Request $request)
@@ -606,9 +611,9 @@ class DenunciaAseguradoController extends Controller
                 "conductor_tipo_carnet_id" => $request->conductor_carnet_id,
                 "conductor_categoria" => $request->conductor_categoria,
                 "conductor_vencimiento" => $request->conductor_vencimiento,
-                "conductor_alcoholemia" => $request->conductor_alcoholemia_si,
-                "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_nego,
-                "conductor_habitual" => $request->conductor_habitual_si,
+                "conductor_alcoholemia" => $request->conductor_alcoholemia,
+                "conductor_alcoholemia_se_nego" => $request->conductor_alcoholemia_nego == 'on',
+                "conductor_habitual" => $request->conductor_habitual,
             ]);
         }
 
@@ -617,7 +622,7 @@ class DenunciaAseguradoController extends Controller
 
     public function paso6edit(Request $request)
     {
-        $vehiculo_tercero = DenunciaSiniestro::where("identificador",)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
+        $vehiculo_tercero = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail()->vehiculoTerceros()->where('id',$request->v)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
         $tipoCarnets = TipoCarnet::all();

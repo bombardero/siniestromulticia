@@ -1,0 +1,28 @@
+{
+    "roboto": {
+        "normal": "roboto_normal_7bc701b343c10631f60048716b96e4f7",
+        "100_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_100_italic_71d4fad1ca0f22d70d8be7cc40bb76ab",
+        "300_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_300_italic_3d719d848a0b6b3f4f0918985ffd2db7",
+        "italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_italic_e3ef71c7d9eeac822fc7d92d4fc7ff6e",
+        "500_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_500_italic_e69cd621b57d68ed0b47f09bd22a3d7e",
+        "bold_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_bold_italic_76e4a6bfadf19fea9990a367967a3f96",
+        "900_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_900_italic_7ad2e464d2e86e53eea8619bf6734bbe",
+        "100": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_100_1c4e32da7e6c8539dd3a51af38f413be",
+        "300": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_300_32acfcb296f555e063ebba2be7db9e2f",
+        "500": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_500_5774d6fb05eba3d096525f821dbe4137",
+        "bold": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_bold_8db5cb5d0586c1e891426d13097b1d04",
+        "900": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_900_7bf41cacaff90e7097ddd49fb9296601"
+    },
+    "fontawesome": {
+        "normal": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/fontawesome_normal_7ea195556637d817f455524c7885b526"
+    },
+    "nunito": {
+        "normal": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/nunito_normal_6c0bd57bf447898b6d51683e027e0634"
+    },
+    "icons_mobiscroll": {
+        "normal": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/icons_mobiscroll_normal_23665374523168cfb9670449fb410a4d"
+    },
+    "glyphicons halflings": {
+        "normal": "glyphicons_halflings_normal_448cf7c5a9f8cf5b480d96c9606cc001"
+    }
+}

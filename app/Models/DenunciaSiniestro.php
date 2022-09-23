@@ -49,6 +49,13 @@ class DenunciaSiniestro extends Model
         "hubo_danios_materiales",
         "hubo_lesionados",
 
+        "denuncia_policial_comisaria",
+        "denuncia_policial_acta",
+        "denuncia_policial_folio",
+        "denuncia_policial_sumario",
+        "denuncia_policial_juzgado",
+        "denuncia_policial_secretaria",
+
         "croquis_url",
         "croquis_path",
         "croquis_descripcion"

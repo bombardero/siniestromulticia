@@ -286,8 +286,8 @@
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="tipo_documentos">Tipo de Documento</label>
-                    <select name="conductor_documento_id" id="tipo_documentos" class="custom-select form-estilo">
+                    <label for="conductor_tipo_documento">Tipo de Documento</label>
+                    <select name="conductor_documento_id" id="conductor_tipo_documento" class="custom-select form-estilo">
                         @foreach($tipo_documentos as $tipo_documento)
                             <option
                                 value="{{$tipo_documento->id}}"
@@ -366,10 +366,9 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="conductor_vencimiento">Vencimiento</label>
-                    <input type="text" name="conductor_vencimiento" id="conductor_vencimiento"
-                           maxlength="5" class="form-control form-estilo"
+                    <input type="date" name="conductor_vencimiento" id="conductor_vencimiento"
+                           class="form-control form-estilo"
                            value="{{$vehiculo_tercero->conductor_vencimiento}}"
-                           placeholder="00/00"
                     >
                 </div>
             </div>

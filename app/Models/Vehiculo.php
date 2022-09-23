@@ -22,7 +22,7 @@ class Vehiculo extends Model
         "uso_particular",
         "uso_comercial",
         "uso_taxi_remis",
-        "uso_tp",
+        "uso_tpp",
         "uso_urgencia",
         "uso_seguridad",
         "siniestro_danio",

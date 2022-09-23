@@ -47,7 +47,7 @@ class CreateVehiculoTercerosTable extends Migration
             $table->string('conductor_registro')->nullable();
             $table->foreignId('conductor_tipo_carnet_id')->nullable()->constrained('tipo_carnets');
             $table->string('conductor_categoria')->nullable();
-            $table->string('conductor_vencimiento',5)->nullable();
+            $table->date('conductor_vencimiento')->nullable();
             $table->boolean('conductor_alcoholemia')->nullable();
             $table->boolean('conductor_alcoholemia_se_nego')->nullable();
             $table->boolean('conductor_habitual')->nullable();
