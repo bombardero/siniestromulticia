@@ -162,18 +162,39 @@
                                             <td>{{ \Carbon\Carbon::parse($denuncia->precarga_fecha_siniestro)->format('d/m/Y')}}  {{ \Carbon\Carbon::parse($denuncia->precarga_hora_siniestro)->format('H:i')}}</td>
                                             <td>{{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_nombre : ''}}</td>
                                             <td>{{$denuncia->dominio_vehiculo_asegurado}}</td>
-                                            <td><input
-                                                    onblur="save('poliza',{{route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id)}})"
-                                                    type="text" id="npoliza" name="npoliza" value="1"
-                                                    style="height: 21px;width:70px !important;"></td>
-                                            <td><input
-                                                    onblur="save('denuncia',{{route('panel-siniestros.denuncia.update.nrodenuncia',$denuncia->id)}})"
-                                                    type="text" id="ndenuncia" name="ndenuncia" value="1"
-                                                    style="height: 21px;width:70px !important;"></td>
-                                            <td><input
-                                                    onblur="save('siniestro',{{route('panel-siniestros.denuncia.update.nrosiniestro',$denuncia->id)}})"
-                                                    type="text" id="nsiniestro" name="nsiniestro" value="1"
-                                                    style="height: 21px;width:70px !important;"></td>
+                                            <td>
+                                                <form action="{{ route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id) }}" class="form-update-denuncia">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" style="width: 70px" name="value" value="{{ $denuncia->nro_poliza }}">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary" type="submit"
+                                                            ><i class="fa-solid fa-rotate"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('panel-siniestros.denuncia.update.nrodenuncia',$denuncia->id) }}" class="form-update-denuncia">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" style="width: 70px" name="value" value="{{ $denuncia->nro_denuncia }}">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary" type="submit"
+                                                            ><i class="fa-solid fa-rotate"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('panel-siniestros.denuncia.update.nrosiniestro',$denuncia->id) }}" class="form-update-denuncia">
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" style="width: 70px" name="value" value="{{ $denuncia->nro_siniestro }}">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary" type="submit"
+                                                            ><i class="fa-solid fa-rotate"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
                                             <td>
                                                 <select name="select" id="estado"
                                                         onchange="cambiarEstado(this, {{ $denuncia->id  }})">
@@ -292,14 +313,34 @@
         showLoading();
     })
 
-    /*
-    function save(entidad, ruta) {
-        //alert(entidad);
-        console.log(entidad);
-        nro_poliza = document.getElementById('npoliza')
-    :
-        window.location.href = ruta;
-    }*/
+
+    $('.form-update-denuncia').submit(function (event) {
+        event.preventDefault();
+        let url = $(this).attr('action')
+        let value = $(this).find('input[name="value"]').val() ? $(this).find('input[name="value"]').val() : null;
+        showLoading();
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "value": value
+                },
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                    return;
+                }
+            })
+
+    })
 
 
     function cambiarEstado(estado, denuncia_siniestro_id) {

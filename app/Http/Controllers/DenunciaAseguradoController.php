@@ -90,16 +90,26 @@ class DenunciaAseguradoController extends Controller
         return view('siniestro_backoffice.denuncias.index',$data);
     }
 
-    public function updateDenunciaNroPoliza(Request $request){
-        dd($request->npol);
+    public function updateDenunciaNroPoliza(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $denuncia->nro_poliza = $request->value;
+        $denuncia->save();
+        return response()->json([ 'status' => true]);
+
     }
 
-    public function updateDenunciaNroDenuncia(Request $request){
-        dd($request->npol);
+    public function updateDenunciaNroDenuncia(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $denuncia->nro_denuncia = $request->value;
+        $denuncia->save();
+        return response()->json([ 'status' => true]);
     }
 
-    public function updateDenunciaNroSiniestro(Request $request){
-        dd($request->npol);
+    public function updateDenunciaNroSiniestro(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $denuncia->nro_siniestro = $request->value;
+        $denuncia->save();
+        return response()->json([ 'status' => true]);
     }
 
     public function show(DenunciaSiniestro $denuncia)
