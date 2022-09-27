@@ -102,6 +102,7 @@ class CreateDenunciaSiniestrosTable extends Migration
             $table->string('nro_siniestro')->nullable();
             $table->string('cobertura_activa')->nullable();
             $table->string('estado')->default('ingresado');
+            $table->boolean('link_enviado')->default(false);
 
             $table->timestamps();
             $table->softDeletes();

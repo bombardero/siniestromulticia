@@ -112,6 +112,26 @@ class DenunciaAseguradoController extends Controller
         return response()->json([ 'status' => true]);
     }
 
+    public function updateLinkEnviado(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $denuncia->link_enviado = true;
+        $denuncia->save();
+        return response()->json([ 'status' => true]);
+    }
+
+    public function updateField(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $rules =  [
+            'field_name' => 'required',
+            'field_value' => 'required',
+        ];
+        Validator::make($request->all(),$rules)->validate();
+
+        $denuncia->{$request->field_name} = $request->field_value;
+        $denuncia->save();
+        return response()->json([ 'status' => true]);
+    }
+
     public function show(DenunciaSiniestro $denuncia)
     {
         return view('siniestro_backoffice.denuncias.show',["denuncia"=>$denuncia]);
@@ -321,6 +341,7 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->conductor->asegurado_relacion = $request->asegurado_relacion;
                 $denuncia_siniestro->conductor->save();
             }
+            $denuncia_siniestro->load('asegurado');
 
             if($denuncia_siniestro->conductor->asegurado && !$denuncia_siniestro->asegurado)
             {

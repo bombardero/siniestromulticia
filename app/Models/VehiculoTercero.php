@@ -59,6 +59,8 @@ class VehiculoTercero extends Model
         'conductor_habitual' => 'boolean',
     ];
 
+    protected $dates = ['conductor_vencimiento'];
+
     public function denuncia()
     {
         return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');

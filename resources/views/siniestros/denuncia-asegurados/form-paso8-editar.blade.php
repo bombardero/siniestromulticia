@@ -84,7 +84,7 @@
                 <div class="form-group">
                     <label for="lesionado_fecha_nacimiento">Fecha de Nacimiento</label>
                     <input type="date" name="lesionado_fecha_nacimiento" id="lesionado_fecha_nacimiento"
-                           class="form-control form-estilo" value="{{ $lesionado->fecha_nacimiento }}"
+                           class="form-control form-estilo" value="{{ $lesionado->fecha_nacimiento->toDateString() }}"
                     >
                 </div>
             </div>

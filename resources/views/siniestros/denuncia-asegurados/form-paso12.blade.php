@@ -159,7 +159,7 @@
 </form>
 
 @section('scripts')
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             $("#provincias").change(function () {
                 provincia_id = $("#provincias").val();
@@ -211,5 +211,4 @@
         });
 
     </script>
-
 @endsection

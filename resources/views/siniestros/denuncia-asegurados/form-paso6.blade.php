@@ -119,7 +119,8 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
             $("#provincias").change(function () {
                 provincia_id = $("#provincias").val();
                 console.log(provincia_id);
@@ -142,6 +143,39 @@
 
 
             });
+
+            $('input[name="intervino_otro_vehiculo"]').change(function (event) {
+                let intervino = $(this).val();
+                console.log(intervino);
+                actualizarDenuncia('intervino_otro_vehiculo',intervino);
+            });
+
+            $('input[name="intervino_otro_vehiculo_datos"]').change(function (event) {
+                let intervino_datos = $(this).val();
+                actualizarDenuncia('intervino_otro_vehiculo_datos',intervino_datos);
+            });
+
+            function actualizarDenuncia(field, value)
+            {
+                let url = '{{ route('panel-siniestros.denuncia.update-field', ['denuncia' =>  $denuncia_siniestro->id]) }}';
+                $.ajax(
+                    {
+                        url: url,
+                        type: 'post',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "field_name": field,
+                            "field_value": value
+                        },
+                        success: function (result) {
+                            //console.log(result);
+                        },
+                        error: function (error) {
+                            //console.log(error);
+                            alert('Hubo un error.');
+                        }
+                    })
+            }
 
         });
     </script>

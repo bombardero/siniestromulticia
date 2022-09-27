@@ -58,7 +58,13 @@ class DenunciaSiniestro extends Model
 
         "croquis_url",
         "croquis_path",
-        "croquis_descripcion"
+        "croquis_descripcion",
+
+        "nro_poliza",
+        "nro_denuncia",
+        "nro_siniestro",
+        "estado",
+        "link_enviado"
     ];
 
     protected $casts = [
@@ -96,7 +102,10 @@ class DenunciaSiniestro extends Model
         'colision_columna' => 'boolean',
         'colision_animal' => 'boolean',
         'colision_transporte_publico' => 'boolean',
+        'link_enviado' => 'boolean',
     ];
+
+    protected $dates = ['fecha'];
 
     public function provincia()
     {

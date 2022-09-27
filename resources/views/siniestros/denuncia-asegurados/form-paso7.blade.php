@@ -130,6 +130,34 @@
                     }
                 })
             });
+
+            $('input[name="hubo_danios_materiales"]').change(function (event) {
+                let hubo_danios_materiales = $(this).val();
+                actualizarDenuncia('hubo_danios_materiales',hubo_danios_materiales);
+            });
+
+
+            function actualizarDenuncia(field, value)
+            {
+                let url = '{{ route('panel-siniestros.denuncia.update-field', ['denuncia' =>  $denuncia_siniestro->id]) }}';
+                $.ajax(
+                    {
+                        url: url,
+                        type: 'post',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "field_name": field,
+                            "field_value": value
+                        },
+                        success: function (result) {
+                            //console.log(result);
+                        },
+                        error: function (error) {
+                            //console.log(error);
+                            alert('Hubo un error.');
+                        }
+                    })
+            }
         });
     </script>
 @endsection

@@ -112,7 +112,7 @@
                                             Completo
                                         </option>
                                     </select>
-                                    <label for="carga">Carga</label>
+                                    <label for="carga">Paso</label>
                                 </div>
                             </div>
 
@@ -133,7 +133,7 @@
 
                         </div>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-sm table-hover">
 
                                 <thead class="thead tabla-panel">
                                 <tr class="tabla-cabecera ">
@@ -253,11 +253,13 @@
                                                 @else
                                                     <span>{{ $denuncia->estado_carga.'/12' }}</span>
                                                 @endif</td>
-                                            <td><a target="_blank"
+                                            <td>
+                                                <a target="_blank" class="btn-link"
                                                    href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
-                                                   style="color:#3366BB; font-weight: bold; " data-toggle="tooltip"
-                                                   data-placement="top" title="Enviar link denuncia"><img
-                                                        src="{{url('/images/siniestros/denuncia_asegurado/backoffice/link_no_enviado.png')}}"></a>
+                                                   style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-denuncia-id="{{ $denuncia->id }}"
+                                                   data-placement="top" title="Enviar link">
+                                                    <i class="fa-solid fa-link {{ $denuncia->link_enviado ? 'text-success' : '' }}"></i>
+                                                </a>
                                             </td>
 
                                             <td>
@@ -313,6 +315,35 @@
         showLoading();
     })
 
+    $('.btn-link').click(function (event) {
+        event.preventDefault();
+        let btn_link = $(this);
+        let url = '{{ route('panel-siniestros.denuncia.link-enviado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        url = url.replace(':denuncia_siniestro_id', btn_link.data('denuncia-id'));
+        let link = btn_link.attr('href');
+
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function (result) {
+                    //console.log(result);
+                    btn_link.find("i").addClass('text-success');
+                    window.open(link, '_blank');
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
+    })
+
 
     $('.form-update-denuncia').submit(function (event) {
         event.preventDefault();
@@ -328,15 +359,14 @@
                     "value": value
                 },
                 success: function (result) {
-                    console.log(result);
+                    //console.log(result);
                 },
                 error: function (error) {
-                    console.log(error);
+                    //console.log(error);
                     alert('Hubo un error.');
                 },
                 complete: function (jqXHR, textStatus) {
                     hideLoading();
-                    return;
                 }
             })
 

@@ -88,7 +88,7 @@
                     <label for="fecha_nacimiento">Fecha de Nacimiento *</label>
                     <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
                            class="form-control form-estilo @error('fecha_nacimiento') is-invalid @enderror"
-                           value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->fecha_nacimiento) ? $denuncia_siniestro->conductor->fecha_nacimiento : '' }}">
+                           value="{{ ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->fecha_nacimiento) ? $denuncia_siniestro->conductor->fecha_nacimiento->toDateString() : '' }}">
                     @error('fecha_nacimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -172,7 +172,7 @@
                     <label for="carnet_vencimiento">Vencimiento</label>
                     <input type="date" id="carnet_vencimiento" name="carnet_vencimiento"
                            class="form-control form-estilo @error('carnet_vencimiento') is-invalid @enderror"
-                           value="{{ $denuncia_siniestro->conductor  && $denuncia_siniestro->conductor->carnet_vencimiento ? $denuncia_siniestro->conductor->carnet_vencimiento : '' }}">
+                           value="{{ $denuncia_siniestro->conductor  && $denuncia_siniestro->conductor->carnet_vencimiento ? $denuncia_siniestro->conductor->carnet_vencimiento->toDateString() : '' }}">
                     @error('carnet_vencimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>

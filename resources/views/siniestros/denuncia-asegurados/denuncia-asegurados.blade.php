@@ -33,8 +33,8 @@
             </div>
         </div>
         <div class="container">
-            <div class="col-md-10 offset-md-1 px-0">
-                @include('siniestros.denuncia-asegurados.form-paso'.$paso);
+            <div class="col-md-10 offset-md-1 px-0 mb-5">
+                @include('siniestros.denuncia-asegurados.form-paso'.$paso)
             </div>
         </div>
 @endsection

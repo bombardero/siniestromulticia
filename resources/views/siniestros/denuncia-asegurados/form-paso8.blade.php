@@ -103,4 +103,32 @@
 </form>
 
 @section('scripts')
+<script>
+    $('input[name="hubo_lesionados"]').change(function (event) {
+        let hubo_lesionados = $(this).val();
+        actualizarDenuncia('hubo_lesionados',hubo_lesionados);
+    });
+
+    function actualizarDenuncia(field, value)
+    {
+        let url = '{{ route('panel-siniestros.denuncia.update-field', ['denuncia' =>  $denuncia_siniestro->id]) }}';
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "field_name": field,
+                    "field_value": value
+                },
+                success: function (result) {
+                    //console.log(result);
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                }
+            })
+    }
+</script>
 @endsection

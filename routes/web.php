@@ -252,3 +252,5 @@ Route::get('/panel-siniestros/buscador', [DenunciaAseguradoController::class,'bu
 Route::post('/panel-siniestros/update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('panel-siniestros.denuncia.update.nropoliza')->middleware('check.siniestro');
 Route::post('/panel-siniestros/update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('panel-siniestros.denuncia.update.nrodenuncia')->middleware('check.siniestro');
 Route::post('/panel-siniestros/update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro')->middleware('check.siniestro');
+Route::post('/panel-siniestros/denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado')->middleware('check.siniestro');
+Route::post('/panel-siniestros/denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field')->middleware('check.siniestro');
