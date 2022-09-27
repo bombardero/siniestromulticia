@@ -1,15 +1,7 @@
-<form class="container w-75" action='{{route("asegurados-denuncias-paso5.store")}}' method="post">
+<form class="" action='{{route("asegurados-denuncias-paso5.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
-    <div class="form-check">
-        <label class="terminos-condiciones-entiendo" for="exampleCheck1"
-               style="font-family: Roboto;font-size: 12px;margin-bottom: 0px !important;">Los campos marcados con un
-            asterisco son obligatorios. Los datos ingresados seran guardados automaticamente en nuestro
-            sistema. </label>
-        <label class="terminos-condiciones-entiendo" style="color:red;"><img
-                src="/images/siniestros/denuncia_asegurado/informacion_rojo.png" style="margin-bottom: 2px;"> Se
-            recomienda cargar este formulario desde una computadora</label>
-    </div>
+
     <div class="container form-denuncia-siniestro p-4">
 
         <div class="row">

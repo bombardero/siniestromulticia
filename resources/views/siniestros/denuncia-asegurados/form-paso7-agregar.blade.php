@@ -1,16 +1,8 @@
-<form class="container w-75" action='{{route("asegurados-denuncias-paso7agregar.store")}}' method="post">
+<form class="" action='{{route("asegurados-denuncias-paso7agregar.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 
-    <label style="font-size: 12px">
-        Los campos marcados con un asterisco son obligatorios. Los datos ingresados seran guardados automaticamente en
-        nuestro sistema.
-    </label>
-    <label class="text-danger" style="font-size: 12px">
-        <img src="/images/siniestros/denuncia_asegurado/informacion_rojo.png" style="margin-bottom: 2px;"> Se
-        recomienda cargar este formulario desde una computadora</label>
-
-    <div class="container form-denuncia-siniestro mt-3 p-4">
+    <div class="container form-denuncia-siniestro p-4">
         <span style="color:#6e4697;font-size: 24px;"><b>Paso 7 </b>| 12 <b>Daños materiales a cosas</b></span>
 
         <div class="row mt-3">

@@ -46,7 +46,7 @@
 
             <div class="form-group col-12 col-md-6">
                 <label for="codigo_postal">Código Postal (*)</label>
-                <input type="text" id="codigo_postal" class="form-control form-estilo"
+                <input type="tel" id="codigo_postal" class="form-control form-estilo"
                        wire:model.defer="codigo_postal">
                 @error('codigo_postal') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
