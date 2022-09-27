@@ -81,7 +81,7 @@
             </div>
 
             <div class="col-12 col-md-2">
-                <div class="input-group  ">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input"
                            id="checkbox_lluvia"
                            name="lluvia" {{$denuncia_siniestro->estado_tiempo_lluvia ? 'checked':''}}>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="col-12 col-md-2">
-                <div class="input-group  ">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input"
                            id="checkbox_despejado"
                            name="despejado" {{$denuncia_siniestro->estado_tiempo_despejado ? 'checked':''}}>
@@ -99,7 +99,7 @@
             </div>
 
             <div class="col-12 col-md-2">
-                <div class="input-group  ">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input"
                            id="checkbox_granizo"
                            name="granizo" {{$denuncia_siniestro->estado_tiempo_granizo ? 'checked':''}}>
