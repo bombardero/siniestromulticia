@@ -234,7 +234,7 @@
             <tr>
                 <td>
                     <b>Fecha de Nacimiento: </b>
-                    {{ $denuncia->conductor ? $denuncia->conductor->fecha_nacimiento->format('d/m/Y') : '' }}
+                    {{ $denuncia->conductor && $denuncia->conductor->fecha_nacimiento ? $denuncia->conductor->fecha_nacimiento->format('d/m/Y') : '' }}
                 </td>
                 <td>
                     <b>Tipo de Documento: </b>
@@ -270,7 +270,7 @@
                 </td>
                 <td>
                     <b>Vencimiento: </b>
-                    {{ $denuncia->conductor ? $denuncia->conductor->carnet_vencimiento->format('d/m/Y') : '' }}
+                    {{ $denuncia->conductor && $denuncia->conductor->carnet_vencimiento ? $denuncia->conductor->carnet_vencimiento->format('d/m/Y') : '' }}
                 </td>
             </tr>
             <tr>
@@ -857,7 +857,7 @@
                 </td>
                 <td colspan="2">
                     <span>Fecha de Nacimiento: </span>
-                    {{ $lesionado->fecha_nacimiento->format('d/m/Y') }}
+                    {{ $lesionado->fecha_nacimiento ? $lesionado->fecha_nacimiento->format('d/m/Y') : '' }}
                 </td>
                 <td colspan="2">
                     <span>Relación con el asegurado: </span>
