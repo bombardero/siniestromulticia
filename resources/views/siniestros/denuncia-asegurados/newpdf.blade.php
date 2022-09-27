@@ -735,7 +735,7 @@
             </td>
             <td colspan="2">
                 <span>Vencimiento: </span>
-                {{ \Carbon\Carbon::createFromFormat('Y-m-d',$tercero->conductor_vencimiento)->format('d/m/Y') }}
+                {{ $tercero->conductor_vencimiento ? \Carbon\Carbon::createFromFormat('Y-m-d',$tercero->conductor_vencimiento)->format('d/m/Y') : '' }}
             </td>
         </tr>
         <tr>
