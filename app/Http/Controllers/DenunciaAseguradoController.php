@@ -66,9 +66,9 @@ class DenunciaAseguradoController extends Controller
         })->when($carga, function ($query) use ($carga) {
             if(is_array($carga))
             {
-                return $query->whereIn('state', $carga);
+                return $query->whereIn('estado_carga', $carga);
             }
-            return $query->where('state', $carga);
+            return $query->where('estado_carga', $carga);
         })->when($estado && $estado != 'todos', function ($query) use ($estado) {
             return $query->where('estado', $estado);
         })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
