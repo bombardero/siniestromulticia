@@ -1131,7 +1131,9 @@ class DenunciaAseguradoController extends Controller
     {
         $identificador = request('id');
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
-        return $denuncia_siniestro->estado_carga;
+        $paso = $denuncia_siniestro->estado_carga;
+        $paso = is_numeric($paso) && intval($paso) < 12  ? intval($paso) + 1 : $denuncia_siniestro->estado_carga;
+        return $paso;
     }
 
     public function storeCroquis(Request $request)
