@@ -73,6 +73,15 @@
             page-break-after: always;
         }
 
+        .img-sello{
+            width: 120px;
+            text-align: right;
+            transform: rotate(-10deg);
+            position: relative;
+            right: 15px;
+            bottom: 15px;
+        }
+
     </style>
 </head>
 <body>
@@ -300,6 +309,16 @@
         </table>
     </div>
 
+    @if($denuncia->estado_carga == 12)
+    <table class="table">
+        <tr>
+            <td class="text-right">
+                <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+            </td>
+        </tr>
+    </table>
+    @endif
+
     <div class="panel panel-default mt-3">
         <div class="panel-heading">Datos del Asegurado</div>
         <table class="table tb-content pb-0">
@@ -412,6 +431,16 @@
         </table>
     </div>
 
+    @if($denuncia->estado_carga == 12)
+        <table class="table">
+            <tr>
+                <td class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        </table>
+    @endif
+
     <div class="panel panel-default mt-3">
         <div class="panel-heading">Detalles del Siniestro</div>
     </div>
@@ -500,6 +529,16 @@
         @endif
     </table>
 
+    @if($denuncia->estado_carga == 12)
+        <table class="table">
+            <tr>
+                <td class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        </table>
+    @endif
+
     <div class="page-break"></div>
 
     <table class="table tb-content pb-0">
@@ -517,17 +556,34 @@
         @endif
     </table>
 
+    @if($denuncia->estado_carga == 12)
+        <table class="table">
+            <tr>
+                <td class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        </table>
+    @endif
+
     <table class="table tb-content pb-0">
         <tr>
-            <td colspan="2"><b>Fotos vehículo</b></td>
+            <td><b>Fotos vehículo</b></td>
         </tr>
         @if($denuncia->documentosDenuncia()->where('type','vehiculo')->count())
-                @foreach($denuncia->documentosDenuncia()->where('type','vehiculo')->get() as $doc)
+            @foreach($denuncia->documentosDenuncia()->where('type','vehiculo')->get() as $doc)
+            <tr>
+                <td>
+                    <img class="w-100" src="{{ $doc->url }}" alt="">
+                </td>
+            </tr>
+            @if($denuncia->estado_carga == 12)
                 <tr>
-                    <td>
-                        <img class="w-100" src="{{ $doc->url }}" alt="">
+                    <td class="text-right">
+                        <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
                     </td>
                 </tr>
+            @endif
             @endforeach
         @endif
     </table>
@@ -535,7 +591,7 @@
     @if($denuncia->documentosDenuncia()->where('type','recibo')->count())
     <table class="table tb-content pb-0">
         <tr>
-            <td colspan="2"><b>Último recibo del seguro</b></td>
+            <td><b>Último recibo del seguro</b></td>
         </tr>
             @foreach($denuncia->documentosDenuncia()->where('type','recibo')->get() as $doc)
                 <tr>
@@ -550,7 +606,7 @@
     @if($denuncia->documentosDenuncia()->where('type','exposicion_policial')->count())
         <table class="table tb-content pb-0">
             <tr>
-                <td colspan="2"><b>Exposición Policial</b></td>
+                <td><b>Exposición Policial</b></td>
             </tr>
             @foreach($denuncia->documentosDenuncia()->where('type','exposicion_policial')->get() as $doc)
                 <tr>
@@ -559,13 +615,20 @@
                     </td>
                 </tr>
             @endforeach
+            @if($denuncia->estado_carga == 12)
+                <tr>
+                    <td class="text-right">
+                        <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                    </td>
+                </tr>
+            @endif
         </table>
     @endif
 
     @if($denuncia->documentosDenuncia()->where('type','habilitacion')->count())
         <table class="table tb-content pb-0">
             <tr>
-                <td colspan="2"><b>Habilitación municipal</b></td>
+                <td><b>Habilitación municipal</b></td>
             </tr>
             @foreach($denuncia->documentosDenuncia()->where('type','habilitacion')->get() as $doc)
                 <tr>
@@ -631,6 +694,15 @@
                 {{ $tercero->propietario_domicilio }}
             </td>
         </tr>
+
+        @if($denuncia->estado_carga == 12)
+            <tr>
+                <td colspan="6" class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        @endif
+
         <tr>
             <th colspan="6" class="px-0">
                 Datos del Vehículo
@@ -908,6 +980,16 @@
         </table>
     @endforeach
 
+    @if($denuncia->estado_carga == 12)
+        <table class="table">
+            <tr>
+                <td class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        </table>
+    @endif
+
     <div class="panel panel-default mt-3">
         <div class="panel-heading">Detalles del Denunciante</div>
         <table class="table tb-content pb-0">
@@ -976,7 +1058,6 @@
             </td>
         </tr>
     </table>
-
 
 </main>
 </body>
