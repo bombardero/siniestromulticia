@@ -199,7 +199,7 @@
                         <div class="form-group row ">
                             <div class="text-center col-12 ">
                                 <input onchange="getFileData(this);" type="file" name="graficoManual"
-                                       id="graficoManual">
+                                       id="graficoManual" accept="image/png,image/jpeg">
                                 <label for="graficoManual">
                                     <div class="row">
                                         <div class="col-12  subir-archivo-bg-morado">

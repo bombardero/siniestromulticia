@@ -11,7 +11,7 @@
                 <p class="documentos-denuncia-title">*DNI Titular del Asegurado </p>
                 <p class="ambos-lados">(Foto de ambos lados)</p>
 
-                <input type="file" id="foto_dni" name="fotos_dni" wire:change="$emit('single_file_choosed_dni')">
+                <input type="file" id="foto_dni" name="fotos_dni" wire:change="$emit('single_file_choosed_dni')" accept="image/png,image/jpeg">
                 <label for="foto_dni">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
@@ -59,7 +59,7 @@
                 <p class="ambos-lados">(Foto de ambos lados)</p>
 
                 <input type="file" id="foto_cedula" name="fotos_cedula"
-                       wire:change="$emit('single_file_choosed_cedula')">
+                       wire:change="$emit('single_file_choosed_cedula')" accept="image/png,image/jpeg">
                 <label for="foto_cedula">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
@@ -108,7 +108,7 @@
                 <p class="ambos-lados">(Foto de ambos lados)</p>
 
                 <input type="file" id="foto_carnet" name="foto_carnet"
-                       wire:change="$emit('single_file_choosed_carnet')">
+                       wire:change="$emit('single_file_choosed_carnet')" accept="image/png,image/jpeg">
                 <label for="foto_carnet">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
@@ -172,7 +172,7 @@
                     daños y al menos una con patente completa visible.</p>
 
                 <input type="file" id="foto_vehiculo" name="foto_vehiculo"
-                       wire:change="$emit('single_file_choosed_vehiculo')">
+                       wire:change="$emit('single_file_choosed_vehiculo')" accept="image/png,image/jpeg">
                 <label class="w-100" for="foto_vehiculo">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
@@ -232,7 +232,7 @@
                 <p class="ambos-lados">Comprobante de tranferencia/débido</p>
 
                 <input type="file" id="foto_recibo" name="fotos_recibo"
-                       wire:change="$emit('single_file_choosed_recibo')">
+                       wire:change="$emit('single_file_choosed_recibo')" accept="image/png,image/jpeg">
                 <label for="foto_recibo">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
@@ -281,7 +281,7 @@
                 <p class="ambos-lados">Denuncia de Tránsito</p>
 
                 <input type="file" id="foto_policial" name="fotos_policial"
-                       wire:change="$emit('single_file_choosed_policial')">
+                       wire:change="$emit('single_file_choosed_policial')" accept="image/png,image/jpeg">
                 <label for="foto_policial">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
@@ -328,7 +328,7 @@
                 <p class="ambos-lados">Sólo para taxis y remises</p>
 
                 <input type="file" id="foto_habilitacion" name="foto_habilitacion"
-                       wire:change="$emit('single_file_choosed_habilitacion')">
+                       wire:change="$emit('single_file_choosed_habilitacion')" accept="image/png,image/jpeg">
                 <label for="foto_habilitacion">
                     <div class="row">
                         <div class="col-12  subir-archivo-bg-morado">
