@@ -186,7 +186,7 @@
                     @error('graficoManual') <span class="invalid-feedback pl-2" style="font-size: .9em;"><b>{{ $message }}</b></span> @enderror
                 </div>
 
-                <div id="previewImg"></div>
+                <div id="previewImg" class="d-none"></div>
             </div>
             <div id="subidaManual" style="display: none; background-color: #C4C4C4" class="w-100 mx-auto col-12">
                 <div class="row d-flex justify-content-center align-items-center">
@@ -533,18 +533,18 @@
                     //   $('#signature').append(img);
                     html2canvas(document.getElementById("container")).then(function (canvas) {
 
-                        // var elem = document.getElementById("previewImg");
+                        let preview_img = document.getElementById("previewImg");
                         //  elem.empty();
                         let anchorTag = document.createElement("a");
                         document.body.appendChild(anchorTag);
-                        document.getElementById("previewImg").appendChild(canvas);
+                        preview_img.appendChild(canvas);
                         // canvas.style.backgroundImage = `url(${base_image.src})`;
                         ctx = canvas.getContext("2d");
 
                         var background = new Image();
                         background.src = base_image.src;
 
-                        console.log(canvas.toDataURL());
+                        //console.log(canvas.toDataURL());
 
                         // Make sure the image is loaded first otherwise nothing will draw.
                         background.onload = function () {
@@ -553,7 +553,7 @@
                             $.ajax({
                                 type: 'POST',
                                 url: url,
-                                dataType: 'text',
+                                dataType: 'json',
                                 data:
                                     {
                                         "_token": "{{ csrf_token() }}",
@@ -561,11 +561,13 @@
                                         "croquis": canvas.toDataURL()
                                     },
                                 success: function (data) {
-                                    console.log(data);
-                                    console.log("Grafico seteado correctamente");
+                                    //console.log(data);
+                                    //console.log("Grafico seteado correctamente");
+                                    preview_img.classList.remove("d-none")
                                 },
                                 error: function (data) {
-                                    console.log('ERROR: ', data);
+                                    //console.log('ERROR: ', data);
+                                    alert('Hubo un error.');
                                 },
                             });
                         }
