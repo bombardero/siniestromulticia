@@ -40,7 +40,7 @@ class FormAsegurados extends Component
             'codigo_postal' => 'required',
             'responsable_contacto' => 'required',
             'domicilio' => 'required',
-            'telefono' => 'required|numeric|digits_between:5,20|confirmed',
+            'telefono' => 'required|numeric|digits_between:5,15|confirmed',
             'email' => 'required|email|max:50|confirmed',
             'descripcion_siniestro' => 'nullable|max:65535',
         ],
@@ -57,7 +57,6 @@ class FormAsegurados extends Component
             'telefono.digits_between' => 'El telefono debe tener por lo menos 5 caracteres y como máximo 20' ,
             'email.required' => 'El email es requerido.',
             'email.email' => 'Escriba un formato valido de email',
-            'telefono_confirmation.same' => 'Los telefonos no coinciden'
         ]);
 
     }

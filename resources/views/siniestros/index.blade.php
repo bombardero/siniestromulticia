@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section style="background-color: rgba(255, 255, 255, 1);">
+<section>
     <div class="container">
         <div class="row">
             <div class="pt-5 col-12 text-center">
@@ -10,7 +10,7 @@
         </div>
     </div>
 </section>
-<section style="background-color: rgba(180, 173, 187, 0.29);">
+<section>
 <div class="container">
     <div class="row ">
         <div class="col-12 text-center ">
@@ -32,7 +32,7 @@
                 <div class="card-body text-center">
                   <h5 class="card-siniestro-title card-title soy-asegurado">Soy un asegurado</h5>
                   <h6 class="card-subtitle mb-2 pt-2 soy-asegurado">Brinde todos sus datos al tercero.</h6>
-                  <p class="card-text">Si tuviste un siniestro y sos asegurado 
+                  <p class="card-text">Si tuviste un siniestro y sos asegurado
                     de Finisterre</p>
                   <a href="{{route('asegurado.index')}}" type="button" class="boton-siniestro-asegurado btn btn-success text-uppercase">Comenzar tramite</a>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-siniestro-title card-title soy-tercero">Soy un tercero</h5>
                     <h6 class="card-subtitle mb-2 pt-2 soy-tercero">Obtenga los datos de nuestro asegurado.</h6>
-                    <p class="card-text">Si tuviste un siniestro con un asegurado 
+                    <p class="card-text">Si tuviste un siniestro con un asegurado
                       de Finisterre</p>
                       <a href="{{route('tercero.index')}}" type="button" class="boton-siniestro-tercero btn  text-uppercase">Presentar reclamo</a>
                   </div>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="pt-5 col-12 col-md-7 mx-auto text-center">
-            <p class="no-califica-denuncia">*El trámite de reclamo en cualquiera de los casos es una notificación a la compañía y no califica como Denuncia. 
+            <p class="no-califica-denuncia">*El trámite de reclamo en cualquiera de los casos es una notificación a la compañía y no califica como Denuncia.
                 Es un primer contacto online para comenzar con el tramite para iniciar la denuncia pertinente a un siniestro.
             </p>
         </div>

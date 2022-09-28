@@ -24,6 +24,10 @@
     opacity: .75;
 }
 
+main{
+    background-color: rgba(180, 173, 187, 0.29);
+}
+
 /*** floating-labels inicio ***/
 .form-label-group {
     position: relative;

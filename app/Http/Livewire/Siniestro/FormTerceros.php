@@ -17,6 +17,7 @@ class FormTerceros extends Component
     public $dominio_asegurado;
     public $responsable_contacto;
     public $telefono;
+    public $telefono_confirmation;
     public $email;
     public $email_confirmation;
 
@@ -25,25 +26,25 @@ class FormTerceros extends Component
     public $descripcion_siniestro;
 
     private function validateAsegurado()
-    {    
+    {
         return $validateAsegurable = $this->validate([
+            'terminos_condiciones' => 'accepted',
             'numero_denuncia' => 'nullable|numeric',
-        	'terminos_condiciones' => 'accepted',
             'lugar_siniestro' => 'required',
-            'fecha_siniestro' => 'required',
+            'fecha_siniestro' => 'required|date|before_or_equal:today',
             'hora_siniestro' => 'required',
             'responsable_contacto' => 'required',
-            'dominio' => 'sometimes|max:7',            
-            'dominio_asegurado' => 'required | max:7',
-            'telefono' => 'required | numeric | digits_between:5,20',
-            'email' => 'required | email | max: 50 ',
-            'email_confirmation' => 'required | same:email',
+            'dominio' => 'sometimes|max:7',
+            'dominio_asegurado' => 'required|max:7',
+            'telefono' => 'required|numeric|digits_between:5,15|confirmed',
+            'email' => 'required|email|max:255|confirmed',
+            'descripcion_siniestro' => 'nullable|max:65535',
         ],
-        [        
+        [
             'numero_denuncia.numeric' => 'La denuncia solo debe contener numeros',
             'responsable_contacto.required' => 'Responsable de contacto requerido',
             'dominio.max' => 'La patente debe tener como máximo 7 carácteres',
-            'dominio_asegurado.max' => 'La patente debe tener como máximo 7 carácteres',            
+            'dominio_asegurado.max' => 'La patente debe tener como máximo 7 carácteres',
             'terminos_condiciones.accepted' => 'Debe aceptar los terminos y condiciones para continuar',
             'dominio_asegurado.required' => 'El dominio del vehiculo es requerido',
             'lugar_siniestro.required' => 'El lugar de siniestro es requerido',
@@ -54,11 +55,8 @@ class FormTerceros extends Component
             'telefono.digits_between' => 'El telefono debe tener por lo menos 5 caracteres y como máximo 20' ,
             'email.required' => 'El email es requerido.',
             'email.email' => 'Escriba un formato valido de email',
-            'email_confirmation.required' => 'Por favor, confirme su email',
-            'email_confirmation.same' => 'Los email no coinciden'
-
         ]);
-        
+
     }
 
     public function submit() {
@@ -67,19 +65,19 @@ class FormTerceros extends Component
         $data = [
                 'numero_denuncia' => $this->numero_denuncia ? $this->numero_denuncia : 'Sin dato registrado',
                 'email' => $this->email,
-                'dominio' => $this->dominio ? $this->dominio : 'Sin dato registrado', 
+                'dominio' => $this->dominio ? $this->dominio : 'Sin dato registrado',
                 'dominio_asegurado' => $this->dominio_asegurado,
-                'lugar_siniestro' => $this->lugar_siniestro, 
-                'fecha_siniestro' => $this->fecha_siniestro, 
+                'lugar_siniestro' => $this->lugar_siniestro,
+                'fecha_siniestro' => $this->fecha_siniestro,
                 'hora_siniestro' => $this->hora_siniestro,
                 'direccion_siniestro' => $this->setNoDeclarado($this->direccion_siniestro),
                 'descripcion_siniestro' => $this->setNoDeclarado($this->descripcion_siniestro),
                 'responsable_contacto' => $this->responsable_contacto,
-                'telefono' => $this->telefono, 
+                'telefono' => $this->telefono,
                 ];
         //cliente
         Mail::to($this->email)->send(new MailTercero($data));
-        
+
         //compania
 
         Mail::to(config('app.mail_siniestro_tercero'))->send(new MailSiniestroCompania($data));
