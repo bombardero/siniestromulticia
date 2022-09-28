@@ -270,7 +270,7 @@ class DenunciaAseguradoController extends Controller
 
     public function paso3store(Request $request)
     {
-        $validated = request()->validate([
+        $rules =  [
             'nombre'=>'required',
             'telefono'=>'required',
             'domicilio'=>'required',
@@ -285,7 +285,8 @@ class DenunciaAseguradoController extends Controller
             'alcoholemia'=>'required',
             'asegurado'=>'required',
             'asegurado_relacion' => 'required_if:asegurado,0'
-        ]);
+        ];
+        Validator::make($request->all(),$rules)->validate();
 
         $identificador = $request->id;
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
@@ -342,6 +343,7 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->conductor->save();
             }
             $denuncia_siniestro->load('asegurado');
+            $denuncia_siniestro->load('conductor');
 
             if($denuncia_siniestro->conductor->asegurado && !$denuncia_siniestro->asegurado)
             {
