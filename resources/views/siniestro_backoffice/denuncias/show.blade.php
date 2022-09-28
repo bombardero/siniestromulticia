@@ -38,13 +38,13 @@
 
                             <div class="row pt-4">
                                 <div class="col-12 col-md-4">
-                                    <p>Fecha del Siniestro: {{$denuncia->fecha}}</p>
+                                    <p>Fecha del Siniestro: {{ $denuncia->fecha->format('d/m/Y') }}</p>
                                 </div>
                                 <div class="col-12 col-md-4">
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <p>Hora del Siniestro: {{$denuncia->hora}}</p>
+                                    <p>Hora del Siniestro: {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</p>
                                 </div>
                             </div>
 

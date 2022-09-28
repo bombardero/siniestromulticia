@@ -94,7 +94,7 @@
         <tr>
             <td class="">
                 <b>Fecha del Siniestro: </b>
-                {{ \Carbon\Carbon::createFromFormat('Y-m-d',$denuncia->fecha)->format('d/m/Y') }}
+                {{ $denuncia->fecha->format('d/m/Y') }}
             </td>
             <td class="">
                 <b>Hora del Siniestro: </b>
@@ -735,7 +735,7 @@
             </td>
             <td colspan="2">
                 <span>Vencimiento: </span>
-                {{ $tercero->conductor_vencimiento ? \Carbon\Carbon::createFromFormat('Y-m-d',$tercero->conductor_vencimiento)->format('d/m/Y') : '' }}
+                {{ $tercero->conductor_vencimiento ? $tercero->conductor_vencimiento->format('d/m/Y') : '' }}
             </td>
         </tr>
         <tr>
@@ -963,6 +963,19 @@
             </tr>
         </table>
     </div>
+
+    <table class="table tb-content pb-0">
+        <tr>
+            <td>
+                Documento generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                en <a href="https://finisterreseguros.com.ar/">finisterreseguros.com.ar</a>
+            </td>
+        </tr>
+    </table>
 
 
 </main>
