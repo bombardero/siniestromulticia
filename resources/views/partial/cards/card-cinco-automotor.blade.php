@@ -7,7 +7,7 @@
 			<div class="col-12 col-lg-9">
 				<p class="card-automotor-text">Pérdida total por accidente, robo y/o hurto e incendio total y parcial, más adicionales de granizo y cristales</p>
 				<ul class="automotor">
-					<li class="card-icon-four text-list-automotor">Responsabilidad Civil. Límite de Responsabilidad Civil:  $17.500.000</li>
+					<li class="card-icon-four text-list-automotor">Responsabilidad Civil. Límite de Responsabilidad Civil:  $23.000.000</li>
 					<li class="card-icon-four text-list-automotor">Daños a personas y bienes transportados y no transportados.</li>
 					<li class="card-icon-four text-list-automotor">Daños parciales por granizo hasta la suma Asegurada.</li>
 					<li class="card-icon-four text-list-automotor">Daños a cristales y cerraduras laterales.</li>
