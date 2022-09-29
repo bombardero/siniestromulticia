@@ -6,7 +6,7 @@
     border-radius: 30px;
 }
 
-.invalid-feedback{
+.invalid-feedback {
     display: block;
 }
 
@@ -24,7 +24,7 @@
     opacity: .75;
 }
 
-main{
+main {
     background-color: rgba(180, 173, 187, 0.29);
 }
 
@@ -201,6 +201,7 @@ main{
         color: #777;
     }
 }
+
 /*** floating-labels fin ***/
 
 
@@ -705,7 +706,7 @@ html {
     border-radius: 10px;
 }
 
-.input-group-prepend .form-estilo{
+.input-group-prepend .form-estilo {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 
@@ -1519,6 +1520,10 @@ p.monto-estimado:hover {
     background-color: #BF4019;
 }
 
+.background-automotor-card-six {
+    background-color: #2D7841;
+}
+
 .card-automotor {
     border-radius: 20px;
 }
@@ -1563,6 +1568,10 @@ p.monto-estimado:hover {
 
 .card-icon-four {
     list-style-image: url('/images/automotor/orange-check.svg');
+}
+
+.card-icon-six {
+    list-style-image: url('/images/automotor/green-violet-check.svg');
 }
 
 ul.automotor {

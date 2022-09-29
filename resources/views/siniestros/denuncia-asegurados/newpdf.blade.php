@@ -90,7 +90,7 @@
     <table class="table">
         <tr>
             <td>
-                <img style="width: 250px; margin-top: 30px" src="{{ asset('images/finisterre-logo-5_1.png') }}" >
+                <img style="width: 250px; margin-top: 30px" src="{{ asset('images/finisterre-logo-5.png') }}" >
             </td>
             <td class="text-center" style="width: 400px;">
                 <h2>SECCCIÓN AUTOMOTORES</h2>
