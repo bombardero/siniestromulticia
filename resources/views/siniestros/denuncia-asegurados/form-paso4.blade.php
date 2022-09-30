@@ -38,7 +38,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="asegurado_documento_numero">Número de Documento *</label>
-                    <input type="text" name="asegurado_documento_numero" id="asegurado_documento_numero"
+                    <input type="text" name="asegurado_documento_numero" id="asegurado_documento_numero" maxlength="8"
                            class="form-control form-estilo @error('asegurado_documento_numero') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->documento_numero : '' }}">
                     @error('asegurado_documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror

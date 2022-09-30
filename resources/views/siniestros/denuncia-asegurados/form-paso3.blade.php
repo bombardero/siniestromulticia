@@ -108,7 +108,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="documento_numero">Número de Documento *</label>
-                    <input type="text" id="documento_numero" name="documento_numero"
+                    <input type="text" id="documento_numero" name="documento_numero" maxlength="8"
                            class="form-control form-estilo @error('documento_numero') is-invalid @enderror"
                            value="{{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->documento_numero ? $denuncia_siniestro->conductor->documento_numero : '' }}">
                     @error('documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
