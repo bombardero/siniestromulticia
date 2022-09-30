@@ -360,7 +360,7 @@
                     <label for="conductor_vencimiento">Vencimiento</label>
                     <input type="date" name="conductor_vencimiento" id="conductor_vencimiento"
                            class="form-control form-estilo"
-                           value="{{$vehiculo_tercero->conductor_vencimiento->toDateString()}}"
+                           value="{{ $vehiculo_tercero->conductor_vencimiento ? $vehiculo_tercero->conductor_vencimiento->toDateString() : ''}}"
                     >
                 </div>
             </div>
