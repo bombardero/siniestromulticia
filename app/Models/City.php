@@ -13,6 +13,10 @@ class City extends Model
     protected $table = 'cities';
 	public $timestamps = true;
 
+    protected $casts = [
+        'data' => 'array',
+    ];
+
 	public function province()
 	{
 		return $this->belongsTo('App\Province');
@@ -31,7 +35,7 @@ class City extends Model
 	public function propietarios()
 	{
 		return $this->hasMany('App\Propietario');
-	}	
+	}
 
     public function asegurable()
     {

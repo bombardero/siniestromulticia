@@ -9,4 +9,9 @@ class Modelo extends Model
 {
     use HasFactory;
     protected $fillable = ["nombre","marca_id"];
+
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class, 'marca_id');
+    }
 }

@@ -11,6 +11,9 @@ class Province extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'data' => 'array',
+    ];
 
        public function users()
     {
@@ -33,5 +36,5 @@ class Province extends Model
       public function asegurables()
     {
       return $this->hasMany(Asegurable::class);
-    }    
+    }
 }
