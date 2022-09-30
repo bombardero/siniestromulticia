@@ -24,8 +24,12 @@
     opacity: .75;
 }
 
-main {
+.bg-gray {
     background-color: rgba(180, 173, 187, 0.29);
+}
+
+.bg-gray-light {
+    background-color: #f8fafc;
 }
 
 /*** floating-labels inicio ***/

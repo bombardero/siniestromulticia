@@ -3,7 +3,7 @@
     <section>
         <div class="container-fluid px-5">
             <div class="row">
-                <div class="col-12 mt-5 mb-5">
+                <div class="col-12 mt-5 pb-5">
 
                     <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>

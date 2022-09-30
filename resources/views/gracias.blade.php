@@ -15,16 +15,13 @@
                         Tu solicitud fue enviada
                     </p>
                     <p class="pr-md-5 pl-md-5 pt-2 solicitud-enviada-subtitulo">
-                        Recibimos la informacion, próximamente un asesor de Finisterre te contactará por email para que
+                        Recibimos la información, próximamente un asesor de Finisterre te contactará por email o whatsapp para que
                         puedas iniciar la denuncia. Recordá revisar tu correo no deseado.
                     </p>
 
                 </div>
                 <div class="col-12 text-center pt-5">
-
                     @livewire('boton-azul',['name' => 'Volver', 'url' => '/'])
-
-
                 </div>
             </div>
         </div>
