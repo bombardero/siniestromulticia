@@ -377,7 +377,6 @@
             canvas.style.backgroundRepeat = 'no-repeat';
             canvas.parentElement.classList.add("mx-auto")
 
-
             if (window.innerWidth <= 1200) {
                 base_image.src = '';
                 canvas.style.backgroundImage = '';
@@ -388,6 +387,14 @@
                 $("#rutaText").removeClass("escenarioSelect").addClass("escenarios");
                 $("#interseccionText").removeClass("escenarioSelect").addClass("escenarios");
             }
+
+            window.addEventListener('resize', function () {
+                if(window.innerWidth <= 1200)
+                {
+                    $("#otros").click();
+                }
+            });
+
             inputs.forEach(input => {
                 input.addEventListener('change', (e) => {
                     if (e.srcElement.id === 'rotonda') {
