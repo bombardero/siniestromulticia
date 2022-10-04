@@ -32,6 +32,11 @@
     background-color: #f8fafc;
 }
 
+.card-show-denuncia .card-body .alert{
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+}
+
 /*** floating-labels inicio ***/
 .form-label-group {
     position: relative;
