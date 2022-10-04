@@ -152,7 +152,7 @@
 
 
                             <div class="row pt-0">
-                                @if($denuncia->conductor->otro_pais_provincia_localidad)
+                                @if($denuncia->conductor && $denuncia->conductor->otro_pais_provincia_localidad != null)
                                     <div class="col-12">
                                         <p>Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
                                     </div>
@@ -268,7 +268,7 @@
 
 
                             <div class="row pt-0">
-                                @if($denuncia->asegurado->otro_pais_provincia_localidad)
+                                @if($denuncia->asegurado && $denuncia->asegurado->otro_pais_provincia_localidad != null)
                                     <div class="col-12">
                                         <p>Localidad/Provincia/Pais: {{ $denuncia->asegurado->otro_pais_provincia_localidad }}</p>
                                     </div>
