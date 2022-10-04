@@ -21,9 +21,10 @@ class CreateAseguradosTable extends Migration
             $table->string('documento_numero',8);
             $table->string('domicilio');
             $table->string('codigo_postal',8);
-            $table->string('pais_id');
-            $table->foreignId('province_id');
-            $table->foreignId('city_id');
+            $table->foreignId('pais_id')->nullable()->constrained('paises');
+            $table->foreignId('province_id')->nullable();
+            $table->foreignId('city_id')->nullable();
+            $table->string('otro_pais_provincia_localidad')->nullable();
             $table->string('ocupacion');
             $table->string('telefono',15);
             $table->timestamps();

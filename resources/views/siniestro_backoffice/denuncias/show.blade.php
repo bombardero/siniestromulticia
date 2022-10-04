@@ -58,7 +58,7 @@
                                         {{$denuncia->estado_tiempo_despejado ? ' Despejado. ':''}}
                                         {{$denuncia->estado_tiempo_nieve ? ' Nieve. ':''}}
                                         {{$denuncia->estado_tiempo_granizo == 'on' ? ' Granizo. ':''}}
-                                        {{$denuncia->carga_paso_1_otros_detalle}}</p>
+                                        {{$denuncia->estado_tiempo_otros_detalles}}</p>
                                 </div>
                             </div>
 
@@ -74,19 +74,23 @@
 
                         <div style="padding-left:8px;padding-right:8px;">
                             <div class="row pt-0">
-                                <div class="col-12 col-md-4">
-                                    <p>País: Argentina</p>
-                                </div>
+                                @if($denuncia->otro_pais_provincia_localidad)
+                                    <div class="col-12">
+                                        <p>Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
+                                    </div>
+                                @else
+                                    <div class="col-12 col-md-4">
+                                        <p>País: {{ $denuncia->pais_id != null ? $denuncia->pais->nombre : '' }}</p>
+                                    </div>
 
-                                <div class="col-12 col-md-4">
-                                    <p>
-                                        Provincia: {{ $denuncia->province_id != null ? $denuncia->provincia->name : '' }}</p>
-                                </div>
+                                    <div class="col-12 col-md-4">
+                                        <p>Provincia: {{ $denuncia->province_id != null ? $denuncia->provincia->name : '' }}</p>
+                                    </div>
 
-                                <div class="col-12 col-md-4">
-                                    <p>
-                                        Localidad: {{ $denuncia->city_id != null ? $denuncia->localidad->name : '' }}</p>
-                                </div>
+                                    <div class="col-12 col-md-4">
+                                        <p>Localidad: {{ $denuncia->city_id != null ? $denuncia->localidad->name : '' }}</p>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="row pt-0">
@@ -148,35 +152,36 @@
 
 
                             <div class="row pt-0">
-                                <div class="col-12 col-md-4">
-                                    <p>País: Argentina</p>
-                                </div>
+                                @if($denuncia->conductor->otro_pais_provincia_localidad)
+                                    <div class="col-12">
+                                        <p>Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
+                                    </div>
+                                @else
+                                    <div class="col-12 col-md-4">
+                                        <p>País: {{ $denuncia->conductor && $denuncia->conductor->pais_id != null ? $denuncia->conductor->pais->nombre : '' }}</p>
+                                    </div>
 
-                                <div class="col-12 col-md-4">
-                                    <p>
-                                        Provincia: {{ $denuncia->conductor ? $denuncia->conductor->provincia->name : '' }}</p>
-                                </div>
+                                    <div class="col-12 col-md-4">
+                                        <p>Provincia: {{ $denuncia->conductor && $denuncia->conductor->province_id != null ? $denuncia->conductor->provincia->name : '' }}</p>
+                                    </div>
 
-                                <div class="col-12 col-md-4">
-                                    <p>
-                                        Localidad: {{ $denuncia->conductor ? $denuncia->conductor->localidad->name : '' }}</p>
-                                </div>
+                                    <div class="col-12 col-md-4">
+                                        <p>Localidad: {{ $denuncia->conductor && $denuncia->conductor->city_id != null ? $denuncia->conductor->localidad->name : '' }}</p>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
-                                    <p>Fecha de
-                                        Nacimiento: {{ $denuncia->conductor ? $denuncia->conductor->carga_paso_3_fecha_nacimiento : '' }}</p>
+                                    <p>Fecha de Nacimiento: {{ $denuncia->conductor ? $denuncia->conductor->fecha_nacimiento->format('d/m/Y') : '' }}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <p>Documento
-                                        Tipo: {{ $denuncia->conductor ? $denuncia->conductor->tipoDocumento->nombre : ''}}</p>
+                                    <p>Documento Tipo: {{ $denuncia->conductor ? $denuncia->conductor->tipoDocumento->nombre : ''}}</p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <p>Documento
-                                        Número: {{ $denuncia->conductor ? $denuncia->conductor->documento_numero : '' }}</p>
+                                    <p>Documento Número: {{ $denuncia->conductor ? $denuncia->conductor->documento_numero : '' }}</p>
                                 </div>
                             </div>
 
@@ -184,17 +189,23 @@
                             <div class="row pt-0">
                                 <div class="col-12 col-md-4">
                                     <p>
-                                        Ocupación: {{ $denuncia->conductor ? $denuncia->conductor->ocupacion : '' }}</p>
+                                        Ocupación:
+                                        {{ $denuncia->conductor ? $denuncia->conductor->ocupacion : '' }}
+                                    </p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <p>N de
-                                        Registro: {{ $denuncia->conductor ? $denuncia->conductor->numero_registro : '' }}</p>
+                                    <p>
+                                        Nro. de Registro:
+                                        {{ $denuncia->conductor ? $denuncia->conductor->numero_registro : '' }}
+                                    </p>
                                 </div>
 
                                 <div class="col-12 col-md-4">
-                                    <p>Estado
-                                        Civil: {{ $denuncia->conductor ? $denuncia->conductor->estado_civil : '' }}</p>
+                                    <p>
+                                        Estado Civil:
+                                        {{ $denuncia->conductor ? $denuncia->conductor->estado_civil : '' }}
+                                    </p>
                                 </div>
 
                             </div>
@@ -211,7 +222,7 @@
 
                                 <div class="col-12 col-md-4">
                                     <p>Licencia
-                                        Vencimiento: {{ $denuncia->conductor ? $denuncia->conductor->carnet_vencimiento : ''}}</p>
+                                        Vencimiento: {{ $denuncia->conductor ? $denuncia->conductor->carnet_vencimiento->format('d/m/Y') : ''}}</p>
                                 </div>
                             </div>
                         </div>
@@ -257,19 +268,23 @@
 
 
                             <div class="row pt-0">
-                                <div class="col-12 col-md-4">
-                                    <p>País: Argentina</p>
-                                </div>
+                                @if($denuncia->asegurado->otro_pais_provincia_localidad)
+                                    <div class="col-12">
+                                        <p>Localidad/Provincia/Pais: {{ $denuncia->asegurado->otro_pais_provincia_localidad }}</p>
+                                    </div>
+                                @else
+                                    <div class="col-12 col-md-4">
+                                        <p>País: {{ $denuncia->asegurado && $denuncia->asegurado->pais_id != null ? $denuncia->asegurado->pais->nombre : '' }}</p>
+                                    </div>
 
-                                <div class="col-12 col-md-4">
-                                    <p>
-                                        Provincia: {{ $denuncia->asegurado ? $denuncia->asegurado->provincia->name : '' }}</p>
-                                </div>
+                                    <div class="col-12 col-md-4">
+                                        <p>Provincia: {{ $denuncia->asegurado && $denuncia->asegurado->province_id != null ? $denuncia->asegurado->provincia->name : '' }}</p>
+                                    </div>
 
-                                <div class="col-12 col-md-4">
-                                    <p>
-                                        Localidad: {{ $denuncia->asegurado ? $denuncia->asegurado->localidad->name : '' }}</p>
-                                </div>
+                                    <div class="col-12 col-md-4">
+                                        <p>Localidad: {{ $denuncia->asegurado && $denuncia->asegurado->city_id != null ? $denuncia->asegurado->localidad->name : '' }}</p>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="row pt-0">

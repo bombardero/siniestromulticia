@@ -13,32 +13,45 @@
         <div class="row mt-3">
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="pasis">País</label>
-                    <select class="custom-select form-estilo" name="paises" id="paises">
-                        <option value="1">Argentina</option>
+                    <label for="pasis">País *</label>
+                    <select class="custom-select form-estilo" name="pais" id="pais">
+                        <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($denuncia_siniestro->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
+                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($denuncia_siniestro->otro_pais_provincia_localidad != null ? 'selected' : '') }}>Otro</option>
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
+
+            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || $denuncia_siniestro->otro_pais_provincia_localidad != null  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
                 <div class="form-group">
-                    <label for="provincias">Provincia</label>
+                    <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
+                    <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
+                           class="form-control form-estilo @error('otro_pais_provincia_localidad') is-invalid @enderror"
+                           maxlength="255"
+                           value="{{ old('otro_pais_provincia_localidad') ?  old('otro_pais_provincia_localidad') : $denuncia_siniestro->otro_pais_provincia_localidad }}">
+                    @error('otro_pais_provincia_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || $denuncia_siniestro->otro_pais_provincia_localidad != null ?  'd-none' : '' }}" id="div_provincia">
+                <div class="form-group">
+                    <label for="provincias">Provincia *</label>
                     <select class="custom-select form-estilo" name="provincia_id" id="provincias">
                         @foreach($provincias as $provincia)
                             <option  value="{{ $provincia->id }}"
-                                {{ $denuncia_siniestro->province_id == $provincia->id ? 'selected' : '' }}
+                                {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($denuncia_siniestro->province_id == $provincia->id ? 'selected' : '') }}
                             >{{ $provincia->name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || $denuncia_siniestro->otro_pais_provincia_localidad != null ?  'd-none' : '' }}" id="div_localidad">
                 <div class="form-group">
-                    <label for="localidades">Localidad</label>
+                    <label for="localidades">Localidad *</label>
                     <select class="custom-select form-estilo" name="localidad_id" id="localidades">
                         @foreach($localidades as $localidad)
                             <option value="{{$localidad->id}}"
-                                {{ $denuncia_siniestro->city_id == $localidad->id ? 'selected' : '' }}
+                                {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($denuncia_siniestro->city_id == $localidad->id ? 'selected' : '') }}
                             >{{ $localidad->name }}</option>
                         @endforeach
                     </select>
@@ -182,6 +195,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
+
             $("#provincias").change(function () {
                 provincia_id = $("#provincias").val();
                 console.log(provincia_id);
@@ -191,18 +205,31 @@
                         type: 'get',
                         dataType: 'json',
                         success: function (cities) {
-                            $('#localidades').empty();
+                            let localidades = $('#localidades');
+                            localidades.empty();
                             cities.forEach(city => {
-                                $('#localidades').append($('<option>', {
+                                localidades.append($('<option>', {
                                     value: city['id'],
                                     text: city['name']
                                 }));
                             })
-
                         }
                     })
+            });
 
-
+            $("#pais").change(function () {
+                let pais = $(this).val();
+                //console.log(pais);
+                if(pais == 'otro')
+                {
+                    $('#div_otro_pais_provincia_localidad').removeClass('d-none')
+                    $('#div_provincia').addClass('d-none')
+                    $('#div_localidad').addClass('d-none')
+                } else {
+                    $('#div_otro_pais_provincia_localidad').addClass('d-none')
+                    $('#div_provincia').removeClass('d-none')
+                    $('#div_localidad').removeClass('d-none')
+                }
             });
 
             $("#checkbox_tren_si").click(function () {

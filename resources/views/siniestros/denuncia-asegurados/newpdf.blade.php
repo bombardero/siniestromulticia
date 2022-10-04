@@ -138,21 +138,31 @@
                     {{ $denuncia->lugar_nombre }}
                 </td>
             </tr>
-            <tr>
-                <td class="">
-                    <b>País: </b>Argentina
-                </td>
-                <td>
-                    <b>Provincia: </b>
-                    {{ $denuncia->provincia->name }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <b>Localidad: </b>
-                    {{ $denuncia->localidad->name }}
-                </td>
-            </tr>
+            @if($denuncia->otro_pais_provincia_localidad)
+                <tr>
+                    <td>
+                        <b>Localidad/Provincia/Pais: </b>
+                        {{ $denuncia->otro_pais_provincia_localidad }}
+                    </td>
+                </tr>
+            @else
+                <tr>
+                    <td class="">
+                        <b>País: </b>
+                        {{ $denuncia->pais->nombre }}
+                    </td>
+                    <td>
+                        <b>Provincia: </b>
+                        {{ $denuncia->provincia->name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Localidad: </b>
+                        {{ $denuncia->localidad->name }}
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td>
                     <b>Calle: </b>
@@ -227,19 +237,29 @@
                     <b>CP: </b>{{ $denuncia->conductor ? $denuncia->conductor->codigo_postal : '' }}
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <b>País: </b>Argentina
-                </td>
-                <td>
-                    <b>Provincia: </b>
-                    {{ $denuncia->conductor ? $denuncia->conductor->provincia->name : '' }}
-                </td>
-                <td>
-                    <b>Localidad: </b>
-                    {{ $denuncia->conductor ? $denuncia->conductor->localidad->name : '' }}
-                </td>
-            </tr>
+            @if($denuncia->conductor && $denuncia->conductor->otro_pais_provincia_localidad)
+                <tr>
+                    <td>
+                        <b>Localidad/Provincia/Pais: </b>
+                        {{ $denuncia->conductor->otro_pais_provincia_localidad }}
+                    </td>
+                </tr>
+            @else
+                <tr>
+                    <td>
+                        <b>País: </b>
+                        {{ $denuncia->conductor ? $denuncia->conductor->pais->nombre : '' }}
+                    </td>
+                    <td>
+                        <b>Provincia: </b>
+                        {{ $denuncia->conductor ? $denuncia->conductor->provincia->name : '' }}
+                    </td>
+                    <td>
+                        <b>Localidad: </b>
+                        {{ $denuncia->conductor ? $denuncia->conductor->localidad->name : '' }}
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td>
                     <b>Fecha de Nacimiento: </b>
@@ -342,19 +362,29 @@
                     {{ $denuncia->asegurado ? $denuncia->asegurado->codigo_postal : '' }}
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <b>País: </b>Argentina
-                </td>
-                <td>
-                    <b>Provincia: </b>
-                    {{ $denuncia->asegurado ? $denuncia->asegurado->provincia->name : '' }}
-                </td>
-                <td>
-                    <b>Localidad: </b>
-                    {{ $denuncia->asegurado ? $denuncia->asegurado->localidad->name : '' }}
-                </td>
-            </tr>
+            @if($denuncia->asegurado && $denuncia->asegurado->otro_pais_provincia_localidad)
+                <tr>
+                    <td>
+                        <b>Localidad/Provincia/Pais: </b>
+                        {{ $denuncia->asegurado->otro_pais_provincia_localidad }}
+                    </td>
+                </tr>
+            @else
+                <tr>
+                    <td>
+                        <b>País: </b>
+                        {{ $denuncia->asegurado ? $denuncia->asegurado->pais->nombre : '' }}
+                    </td>
+                    <td>
+                        <b>Provincia: </b>
+                        {{ $denuncia->asegurado ? $denuncia->asegurado->provincia->name : '' }}
+                    </td>
+                    <td>
+                        <b>Localidad: </b>
+                        {{ $denuncia->asegurado ? $denuncia->asegurado->localidad->name : '' }}
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td>
                     <b>Ocupación: </b>
@@ -1013,16 +1043,29 @@
                     {{ $denuncia->denunciante ? $denuncia->denunciante->documento_numero : '' }}
                 </td>
             </tr>
-            <tr>
-                <td colspan="3">
-                    <b>Provincia: </b>
-                    {{ $denuncia->denunciante ? $denuncia->denunciante->provincia->name : '' }}
-                </td>
-                <td colspan="3">
-                    <b>Localidad: </b>
-                    {{ $denuncia->denunciante ? $denuncia->denunciante->localidad->name : '' }}
-                </td>
-            </tr>
+            @if($denuncia->denunciante && $denuncia->denunciante->otro_pais_provincia_localidad)
+                <tr>
+                    <td>
+                        <b>Localidad/Provincia/Pais: </b>
+                        {{ $denuncia->denunciante->otro_pais_provincia_localidad }}
+                    </td>
+                </tr>
+            @else
+                <tr>
+                    <td colspan="4">
+                        <b>País: </b>
+                        {{ $denuncia->denunciante ? $denuncia->denunciante->pais->nombre : '' }}
+                    </td>
+                    <td colspan="4">
+                        <b>Provincia: </b>
+                        {{ $denuncia->denunciante ? $denuncia->denunciante->provincia->name : '' }}
+                    </td>
+                    <td colspan="4">
+                        <b>Localidad: </b>
+                        {{ $denuncia->denunciante ? $denuncia->denunciante->localidad->name : '' }}
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td colspan="4">
                     <b>Domicilio: </b>

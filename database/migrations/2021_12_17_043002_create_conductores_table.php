@@ -20,9 +20,10 @@ class CreateConductoresTable extends Migration
             $table->string('telefono',15)->nullable();
             $table->string('domicilio')->nullable();
             $table->string('codigo_postal',8)->nullable();
-            $table->string('pais_id')->nullable();
+            $table->foreignId('pais_id')->nullable()->constrained('paises');
             $table->foreignId('province_id')->nullable();
             $table->foreignId('city_id')->nullable();
+            $table->string('otro_pais_provincia_localidad')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->foreignId('tipo_documento_id')->nullable()->constrained('tipo_documentos');
             $table->string('documento_numero',8)->nullable();

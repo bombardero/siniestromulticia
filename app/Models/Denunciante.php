@@ -14,8 +14,10 @@ class Denunciante extends Model
     'telefono',
     'domicilio',
     'codigo_postal',
+    'pais_id',
     'province_id',
     'city_id',
+    'otro_pais_provincia_localidad',
     'tipo_documento_id',
     'documento_numero',
     'asegurado',
@@ -28,6 +30,11 @@ class Denunciante extends Model
 
     public function denuncia(){
         return $this->belongsTo(DenunciaSiniestro::class);
+    }
+
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id');
     }
 
     public function provincia()

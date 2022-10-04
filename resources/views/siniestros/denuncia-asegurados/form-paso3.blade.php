@@ -51,32 +51,46 @@
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="paises">País</label>
-                    <select name="pais_id" id="paises" class="custom-select form-estilo">
-                        <option value="1">Argentina</option>
+                    <label for="pais">País</label>
+                    <select name="pais" id="pais" class="custom-select form-estilo">
+                        <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
+                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->otro_pais_provincia_localidad != null ? 'selected' : '') }}>Otro</option>
                     </select>
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->otro_pais_provincia_localidad != null)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
+                <div class="form-group">
+                    <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
+                    <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
+                           class="form-control form-estilo @error('otro_pais_provincia_localidad') is-invalid @enderror"
+                           maxlength="255"
+                           value="{{ old('otro_pais_provincia_localidad') ?  old('otro_pais_provincia_localidad') : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->otro_pais_provincia_localidad ? $denuncia_siniestro->conductor->otro_pais_provincia_localidad : '') }}">
+                    @error('otro_pais_provincia_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->otro_pais_provincia_localidad != null) ?  'd-none' : '' }}" id="div_provincia">
                 <div class="form-group">
                     <label for="provincias">Provincias</label>
                     <select name="provincia_id" id="provincias" class="custom-select form-estilo">
                         @foreach($provincias as $provincia)
                             <option value="{{ $provincia->id }}"
-                                {{ $denuncia_siniestro->conductor && $denuncia_siniestro->conductor->province_id ==  $provincia->id ? 'selected' : ''}}>{{ $provincia->name }}</option>
+                                {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->province_id ==  $provincia->id ? 'selected' : '') }}
+                            >{{ $provincia->name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->otro_pais_provincia_localidad != null) ?  'd-none' : '' }}" id="div_localidad">
                 <div class="form-group">
                     <label for="localidades">Localidades</label>
                     <select name="localidad_id" id="localidades" class="custom-select form-estilo">
                         @foreach($localidades as $localidad)
                             <option value="{{ $localidad->id }}"
-                                {{$denuncia_siniestro->conductor && $denuncia_siniestro->conductor->city_id == $localidad->id ? 'selected' : '' }}>{{ $localidad->name }}</option>
+                                {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->city_id == $localidad->id ? 'selected' : '') }}
+                            >{{ $localidad->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -321,6 +335,21 @@
                         }
                     })
             });
+        });
+
+        $("#pais").change(function () {
+            let pais = $(this).val();
+            //console.log(pais);
+            if(pais == 'otro')
+            {
+                $('#div_otro_pais_provincia_localidad').removeClass('d-none')
+                $('#div_provincia').addClass('d-none')
+                $('#div_localidad').addClass('d-none')
+            } else {
+                $('#div_otro_pais_provincia_localidad').addClass('d-none')
+                $('#div_provincia').removeClass('d-none')
+                $('#div_localidad').removeClass('d-none')
+            }
         });
 
         $("#checkbox_asegurado_si").click(function () {

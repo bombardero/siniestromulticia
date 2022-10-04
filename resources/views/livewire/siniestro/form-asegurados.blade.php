@@ -44,7 +44,9 @@
             <div class="form-group">
                 <label for="lugar_siniestro">Lugar del Siniestro (*)</label>
                 <input type="text" id="lugar_siniestro" class="form-control form-estilo"
-                       wire:model.defer="lugar_siniestro">
+                       placeholder="Localidad, Provincia"
+                       wire:model.defer="lugar_siniestro"
+                >
                 @error('lugar_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
         </div>

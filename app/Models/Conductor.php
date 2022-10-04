@@ -18,6 +18,7 @@ class Conductor extends Model
         "pais_id",
         "province_id",
         "city_id",
+        "otro_pais_provincia_localidad",
         "fecha_nacimiento",
         "tipo_documento_id",
         "documento_numero",
@@ -43,6 +44,11 @@ class Conductor extends Model
     public function denuncia()
     {
         return $this->belongsTo(DenunciaSiniestro::class);
+    }
+
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id');
     }
 
     public function provincia()

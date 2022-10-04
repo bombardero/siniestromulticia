@@ -39,8 +39,10 @@ class CreateDenunciaSiniestrosTable extends Migration
             $table->boolean('estado_tiempo_granizo')->nullable();
             $table->string('estado_tiempo_otros_detalles')->nullable();
 
+            $table->foreignId('pais_id')->nullable()->constrained('paises');
             $table->foreignId('province_id')->nullable();
             $table->foreignId('city_id')->nullable();
+            $table->string('otro_pais_provincia_localidad')->nullable();
             $table->string('calle')->nullable();
             $table->foreignId('tipo_calzada_id')->nullable()->constrained('tipo_calzadas');
             $table->string('calzada_detalle')->nullable();

@@ -158,9 +158,9 @@
                                     @foreach($denuncia_siniestros as $denuncia)
                                         <tr class="borde-tabla">
                                             <td>{{ $denuncia->id }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($denuncia->created_at)->format('d/m/Y H:i')}}</td>
-                                            <td>{{ \Carbon\Carbon::parse($denuncia->precarga_fecha_siniestro)->format('d/m/Y')}}  {{ \Carbon\Carbon::parse($denuncia->precarga_hora_siniestro)->format('H:i')}}</td>
-                                            <td>{{ $denuncia->asegurado ? $denuncia->asegurado->carga_paso_4_asegurado_nombre : ''}}</td>
+                                            <td>{{ $denuncia->created_at->format('d/m/Y H:i') }}</td>
+                                            <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
+                                            <td>{{ $denuncia->asegurado ? $denuncia->asegurado->nombre : ''}}</td>
                                             <td>{{$denuncia->dominio_vehiculo_asegurado}}</td>
                                             <td>
                                                 <form action="{{ route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id) }}" class="form-update-denuncia">
@@ -255,7 +255,7 @@
                                                 @endif</td>
                                             <td>
                                                 <a target="_blank" class="btn-link"
-                                                   href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
+                                                   href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia (dominio: {{$denuncia->dominio_vehiculo_asegurado}}) ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
                                                    style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-denuncia-id="{{ $denuncia->id }}"
                                                    data-placement="top" title="Enviar link">
                                                     <i class="fa-solid fa-link {{ $denuncia->link_enviado ? 'text-success' : '' }}"></i>

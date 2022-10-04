@@ -18,6 +18,7 @@ class Asegurado extends Model
         "pais_id",
         "province_id",
         "city_id",
+        "otro_pais_provincia_localidad",
         "ocupacion",
         "telefono"
     ];
@@ -25,6 +26,11 @@ class Asegurado extends Model
     public function denuncia()
     {
         return $this->belongsTo(DenunciaSiniestro::class);
+    }
+
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id');
     }
 
     public function provincia()

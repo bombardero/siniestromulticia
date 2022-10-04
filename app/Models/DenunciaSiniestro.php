@@ -30,8 +30,10 @@ class DenunciaSiniestro extends Model
         "responsable_contacto_telefono",
         "responsable_contacto_email",
 
+        "pais_id",
         "province_id",
         "city_id",
+        "otro_pais_provincia_localidad",
         "calle",
         "tipo_calzada_id",
         "calzada_detalle",
@@ -106,6 +108,11 @@ class DenunciaSiniestro extends Model
     ];
 
     protected $dates = ['fecha'];
+
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id');
+    }
 
     public function provincia()
     {
