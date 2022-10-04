@@ -217,24 +217,33 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
         $provincias = Province::orderBy('name')->get();
-        $localidades = City::where('province_id', $denuncia_siniestro->province_id != null ? $denuncia_siniestro->province_id : 1)->orderBy('name')->get();
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->province_id != null ? $denuncia_siniestro->province_id : 1);
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 2,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"localidades"=>$localidades]);
     }
 
     public function paso2store(Request $request)
     {
-        $validated = request()->validate([
+        $rules =  [
+            'pais' => 'required',
+            'otro_pais_provincia_localidad'=>'required_if:pais,otro',
             'calle'=>'required'
-        ]);
+        ];
+        $messages = [
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
+        ];
+        Validator::make($request->all(),$rules, $messages)->validate();
 
         $identificador = request('id');
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
         if($denuncia_siniestro->canEdit())
         {
-            $denuncia_siniestro->province_id = $request->provincia_id;
-            $denuncia_siniestro->city_id = $request->localidad_id;
+            $denuncia_siniestro->pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null ;
+            $denuncia_siniestro->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+            $denuncia_siniestro->city_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->localidad_id : null;
+            $denuncia_siniestro->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null;
             $denuncia_siniestro->calle = $request->calle;
             $denuncia_siniestro->tipo_calzada_id = $request->calzada_id;
             $denuncia_siniestro->calzada_detalle = $request->calzada_detalle;
@@ -263,7 +272,8 @@ class DenunciaAseguradoController extends Controller
         $tipoDocumentos = TipoDocumento::all();
         $tipoCarnets = TipoCarnet::all();
         $provincias = Province::orderBy('name')->get();
-        $localidades = City::where('province_id',$denuncia_siniestro->conductor ? $denuncia_siniestro->conductor->province_id : 1)->orderBy('name')->get();
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->province_id != null ? $denuncia_siniestro->conductor->province_id : 1);
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 3,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"tipo_carnets"=>$tipoCarnets,"localidades"=>$localidades]);
     }
@@ -275,6 +285,8 @@ class DenunciaAseguradoController extends Controller
             'telefono'=>'required',
             'domicilio'=>'required',
             'codigo_postal'=>'required',
+            'pais' => 'required',
+            'otro_pais_provincia_localidad'=>'required_if:pais,otro',
             'fecha_nacimiento'=>'required|date',
             'documento_numero'=>'required',
             'ocupacion'=>'required',
@@ -286,7 +298,10 @@ class DenunciaAseguradoController extends Controller
             'asegurado'=>'required',
             'asegurado_relacion' => 'required_if:asegurado,0'
         ];
-        Validator::make($request->all(),$rules)->validate();
+        $messages = [
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
 
         $identificador = $request->id;
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$identificador)->firstOrFail();
@@ -300,9 +315,10 @@ class DenunciaAseguradoController extends Controller
                     "telefono" => $request->telefono,
                     "domicilio" => $request->domicilio,
                     "codigo_postal" => $request->codigo_postal,
-                    "pais_id" => $request->pais_id,
-                    "province_id" => $request->provincia_id,
-                    "city_id" => $request->localidad_id,
+                    "pais_id" => $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null,
+                    "province_id" => $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null,
+                    "city_id" => $request->pais != 'otro' && is_numeric($request->pais) ? $request->localidad_id : null,
+                    "otro_pais_provincia_localidad" => $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null,
                     "fecha_nacimiento" => $request->fecha_nacimiento,
                     "tipo_documento_id" => $request->documento_id,
                     "documento_numero" => $request->documento_numero,
@@ -323,9 +339,10 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->conductor->telefono = $request->telefono;
                 $denuncia_siniestro->conductor->domicilio = $request->domicilio;
                 $denuncia_siniestro->conductor->codigo_postal = $request->codigo_postal;
-                $denuncia_siniestro->conductor->pais_id = $request->pais_id;
-                $denuncia_siniestro->conductor->province_id = $request->provincia_id;
-                $denuncia_siniestro->conductor->city_id = $request->localidad_id;
+                $denuncia_siniestro->conductor->pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
+                $denuncia_siniestro->conductor->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+                $denuncia_siniestro->conductor->city_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->localidad_id : null;
+                $denuncia_siniestro->conductor->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null;
                 $denuncia_siniestro->conductor->fecha_nacimiento = $request->fecha_nacimiento;
                 $denuncia_siniestro->conductor->tipo_documento_id = $request->documento_id;
                 $denuncia_siniestro->conductor->documento_numero = $request->documento_numero;
@@ -356,6 +373,7 @@ class DenunciaAseguradoController extends Controller
                     "pais_id" => $denuncia_siniestro->conductor->pais_id,
                     "province_id" => $denuncia_siniestro->conductor->province_id,
                     "city_id" => $denuncia_siniestro->conductor->city_id,
+                    "otro_pais_provincia_localidad" => $denuncia_siniestro->conductor->otro_pais_provincia_localidad,
                     "ocupacion" => $denuncia_siniestro->conductor->ocupacion,
                     "telefono" => $denuncia_siniestro->conductor->telefono
                 ]);
@@ -377,7 +395,8 @@ class DenunciaAseguradoController extends Controller
         $provincias = Province::orderBy('name')->get();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
-        $localidades = City::where('province_id', $denuncia_siniestro->asegurado ? $denuncia_siniestro->asegurado->province_id : 1 )->orderBy('name')->get();
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->province_id != null ? $denuncia_siniestro->asegurado->province_id : 1);
+        $localidades = City::where('province_id', $provincia_id )->orderBy('name')->get();
         $denuncia_siniestro->load('conductor');
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 4,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"localidades"=>$localidades]);
@@ -385,14 +404,20 @@ class DenunciaAseguradoController extends Controller
 
     public function paso4store(Request $request)
     {
-        $validated = request()->validate([
-            'asegurado_nombre'=>'required',
-            'asegurado_documento_numero'=>'required',
-            'asegurado_domicilio'=>'required',
-            'asegurado_codigo_postal'=>'required',
-            'asegurado_ocupacion'=>'required',
-            'asegurado_telefono'=>'required',
-        ]);
+        $rules = [
+            'asegurado_nombre' => 'required',
+            'asegurado_documento_numero' => 'required',
+            'asegurado_domicilio' => 'required',
+            'asegurado_codigo_postal' => 'required',
+            'pais' => 'required',
+            'otro_pais_provincia_localidad' => 'required_if:pais,otro',
+            'asegurado_ocupacion' => 'required',
+            'asegurado_telefono' => 'required',
+        ];
+        $messages = [
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
 
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
 
@@ -406,9 +431,10 @@ class DenunciaAseguradoController extends Controller
                     "documento_numero" => $request->asegurado_documento_numero,
                     "domicilio" => $request->asegurado_domicilio,
                     "codigo_postal" => $request->asegurado_codigo_postal,
-                    "pais_id" => $request->asegurado_pais_id,
-                    "province_id" => $request->asegurado_provincia_id,
-                    "city_id" => $request->asegurado_localidad_id,
+                    "pais_id" => $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null,
+                    "province_id" => $request->pais != 'otro' && is_numeric($request->pais) ? $request->asegurado_provincia_id : null,
+                    "city_id" => $request->pais != 'otro' && is_numeric($request->pais) ? $request->asegurado_localidad_id : null,
+                    "otro_pais_provincia_localidad" => $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null,
                     "ocupacion" => $request->asegurado_ocupacion,
                     "telefono" => $request->asegurado_telefono
                 ]);
@@ -418,9 +444,10 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->asegurado->documento_numero = $request->asegurado_documento_numero;
                 $denuncia_siniestro->asegurado->domicilio = $request->asegurado_domicilio;
                 $denuncia_siniestro->asegurado->codigo_postal = $request->asegurado_codigo_postal;
-                $denuncia_siniestro->asegurado->pais_id = $request->asegurado_pais_id;
-                $denuncia_siniestro->asegurado->province_id = $request->asegurado_provincia_id;
-                $denuncia_siniestro->asegurado->city_id = $request->asegurado_localidad_id;
+                $denuncia_siniestro->asegurado->pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
+                $denuncia_siniestro->asegurado->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->asegurado_provincia_id : null;
+                $denuncia_siniestro->asegurado->city_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->asegurado_localidad_id : null;
+                $denuncia_siniestro->asegurado->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null;
                 $denuncia_siniestro->asegurado->ocupacion = $request->asegurado_ocupacion;
                 $denuncia_siniestro->asegurado->telefono = $request->asegurado_telefono;
                 $denuncia_siniestro->asegurado->save();
@@ -1223,7 +1250,8 @@ class DenunciaAseguradoController extends Controller
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
         $provincias = Province::orderBy('name')->get();
-        $localidades = City::where('province_id',$denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->province_id : 1)->orderBy('name')->get();
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->province_id != null ? $denuncia_siniestro->denunciante->province_id : 1);
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
             "denuncia_siniestro"=>$denuncia_siniestro,
@@ -1242,6 +1270,8 @@ class DenunciaAseguradoController extends Controller
             'asegurado_relacion'=>'required_if:asegurado,0',
             'nombre'=>'required_if:asegurado,0',
             'telefono'=>'required_if:asegurado,0',
+            'pais' => 'required',
+            'otro_pais_provincia_localidad'=>'required_if:pais,otro',
             'domicilio'=>'required_if:asegurado,0',
             'codigo_postal'=> 'required_if:asegurado,0',
             'tipo_documento_id' => 'required_if:asegurado,0',
@@ -1252,6 +1282,7 @@ class DenunciaAseguradoController extends Controller
             'asegurado_relacion.required_if'=>'La relación con el asegurado es requerido en caso de no ser el asegurado.',
             'nombre.required_if'=>'El nombre es requerido en caso de no ser el asegurado.',
             'telefono.required_if'=>'El teléfono es requerido en caso de no ser el asegurado.',
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
             'domiciclio.required_if'=>'El domicilio es requerido en caso de no ser el asegurado.',
             'provincia_id.required_if'=>'La provincia es requerida en caso de no ser el asegurado.',
             'localidad_id.required_if'=>'La localidad es requerida en caso de no ser el asegurado.',
@@ -1274,8 +1305,10 @@ class DenunciaAseguradoController extends Controller
                     "telefono" => !$request->asegurado ? $request->telefono : $denuncia_siniestro->asegurado->telefono,
                     "domicilio" => !$request->asegurado ? $request->domicilio : $denuncia_siniestro->asegurado->domicilio,
                     "codigo_postal" => !$request->asegurado ? $request->codigo_postal : $denuncia_siniestro->asegurado->codigo_postal,
-                    "province_id" => !$request->asegurado ? $request->provincia_id : $denuncia_siniestro->asegurado->province_id,
-                    "city_id" => !$request->asegurado ? $request->localidad_id : $denuncia_siniestro->asegurado->city_id,
+                    "pais_id" => !$request->asegurado ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null) : $denuncia_siniestro->asegurado->pais_id,
+                    "province_id" => !$request->asegurado ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null) : $denuncia_siniestro->asegurado->province_id,
+                    "city_id" => !$request->asegurado ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->localidad_id : null) : $denuncia_siniestro->asegurado->city_id,
+                    "otro_pais_provincia_localidad" => !$request->asegurado ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null) : $denuncia_siniestro->asegurado->otro_pais_provincia_localidad,
                     "tipo_documento_id" => !$request->asegurado ? $request->tipo_documento_id : $denuncia_siniestro->asegurado->tipo_documento_id,
                     "documento_numero" => !$request->asegurado ? $request->documento_numero : $denuncia_siniestro->asegurado->documento_numero,
                     "asegurado" => $request->asegurado,
@@ -1286,8 +1319,10 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->denunciante->telefono = $request->telefono;
                 $denuncia_siniestro->denunciante->domicilio = $request->domicilio;
                 $denuncia_siniestro->denunciante->codigo_postal = $request->codigo_postal;
-                $denuncia_siniestro->denunciante->province_id = $request->provincia_id;
-                $denuncia_siniestro->denunciante->city_id = $request->localidad_id;
+                $denuncia_siniestro->denunciante->pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
+                $denuncia_siniestro->denunciante->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+                $denuncia_siniestro->denunciante->city_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->localidad_id : null;
+                $denuncia_siniestro->denunciante->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : null;
                 $denuncia_siniestro->denunciante->tipo_documento_id = $request->tipo_documento_id;
                 $denuncia_siniestro->denunciante->documento_numero = $request->documento_numero;
                 $denuncia_siniestro->denunciante->asegurado = $request->asegurado;
