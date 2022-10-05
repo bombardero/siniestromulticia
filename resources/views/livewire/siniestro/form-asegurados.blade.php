@@ -7,7 +7,7 @@
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label for="dominio">Dominio (*)</label>
-                <input type="text" maxlength="7" class="form-control form-estilo" id="dominio"
+                <input type="text" maxlength="7" class="form-control form-estilo text-uppercase" id="dominio"
                        wire:model.defer="dominio">
                 @error('dominio') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
@@ -108,7 +108,7 @@
                         <span class="input-group-text form-estilo">+54</span>
                     </div>
                     <input type="tel" class="form-control form-estilo"
-                           id="telefono"
+                           id="telefono" maxlength="10"
                            wire:model.defer="telefono"
                            placeholder="Sin 0 y sin 15">
                 </div>
@@ -123,8 +123,10 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text form-estilo">+54</span>
                     </div>
-                    <input type="tel" class="form-control form-estilo" wire:model.defer="telefono_confirmation"
-                           placeholder="Sin 0 y sin 15"
+                    <input type="tel" class="form-control form-estilo"
+                           id="telefono_confirmation"
+                           wire:model.defer="telefono_confirmation"
+                           placeholder="Sin 0 y sin 15" maxlength="10"
                     >
                 </div>
                 @error('telefono_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror

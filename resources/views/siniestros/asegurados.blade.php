@@ -15,3 +15,38 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            IMask(
+                document.getElementById('dominio'),
+                {
+                    mask: [
+                        {
+                            mask: 'aaa000'
+                        },
+                        {
+                            mask: '000aaa'
+                        },
+                        {
+                            mask: 'aa000aa'
+                        },
+                        {
+                            mask: 'a000aaa'
+                        }
+                    ]
+                });
+            IMask(
+                document.getElementById('telefono'),
+                {
+                    mask: '0000000000'
+                });
+            IMask(
+                document.getElementById('telefono_confirmation'),
+                {
+                    mask: '0000000000'
+                });
+        })
+    </script>
+@endsection

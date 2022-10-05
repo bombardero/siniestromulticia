@@ -31,7 +31,7 @@
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label for="dominio">Dominio del vehículo propio (*)</label>
-                <input type="text" id="dominio" class="form-control form-estilo"
+                <input type="text" id="dominio" class="form-control form-estilo text-uppercase"
                        maxlength="7" wire:model.defer="dominio">
                 @error('dominio') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
@@ -40,7 +40,7 @@
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label for="dominio">Dominio del vehículo asegurado (*)</label>
-                <input type="text" id="dominio_asegurado" class="form-control form-estilo"
+                <input type="text" id="dominio_asegurado" class="form-control form-estilo text-uppercase"
                        wire:model.defer="dominio_asegurado" maxlength="7">
                 @error('dominio_asegurado') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
@@ -82,7 +82,7 @@
                         <span class="input-group-text form-estilo">+54</span>
                     </div>
                     <input type="tel" class="form-control form-estilo"
-                           id="telefono"
+                           id="telefono" maxlength="10"
                            wire:model.defer="telefono"
                            placeholder="Sin 0 y sin 15">
                 </div>
@@ -98,7 +98,7 @@
                         <span class="input-group-text form-estilo">+54</span>
                     </div>
                     <input type="tel" class="form-control form-estilo" wire:model.defer="telefono_confirmation"
-                           placeholder="Sin 0 y sin 15"
+                           placeholder="Sin 0 y sin 15" maxlength="10"
                     >
                 </div>
                 @error('telefono_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
@@ -150,21 +150,3 @@
 
 </form>
 
-<!--
-<script>
-    document.addEventListener('livewire:load', function () {
-        $(document).ready(function () {
-            const date = new Date();
-            IMask(
-                document.getElementById('fecha_tercero'),
-                {
-
-                    mask: Date,
-                    min: new Date(1990, 0, 1),
-                    max: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-                    lazy: true
-                });
-        })
-    })
-</script>
--->

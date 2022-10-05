@@ -73,7 +73,7 @@ class FormTerceros extends Component
                 'direccion_siniestro' => $this->setNoDeclarado($this->direccion_siniestro),
                 'descripcion_siniestro' => $this->setNoDeclarado($this->descripcion_siniestro),
                 'responsable_contacto' => $this->responsable_contacto,
-                'telefono' => $this->telefono,
+                'telefono' => '549'.$this->telefono,
                 ];
         //cliente
         Mail::to($this->email)->send(new MailTercero($data));

@@ -75,7 +75,7 @@ class FormAsegurados extends Component
                 'conductor_siniestro' => $this->setNoDeclarado($this->conductor_siniestro),
                 'descripcion_siniestro' => $this->setNoDeclarado($this->descripcion_siniestro),
                 'responsable_contacto' => $this->responsable_contacto,
-                'telefono' => '+54'.$this->telefono
+                'telefono' => '549'.$this->telefono
                 ];
 
         DenunciaSiniestro::create([
@@ -91,7 +91,7 @@ class FormAsegurados extends Component
             "descripcion" => $this->setNoDeclarado($this->descripcion_siniestro),
             "responsable_contacto_nombre" => $this->responsable_contacto,
             "responsable_contacto_domicilio" => $this->domicilio,
-            "responsable_contacto_telefono" => '+54'.$this->telefono,
+            "responsable_contacto_telefono" => '549'.$this->telefono,
             "responsable_contacto_email" => $this->email
         ]);
 
