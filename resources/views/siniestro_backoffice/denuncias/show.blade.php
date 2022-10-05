@@ -119,11 +119,13 @@
                                         <div class="row pt-0">
                                             @if($denuncia->otro_pais_provincia_localidad)
                                                 <div class="col-12">
-                                                    <p>Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
+                                                    <p>
+                                                        Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
                                                 </div>
                                             @else
                                                 <div class="col-12 col-md-4">
-                                                    <p>País: {{ $denuncia->pais_id != null ? $denuncia->pais->nombre : '' }}</p>
+                                                    <p>
+                                                        País: {{ $denuncia->pais_id != null ? $denuncia->pais->nombre : '' }}</p>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">
@@ -164,7 +166,8 @@
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Datos del conductor del vehiculo asegurado
                                             <a href="{{ route('asegurados-denuncias-paso3.create',['id' => $denuncia->identificador]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Editar</a>
                                         </div>
 
@@ -261,7 +264,8 @@
 
                                         <div class="row pt-0">
                                             <div class="col-12 col-md-4">
-                                                <p>Licencia Tipo: Nacional</p>
+                                                <p>Licencia
+                                                    Tipo: {{ $denuncia->conductor && $denuncia->conductor->tipoCarnet ? $denuncia->conductor->tipoCarnet->nombre : '' }}</p>
                                             </div>
 
                                             <div class="col-12 col-md-4">
@@ -278,7 +282,8 @@
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Datos del asegurado
                                             <a href="{{ route('asegurados-denuncias-paso4.create',['id' => $denuncia->identificador]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Editar</a>
                                         </div>
 
@@ -351,7 +356,8 @@
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Datos del vehiculo asegurado
                                             <a href="{{ route('asegurados-denuncias-paso5.create',['id' => $denuncia->identificador]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Editar</a>
                                         </div>
 
@@ -431,34 +437,31 @@
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Detalles del siniestro
                                             <a href="{{ route('asegurados-denuncias-paso10.create',['id' => $denuncia->identificador]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Editar</a>
                                         </div>
 
-                                        <div class="row pt-0">
+                                        <div class="row">
                                             <div class="col-12 col-md-3">
-                                                <p>
-                                                    Comisaria: {{ $denuncia->denuncia_policial_comisaria }}</p>
+                                                <p>Comisaria: {{ $denuncia->denuncia_policial_comisaria }}</p>
                                             </div>
 
                                             <div class="col-12 col-md-3">
-                                                <p>
-                                                    Acta: {{ $denuncia->denuncia_policial_acta }} </p>
+                                                <p>Acta: {{ $denuncia->denuncia_policial_acta }} </p>
                                             </div>
 
                                             <div class="col-12 col-md-3">
-                                                <p>
-                                                    Folio: {{ $denuncia->denuncia_policial_folio }}</p>
+                                                <p>Folio: {{ $denuncia->denuncia_policial_folio }}</p>
                                             </div>
 
                                             <div class="col-12 col-md-3">
-                                                <p>
-                                                    Sumario: {{ $denuncia->denuncia_policial_sumario }}</p>
+                                                <p>Sumario: {{ $denuncia->denuncia_policial_sumario }}</p>
                                             </div>
 
                                         </div>
 
-                                        <div class="row pt-0">
+                                        <div class="row">
                                             <div class="col-12 col-md-4">
                                                 <p>
                                                     Juzgado: {{ $denuncia->denuncia_policial_juzgado }}</p>
@@ -475,21 +478,77 @@
                                             </div>
                                         </div>
 
-                                        <div class="row pt-0">
-                                            <div class="col-12 col-md-4">
+                                        <div class="row">
+                                            <div class="col-12">
                                                 <p>Grafico: </p>
                                             </div>
-                                            <div class="col-12 col-md-12 py-3">
+                                            <div class="col-12 pb-3">
                                                 <img class="w-100" id="graficoBD"
                                                      src="{{ $denuncia->croquis_url }}"
                                                      alt="">
+                                            </div>
+                                            <div class="col-12">
+                                                <p>Descripción: {{ $denuncia->croquis_descripcion }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Datos del Accidente
+                                            <a href="{{ route('asegurados-denuncias-paso9.create',['id' => $denuncia->identificador]) }}"
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
+                                                Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>
+                                                    Tipo de accidente:
+                                                    {{ $denuncia->tipo_accidente_frontal ? 'Frontal. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_posterior ? 'Posterior. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_cadena ? 'En cadena. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_lateral ? 'Lateral. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_vuelco ? 'Vuelco. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_desplaza ? 'Desplaza. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_incendio ? 'Incendio. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_inmersion ? 'Inmersión. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_explosion ? 'Explosión. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_carga ? 'Daños a la carga. ' : '' }}
+                                                    {{ $denuncia->tipo_accidente_otros ? 'Otros. ' : '' }}
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <p>
+                                                    Lugar:
+                                                    {{ $denuncia->lugar_autopista ? 'En autopista. ' : '' }}
+                                                    {{ $denuncia->lugar_calle ? 'En calle. ' : '' }}
+                                                    {{ $denuncia->lugar_avenida ? 'En avenida. ' : '' }}
+                                                    {{ $denuncia->lugar_curva ? 'En curva. ' : '' }}
+                                                    {{ $denuncia->lugar_pendiente ? 'En pendiente. ' : '' }}
+                                                    {{ $denuncia->lugar_tunel ? 'En túnel. ' : '' }}
+                                                    {{ $denuncia->lugar_puente ? 'Sobre puente. ' : '' }}
+                                                    {{ $denuncia->lugar_otros ? 'Otros. ' : '' }}
+                                                </p>
+                                            </div>
+                                            <div class="col-12">
+                                                <p>
+                                                    Colisión con:
+                                                    {{ $denuncia->colision_peaton ? 'Peatón. ' : '' }}
+                                                    {{ $denuncia->colision_vehiculo ? 'Vehículo. ' : '' }}
+                                                    {{ $denuncia->colision_edificio ? 'Edificio. ' : '' }}
+                                                    {{ $denuncia->colision_columna ? 'Columna. ' : '' }}
+                                                    {{ $denuncia->colision_animal ? 'Animal. ' : '' }}
+                                                    {{ $denuncia->colision_transporte_publico ? 'Transporte público. ' : '' }}
+                                                    {{ $denuncia->colision_otros ? 'Otros. ' : '' }}
+                                                </p>
                                             </div>
                                         </div>
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Documentos de la denuncia
                                             <a href="{{ route('asegurados-denuncias-paso11.create',['id' => $denuncia->identificador]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Editar</a>
                                         </div>
 
@@ -503,7 +562,8 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -528,7 +588,8 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -545,7 +606,7 @@
                                             </div>
 
                                             <div class="text-center col-12 col-md-4 ">
-                                                <p class="documentos-denuncia-title">*Carnet de conducir </p>
+                                                <p class="documentos-denuncia-title">Carnet de conducir </p>
                                                 <div>
                                                     @if(count($denuncia->documentosDenuncia) > 0)
                                                         {{-- TIPO 1 = DNI --}}
@@ -553,7 +614,8 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -571,15 +633,10 @@
                                         </div>
 
 
+                                        <hr>
                                         <div class="row">
-
-                                            <div class="col-12 col-md-12 pt-0">
-                                                <hr style="border:1px solid lightgray;">
-                                            </div>
-
-
                                             <div class="text-center col-12 col-md-12 ">
-                                                <p class="documentos-denuncia-title">*Fotos vehículo Asegurado </p>
+                                                <p class="documentos-denuncia-title">Fotos vehículo Asegurado </p>
                                                 <div>
                                                     @if(count($denuncia->documentosDenuncia) > 0)
                                                         {{-- TIPO 1 = DNI --}}
@@ -587,7 +644,8 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -604,11 +662,8 @@
                                             </div>
                                         </div>
 
-
+                                        <hr>
                                         <div class="row">
-                                            <div class="col-12 col-md-12 pt-0">
-                                                <hr style="border:1px solid lightgray;">
-                                            </div>
                                             <div class="text-center col-12 col-md-4 ">
                                                 <p class="documentos-denuncia-title">Último recibo del seguro</p>
                                                 <div>
@@ -617,7 +672,8 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -635,14 +691,16 @@
                                             </div>
 
                                             <div class="text-center col-12 col-md-4 ">
-                                                <p class="documentos-denuncia-title">Exposición policial o denuncia de Tránsito</p>
+                                                <p class="documentos-denuncia-title">Exposición policial o denuncia de
+                                                    Tránsito</p>
                                                 <div>
                                                     @if(count($denuncia->documentosDenuncia) > 0)
                                                         @foreach($denuncia->documentosDenuncia()->where('type', 'exposicion_policial')->get() as $archivo)
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -666,7 +724,8 @@
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <p>
-                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                        <a target="_blank"
+                                                                           class="documento-formato-texto pt-2"
                                                                            href={{$archivo->url}}>{{$archivo->nombre}}</a><i
                                                                             class="pl-2 fas fa-check"></i>
                                                                         <button
@@ -685,13 +744,294 @@
                                         </div>
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
-                                            Datos del denunciante
-                                            <a href="{{ route('asegurados-denuncias-paso12.create',['id' => $denuncia->identificador]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                            Detalles de los otros vehiculos
+                                            <a href="{{ route('asegurados-denuncias-paso6.create',['id' => $denuncia->identificador]) }}"
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Editar</a>
                                         </div>
 
-                                        <div class="row pt-0">
+                                        <div class="row">
+                                            <div class="col-12 col-md-8">
+                                                <p>
+                                                    Intervino otro/s vehículo:
+                                                    {{ $denuncia->intervino_otro_vehiculo !== null ? ($denuncia->intervino_otro_vehiculo ? 'Si' : 'No') : ''}}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-12 col-md-4">
+                                                <p>
+                                                    Tiene los datos:
+                                                    {{ $denuncia->intervino_otro_vehiculo_datos !== null ? ($denuncia->intervino_otro_vehiculo_datos ? 'Si' : 'No') : ''}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-8">
+                                                <p>
+                                                    Intervino otro/s vehículo:
+                                                    {{ $denuncia->intervino_otro_vehiculo !== null ? ($denuncia->intervino_otro_vehiculo ? 'Si' : 'No') : ''}}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-12 col-md-4">
+                                                <p>
+                                                    Tiene los datos:
+                                                    {{ $denuncia->intervino_otro_vehiculo_datos !== null ? ($denuncia->intervino_otro_vehiculo_datos ? 'Si' : 'No') : ''}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        @foreach($denuncia->vehiculoTerceros as $tercero)
+
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p><b>Datos del Propietario</b></p>
+                                                </div>
+                                                <div class="col-12 col-md-8">
+                                                    <p>Nombre y Apellido: {{ $tercero->propietario_nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Teléfono: {{ $tercero->propietario_telefono }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Tipo de Documento: {{ $tercero->tipoDocumentoPropietario->nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>N° de Documento: {{ $tercero->propietario_documento_numero }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>CP: {{ $tercero->propietario_codigo_postal }}</p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p>Domicilio: {{ $tercero->propietario_domicilio }}</p>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <p><b>Datos del Vehículo</b></p>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <p>Marca: {{ $tercero->marca ? $tercero->marca->nombre : $tercero->otra_marca }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <p>Modelo: {{ $tercero->marca ? $tercero->marca->nombre : $tercero->otra_marca }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Tipo: {{ $tercero->tipo }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Año: {{ $tercero->anio }}</p>
+
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Dominio: {{ $tercero->dominio }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <p>Número de Motor: {{ $tercero->motor }}</p>
+
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <p>Número de Chasis: {{ $tercero->chasis }}</p>
+                                                </div>
+
+
+                                                <div class="col-12">
+                                                    <p>Uso:
+                                                        {{ $tercero->uso_particular ? 'Particular. ' : '' }}
+                                                        {{ $tercero->uso_comercial ? 'Comercial. ' : '' }}
+                                                        {{ $tercero->uso_taxi_remis ? 'Taxi. ' : '' }}
+                                                        {{ $tercero->uso_tpp ? 'Transporte Publico. ' : '' }}
+                                                        {{ $tercero->uso_urgencia ? 'Transporte de Urgencia. ' : '' }}
+                                                        {{ $tercero->uso_seguridad ? 'Transporte de Seguridad. ' : '' }}
+                                                    </p>
+                                                </div>
+
+
+                                                <div class="col-12">
+                                                    <p>Detalle de los daños: {{ $tercero->detalles }}</p>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <p><b>Datos del Conductor</b></p>
+                                                </div>
+                                                <div class="col-12 col-md-8">
+                                                    <p>Nombre y Apellido: {{ $tercero->conductor_nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Teléfono: {{ $tercero->conductor_telefono }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Tipo de
+                                                        Documento: {{ $tercero->tipoDocumentoPropietario->nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>N° de Documento: {{ $tercero->conductor_documento_numero }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>CP: {{ $tercero->conductor_codigo_postal }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-8">
+                                                    <p>Domicilio: {{ $tercero->conductor_domicilio }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>N° de Reg. de Conducir: {{ $tercero->conductor_registro }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Tipo de Carnet: {{ $tercero->tipoCarnetConductor->nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Categoría Carnet: {{ $tercero->conductor_categoria }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>
+                                                        Vencimiento: {{ $tercero->conductor_vencimiento ? $tercero->conductor_vencimiento->format('d/m/Y') : '' }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>
+                                                        Alcoholemía: {{ $tercero->conductor_alcoholemia ? 'Si' : 'No' }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Se
+                                                        Negó: {{ $tercero->conductor_alcoholemia_se_nego ? 'Si' : 'No' }}</p>
+
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Conductor
+                                                        habitual: {{ $tercero->conductor_habitual ? 'Si' : 'No' }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Daños materiales
+                                            <a href="{{ route('asegurados-denuncias-paso7.create',['id' => $denuncia->identificador]) }}"
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>
+                                                    Hubo daños materiales:
+                                                    {{ $denuncia->hubo_danios_materiales !== null ? ($denuncia->hubo_danios_materiales ? 'Si' : 'No') : ''}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        @foreach($denuncia->danioMateriales as $danio)
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-12 col-md-6">
+                                                    <p>Detalle de los daños: {{ $danio->detalles }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <p>Nombre y Apellido del Propietario: {{ $danio->propietario_nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Tipo de Documento: {{ $danio->tipoDocumento->nombre }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>N° de Documento: {{ $danio->propietario_documento_numero }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>CP: {{ $danio->propietario_codigo_postal }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Domicilio: {{ $danio->propietario_domicilio }}</p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Lesionados
+                                            <a href="{{ route('asegurados-denuncias-paso8.create',['id' => $denuncia->identificador]) }}"
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>
+                                                    Hubo personas lesionadas:
+                                                    {{ $denuncia->hubo_lesionados !== null ? ($denuncia->hubo_lesionados ? 'Si' : 'No') : ''}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        @foreach($denuncia->lesionados as $lesionado)
+                                            <hr>
+                                            <div class="row">
+                                                    <div class="col-12 col-md-8">
+                                                        <p>Nombre y Apellido: {{ $lesionado->nombre }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Teléfono: {{ $lesionado->telefono }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Tipo de Documento: {{ $lesionado->tipoDocumento->nombre }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>N° de Documento: {{ $lesionado->documento_numero }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>CP: {{ $lesionado->codigo_postal }}</p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>Domicilio: {{ $lesionado->domicilio }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Estado Civil: {{ $lesionado->estado_civil }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Fecha de Nacimiento: {{ $lesionado->fecha_nacimiento ? $lesionado->fecha_nacimiento->format('d/m/Y') : '' }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Relación con el asegurado: {{ $lesionado->relacion }}</p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>Tipo:
+                                                        @switch($lesionado->tipo)
+                                                            @case('conductor')
+                                                                Conductor del vehículo
+                                                                @break
+                                                            @case('pasajero_otro_vehiculo')
+                                                                Pasajero de otro vehículo
+                                                                @break
+                                                            @case('pasajero_vehiculo_asegurado')
+                                                                Pasajero de vehículo asegurado
+                                                                @break
+                                                            @case('peaton')
+                                                                Peatón
+                                                                @break
+                                                        @endswitch
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>Gravedad de Lesiones: {{ $lesionado->gravedad_lesion }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Examen de alcoholemia: {{ $lesionado->alcoholemia ? 'Si' : 'No' }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-8">
+                                                        <p>Se negó: {{ $lesionado->alcoholemia_se_nego ? 'Si' : 'No' }}</p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>Centro Asistencial: {{ $lesionado->centro_asistencial }}</p>
+                                                    </div>
+                                            </div>
+                                        @endforeach
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Datos del denunciante
+                                            <a href="{{ route('asegurados-denuncias-paso12.create',['id' => $denuncia->identificador]) }}"
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
+                                                Editar</a>
+                                        </div>
+
+                                        <div class="row">
                                             <div class="col-12 col-md-8">
                                                 <p>Nombre y
                                                     Apellido: {{ $denuncia->denunciante ? $denuncia->denunciante->nombre : '' }}</p>
@@ -716,9 +1056,10 @@
                                         </div>
 
 
-                                        <div class="row pt-0">
+                                        <div class="row">
                                             <div class="col-12 col-md-4">
-                                                <p>País: Argentina</p>
+                                                <p>
+                                                    País: {{ $denuncia->denunciante ? $denuncia->denunciante->pais->nombre : '' }}</p>
                                             </div>
 
                                             <div class="col-12 col-md-4">
@@ -732,22 +1073,35 @@
                                             </div>
                                         </div>
 
-                                        <div class="row pt-0">
+                                        <div class="row">
                                             <div class="col-12 col-md-4">
-                                                <p>Documento
-                                                    Tipo: {{$denuncia->denunciante ? $denuncia->denunciante->tipoDocumento->nombre : '' }}</p>
+                                                <p>Tipo de
+                                                    Documento: {{$denuncia->denunciante ? $denuncia->denunciante->tipoDocumento->nombre : '' }}</p>
                                             </div>
 
                                             <div class="col-12 col-md-4">
-                                                <p>Documento
-                                                    Número: {{ $denuncia->denunciante ? $denuncia->denunciante->documento_numero : '' }}</p>
+                                                <p>Nro. de
+                                                    Documentos: {{ $denuncia->denunciante ? $denuncia->denunciante->documento_numero : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12 col-md-4">
+                                                <p>Es el
+                                                    asegurado: {{ $denuncia->denunciante ? ($denuncia->denunciante->asegurado ? 'Si' : 'No' ) : '' }}</p>
+                                            </div>
+
+                                            <div class="col-12 col-md-4">
+                                                <p>
+                                                    Relación: {{ $denuncia->denunciante ? $denuncia->denunciante->asegurado_relacion : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Observaciones
                                             <a href="{{ route('panel-siniestros.denuncia.observaciones',['denuncia' => $denuncia]) }}"
-                                               class="badge badge-secondary float-right"><i class="fa-solid fa-pen-to-square"></i>
+                                               class="badge badge-secondary float-right"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
                                                 Agregar</a>
                                         </div>
 
@@ -776,23 +1130,15 @@
                         </div>
 
 
-
-
-
                         <div style="padding-left:8px;padding-right:8px;">
-
-
-
 
 
                             <div style="padding-left:8px;padding-right:8px;">
 
 
-
                                 <div style="padding-left:8px;padding-right:8px;">
 
                                 </div>
-
 
 
                             </div>

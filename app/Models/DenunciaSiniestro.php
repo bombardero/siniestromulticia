@@ -51,6 +51,35 @@ class DenunciaSiniestro extends Model
         "hubo_danios_materiales",
         "hubo_lesionados",
 
+        'tipo_accidente_frontal',
+        'tipo_accidente_posterior',
+        'tipo_accidente_cadena',
+        'tipo_accidente_lateral',
+        'tipo_accidente_vuelco',
+        'tipo_accidente_desplaza',
+        'tipo_accidente_incendio',
+        'tipo_accidente_inmersion',
+        'tipo_accidente_explosion',
+        'tipo_accidente_carga',
+        'tipo_accidente_otros',
+
+        'lugar_autopista',
+        'lugar_calle',
+        'lugar_avenida',
+        'lugar_curva',
+        'lugar_pendiente',
+        'lugar_tunel',
+        'lugar_puente',
+        'lugar_otros',
+
+        'colision_peaton',
+        'colision_vehiculo',
+        'colision_edificio',
+        'colision_columna',
+        'colision_animal',
+        'colision_transporte_publico',
+        'colision_otros',
+
         "denuncia_policial_comisaria",
         "denuncia_policial_acta",
         "denuncia_policial_folio",
@@ -104,6 +133,7 @@ class DenunciaSiniestro extends Model
         'colision_columna' => 'boolean',
         'colision_animal' => 'boolean',
         'colision_transporte_publico' => 'boolean',
+        'colision_otros' => 'boolean',
         'link_enviado' => 'boolean',
     ];
 

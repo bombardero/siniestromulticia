@@ -500,7 +500,7 @@
             </td>
             <td colspan="2">
                 <b>Acta:</b>
-                {{ $denuncia->denuncia_policial_comisaria }}
+                {{ $denuncia->denuncia_policial_acta }}
             </td>
             <td colspan="2">
                 <b>Folio:</b>
@@ -523,7 +523,54 @@
         </tr>
     </table>
 
-    <div class="page-break"></div>
+    <div class="panel panel-default mt-3">
+        <div class="panel-heading">Datos del Accidente</div>
+    </div>
+
+    <table class="table tb-content pb-0">
+        <tr>
+            <td>
+                <b>Tipo de accidente: </b>
+                {{ $denuncia->tipo_accidente_frontal ? 'Frontal. ' : '' }}
+                {{ $denuncia->tipo_accidente_posterior ? 'Posterior. ' : '' }}
+                {{ $denuncia->tipo_accidente_cadena ? 'En cadena. ' : '' }}
+                {{ $denuncia->tipo_accidente_lateral ? 'Lateral. ' : '' }}
+                {{ $denuncia->tipo_accidente_vuelco ? 'Vuelco. ' : '' }}
+                {{ $denuncia->tipo_accidente_desplaza ? 'Desplaza. ' : '' }}
+                {{ $denuncia->tipo_accidente_incendio ? 'Incendio. ' : '' }}
+                {{ $denuncia->tipo_accidente_inmersion ? 'Inmersión. ' : '' }}
+                {{ $denuncia->tipo_accidente_explosion ? 'Explosión. ' : '' }}
+                {{ $denuncia->tipo_accidente_carga ? 'Daños a la carga. ' : '' }}
+                {{ $denuncia->tipo_accidente_otros ? 'Otros. ' : '' }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Lugar: </b>
+                {{ $denuncia->lugar_autopista ? 'En autopista. ' : '' }}
+                {{ $denuncia->lugar_calle ? 'En calle. ' : '' }}
+                {{ $denuncia->lugar_avenida ? 'En avenida. ' : '' }}
+                {{ $denuncia->lugar_curva ? 'En curva. ' : '' }}
+                {{ $denuncia->lugar_pendiente ? 'En pendiente. ' : '' }}
+                {{ $denuncia->lugar_tunel ? 'En túnel. ' : '' }}
+                {{ $denuncia->lugar_puente ? 'Sobre puente. ' : '' }}
+                {{ $denuncia->lugar_otros ? 'Otros. ' : '' }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Colisión con:</b>
+                {{ $denuncia->colision_peaton ? 'Peatón. ' : '' }}
+                {{ $denuncia->colision_vehiculo ? 'Vehículo. ' : '' }}
+                {{ $denuncia->colision_edificio ? 'Edificio. ' : '' }}
+                {{ $denuncia->colision_columna ? 'Columna. ' : '' }}
+                {{ $denuncia->colision_animal ? 'Animal. ' : '' }}
+                {{ $denuncia->colision_transporte_publico ? 'Transporte público. ' : '' }}
+                {{ $denuncia->colision_otros ? 'Otros. ' : '' }}
+            </td>
+        </tr>
+    </table>
+
 
     <div class="panel panel-default mt-3">
         <div class="panel-heading">Documentos</div>

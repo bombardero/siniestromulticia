@@ -37,6 +37,10 @@
     margin-right: -1rem !important;
 }
 
+.card-show-denuncia .card-body hr{
+    border:1px solid lightgray;
+}
+
 /*** floating-labels inicio ***/
 .form-label-group {
     position: relative;
