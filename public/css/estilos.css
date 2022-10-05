@@ -43,12 +43,10 @@
 .table-panel-siniestros{
     white-space: nowrap;
 }
-.table-panel-siniestros thead th {
+.table-panel-siniestros thead th,
+.table-panel-siniestros tbody td{
     font-size: .85rem;
     text-align: center;
-}
-.table-panel-siniestros tbody td{
-    font-size: .8rem;
 }
 
 .table-panel-siniestros .dropdown .dropdown-menu i{
