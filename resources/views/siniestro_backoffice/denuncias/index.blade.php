@@ -133,7 +133,7 @@
 
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-sm table-hover">
+                            <table class="table table-sm table-hover table-panel-siniestros">
 
                                 <thead class="thead tabla-panel">
                                 <tr class="tabla-cabecera ">
@@ -263,26 +263,28 @@
                                             </td>
 
                                             <td>
-
-
-                                                <a href="#" style="color:#3366BB; font-weight: bold; margin-right:8px; "
-                                                   data-toggle="tooltip" data-placement="top" title="Enviar a compañia"><img
-                                                        src="{{url('/images/siniestros/denuncia_asegurado/backoffice/emitir.png')}}"></a>
-
-
-                                                <a href="{{route('panel-siniestros.denuncia.show',$denuncia->id)}}"
-                                                   style="color:#3366BB; font-weight: bold; margin-right:8px; "
-                                                   data-toggle="tooltip" data-placement="top" title="Ver"><img
-                                                        src="{{url('/images/siniestros/denuncia_asegurado/backoffice/ver.png')}}"></a>
-
-                                                <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
-                                                   style="color:#3366BB; font-weight: bold; margin-right:8px; "
-                                                   data-toggle="tooltip" data-placement="top" title="Editar"><img
-                                                        src="{{url('/images/siniestros/denuncia_asegurado/backoffice/editar.png')}}"></a>
-
-                                                <a href="{{route('panel-siniestros.denuncia.delete',$denuncia->id)}}" class="btn-eliminar text-danger" title="Eliminar">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-gear"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a href="#" class="dropdown-item disabled" title="Enviar a compañia">
+                                                            <i class="fa-solid fa-file-export"></i><span>Enviar a compañía</span>
+                                                        </a>
+                                                        <a href="{{route('panel-siniestros.denuncia.show',$denuncia->id)}}"
+                                                           class="dropdown-item" title="Ver">
+                                                            <i class="fa-solid fa-file-lines"></i><span>Ver</span>
+                                                        </a>
+                                                        <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
+                                                           class="dropdown-item" title="Editar">
+                                                            <i class="fa-solid fa-file-pen"></i><span>Editar</span>
+                                                        </a>
+                                                        <a href="{{route('panel-siniestros.denuncia.delete',$denuncia->id)}}"
+                                                           class="dropdown-item btn-eliminar text-danger" title="Eliminar">
+                                                            <i class="fa-solid fa-trash"></i><span>Eliminar</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

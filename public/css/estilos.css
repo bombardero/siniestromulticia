@@ -41,6 +41,10 @@
     border:1px solid lightgray;
 }
 
+.table-panel-siniestros .dropdown .dropdown-menu i{
+    min-width: 30px;
+}
+
 /*** floating-labels inicio ***/
 .form-label-group {
     position: relative;
