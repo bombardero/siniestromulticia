@@ -1,14 +1,5 @@
 <form class="container-fluid" wire:submit.prevent="submit">
 
-    <div class="form-check mt-5">
-        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
-               id="checkTerminosCondiciones">
-        <label class="form-check-label" for="checkTerminosCondiciones">Entiendo que estoy iniciando <b>proceso de
-                reclamo,</b> un primer contacto con la compañía y <b>no califica como Denuncia</b> propiamente dicha.
-        </label>
-        @error('terminos_condiciones') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-    </div>
-
     <div class="row mt-3">
         <div class="col-12 col-md-6">
             <div class="form-group">
@@ -130,6 +121,17 @@
                 <input type="email" class="form-control form-estilo" id="email_confirmation"
                        placeholder="  Repetir email de contacto*" wire:model.defer="email_confirmation">
                 @error('email_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-check mt-3">
+                <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
+                       id="checkTerminosCondiciones">
+                <label class="form-check-label" for="checkTerminosCondiciones">Entiendo que estoy iniciando <b>proceso de
+                        reclamo,</b> un primer contacto con la compañía y <b>no califica como Denuncia</b> propiamente dicha.
+                </label>
+                @error('terminos_condiciones') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
         </div>
 

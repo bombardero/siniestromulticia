@@ -3,15 +3,6 @@
         <p class="col-12 mt-5 datos-asegurado-title">Datos del asegurado</p>
     </div>
 
-    <div class="form-check">
-        <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
-               id="checkTerminosCondiciones">
-        <label class="form-check-label" for="checkTerminosCondiciones">Entiendo que estoy realizando una <b>notificacion
-                para INICIAR el trámite de denuncia,</b> un primer contacto con la compañía y no califica como
-            denuncia propiamente dicha. </label>
-        @error('terminos_condiciones') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
-    </div>
-
     <div class="row mt-3">
         <div class="col-12 col-md-6">
             <div class="form-group">
@@ -155,6 +146,17 @@
                 <input type="email" id="email_confirmation" class="form-control form-estilo"
                        placeholder="Repetir email de contacto" wire:model.defer="email_confirmation">
                 @error('email_confirmation') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
+        <div class="col-12 mt-3">
+            <div class="form-check">
+                <input type="checkbox" wire:model.defer="terminos_condiciones" class="form-check-input"
+                       id="checkTerminosCondiciones">
+                <label class="form-check-label" for="checkTerminosCondiciones">Entiendo que estoy realizando una <b>notificacion
+                        para INICIAR el trámite de denuncia,</b> un primer contacto con la compañía y no califica como
+                    denuncia propiamente dicha. </label>
+                @error('terminos_condiciones') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
             </div>
         </div>
 
