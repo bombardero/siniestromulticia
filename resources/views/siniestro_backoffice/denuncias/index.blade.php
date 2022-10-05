@@ -165,7 +165,7 @@
                                             <td>
                                                 <form action="{{ route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id) }}" class="form-update-denuncia">
                                                     <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control" style="width: 70px" name="value" value="{{ $denuncia->nro_poliza }}">
+                                                        <input type="text" class="form-control" name="value" value="{{ $denuncia->nro_poliza }}">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-outline-secondary" type="submit"
                                                             ><i class="fa-solid fa-rotate"></i></button>
@@ -176,7 +176,7 @@
                                             <td>
                                                 <form action="{{ route('panel-siniestros.denuncia.update.nrodenuncia',$denuncia->id) }}" class="form-update-denuncia">
                                                     <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control" style="width: 70px" name="value" value="{{ $denuncia->nro_denuncia }}">
+                                                        <input type="text" class="form-control" name="value" value="{{ $denuncia->nro_denuncia }}">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-outline-secondary" type="submit"
                                                             ><i class="fa-solid fa-rotate"></i></button>
@@ -187,7 +187,7 @@
                                             <td>
                                                 <form action="{{ route('panel-siniestros.denuncia.update.nrosiniestro',$denuncia->id) }}" class="form-update-denuncia">
                                                     <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control" style="width: 70px" name="value" value="{{ $denuncia->nro_siniestro }}">
+                                                        <input type="text" class="form-control" name="value" value="{{ $denuncia->nro_siniestro }}">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-outline-secondary" type="submit"
                                                             ><i class="fa-solid fa-rotate"></i></button>
