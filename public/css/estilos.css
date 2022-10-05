@@ -40,9 +40,23 @@
 .card-show-denuncia .card-body hr{
     border:1px solid lightgray;
 }
+.table-panel-siniestros{
+    white-space: nowrap;
+}
+.table-panel-siniestros thead th {
+    font-size: .85rem;
+    text-align: center;
+}
+.table-panel-siniestros tbody td{
+    font-size: .8rem;
+}
 
 .table-panel-siniestros .dropdown .dropdown-menu i{
     min-width: 30px;
+}
+
+.table-panel-siniestros td select{
+    min-width: 95px;
 }
 
 /*** floating-labels inicio ***/
@@ -1021,16 +1035,10 @@ a:hover {
 }
 
 .tabla-cabecera {
-
     font-style: normal;
     font-weight: bold;
-    font-size: 12px;
-    line-height: 25px;
-    letter-spacing: -0.02em;
-    text-decoration-line: underline;
+    font-size: .9rem;
     color: #044482;
-
-
 }
 
 .th-padding {

@@ -196,7 +196,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <select name="select" id="estado"
+                                                <select name="select" id="estado" class="form-control form-control-sm"
                                                         onchange="cambiarEstado(this, {{ $denuncia->id  }})">
                                                     <option
                                                         value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>
@@ -225,7 +225,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="select" id="cobertura_activa"
+                                                <select name="select" id="cobertura_activa" class="form-control form-control-sm"
                                                         onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
                                                     <option
                                                         value="" {{( $denuncia->cobertura_activa == null) ? 'selected' : '' }}>
@@ -263,7 +263,7 @@
                                             </td>
 
                                             <td>
-                                                <div class="dropdown">
+                                                <div class="dropdown text-center">
                                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                                         <i class="fa-solid fa-gear"></i>
                                                     </button>
