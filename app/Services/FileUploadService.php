@@ -33,13 +33,7 @@ class FileUploadService
 
     static public function upload($file, $filePath)
     {
-        $filesize = strlen(file_get_contents($file));
-        if($filesize > 50000000 )
-        {
-            throw new Exception("El archivo excede la capacidad máxima (50 mb)", 500);
-        }
-
-        Storage::disk('s3')->put($filePath, file_get_contents($file),'public');
+        Storage::disk('s3')->put($filePath, $file,'public');
         $url = Storage::disk('s3')->url($filePath);
         return $url;
     }

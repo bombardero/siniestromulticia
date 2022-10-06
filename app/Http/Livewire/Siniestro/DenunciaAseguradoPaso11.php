@@ -6,8 +6,10 @@ use App\Models\DenunciaSiniestro;
 use App\Models\DocumentosDenuncia;
 use App\Services\FileUploadService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Image;
 
 class DenunciaAseguradoPaso11 extends Component
 {
@@ -84,9 +86,9 @@ class DenunciaAseguradoPaso11 extends Component
         return redirect()->route("asegurados-denuncias-paso12.create",['id'=> $this->identificador]);
     }
 
-    private function getDocumentoPathAndName($type)
+    private function getDocumentoPathAndName($type, $format = 'jpg')
     {
-        $name = $type.'_'.Carbon::now()->format('Ymd_His');
+        $name = $type.'_'.Carbon::now()->format('Ymd_His').'.'.$format;
         return ['path' => 'denuncia_siniestro/'.$this->denuncia_siniestro->id.'/documentos/'.$name, 'name' => $name];
     }
 
@@ -100,8 +102,17 @@ class DenunciaAseguradoPaso11 extends Component
 
         if($this->denuncia_siniestro->canEdit())
         {
-            $data = $this->getDocumentoPathAndName($type);
-            $url = FileUploadService::upload($file,$data['path']);
+            $format = 'jpg';
+            $data = $this->getDocumentoPathAndName($type, $format);
+
+            $imgFile = Image::make($file);
+
+            if($imgFile->width() > 2100)
+            {
+                $imgFile->widen(2100);
+            }
+
+            $url = FileUploadService::upload($imgFile->stream($format),$data['path']);
 
             $this->denuncia_siniestro->documentosDenuncia()->create([
                 'nombre' => $data['name'],

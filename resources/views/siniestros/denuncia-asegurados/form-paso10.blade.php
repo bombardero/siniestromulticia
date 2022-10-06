@@ -248,7 +248,7 @@
                     <label for="description">Descripción</label>
                     <textarea name="description" id="description" rows="4"
                               placeholder="Ampliar descripcion del siniestro" class="form-control form-estilo"
-                    >{{ $denuncia_siniestro->croquis_descripcion != null ? $denuncia_siniestro->croquis_descripcion : $denuncia_siniestro->descripcion }}</textarea>
+                    >{{ $denuncia_siniestro->croquis_descripcion != null ? $denuncia_siniestro->croquis_descripcion : $denuncia_siniestro->descripcion      }}</textarea>
                 </div>
 
             </div>
