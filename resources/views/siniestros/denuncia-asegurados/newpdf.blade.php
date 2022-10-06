@@ -954,6 +954,16 @@
         </table>
     @endforeach
 
+    @if($denuncia->estado_carga == 12)
+        <table class="table">
+            <tr>
+                <td class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        </table>
+    @endif
+
     <div class="panel panel-default mt-3">
         <div class="panel-heading">Lesionados</div>
     </div>
@@ -1057,16 +1067,6 @@
         </table>
     @endforeach
 
-    @if($denuncia->estado_carga == 12)
-        <table class="table">
-            <tr>
-                <td class="text-right">
-                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
-                </td>
-            </tr>
-        </table>
-    @endif
-
     <div class="panel panel-default mt-3">
         <div class="panel-heading">Detalles del Denunciante</div>
         <table class="table tb-content pb-0">
@@ -1148,6 +1148,16 @@
             </td>
         </tr>
     </table>
+
+    @if($denuncia->estado_carga == 12)
+        <table class="table">
+            <tr>
+                <td class="text-right">
+                    <img class="img-sello" src="{{ asset('images/pdf_sello.png')  }}" alt="">
+                </td>
+            </tr>
+        </table>
+    @endif
 
 </main>
 </body>
