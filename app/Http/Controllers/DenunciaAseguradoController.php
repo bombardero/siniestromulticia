@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use PDF;
+use Image;
 
 class DenunciaAseguradoController extends Controller
 {
@@ -1112,18 +1113,22 @@ class DenunciaAseguradoController extends Controller
         {
             if($request->hasFile('graficoManual'))
             {
-                if($request->file('graficoManual')->getSize() >= 10000000)
-                {
-                    return back()->withErrors(['tamaño_maximo' => 'Maximo 50 MB de archivo! ']);
-                }
-
                 if($denuncia_siniestro->croquis_url)
                 {
                     Storage::disk('s3')->delete($denuncia_siniestro->croquis_path);
                 }
 
-                $filePath = $this->getCroquisPath($denuncia_siniestro);
-                Storage::disk('s3')->put($filePath, fopen($request->file('graficoManual'), 'r+'), 'public');
+                $format = 'jpg';
+                $filePath = $this->getCroquisPath($denuncia_siniestro, $format);
+
+                $imgFile = Image::make($request->file('graficoManual'));
+
+                if($imgFile->width() > 2100)
+                {
+                    $imgFile->widen(2100);
+                }
+
+                Storage::disk('s3')->put($filePath, $imgFile->stream($format), 'public');
                 $url = Storage::disk('s3')->url($filePath);
 
                 if($url)
@@ -1179,6 +1184,8 @@ class DenunciaAseguradoController extends Controller
                 Storage::disk('s3')->delete($denuncia->croquis_path);
             }
 
+
+
             $filePath = $this->getCroquisPath($denuncia);
             Storage::disk('s3')->put($filePath, file_get_contents($request->croquis),'public');
             $url = Storage::disk('s3')->url($filePath);
@@ -1194,9 +1201,9 @@ class DenunciaAseguradoController extends Controller
         return response()->json([ 'status' => true]);
     }
 
-    private function getCroquisPath(DenunciaSiniestro $denuncia)
+    private function getCroquisPath(DenunciaSiniestro $denuncia, $format = 'jpg')
     {
-        return 'denuncia_siniestro/'.$denuncia->id.'/croquis_'.Carbon::now()->format('Ymd_His');
+        return 'denuncia_siniestro/'.$denuncia->id.'/croquis_'.Carbon::now()->format('Ymd_His').'.'.$format;
     }
 
     public function uploadGrafico($request)
