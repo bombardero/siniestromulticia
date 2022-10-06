@@ -279,6 +279,10 @@
                                                            class="dropdown-item" title="Editar">
                                                             <i class="fa-solid fa-file-pen"></i><span>Editar</span>
                                                         </a>
+                                                        <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
+                                                           class="dropdown-item" title="Descargar" target="_blank">
+                                                            <i class="fa-solid fa-file-pdf"></i><span>Descargar</span>
+                                                        </a>
                                                         <a href="{{route('panel-siniestros.denuncia.delete',$denuncia->id)}}"
                                                            class="dropdown-item btn-eliminar text-danger" title="Eliminar">
                                                             <i class="fa-solid fa-trash"></i><span>Eliminar</span>

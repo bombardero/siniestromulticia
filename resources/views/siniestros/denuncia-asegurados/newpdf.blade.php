@@ -149,17 +149,17 @@
                 <tr>
                     <td class="">
                         <b>País: </b>
-                        {{ $denuncia->pais->nombre }}
+                        {{ $denuncia->pais ? $denuncia->pais->nombre : '' }}
                     </td>
                     <td>
                         <b>Provincia: </b>
-                        {{ $denuncia->provincia->name }}
+                        {{ $denuncia->provincia ? $denuncia->provincia->name : '' }}
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <b>Localidad: </b>
-                        {{ $denuncia->localidad->name }}
+                        {{ $denuncia->localidad ? $denuncia->localidad->name : '' }}
                     </td>
                 </tr>
             @endif
@@ -248,15 +248,15 @@
                 <tr>
                     <td>
                         <b>País: </b>
-                        {{ $denuncia->conductor ? $denuncia->conductor->pais->nombre : '' }}
+                        {{ $denuncia->conductor && $denuncia->conductor->pais ? $denuncia->conductor->pais->nombre : '' }}
                     </td>
                     <td>
                         <b>Provincia: </b>
-                        {{ $denuncia->conductor ? $denuncia->conductor->provincia->name : '' }}
+                        {{ $denuncia->conductor && $denuncia->conductor->provincia ? $denuncia->conductor->provincia->name : '' }}
                     </td>
                     <td>
                         <b>Localidad: </b>
-                        {{ $denuncia->conductor ? $denuncia->conductor->localidad->name : '' }}
+                        {{ $denuncia->conductor && $denuncia->conductor->localidad ? $denuncia->conductor->localidad->name : '' }}
                     </td>
                 </tr>
             @endif
@@ -373,15 +373,15 @@
                 <tr>
                     <td>
                         <b>País: </b>
-                        {{ $denuncia->asegurado ? $denuncia->asegurado->pais->nombre : '' }}
+                        {{ $denuncia->asegurado && $denuncia->asegurado->pais ? $denuncia->asegurado->pais->nombre : '' }}
                     </td>
                     <td>
                         <b>Provincia: </b>
-                        {{ $denuncia->asegurado ? $denuncia->asegurado->provincia->name : '' }}
+                        {{ $denuncia->asegurado && $denuncia->asegurado->provincia ? $denuncia->asegurado->provincia->name : '' }}
                     </td>
                     <td>
                         <b>Localidad: </b>
-                        {{ $denuncia->asegurado ? $denuncia->asegurado->localidad->name : '' }}
+                        {{ $denuncia->asegurado && $denuncia->asegurado->localidad ? $denuncia->asegurado->localidad->name : '' }}
                     </td>
                 </tr>
             @endif
@@ -1101,15 +1101,15 @@
                 <tr>
                     <td colspan="4">
                         <b>País: </b>
-                        {{ $denuncia->denunciante ? $denuncia->denunciante->pais->nombre : '' }}
+                        {{ $denuncia->denunciante && $denuncia->denunciante->pais ? $denuncia->denunciante->pais->nombre : '' }}
                     </td>
                     <td colspan="4">
                         <b>Provincia: </b>
-                        {{ $denuncia->denunciante ? $denuncia->denunciante->provincia->name : '' }}
+                        {{ $denuncia->denunciante && $denuncia->denunciante->provincia ? $denuncia->denunciante->provincia->name : '' }}
                     </td>
                     <td colspan="4">
                         <b>Localidad: </b>
-                        {{ $denuncia->denunciante ? $denuncia->denunciante->localidad->name : '' }}
+                        {{ $denuncia->denunciante && $denuncia->denunciante->localidad ? $denuncia->denunciante->localidad->name : '' }}
                     </td>
                 </tr>
             @endif
