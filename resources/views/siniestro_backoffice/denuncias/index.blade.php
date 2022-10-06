@@ -264,7 +264,7 @@
 
                                             <td>
                                                 <div class="dropdown text-center">
-                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-expanded="false">
                                                         <i class="fa-solid fa-gear"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
@@ -432,6 +432,7 @@
     function buscar() {
         document.getElementById("buscador").submit();
     }
+    
 </script>
 
 @endsection
