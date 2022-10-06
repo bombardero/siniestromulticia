@@ -168,7 +168,7 @@ class DenunciaAseguradoController extends Controller
 
         //return view('siniestros.denuncia-asegurados.newpdf', $data);
         //return $pdf->stream();
-        return $pdf->download('denuncia.pdf');
+        return $pdf->download('denuncia_'.$denuncia->dominio_vehiculo_asegurado.'.pdf');
     }
 
     public function paso1create(Request $request)
