@@ -96,7 +96,7 @@
                 <div class="form-group">
                     <label for="vehiculo_dominio">Dominio *</label>
                     <input type="text" id="vehiculo_dominio" name="vehiculo_dominio"
-                           class="form-control form-estilo @error('vehiculo_dominio') is-invalid @enderror"
+                           class="form-control form-estilo text-uppercase @error('vehiculo_dominio') is-invalid @enderror"
                            value="{{ old('vehiculo_dominio') ? old('vehiculo_dominio') : ($denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->dominio : $denuncia_siniestro->dominio_vehiculo_asegurado) }}">
                     @error('vehiculo_dominio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -287,6 +287,31 @@
                         })
                 }
             });
+
+            IMask(
+                document.getElementById('vehiculo_dominio'),
+                {
+                    mask: [
+                        {
+                            mask: 'aaa000'
+                        },
+                        {
+                            mask: '000aaa'
+                        },
+                        {
+                            mask: 'aa000aa'
+                        },
+                        {
+                            mask: 'a000aaa'
+                        }
+                    ]
+                });
+
+            IMask(
+                document.getElementById('vehiculo_anio'),
+                {
+                    mask: '0000'
+                });
 
         });
     </script>

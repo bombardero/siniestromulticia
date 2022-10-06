@@ -65,7 +65,7 @@ class FormTerceros extends Component
         $data = [
                 'numero_denuncia' => $this->numero_denuncia ? $this->numero_denuncia : 'Sin dato registrado',
                 'email' => $this->email,
-                'dominio' => $this->dominio ? $this->dominio : 'Sin dato registrado',
+                'dominio' => $this->dominio != null ? strtoupper($this->dominio) : 'Sin dato registrado',
                 'dominio_asegurado' => $this->dominio_asegurado,
                 'lugar_siniestro' => $this->lugar_siniestro,
                 'fecha_siniestro' => $this->fecha_siniestro,

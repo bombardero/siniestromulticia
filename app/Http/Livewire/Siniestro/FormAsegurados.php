@@ -66,7 +66,7 @@ class FormAsegurados extends Component
         $data = [
                 'domicilio' => $this->domicilio,
                 'email' => $this->email,
-                'dominio' => $this->dominio ? $this->dominio : 'Sin dato registrado',
+                'dominio' => strtoupper($this->dominio),
                 'codigo_postal' => $this->codigo_postal,
                 'lugar_siniestro' => $this->lugar_siniestro,
                 'fecha_siniestro' => $this->fecha,
@@ -81,7 +81,7 @@ class FormAsegurados extends Component
         DenunciaSiniestro::create([
             "estado_carga" => 'precarga',
             "identificador" => Str::uuid(),
-            "dominio_vehiculo_asegurado" => $this->dominio ? $this->dominio : 'Sin dato registrado',
+            "dominio_vehiculo_asegurado" => strtoupper($this->dominio),
             "fecha" => $this->fecha,
             "hora" => $this->hora,
             "lugar_nombre" => $this->lugar_siniestro,

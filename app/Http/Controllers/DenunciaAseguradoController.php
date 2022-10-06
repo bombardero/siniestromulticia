@@ -516,7 +516,7 @@ class DenunciaAseguradoController extends Controller
                     "otro_modelo" => $request->modelo,
                     "tipo" => $request->vehiculo_tipo,
                     "anio" => $request->vehiculo_anio,
-                    "dominio" => $request->vehiculo_dominio,
+                    "dominio" => strtoupper($request->vehiculo_dominio),
                     "motor" => $request->vehiculo_motor,
                     "chasis" => $request->vehiculo_chasis,
                     "uso_particular" => $request->vehiculo_particular  == 'on',
@@ -537,7 +537,7 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->vehiculo->otro_modelo = $request->modelo;
                 $denuncia_siniestro->vehiculo->tipo = $request->vehiculo_tipo;
                 $denuncia_siniestro->vehiculo->anio = $request->vehiculo_anio;
-                $denuncia_siniestro->vehiculo->dominio = $request->vehiculo_dominio;
+                $denuncia_siniestro->vehiculo->dominio = strtoupper($request->vehiculo_dominio);
                 $denuncia_siniestro->vehiculo->motor = $request->vehiculo_motor;
                 $denuncia_siniestro->vehiculo->chasis = $request->vehiculo_chasis;
                 $denuncia_siniestro->vehiculo->uso_particular = $request->vehiculo_particular == 'on';
@@ -553,11 +553,13 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->vehiculo->save();
             }
 
+            $denuncia_siniestro->dominio_vehiculo_asegurado = strtoupper($request->vehiculo_dominio);
+
             if($denuncia_siniestro->estado_carga == "4")
             {
                 $denuncia_siniestro->estado_carga = '5';
-                $denuncia_siniestro->save();
             }
+            $denuncia_siniestro->save();
         }
 
         return redirect()->route("asegurados-denuncias-paso6.create",['id'=> $request->id]);
