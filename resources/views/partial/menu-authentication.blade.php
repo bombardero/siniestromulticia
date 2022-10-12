@@ -4,7 +4,7 @@
     </button>
     <div class="dropdown-menu">
         @guest
-            <a class="dropdown-item" href="{{ route('login',['state' => 'cliente']) }}">Iniciar sesión</a>
+            <a class="dropdown-item" href="{{ route('login') }}">Iniciar sesión</a>
         @else
             <h6 class="dropdown-header"><i class="fa-solid fa-user"></i> {{ Auth::user()->name }}</h6>
             @if(Auth::user()->hasRole('cliente') || Auth::user()->hasRole('inmobiliaria'))
