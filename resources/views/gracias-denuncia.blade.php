@@ -22,7 +22,7 @@
                     </p>
                     @endif
                     <p class="pr-md-5 pl-md-5 pt-2 solicitud-enviada-subtitulo">
-                        Hemos enviado tu trámite. En breve te estarán contactando.
+                        Hemos enviado tu trámite. Ante cualquier consulta puedes comunicarte al 0810 362 0700.
                     </p>
 
                 </div>

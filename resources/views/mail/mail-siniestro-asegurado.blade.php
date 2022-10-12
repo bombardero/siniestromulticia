@@ -89,6 +89,6 @@
         <p style="padding-bottom: 10px;" class="campos">{{$data['telefono']}}</p>
     </div>
     <p style="padding-top:5px;" class="recibido"><b>Estamos evaluando ésta información.</b></p>
-    <p style="padding-top:10px;" class="recibido">Tan pronto como podamos te enviaremos un email con la documentación (formularios, requisitos e indicaciones a seguir) para realizar la denuncia efectiva</p>
+    <p style="padding-top:10px;" class="recibido">Tan pronto como podamos te contactaremos por whatsapp o email para enviarte el enlace para iniciar la denuncia efectiva.</p>
     <p class="recibido" style="padding-top:20px;">Equipo de Siniestros de Finisterre Seguros</p>
 @endcomponent
