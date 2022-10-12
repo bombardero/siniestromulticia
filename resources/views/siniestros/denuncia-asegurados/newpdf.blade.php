@@ -127,6 +127,11 @@
                 {{ $denuncia->estado_tiempo_otros_detalles }}
             </td>
         </tr>
+        <tr>
+            <td>
+                <b>Fecha de aviso de Denuncia: </b>{{ $denuncia->created_at->format('d/m/Y') }}
+            </td>
+        </tr>
     </table>
 
     <div class="panel panel-default mt-3">

@@ -171,66 +171,67 @@ Route::get('/callcenter/{cotizacion}', [CallCenterController::class,'show'])->na
 Route::get('siniestros/asegurados', [AseguradoController::class,'index'])->name('asegurado.index');
 Route::get('siniestros/terceros', [TerceroController::class,'index'])->name('tercero.index');
 
-Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => 'asegurados/denuncias'], function () {
-    Route::get('paso-1',[DenunciaAseguradoController::class,'paso1create'])->name('asegurados-denuncias-paso1.create')->middleware('canEditDenuncia');
-    Route::post('paso-1',[DenunciaAseguradoController::class,'paso1store'])->name('asegurados-denuncias-paso1.store')->middleware('canEditDenuncia');
+Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () {
+    Route::get('paso-1',[DenunciaAseguradoController::class,'paso1create'])->name('asegurados-denuncias-paso1.create');
+    Route::post('paso-1',[DenunciaAseguradoController::class,'paso1store'])->name('asegurados-denuncias-paso1.store');
 
-    Route::get('paso-2',[DenunciaAseguradoController::class,'paso2create'])->name('asegurados-denuncias-paso2.create')->middleware('canEditDenuncia');
-    Route::post('paso-2',[DenunciaAseguradoController::class,'paso2store'])->name('asegurados-denuncias-paso2.store')->middleware('canEditDenuncia');
+    Route::get('paso-2',[DenunciaAseguradoController::class,'paso2create'])->name('asegurados-denuncias-paso2.create');
+    Route::post('paso-2',[DenunciaAseguradoController::class,'paso2store'])->name('asegurados-denuncias-paso2.store');
 
-    Route::get('paso-3',[DenunciaAseguradoController::class,'paso3create'])->name('asegurados-denuncias-paso3.create')->middleware('canEditDenuncia');
-    Route::post('paso-3',[DenunciaAseguradoController::class,'paso3store'])->name('asegurados-denuncias-paso3.store')->middleware('canEditDenuncia');
+    Route::get('paso-3',[DenunciaAseguradoController::class,'paso3create'])->name('asegurados-denuncias-paso3.create');
+    Route::post('paso-3',[DenunciaAseguradoController::class,'paso3store'])->name('asegurados-denuncias-paso3.store');
 
-    Route::get('paso-4',[DenunciaAseguradoController::class,'paso4create'])->name('asegurados-denuncias-paso4.create')->middleware('canEditDenuncia');
-    Route::post('paso-4',[DenunciaAseguradoController::class,'paso4store'])->name('asegurados-denuncias-paso4.store')->middleware('canEditDenuncia');
+    Route::get('paso-4',[DenunciaAseguradoController::class,'paso4create'])->name('asegurados-denuncias-paso4.create');
+    Route::post('paso-4',[DenunciaAseguradoController::class,'paso4store'])->name('asegurados-denuncias-paso4.store');
 
-    Route::get('paso-5',[DenunciaAseguradoController::class,'paso5create'])->name('asegurados-denuncias-paso5.create')->middleware('canEditDenuncia');
-    Route::post('paso-5',[DenunciaAseguradoController::class,'paso5store'])->name('asegurados-denuncias-paso5.store')->middleware('canEditDenuncia');
+    Route::get('paso-5',[DenunciaAseguradoController::class,'paso5create'])->name('asegurados-denuncias-paso5.create');
+    Route::post('paso-5',[DenunciaAseguradoController::class,'paso5store'])->name('asegurados-denuncias-paso5.store');
 
-    Route::get('paso-6',[DenunciaAseguradoController::class,'paso6create'])->name('asegurados-denuncias-paso6.create')->middleware('canEditDenuncia');
-    Route::post('paso-6',[DenunciaAseguradoController::class,'paso6store'])->name('asegurados-denuncias-paso6.store')->middleware('canEditDenuncia');
+    Route::get('paso-6',[DenunciaAseguradoController::class,'paso6create'])->name('asegurados-denuncias-paso6.create');
+    Route::post('paso-6',[DenunciaAseguradoController::class,'paso6store'])->name('asegurados-denuncias-paso6.store');
 
-    Route::get('paso-6/agregar',[DenunciaAseguradoController::class,'paso6agregarcreate'])->name('asegurados-denuncias-paso6agregar.create')->middleware('canEditDenuncia');
-    Route::post('paso-6/agregar',[DenunciaAseguradoController::class,'paso6agregarstore'])->name('asegurados-denuncias-paso6agregar.store')->middleware('canEditDenuncia');
+    Route::get('paso-6/agregar',[DenunciaAseguradoController::class,'paso6agregarcreate'])->name('asegurados-denuncias-paso6agregar.create');
+    Route::post('paso-6/agregar',[DenunciaAseguradoController::class,'paso6agregarstore'])->name('asegurados-denuncias-paso6agregar.store');
 
-    Route::get('paso-6/editar',[DenunciaAseguradoController::class,'paso6edit'])->name('asegurados-denuncias-paso6.edit')->middleware('canEditDenuncia');
-    Route::post('paso-6/editar',[DenunciaAseguradoController::class,'paso6update'])->name('asegurados-denuncias-paso6.update')->middleware('canEditDenuncia');
-    Route::get('paso-6/delete',[DenunciaAseguradoController::class,'paso6DeleteItem'])->name('asegurados-denuncias-paso6.deleteItem')->middleware('canEditDenuncia');
+    Route::get('paso-6/editar',[DenunciaAseguradoController::class,'paso6edit'])->name('asegurados-denuncias-paso6.edit');
+    Route::post('paso-6/editar',[DenunciaAseguradoController::class,'paso6update'])->name('asegurados-denuncias-paso6.update');
+    Route::get('paso-6/delete',[DenunciaAseguradoController::class,'paso6DeleteItem'])->name('asegurados-denuncias-paso6.deleteItem');
 
-    Route::get('paso-7',[DenunciaAseguradoController::class,'paso7create'])->name('asegurados-denuncias-paso7.create')->middleware('canEditDenuncia');
-    Route::post('paso-7',[DenunciaAseguradoController::class,'paso7store'])->name('asegurados-denuncias-paso7.store')->middleware('canEditDenuncia');
+    Route::get('paso-7',[DenunciaAseguradoController::class,'paso7create'])->name('asegurados-denuncias-paso7.create');
+    Route::post('paso-7',[DenunciaAseguradoController::class,'paso7store'])->name('asegurados-denuncias-paso7.store');
 
-    Route::get('paso-7/agregar',[DenunciaAseguradoController::class,'paso7agregarcreate'])->name('asegurados-denuncias-paso7agregar.create')->middleware('canEditDenuncia');
-    Route::post('paso-7/agregar',[DenunciaAseguradoController::class,'paso7agregarstore'])->name('asegurados-denuncias-paso7agregar.store')->middleware('canEditDenuncia');
+    Route::get('paso-7/agregar',[DenunciaAseguradoController::class,'paso7agregarcreate'])->name('asegurados-denuncias-paso7agregar.create');
+    Route::post('paso-7/agregar',[DenunciaAseguradoController::class,'paso7agregarstore'])->name('asegurados-denuncias-paso7agregar.store');
 
-    Route::get('paso-7/editar',[DenunciaAseguradoController::class,'paso7edit'])->name('asegurados-denuncias-paso7.edit')->middleware('canEditDenuncia');
-    Route::post('paso-7/editar',[DenunciaAseguradoController::class,'paso7update'])->name('asegurados-denuncias-paso7.update')->middleware('canEditDenuncia');
-    Route::get('paso-7/delete',[DenunciaAseguradoController::class,'paso7DeleteItem'])->name('asegurados-denuncias-paso7.deleteItem')->middleware('canEditDenuncia');
+    Route::get('paso-7/editar',[DenunciaAseguradoController::class,'paso7edit'])->name('asegurados-denuncias-paso7.edit');
+    Route::post('paso-7/editar',[DenunciaAseguradoController::class,'paso7update'])->name('asegurados-denuncias-paso7.update');
+    Route::get('paso-7/delete',[DenunciaAseguradoController::class,'paso7DeleteItem'])->name('asegurados-denuncias-paso7.deleteItem');
 
-    Route::get('paso-8',[DenunciaAseguradoController::class,'paso8create'])->name('asegurados-denuncias-paso8.create')->middleware('canEditDenuncia');
-    Route::post('paso-8',[DenunciaAseguradoController::class,'paso8store'])->name('asegurados-denuncias-paso8.store')->middleware('canEditDenuncia');
+    Route::get('paso-8',[DenunciaAseguradoController::class,'paso8create'])->name('asegurados-denuncias-paso8.create');
+    Route::post('paso-8',[DenunciaAseguradoController::class,'paso8store'])->name('asegurados-denuncias-paso8.store');
 
-    Route::get('paso-8/agregar',[DenunciaAseguradoController::class,'paso8agregarcreate'])->name('asegurados-denuncias-paso8agregar.create')->middleware('canEditDenuncia');
-    Route::post('paso-8/agregar',[DenunciaAseguradoController::class,'paso8agregarstore'])->name('asegurados-denuncias-paso8agregar.store')->middleware('canEditDenuncia');
+    Route::get('paso-8/agregar',[DenunciaAseguradoController::class,'paso8agregarcreate'])->name('asegurados-denuncias-paso8agregar.create');
+    Route::post('paso-8/agregar',[DenunciaAseguradoController::class,'paso8agregarstore'])->name('asegurados-denuncias-paso8agregar.store');
 
-    Route::get('paso-8/editar',[DenunciaAseguradoController::class,'paso8edit'])->name('asegurados-denuncias-paso8.edit')->middleware('canEditDenuncia');
-    Route::post('paso-8/editar',[DenunciaAseguradoController::class,'paso8update'])->name('asegurados-denuncias-paso8.update')->middleware('canEditDenuncia');
-    Route::get('paso-8/delete',[DenunciaAseguradoController::class,'paso8DeleteItem'])->name('asegurados-denuncias-paso8.deleteItem')->middleware('canEditDenuncia');
+    Route::get('paso-8/editar',[DenunciaAseguradoController::class,'paso8edit'])->name('asegurados-denuncias-paso8.edit');
+    Route::post('paso-8/editar',[DenunciaAseguradoController::class,'paso8update'])->name('asegurados-denuncias-paso8.update');
+    Route::get('paso-8/delete',[DenunciaAseguradoController::class,'paso8DeleteItem'])->name('asegurados-denuncias-paso8.deleteItem');
 
-    Route::get('paso-9',[DenunciaAseguradoController::class,'paso9create'])->name('asegurados-denuncias-paso9.create')->middleware('canEditDenuncia');
-    Route::post('paso-9',[DenunciaAseguradoController::class,'paso9store'])->name('asegurados-denuncias-paso9.store')->middleware('canEditDenuncia');
+    Route::get('paso-9',[DenunciaAseguradoController::class,'paso9create'])->name('asegurados-denuncias-paso9.create');
+    Route::post('paso-9',[DenunciaAseguradoController::class,'paso9store'])->name('asegurados-denuncias-paso9.store');
 
-    Route::get('paso-10',[DenunciaAseguradoController::class,'paso10create'])->name('asegurados-denuncias-paso10.create')->middleware('canEditDenuncia');
-    Route::post('paso-10',[DenunciaAseguradoController::class,'paso10store'])->name('asegurados-denuncias-paso10.store')->middleware('canEditDenuncia');
+    Route::get('paso-10',[DenunciaAseguradoController::class,'paso10create'])->name('asegurados-denuncias-paso10.create');
+    Route::post('paso-10',[DenunciaAseguradoController::class,'paso10store'])->name('asegurados-denuncias-paso10.store');
 
-    Route::get('paso-11',[DenunciaAseguradoController::class,'paso11create'])->name('asegurados-denuncias-paso11.create')->middleware('canEditDenuncia');
+    Route::get('paso-11',[DenunciaAseguradoController::class,'paso11create'])->name('asegurados-denuncias-paso11.create');
 
-    Route::get('paso-12',[DenunciaAseguradoController::class,'paso12create'])->name('asegurados-denuncias-paso12.create')->middleware('canEditDenuncia');
-    Route::post('paso-12',[DenunciaAseguradoController::class,'paso12store'])->name('asegurados-denuncias-paso12.store')->middleware('canEditDenuncia');
+    Route::get('paso-12',[DenunciaAseguradoController::class,'paso12create'])->name('asegurados-denuncias-paso12.create');
+    Route::post('paso-12',[DenunciaAseguradoController::class,'paso12store'])->name('asegurados-denuncias-paso12.store');
 
-    Route::post('croquis/', [DenunciaAseguradoController::class,'storeCroquis'])->name('asegurados-denuncias.storeCroquis')->middleware('canEditDenuncia');
-    Route::get('{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
+    Route::post('croquis/', [DenunciaAseguradoController::class,'storeCroquis'])->name('asegurados-denuncias.storeCroquis');
 });
+
+Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
 
 
 Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-siniestros'], function () {
