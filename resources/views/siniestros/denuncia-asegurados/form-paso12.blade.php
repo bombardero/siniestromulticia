@@ -49,7 +49,7 @@
                     <input type="text" id='asegurado_relacion' name="asegurado_relacion"
                            class="form-control form-estilo @error('asegurado_relacion') is-invalid @enderror"
                            value="{{$denuncia_siniestro->denunciante ? $denuncia_siniestro->denunciante->asegurado_relacion : '' }}"
-                           {{ old('asegurado') == '0' || ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado === false) ? '' : 'disabled'}}>
+                           {{ old('asegurado') == '1' || ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->asegurado) ? 'disabled' : '' }}>
                     @error('asegurado_relacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>

@@ -1279,7 +1279,7 @@ class DenunciaAseguradoController extends Controller
             'asegurado_relacion'=>'required_if:asegurado,0',
             'nombre'=>'required_if:asegurado,0',
             'telefono'=>'required_if:asegurado,0',
-            'pais' => 'required',
+            'pais' => 'required_if:asegurado,0',
             'otro_pais_provincia_localidad'=>'required_if:pais,otro',
             'domicilio'=>'required_if:asegurado,0',
             'codigo_postal'=> 'required_if:asegurado,0',
