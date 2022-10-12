@@ -226,6 +226,7 @@
             $('select[name="tipo_documento_id"]').prop('disabled', true);
             $('input[name="documento_numero"]').prop('disabled', true);
             $('input[name="telefono"]').prop('disabled', true);
+            $('select[name="pais"]').prop('disabled', true);
             $('select[name="provincia_id"]').prop('disabled', true);
             $('select[name="localidad_id"]').prop('disabled', true);
             $('input[name="domicilio"]').prop('disabled', true);
@@ -240,6 +241,7 @@
             $('select[name="tipo_documento_id"]').prop('disabled', false);
             $('input[name="documento_numero"]').prop('disabled', false);
             $('input[name="telefono"]').prop('disabled', false);
+            $('select[name="pais"]').prop('disabled', false);
             $('select[name="provincia_id"]').prop('disabled', false);
             $('select[name="localidad_id"]').prop('disabled', false);
             $('input[name="domicilio"]').prop('disabled', false);

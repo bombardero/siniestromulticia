@@ -432,7 +432,7 @@
     function buscar() {
         document.getElementById("buscador").submit();
     }
-    
+
 </script>
 
 @endsection
