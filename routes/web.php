@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Admin\AnexosPolizasAutomotorController;
 use App\Http\Controllers\Admin\DocumentosAnexosController;
 use App\Http\Controllers\Admin\ManualSuscripcionAutoController;
@@ -9,17 +10,19 @@ use App\Http\Controllers\CallCenterController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CotizaVehiculoController;
+use App\Http\Controllers\DenunciaAseguradoController;
 use App\Http\Controllers\FormularioProductorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InmobiliariaController;
 use App\Http\Controllers\OperarioController;
-use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PrecioEstimativoController;
 use App\Http\Controllers\ProductorController;
 use App\Http\Controllers\SepelioController;
 use App\Http\Controllers\SiniestroController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Http\Controllers\TerceroController;
 use App\Http\Livewire\Admin\PanelAdmin;
 use App\Http\Livewire\Auditoria;
@@ -28,9 +31,8 @@ use App\Http\Livewire\PanelOperario;
 use App\Http\Livewire\Sepelio\FormSepelio;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DenunciaAseguradoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -249,4 +251,9 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro')->middleware('check.siniestro');
     Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado')->middleware('check.siniestro');
     Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field')->middleware('check.siniestro');
+});
+
+Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin'], function () {
+    Route::get('/', [SuperAdminController::class,'index'])->name('admin.index');
+    Route::get('/usuarios', [\App\Http\Controllers\SuperAdmin\UserController::class,'index'])->name('admin.users.index');
 });

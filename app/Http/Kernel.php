@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'check.operario' => \App\Http\Middleware\CheckOperario::class,
         'check.callcenter' => CheckCallCenter::class,
         'check.siniestro' => \App\Http\Middleware\CheckSiniestro::class,
+        'check.superadmin' => \App\Http\Middleware\CheckSuperAdmin::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

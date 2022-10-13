@@ -24,6 +24,8 @@
                 <a class="dropdown-item" href="{{ route('panel-admin')}}">Panel administrador</a>
             @elseif(Auth::user()->hasRole('siniestros'))
                 <a class="dropdown-item" href="{{ route('panel-siniestros')}}">Panel Siniestros</a>
+            @elseif(Auth::user()->hasRole('superadmin'))
+                <a class="dropdown-item" href="{{ route('admin.index')}}">Panel Super Admin</a>
             @endif
 
             <div class="dropdown-divider"></div>

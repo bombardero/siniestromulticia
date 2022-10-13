@@ -34,7 +34,7 @@ class LoginController extends Controller
      * @var string
      */
 
-     
+
 
     /**
      * Create a new controller instance.
@@ -47,36 +47,36 @@ class LoginController extends Controller
     }
     protected function redirectPath()
     {
-        if (Auth::user()->hasRole('cliente') || Auth::user()->hasRole('inmobiliaria')) 
+        if (Auth::user()->hasRole('cliente') || Auth::user()->hasRole('inmobiliaria'))
         {
             return route('panel',['user' => Auth::user()]);
         }
         elseif(Auth::user()->hasRole('operario'))
         {
              return route('panel-operario');
-        } 
-        elseif(Auth::user()->hasRole('productor')) 
+        }
+        elseif(Auth::user()->hasRole('productor'))
         {
            return route('panel-productor',Auth::user());
         }
-        elseif(Auth::user()->hasRole('admin')) 
+        elseif(Auth::user()->hasRole('admin'))
         {
             return route('panel-admin');
         }
         elseif(Auth::user()->hasRole('callcenter'))
         {
-            return route('panel-callcenter');   
+            return route('panel-callcenter');
         }
         elseif(Auth::user()->hasRole('siniestros'))
         {
             return route('panel-siniestros');
         }
     }
-    
+
     public function provider(Request $request, $provider)
-    
+
     {
-     
+
        // return Socialite::driver($provider)->redirectUrl('http://localhost:8000/login/'.$provider.'/redirect?value=' .$request->value)->redirect();
         return Socialite::driver($provider)->redirectUrl('https://finisterre.com.ar/login/'.urlencode($provider).'/redirect')->with(["access_type" => "offline", "state" => $request->state])->redirect();
 
@@ -105,6 +105,14 @@ class LoginController extends Controller
             {
                 return redirect()->route('panel-productor');
             }
+            elseif(Auth::user()->hasRole('siniestros'))
+            {
+                return redirect()->route('panel-siniestros');
+            }
+            elseif(Auth::user()->hasRole('superadmin'))
+            {
+                return redirect()->route('admin.index');
+            }
             //SI no funciona sacar el if y el elseif)
 
         }
@@ -113,8 +121,8 @@ class LoginController extends Controller
 
             return redirect()->route('register',[
                 'state' => 'cliente',
-                'name' => $userProvider->name, 
-                'email' => $userProvider->email, 
+                'name' => $userProvider->name,
+                'email' => $userProvider->email,
                 'provinces' => $provinces
                 ]);
             // ->with(['name' => $userProvider->name, 'email' => $userProvider->email, 'state' => $request->state, 'provinces' => $provinces]);
@@ -128,5 +136,5 @@ class LoginController extends Controller
         }
     }
 
-  
+
 }
