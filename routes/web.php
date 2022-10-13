@@ -253,7 +253,8 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field')->middleware('check.siniestro');
 });
 
-Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin'], function () {
-    Route::get('/', [SuperAdminController::class,'index'])->name('admin.index');
-    Route::get('/usuarios', [\App\Http\Controllers\SuperAdmin\UserController::class,'index'])->name('admin.users.index');
+Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/', [SuperAdminController::class,'index'])->name('index');
+    //Route::get('/usuarios', [\App\Http\Controllers\SuperAdmin\UserController::class,'index'])->name('admin.users.index');
+    Route::resource('users', \App\Http\Controllers\SuperAdmin\UserController::class);
 });
