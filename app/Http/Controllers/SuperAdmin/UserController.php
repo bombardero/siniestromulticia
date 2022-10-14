@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -60,7 +61,8 @@ class UserController extends Controller
             'codigo_postal' => 'required',
             'province_id' => 'required|exists:provinces,id',
             'city_id' => 'required|exists:cities,id',
-            'role' => 'required|exists:roles,name',
+            'roles' => 'required|array',
+            'role.*' => 'required|exists:roles,name',
         ];
         Validator::make($request->all(),$rules)->validate();
 
@@ -75,7 +77,10 @@ class UserController extends Controller
             'city_id' => $request->city_id,
         ]);
 
-        $user->assignRole($request->role);
+        foreach ($request->roles as $role)
+        {
+            $user->assignRole($role);
+        }
 
         return redirect()->route('admin.users.index');
     }
@@ -99,7 +104,17 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $provincias = Province::all();
+        $province_id = old('province_id') ? old('province_id') : $user->province_id;
+        $localidades = City::where('province_id', $province_id)->orderBy('name')->get();
+        $roles = Role::all();
+
+        return view('super-admin.users.edit', [
+            'provincias' => $provincias,
+            'localidades' => $localidades,
+            'roles' => $roles,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -111,7 +126,36 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $rules =  [
+            'name' => 'required',
+            'email' => ['required',Rule::unique('users')->ignore($user)],
+            'password' => 'nullable',
+            'telefono' => 'required',
+            'cuit' => ['required',Rule::unique('users')->ignore($user)],
+            'codigo_postal' => 'required',
+            'province_id' => 'required|exists:provinces,id',
+            'city_id' => 'required|exists:cities,id',
+            'roles' => 'required|array',
+            'role.*' => 'required|exists:roles,name',
+        ];
+        Validator::make($request->all(),$rules)->validate();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->telefono = $request->telefono;
+        $user->cuit = $request->cuit;
+        $user->codigo_postal = $request->codigo_postal;
+        $user->province_id = $request->province_id;
+        $user->city_id = $request->city_id;
+        if($request->password)
+        {
+           $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+        $user->syncRoles($request->roles);
+
+        return redirect()->route('admin.users.index');
     }
 
     /**

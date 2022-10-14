@@ -23,6 +23,7 @@ use App\Http\Controllers\SepelioController;
 use App\Http\Controllers\SiniestroController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
+use App\Http\Controllers\SuperAdmin\UserController as SuperAdminUserController;
 use App\Http\Controllers\TerceroController;
 use App\Http\Livewire\Admin\PanelAdmin;
 use App\Http\Livewire\Auditoria;
@@ -255,6 +256,5 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
 
 Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [SuperAdminController::class,'index'])->name('index');
-    //Route::get('/usuarios', [\App\Http\Controllers\SuperAdmin\UserController::class,'index'])->name('admin.users.index');
-    Route::resource('users', \App\Http\Controllers\SuperAdmin\UserController::class);
+    Route::resource('users', SuperAdminUserController::class)->except('show');
 });

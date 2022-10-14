@@ -3,19 +3,20 @@
     <h3>Crear nuevo usuario</h3>
     <div class="row mt-3">
         <div class="col-md-6">
-            <form action="{{ route('admin.users.store') }}" method="POST">
+            <form action="{{ route('admin.users.update', $user) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>
                     <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror"
-                           value="{{ old('name') }}"
+                           value="{{ old('name') ? old('name') : $user->name }}"
                     >
                     @error('name') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" autocomplete="username"
-                           value="{{ old('email') }}"
+                           value="{{ old('email') ? old('email') : $user->email }}"
                     >
                     @error('email') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -27,21 +28,21 @@
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono</label>
                     <input type="tel" id="telefono" name="telefono" class="form-control @error('telefono') is-invalid @enderror"
-                           value="{{ old('telefono') }}"
+                           value="{{ old('telefono') ? old('telefono') : $user->telefono  }}"
                     >
                     @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-3">
                     <label for="cuit" class="form-label">CUIT</label>
                     <input type="text" id="cuit" name="cuit" class="form-control @error('cuit') is-invalid @enderror"
-                           value="{{ old('cuit') }}"
+                           value="{{ old('cuit') ? old('cuit') : $user->cuit }}"
                     >
                     @error('cuit') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-3">
                     <label for="codigo_postal" class="form-label">Código Postal</label>
                     <input type="text" id="codigo_postal" name="codigo_postal" class="form-control @error('codigo_postal') is-invalid @enderror"
-                           value="{{ old('codigo_postal') }}"
+                           value="{{ old('codigo_postal') ? old('codigo_postal') : $user->codigo_postal }}"
                     >
                     @error('codigo_postal') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -50,7 +51,7 @@
                     <select class="form-select @error('province_id') is-invalid @enderror" name="province_id" id="provincia">
                         @foreach($provincias as $provincia)
                             <option value="{{ $provincia->id }}"
-                                {{ old('province_id') && old('province_id') == $provincia->id ? 'selected' : '' }}
+                                {{ old('province_id') && old('province_id') == $provincia->id  ? 'selected' : ($user->province_id && $user->province_id == $provincia->id ? 'selected' : '') }}
                             >{{ $provincia->name }}</option>
                         @endforeach
                     </select>
@@ -61,7 +62,7 @@
                     <select class="form-select @error('city_id') is-invalid @enderror" name="city_id" id="localidad">
                         @foreach($localidades as $localidad)
                             <option value="{{ $localidad->id }}"
-                                {{ old('city_id') && old('city_id') == $localidad->id ? 'selected' : '' }}
+                                {{ old('city_id') && old('city_id') == $localidad->id ? 'selected' : ($user->city_id && $user->city_id == $localidad->id ? 'selected' : '') }}
                             >{{ $localidad->name }}</option>
                         @endforeach
                     </select>
@@ -73,7 +74,7 @@
                     <select class="form-select @error('roles') is-invalid @enderror" name="roles[]" id="roles" multiple>
                         @foreach($roles as $role)
                             <option value="{{ $role->name }}"
-                                {{ old('roles') && in_array($role->name, old('roles')) ? 'selected' : '' }}
+                                {{ old('roles') && in_array($role->name, old('roles')) ? 'selected' : (in_array($role->name, $user->roles->pluck('name')->toArray()) ? 'selected' : '') }}
                             >{{ $role->name }}</option>
                         @endforeach
                     </select>

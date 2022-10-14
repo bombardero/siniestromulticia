@@ -29,7 +29,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('admin.users.edit', $user->id) }}"
+                                        <a href="{{ route('admin.users.edit', $user) }}"
                                            class="dropdown-item" title="Editar">
                                             <i class="fa-solid fa-file-pen"></i><span>Editar</span>
                                         </a>
