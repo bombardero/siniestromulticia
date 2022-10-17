@@ -22,9 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/provincias/{id}/localidades',function(Request $request,$id){
-    return City::where('province_id',$id)->get();
+    return City::where('province_id',$id)->orderBy('name')->get();
 })->name('localidades.index');
 
 Route::get('/marcas/{id}/modelos',function(Request $request,$id){
-    return Modelo::where('marca_id',$id)->get();
+    return Modelo::where('marca_id',$id)->orderBy('nombre')->get();
 })->name('modelos.index');

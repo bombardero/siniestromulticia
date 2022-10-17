@@ -218,7 +218,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
         $tipoCalzadas = TipoCalzada::all();
         $provincias = Province::orderBy('name')->get();
-        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->province_id != null ? $denuncia_siniestro->province_id : 6);
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->province_id != null ? $denuncia_siniestro->province_id : $provincias->first()->id);
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 2,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"localidades"=>$localidades]);
@@ -273,7 +273,7 @@ class DenunciaAseguradoController extends Controller
         $tipoDocumentos = TipoDocumento::all();
         $tipoCarnets = TipoCarnet::all();
         $provincias = Province::orderBy('name')->get();
-        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->province_id != null ? $denuncia_siniestro->conductor->province_id : 6);
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->conductor && $denuncia_siniestro->conductor->province_id != null ? $denuncia_siniestro->conductor->province_id : $provincias->first()->id);
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',["denuncia_siniestro"=>$denuncia_siniestro,"paso" => 3,"provincias"=>$provincias,"tipo_calzadas"=>$tipoCalzadas,"tipo_documentos"=>$tipoDocumentos,"tipo_carnets"=>$tipoCarnets,"localidades"=>$localidades]);
@@ -396,7 +396,7 @@ class DenunciaAseguradoController extends Controller
         $provincias = Province::orderBy('name')->get();
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
-        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->province_id != null ? $denuncia_siniestro->asegurado->province_id : 6);
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->province_id != null ? $denuncia_siniestro->asegurado->province_id : $provincias->first()->id);
         $localidades = City::where('province_id', $provincia_id )->orderBy('name')->get();
         $denuncia_siniestro->load('conductor');
 
@@ -1259,7 +1259,8 @@ class DenunciaAseguradoController extends Controller
         $tipoCalzadas = TipoCalzada::all();
         $tipoDocumentos = TipoDocumento::all();
         $provincias = Province::orderBy('name')->get();
-        $provincia_id = old('provincia_id') ? old('provincia_id') : ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->province_id != null ? $denuncia_siniestro->denunciante->province_id : 6);
+        $provincia_id = old('provincia_id') ? old('provincia_id') :
+            ($denuncia_siniestro->denunciante && $denuncia_siniestro->denunciante->province_id != null ? $denuncia_siniestro->denunciante->province_id : $provincias->first()->id);
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         return view('siniestros.denuncia-asegurados.denuncia-asegurados',[
