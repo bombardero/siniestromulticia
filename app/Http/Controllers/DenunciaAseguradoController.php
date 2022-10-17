@@ -46,6 +46,7 @@ class DenunciaAseguradoController extends Controller
         $carga = null;
         $estado = $request->estado;
         $cobertura = $request->cobertura;
+        $nro_denuncia = $request->nro_denuncia;
         switch ($request->carga)
         {
             case 'precarga':
@@ -74,6 +75,8 @@ class DenunciaAseguradoController extends Controller
             return $query->where('estado', $estado);
         })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
             return $query->where('cobertura_activa', $cobertura);
+        })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {
+            return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
         });
         /*
         if($busqueda != null)

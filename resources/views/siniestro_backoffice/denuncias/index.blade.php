@@ -90,7 +90,6 @@
                                 </div>
                             </div>
 
-
                             <div class="col-12 col-md-1 px-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="carga" id="carga"
@@ -116,6 +115,26 @@
                                 </div>
                             </div>
 
+                            <div class="col-12 col-md-1 px-1">
+                                <div class="form-label-group">
+                                    <select class="custom-select form-control form-control-sm" name="nro_denuncia" id="nro_denuncia"
+                                            onchange="buscar()">
+                                        <option
+                                            value="todos" {{(request()->nro_denuncia && request()->nro_denuncia == 'todos') ? 'selected' : ''}}>
+                                            Todos
+                                        </option>
+                                        <option
+                                            value="si" {{(request()->nro_denuncia && request()->nro_denuncia == 'si') ? 'selected' : ''}}>
+                                            Si
+                                        </option>
+                                        <option
+                                            value="no" {{(request()->nro_denuncia && request()->nro_denuncia == 'no') ? 'selected' : ''}}>
+                                            No
+                                        </option>
+                                    </select>
+                                    <label for="nro_denuncia">N° de Denuncia</label>
+                                </div>
+                            </div>
 
                             <div class="col-12 col-md-2 px-1 pr-0 pl-1">
                                 <div class="form-label-group input-group">
