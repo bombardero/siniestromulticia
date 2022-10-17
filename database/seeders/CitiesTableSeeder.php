@@ -18,7 +18,7 @@ class CitiesTableSeeder extends Seeder
     {
         $localidades = json_decode(file_get_contents(asset('data/localidades.json')), true);
 
-        foreach($localidades['localidades'] as $localidad) {
+        foreach($localidades['localidades-censales'] as $localidad) {
             City::create([
                 'province_id' => $localidad['provincia']['id'],
                 'name' => $localidad['nombre'],
