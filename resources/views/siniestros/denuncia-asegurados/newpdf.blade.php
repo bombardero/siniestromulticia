@@ -101,17 +101,22 @@
 
     <table class="table tb-content">
         <tr>
-            <td class="">
+            <td colspan="2">
+                <b>Número de Gestión: </b>{{ $denuncia->id }}
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <b>Fecha del Siniestro: </b>
                 {{ $denuncia->fecha->format('d/m/Y') }}
             </td>
-            <td class="">
+            <td>
                 <b>Hora del Siniestro: </b>
                 {{\Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }} HS
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 <b>Momento del día: </b>{{ $denuncia->momento_dia }}
             </td>
         </tr>
@@ -128,7 +133,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 <b>Fecha de aviso de Denuncia: </b>{{ $denuncia->created_at->format('d/m/Y') }}
             </td>
         </tr>

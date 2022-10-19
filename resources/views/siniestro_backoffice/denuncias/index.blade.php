@@ -316,7 +316,7 @@
                                 @endif
                                 </tbody>
                             </table>
-                            {{ $denuncia_siniestros->links('vendor.pagination.bootstrap-4') }}
+                            {{ $denuncia_siniestros->appends(request()->input())->links('vendor.pagination.bootstrap-4') }}
                         </div>
                     </div>
 
