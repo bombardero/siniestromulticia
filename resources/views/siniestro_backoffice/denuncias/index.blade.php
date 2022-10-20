@@ -4,34 +4,37 @@
         <div class="container-fluid px-5">
             <div class="row">
                 <div class="col-12 mt-5 pb-5">
-
                     <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
                     <form action="/panel-siniestros/buscador" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
-                            <div class="col-12 col-md-1 pl-0 pr-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 pl-0 pr-1">
                                 <div class="form-label-group">
                                     <input type="date" name="desde" id="desde" class="form-control form-control-sm"
-                                           value="{{ request()->desde ? request()->desde : Carbon\Carbon::now()->subMonth()->toDateString() }}"
+                                           value="{{ request()->desde ? request()->desde : (request()->tipo != 'id' ? Carbon\Carbon::now()->subMonth()->toDateString() : '') }}"
                                            onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
                                     <label for="desde">Desde</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
                                 <div class="form-label-group">
                                     <input type="date" name="hasta" id="hasta"
                                            class="form-control form-control-sm"
-                                           value="{{ request()->hasta ? request()->hasta : Carbon\Carbon::now()->toDateString() }}"
+                                           value="{{ request()->hasta ? request()->hasta : (request()->tipo != 'id' ? Carbon\Carbon::now()->toDateString() : '') }}"
                                            onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
                                     <label for="hasta">Hasta</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="estado" id="estado"
-                                            onchange="buscar()">
+                                            onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
                                         <option
                                             value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
                                             Todos
@@ -65,10 +68,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
                                 <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="cobertura"
-                                            onchange="buscar()">
+                                    <select class="custom-select form-control form-control-sm" name="cobertura" id="cobertura"
+                                            onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
                                         <option
                                             value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>
                                             Todas
@@ -90,10 +95,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="carga" id="carga"
-                                            onchange="buscar()">
+                                            onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
                                         <option
                                             value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
                                             Todos
@@ -115,10 +122,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="nro_denuncia" id="nro_denuncia"
-                                            onchange="buscar()">
+                                            onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
                                         <option
                                             value="todos" {{(request()->nro_denuncia && request()->nro_denuncia == 'todos') ? 'selected' : ''}}>
                                             Todos
@@ -132,28 +141,40 @@
                                             No
                                         </option>
                                     </select>
-                                    <label for="nro_denuncia">N° de Denuncia</label>
+                                    <label for="nro_denuncia">N° Denuncia</label>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-2 px-1 pr-0 pl-1">
-                                <div class="form-label-group input-group">
-                                    <input type="text" name="busqueda" class="form-control"
-                                           value="{{request()->busqueda}}" onchange="buscar()">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
+                            <div class="col-12 col-md-6 col-lg-12 col-xl-4 px-1 pr-0 pl-1">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-5 px-0">
+                                            <div class="form-label-group">
+                                                <select class="custom-select form-control form-control-sm" name="tipo" id="tipo">
+                                                    <option value="dominio" {{ request()->tipo == 'id' ? 'selected' : '' }}>Dominio</option>
+                                                    <option value="id" {{ request()->tipo == 'id' ? 'selected' : '' }}>ID o N° Gestión</option>
+                                                </select>
+                                                <label for="nro_denuncia">Buscar por</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 px-0">
+                                            <div class="form-label-group input-group">
+                                                <input type="text" name="busqueda" class="form-control"
+                                                       value="{{request()->busqueda}}" onchange="buscar()">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </form>
                     <div class="mt-3">
-                        <div clas="col-12 col-md-6">
-
-                        </div>
                         <div class="table-responsive">
                             <table class="table table-sm table-hover table-panel-siniestros">
-
                                 <thead class="thead tabla-panel">
                                 <tr class="tabla-cabecera ">
                                     <th class="th-padding" scope="col">ID</th>
@@ -367,6 +388,41 @@
                     hideLoading();
                 }
             })
+    })
+
+    $('#tipo').change(function (event) {
+        let tipo = $(this).val();
+        let desde = $('#desde');
+        let hasta = $('#hasta');
+        let estado = $('#estado');
+        let cobertura = $('#cobertura');
+        let carga = $('#carga');
+        let nro_denuncia = $('#nro_denuncia');
+        console.log(tipo);
+        if(tipo == 'id')
+        {
+            desde.attr('disabled', true);
+            desde.val('');
+            hasta.attr('disabled', true);
+            hasta.val('');
+            estado.attr('disabled', true);
+            estado.val('todos');
+            cobertura.attr('disabled', true);
+            cobertura.val('todos');
+            carga.attr('disabled', true);
+            carga.val('todos');
+            nro_denuncia.attr('disabled', true);
+            nro_denuncia.val('todos');
+        } else {
+            desde.attr('disabled', false);
+            desde.val('{{ Carbon\Carbon::now()->subMonth()->toDateString() }}');
+            hasta.attr('disabled', false);
+            hasta.val('{{ Carbon\Carbon::now()->toDateString() }}');
+            estado.attr('disabled', false);
+            cobertura.attr('disabled', false);
+            carga.attr('disabled', false);
+            nro_denuncia.attr('disabled', false);
+        }
     })
 
 

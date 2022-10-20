@@ -43,7 +43,7 @@ class DenunciaAseguradoController extends Controller
             Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() :
             Carbon::now()->endOfDay()->toDateTimeString();
         $busqueda = $request->busqueda;
-        $carga = null;
+        $tipo = $request->tipo;
         $estado = $request->estado;
         $cobertura = $request->cobertura;
         $nro_denuncia = $request->nro_denuncia;
@@ -61,23 +61,30 @@ class DenunciaAseguradoController extends Controller
             default:
                 $carga = null;
         }
-        $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
-            return $query->where('dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%")
-                ->orWhere('responsable_contacto_nombre','LIKE', "%{$busqueda}%")
-                ->orWhere('nombre_conductor','LIKE', "%{$busqueda}%");
-        })->when($carga, function ($query) use ($carga) {
-            if(is_array($carga))
-            {
-                return $query->whereIn('estado_carga', $carga);
-            }
-            return $query->where('estado_carga', $carga);
-        })->when($estado && $estado != 'todos', function ($query) use ($estado) {
-            return $query->where('estado', $estado);
-        })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
-            return $query->where('cobertura_activa', $cobertura);
-        })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {
-            return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
-        });
+
+        if($tipo == 'id' && $busqueda)
+        {
+            $denuncia_siniestros = DenunciaSiniestro::where('id',$busqueda);
+        } else {
+            $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
+                return $query->where('dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%");
+            })->when($carga, function ($query) use ($carga) {
+                if(is_array($carga))
+                {
+                    return $query->whereIn('estado_carga', $carga);
+                }
+                return $query->where('estado_carga', $carga);
+            })->when($estado && $estado != 'todos', function ($query) use ($estado) {
+                return $query->where('estado', $estado);
+            })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
+                return $query->where('cobertura_activa', $cobertura);
+            })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {
+                return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
+            });
+
+            $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
+        }
+
         /*
         if($busqueda != null)
         {
@@ -86,9 +93,9 @@ class DenunciaAseguradoController extends Controller
                         ->orWhere('carga_paso_4_asegurado_documento_numero','LIKE', "%{$busqueda}%");
             });
         }*/
-        $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
+
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
-        //dd($denuncia_siniestros->latest()->dd());
+
         $data['denuncia_siniestros'] = $denuncia_siniestros;
 
         return view('siniestro_backoffice.denuncias.index',$data);
