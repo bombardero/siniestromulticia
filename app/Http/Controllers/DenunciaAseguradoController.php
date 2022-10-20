@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Livewire\Siniestro\DenunciaAsegurado;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
 use App\Models\Province;
 use App\Models\City;
-use App\Models\DetalleSiniestro;
 use App\Models\Marca;
 use App\Models\Modelo;
 use App\Models\TipoCalzada;
@@ -17,10 +14,8 @@ use App\Models\TipoCarnet;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use PDF;
 use Image;

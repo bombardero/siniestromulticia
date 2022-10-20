@@ -56,6 +56,17 @@
 .table-panel-siniestros td select{
     min-width: 95px;
 }
+.no-border-radius-right
+{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.no-border-radius-left
+{
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
 
 /*** floating-labels inicio ***/
 .form-label-group {

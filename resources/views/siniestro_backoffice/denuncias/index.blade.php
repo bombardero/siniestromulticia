@@ -8,7 +8,7 @@
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
                     <form action="/panel-siniestros/buscador" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 pl-0 pr-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-xl-1">
                                 <div class="form-label-group">
                                     <input type="date" name="desde" id="desde" class="form-control form-control-sm"
                                            value="{{ request()->desde ? request()->desde : (request()->tipo != 'id' ? Carbon\Carbon::now()->subMonth()->toDateString() : '') }}"
@@ -18,7 +18,7 @@
                                     <label for="desde">Desde</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-lg-1">
                                 <div class="form-label-group">
                                     <input type="date" name="hasta" id="hasta"
                                            class="form-control form-control-sm"
@@ -29,7 +29,7 @@
                                     <label for="hasta">Hasta</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="estado" id="estado"
                                             onchange="buscar()"
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-md-0 px-xl-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="cobertura" id="cobertura"
                                             onchange="buscar()"
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pl-md-0 px-xl-1">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="carga" id="carga"
                                             onchange="buscar()"
@@ -122,7 +122,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1 pr-lg-0">
                                 <div class="form-label-group">
                                     <select class="custom-select form-control form-control-sm" name="nro_denuncia" id="nro_denuncia"
                                             onchange="buscar()"
@@ -145,12 +145,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-12 col-xl-4 px-1 pr-0 pl-1">
+                            <div class="col-12 col-md-6 col-lg-12 col-xl-4 px-0 pl-lg-0 px-xl-1">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-5 px-0">
                                             <div class="form-label-group">
-                                                <select class="custom-select form-control form-control-sm" name="tipo" id="tipo">
+                                                <select class="custom-select form-control form-control-sm no-border-radius-right" name="tipo" id="tipo">
                                                     <option value="dominio" {{ request()->tipo == 'id' ? 'selected' : '' }}>Dominio</option>
                                                     <option value="id" {{ request()->tipo == 'id' ? 'selected' : '' }}>ID o N° Gestión</option>
                                                 </select>
@@ -159,7 +159,7 @@
                                         </div>
                                         <div class="col-7 px-0">
                                             <div class="form-label-group input-group">
-                                                <input type="text" name="busqueda" class="form-control"
+                                                <input type="text" name="busqueda" class="form-control no-border-radius-left"
                                                        value="{{request()->busqueda}}" onchange="buscar()">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
