@@ -95,7 +95,11 @@ class DenunciaSiniestro extends Model
         "nro_denuncia",
         "nro_siniestro",
         "estado",
-        "link_enviado"
+        "link_enviado",
+
+        "certificado_cobertura_name",
+        "certificado_cobertura_url",
+        "certificado_cobertura_path",
     ];
 
     protected $casts = [

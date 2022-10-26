@@ -31,7 +31,6 @@
     <link rel="stylesheet" href="{{asset('css/siniestro.css')}}" >
     <link rel="stylesheet" href="{{ asset('css/precio-estimativo-alquileres.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estado-poliza.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/formularios.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sepelio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mobiscroll.javascript.min.css') }}">
     <link rel="icon" href="{{ asset('images/finisterre-favicon.ico') }}">

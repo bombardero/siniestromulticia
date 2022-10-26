@@ -252,6 +252,7 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro')->middleware('check.siniestro');
     Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado')->middleware('check.siniestro');
     Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field')->middleware('check.siniestro');
+    Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('panel-siniestros.denuncia.update-certificado-poliza')->middleware('check.siniestro');
 });
 
 Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {

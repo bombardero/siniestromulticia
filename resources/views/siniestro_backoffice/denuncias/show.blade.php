@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.backoffice')
 @section('content')
     <section>
         <div class="container">
@@ -1095,6 +1095,45 @@
                                                 <p>
                                                     Relación: {{ $denuncia->denunciante ? $denuncia->denunciante->asegurado_relacion : '' }}</p>
                                             </div>
+                                        </div>
+
+                                        <div class="card my-3">
+                                            <div class="card-header alert-secondary">
+                                                Certificado de Cobertura:
+                                                @if($denuncia->certificado_cobertura_path)
+                                                    <a class="text-info" href="{{ $denuncia->certificado_cobertura_url }}"
+                                                       title="Ver Certificado de Cobertura" target="_blank"
+                                                    >{{ $denuncia->certificado_cobertura_name }}</a>
+                                                @else
+                                                    Ninguno
+                                                @endif
+                                                <a class="badge badge-secondary float-right"
+                                                   data-toggle="collapse" href="#collapseCertificadoCobertura" role="button" aria-expanded="false" aria-controls="collapseCertificadoCobertura">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                    {{ $denuncia->certificado_cobertura_path ? 'Modificar' : 'Agregar' }}
+                                                </a>
+                                            </div>
+                                            <div class="collapse" id="collapseCertificadoCobertura">
+                                                <div class="card-body">
+
+                                                    <form action="{{ route('panel-siniestros.denuncia.update-certificado-poliza', $denuncia->id) }}"
+                                                          method="post" id="formCartificadoCobertura" enctype="multipart/form-data"
+                                                    >
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="certificado_cobertura">Agregar archivo</label>
+                                                            <input type="file" class="form-control-file"
+                                                                   name="certificado_cobertura"
+                                                                   accept="application/pdf"
+                                                                   required>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            {{ $denuncia->certificado_cobertura_path ? 'Modificar' : 'Agregar' }}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div class="alert alert-secondary mt-3 " role="alert">

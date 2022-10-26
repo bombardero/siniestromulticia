@@ -1191,8 +1191,6 @@ class DenunciaAseguradoController extends Controller
                 Storage::disk('s3')->delete($denuncia->croquis_path);
             }
 
-
-
             $filePath = $this->getCroquisPath($denuncia);
             Storage::disk('s3')->put($filePath, file_get_contents($request->croquis),'public');
             $url = Storage::disk('s3')->url($filePath);
@@ -1211,6 +1209,31 @@ class DenunciaAseguradoController extends Controller
     private function getCroquisPath(DenunciaSiniestro $denuncia, $format = 'jpg')
     {
         return 'denuncia_siniestro/'.$denuncia->id.'/croquis_'.Carbon::now()->format('Ymd_His').'.'.$format;
+    }
+
+    public function updateCertificadoPoliza(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'certificado_cobertura' => ['required', 'file', 'mimetypes:application/pdf']
+        ])->validate();
+
+        if($denuncia->certificado_cobertura_url)
+        {
+            Storage::disk('s3')->delete($denuncia->certificado_cobertura_url);
+        }
+
+        $fileName = 'certificado_de_cobertura_'.Carbon::now()->format('Ymd_His').'.pdf';
+        $filePath = 'denuncia_siniestro/'.$denuncia->id.'/'.$fileName;
+
+        Storage::disk('s3')->put($filePath, fopen($request->certificado_cobertura, 'r+'),'public');
+        $url = Storage::disk('s3')->url($filePath);
+
+        $denuncia->certificado_cobertura_name = $fileName;
+        $denuncia->certificado_cobertura_path = $filePath;
+        $denuncia->certificado_cobertura_url = $url;
+        $denuncia->save();
+
+        return redirect()->route('panel-siniestros.denuncia.show', $denuncia);
     }
 
     public function uploadGrafico($request)
@@ -1352,8 +1375,12 @@ class DenunciaAseguradoController extends Controller
             }
         }
 
-        $link = route('asegurados-denuncias.pdf', ['denuncia' =>  $denuncia_siniestro->id]);
-        return redirect()->route('gracias-denuncia', ['link' => $link]);
+        $data['link_denuncia'] = route('asegurados-denuncias.pdf', ['denuncia' =>  $denuncia_siniestro->id]);
+        if($denuncia_siniestro->certificado_cobertura_url)
+        {
+            $data['link_certificado'] = $denuncia_siniestro->certificado_cobertura_url;
+        }
+        return redirect()->route('gracias-denuncia', $data);
     }
 
 

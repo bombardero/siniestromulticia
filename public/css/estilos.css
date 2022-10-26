@@ -32,10 +32,11 @@
     background-color: #f8fafc;
 }
 
-.card-show-denuncia .card-body .alert{
+.card-show-denuncia .card-body > div{
     margin-left: -1rem !important;
     margin-right: -1rem !important;
 }
+
 
 .card-show-denuncia .card-body hr{
     border:1px solid lightgray;
