@@ -72,10 +72,21 @@
                 --}}
                 <p class="subtitulo-footer"><strong>24Hs.</strong> <br class="d-none d-md-block">
                 <p style="font-size:22px;color:white;">0810 362 0700</p></p>
-                <p class="texto-footer pt-5">info@finisterreseguros.com
-                    <br>
+                <p class="texto-footer pt-5 mb-3">
+                    <a href="https://www.facebook.com/finisterre.seguros.ok" target="_blank" class="text-decoration-none">
+                        <img src="{{url('/images/logo facebook.svg')}}" alt="Logo de Facebook" class="mr-2">
+                    </a>
+                    <a href="https://www.instagram.com/finisterre.seguros.ok" target="_blank" class="text-decoration-none">
+                        <img src="{{url('/images/logo insta.svg')}}" alt="Logo de Instagram">
+                    </a>
+                </p>
+                <p class="texto-footer mb-2">
+                    info@finisterreseguros.com
+                </p>
+                <p class="texto-footer mb-2">
                     Reconquista 522 - Piso 7
-                    <br>
+                </p>
+                <p class="texto-footer mb-2">
                     C1003ABL - C.A.B.A.
                 </p>
             </div>

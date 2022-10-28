@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="col-12">
-            <p class="card-automotor-text">Solo cubre daños a cosas materiales dentro de zonas que corresponden a “campos petrolíferos”. Hasta la suma máxima de $200.000</p>
+            <p class="card-automotor-text">Solo cubre daños a cosas materiales dentro de zonas que corresponden a “campos petrolíferos”. Hasta la suma máxima de $100.000</p>
         </div>
     </div>
 </div>

@@ -52,11 +52,8 @@
                     <img src="{{url('/images/sin letra chica 1.svg')}}" class="pb-4">
                     <h3 class="encabezado-texto-imagenes">Sin letra chica</h3>
                     <p class="subencabezado-texto-imagenes">
-                        Tu seguro tiene que
-                        ser fácil de entender. 
-
-                        Si algo no es
-                        claro, preguntanos.
+                        Tu seguro tiene que ser fácil de entender.
+                        Si algo no es claro, preguntanos.
                     </p>
                 </div>
                 <div class="col-12 col-md-3   text-center pt-4 pt-md-0">
