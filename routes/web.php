@@ -235,24 +235,24 @@ Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () 
 });
 
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
+Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field');
 
 
 Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-siniestros'], function () {
     Route::get('/', [DenunciaAseguradoController::class,'index'])->name('panel-siniestros');
-    Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('panel-siniestros.denuncia.show')->middleware('check.siniestro');
-    Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('panel-siniestros.denuncia.cambiar-estado')->middleware('check.siniestro');
-    Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('panel-siniestros.denuncia.cambiar-cobertura-activa')->middleware('check.siniestro');
-    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservaciones'])->name('panel-siniestros.denuncia.observaciones')->middleware('check.siniestro');
-    Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store')->middleware('check.siniestro');
-    Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete')->middleware('check.siniestro');
-    Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador')->middleware('check.siniestro');
+    Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('panel-siniestros.denuncia.show');
+    Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('panel-siniestros.denuncia.cambiar-estado');
+    Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('panel-siniestros.denuncia.cambiar-cobertura-activa');
+    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservaciones'])->name('panel-siniestros.denuncia.observaciones');
+    Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store');
+    Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete');
+    Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador');
 
-    Route::post('update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('panel-siniestros.denuncia.update.nropoliza')->middleware('check.siniestro');
-    Route::post('update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('panel-siniestros.denuncia.update.nrodenuncia')->middleware('check.siniestro');
-    Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro')->middleware('check.siniestro');
-    Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado')->middleware('check.siniestro');
-    Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field')->middleware('check.siniestro');
-    Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('panel-siniestros.denuncia.update-certificado-poliza')->middleware('check.siniestro');
+    Route::post('update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('panel-siniestros.denuncia.update.nropoliza');
+    Route::post('update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('panel-siniestros.denuncia.update.nrodenuncia');
+    Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro');
+    Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado');
+    Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('panel-siniestros.denuncia.update-certificado-poliza');
 });
 
 Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {

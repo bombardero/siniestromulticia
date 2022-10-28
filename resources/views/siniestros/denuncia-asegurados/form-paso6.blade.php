@@ -123,7 +123,7 @@
         {
             $("#provincias").change(function () {
                 provincia_id = $("#provincias").val();
-                console.log(provincia_id);
+                //console.log(provincia_id);
                 $.ajax(
                     {
                         url: '/api/provincias/' + provincia_id + '/localidades',
@@ -146,7 +146,7 @@
 
             $('input[name="intervino_otro_vehiculo"]').change(function (event) {
                 let intervino = $(this).val();
-                console.log(intervino);
+                //console.log(intervino);
                 actualizarDenuncia('intervino_otro_vehiculo',intervino);
             });
 

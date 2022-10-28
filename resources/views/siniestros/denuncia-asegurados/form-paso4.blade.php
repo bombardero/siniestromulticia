@@ -70,12 +70,12 @@
                     <label for="pais">País *</label>
                     <select name="pais" id="pais" class="custom-select form-estilo">
                         <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
-                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad != null ? 'selected' : '') }}>Otro</option>
+                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->pais_id == null ? 'selected' : '') }}>Otro</option>
                     </select>
                 </div>
             </div>
 
-            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad != null)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
+            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->asegurado && !$denuncia_siniestro->asegurado->pais_id && !$denuncia_siniestro->asegurado->province_id && !$denuncia_siniestro->asegurado->city_id)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
                 <div class="form-group">
                     <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
                     <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad != null) ?  'd-none' : '' }}" id="div_provincia">
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->province_id == null) ?  'd-none' : '' }}" id="div_provincia">
                 <div class="form-group">
                     <label for="provincias">Provincia *</label>
                     <select name="asegurado_provincia_id" id="provincias" class="custom-select form-estilo">
@@ -100,16 +100,29 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad != null) ?  'd-none' : '' }}" id="div_localidad">
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($denuncia_siniestro->asegurado && !$denuncia_siniestro->asegurado->pais_id && !$denuncia_siniestro->asegurado->province_id) ?  'd-none' : '' }}" id="div_localidad">
                 <div class="form-group">
                     <label for="localidades">Localidad *</label>
-                    <select name="asegurado_localidad_id" id="localidades" class="custom-select form-estilo">
-                        @foreach($localidades as $localidad)
-                            <option value="{{ $localidad->id }}"
-                                {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->city_id == $localidad->id ? 'selected' : '') }}
-                            >{{ $localidad->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="input-group">
+                        <select name="localidad_id" id="localidades" class="custom-select form-estilo {{ old('check_otra_localidad') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad) ? 'd-none' :  '' }}">
+                            @foreach($localidades as $localidad)
+                                <option value="{{ $localidad->id }}"
+                                    {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->city_id == $localidad->id ? 'selected' : '') }}
+                                >{{ $localidad->name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="text" name="otra_localidad" id="otra_localidad" maxlength="255"
+                               class="form-control form-estilo {{ old('check_otra_localidad') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad) ? '' : 'd-none' }}"
+                               value="{{ $denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad != null ? $denuncia_siniestro->asegurado->otro_pais_provincia_localidad : '' }}"
+                        >
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <input type="checkbox" id="check_otra_localidad" name="check_otra_localidad"
+                                       class="mr-1" {{ old('check_otra_localidad') || ($denuncia_siniestro->asegurado && $denuncia_siniestro->asegurado->otro_pais_provincia_localidad) ? 'checked' :  '' }}>Otra
+                            </div>
+                        </div>
+                    </div>
+                    @error('otra_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -153,22 +166,28 @@
             $("#provincias").change(function () {
                 provincia_id = $("#provincias").val();
                 console.log(provincia_id);
-                $.ajax(
-                    {
-                        url: '/api/provincias/' + provincia_id + '/localidades',
-                        type: 'get',
-                        dataType: 'json',
-                        success: function (cities) {
-                            $('#localidades').empty();
-                            cities.forEach(city => {
-                                $('#localidades').append($('<option>', {
-                                    value: city['id'],
-                                    text: city['name']
-                                }));
-                            })
+                $.ajax({
+                    url: '/api/provincias/' + provincia_id + '/localidades',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (cities) {
+                        $('#localidades').empty();
+                        cities.forEach(city => {
+                            $('#localidades').append($('<option>', {
+                                value: city['id'],
+                                text: city['name']
+                            }));
+                        })
 
-                        }
-                    })
+                    },
+                    complete: function () {
+                        $('#check_otra_localidad').prop("checked",false);
+                        $('#localidades').removeClass('d-none');
+                        $("#localidades").prop('disabled', false);
+                        $('#otra_localidad').addClass('d-none');
+                        $("#otra_localidad").prop('disabled', true);
+                    }
+                })
             });
 
             $("#pais").change(function () {
@@ -183,6 +202,20 @@
                     $('#div_otro_pais_provincia_localidad').addClass('d-none')
                     $('#div_provincia').removeClass('d-none')
                     $('#div_localidad').removeClass('d-none')
+                }
+            });
+
+            $("#check_otra_localidad").click(function () {
+                if ($(this).prop("checked")) {
+                    $('#localidades').addClass('d-none');
+                    $("#localidades").prop('disabled', true);
+                    $('#otra_localidad').removeClass('d-none');
+                    $("#otra_localidad").prop('disabled', false);
+                } else{
+                    $('#localidades').removeClass('d-none');
+                    $("#localidades").prop('disabled', false);
+                    $('#otra_localidad').addClass('d-none');
+                    $("#otra_localidad").prop('disabled', true);
                 }
             });
 

@@ -117,25 +117,34 @@
                                         </div>
 
                                         <div class="row pt-0">
-                                            @if($denuncia->otro_pais_provincia_localidad)
-                                                <div class="col-12">
+                                            @if($denuncia->pais_id && $denuncia->province_id)
+                                                <div class="col-12 col-md-4">
+                                                    <p>País: {{ $denuncia->pais->nombre }}</p>
+                                                </div>
+
+                                                <div class="col-12 col-md-4">
+                                                    <p>Provincia: {{ $denuncia->provincia->name }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
                                                     <p>
-                                                        Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
+                                                        Localidad:
+                                                        {{ $denuncia->city_id != null ? $denuncia->localidad->name : $denuncia->otro_pais_provincia_localidad }}
+                                                    </p>
+                                                </div>
+                                            @elseif($denuncia->otro_pais_provincia_localidad)
+                                                <div class="col-12">
+                                                    <p>Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
                                                 </div>
                                             @else
                                                 <div class="col-12 col-md-4">
-                                                    <p>
-                                                        País: {{ $denuncia->pais_id != null ? $denuncia->pais->nombre : '' }}</p>
+                                                    <p>País:</p>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">
-                                                    <p>
-                                                        Provincia: {{ $denuncia->province_id != null ? $denuncia->provincia->name : '' }}</p>
+                                                    <p>Provincia:</p>
                                                 </div>
-
                                                 <div class="col-12 col-md-4">
-                                                    <p>
-                                                        Localidad: {{ $denuncia->city_id != null ? $denuncia->localidad->name : '' }}</p>
+                                                    <p>Localidad:</p>
                                                 </div>
                                             @endif
                                         </div>
@@ -197,26 +206,29 @@
 
 
                                         <div class="row pt-0">
-                                            @if($denuncia->conductor && $denuncia->conductor->otro_pais_provincia_localidad != null)
-                                                <div class="col-12">
-                                                    <p>
-                                                        Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
-                                                </div>
+                                            @if($denuncia->conductor)
+                                                @if($denuncia->conductor->pais && $denuncia->conductor->provincia)
+                                                    <div class="col-12 col-md-4">
+                                                        <p>País: {{ $denuncia->conductor->pais->nombre }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Provincia: {{ $denuncia->conductor->provincia->name }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>
+                                                            Localidad:
+                                                            {{ $denuncia->conductor->localidad ? $denuncia->conductor->localidad->name : $denuncia->conductor->otro_pais_provincia_localidad }}
+                                                        </p>
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @endif
                                             @else
-                                                <div class="col-12 col-md-4">
-                                                    <p>
-                                                        País: {{ $denuncia->conductor && $denuncia->conductor->pais_id != null ? $denuncia->conductor->pais->nombre : '' }}</p>
-                                                </div>
-
-                                                <div class="col-12 col-md-4">
-                                                    <p>
-                                                        Provincia: {{ $denuncia->conductor && $denuncia->conductor->province_id != null ? $denuncia->conductor->provincia->name : '' }}</p>
-                                                </div>
-
-                                                <div class="col-12 col-md-4">
-                                                    <p>
-                                                        Localidad: {{ $denuncia->conductor && $denuncia->conductor->city_id != null ? $denuncia->conductor->localidad->name : '' }}</p>
-                                                </div>
+                                                <div class="col-12 col-md-4"><p>País:</p></div>
+                                                <div class="col-12 col-md-4"><p>Provincia: </p></div>
+                                                <div class="col-12 col-md-4"><p>Localidad: </p></div>
                                             @endif
                                         </div>
 
@@ -318,26 +330,26 @@
 
 
                                         <div class="row pt-0">
-                                            @if($denuncia->asegurado && $denuncia->asegurado->otro_pais_provincia_localidad != null)
-                                                <div class="col-12">
-                                                    <p>
-                                                        Localidad/Provincia/Pais: {{ $denuncia->asegurado->otro_pais_provincia_localidad }}</p>
-                                                </div>
+                                            @if($denuncia->asegurado)
+                                                @if($denuncia->asegurado->pais && $denuncia->asegurado->provincia)
+                                                    <div class="col-12 col-md-4">
+                                                        <p>País: {{ $denuncia->asegurado->pais->nombre }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Provincia: {{ $denuncia->asegurado->provincia->name }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Localidad: {{ $denuncia->asegurado->localidad ? $denuncia->asegurado->localidad->name : $denuncia->asegurado->otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->asegurado->otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @endif
                                             @else
-                                                <div class="col-12 col-md-4">
-                                                    <p>
-                                                        País: {{ $denuncia->asegurado && $denuncia->asegurado->pais_id != null ? $denuncia->asegurado->pais->nombre : '' }}</p>
-                                                </div>
-
-                                                <div class="col-12 col-md-4">
-                                                    <p>
-                                                        Provincia: {{ $denuncia->asegurado && $denuncia->asegurado->province_id != null ? $denuncia->asegurado->provincia->name : '' }}</p>
-                                                </div>
-
-                                                <div class="col-12 col-md-4">
-                                                    <p>
-                                                        Localidad: {{ $denuncia->asegurado && $denuncia->asegurado->city_id != null ? $denuncia->asegurado->localidad->name : '' }}</p>
-                                                </div>
+                                                <div class="col-12 col-md-4"><p>País:</p></div>
+                                                <div class="col-12 col-md-4"><p>Provincia: </p></div>
+                                                <div class="col-12 col-md-4"><p>Localidad: </p></div>
                                             @endif
                                         </div>
 
@@ -1057,20 +1069,27 @@
 
 
                                         <div class="row">
-                                            <div class="col-12 col-md-4">
-                                                <p>
-                                                    País: {{ $denuncia->denunciante ? $denuncia->denunciante->pais->nombre : '' }}</p>
-                                            </div>
-
-                                            <div class="col-12 col-md-4">
-                                                <p>
-                                                    Provincia: {{ $denuncia->denunciante ? $denuncia->denunciante->provincia->name : '' }}</p>
-                                            </div>
-
-                                            <div class="col-12 col-md-4">
-                                                <p>
-                                                    Localidad: {{ $denuncia->denunciante ? $denuncia->denunciante->localidad->name : '' }}</p>
-                                            </div>
+                                            @if($denuncia->denunciante)
+                                                @if($denuncia->denunciante->pais && $denuncia->denunciante->provincia)
+                                                    <div class="col-12 col-md-4">
+                                                        <p>País: {{ $denuncia->denunciante->pais->nombre }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Provincia: {{ $denuncia->denunciante->provincia->name }}</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Localidad: {{ $denuncia->denunciante->localidad ? $denuncia->denunciante->localidad->name : $denuncia->denunciante->otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->denunciante->otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <div class="col-12 col-md-4"><p>País:</p></div>
+                                                <div class="col-12 col-md-4"><p>Provincia: </p></div>
+                                                <div class="col-12 col-md-4"><p>Localidad: </p></div>
+                                            @endif
                                         </div>
 
                                         <div class="row">
