@@ -8,7 +8,7 @@
                     <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
                     <form action="/panel-siniestros/buscador" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-xl-1">
+                            <div class="col-12 col-md-6 col-lg-2 col-xl-1 px-0 pr-xl-1">
                                 <div class="form-label-group">
                                     <input type="date" name="desde" id="desde" class="form-control form-control-sm"
                                            value="{{ request()->desde ? request()->desde : (request()->tipo != 'id' ? Carbon\Carbon::now()->subMonth()->toDateString() : '') }}"
@@ -18,7 +18,7 @@
                                     <label for="desde">Desde</label>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-lg-1">
+                            <div class="col-12 col-md-6 col-lg-2 col-xl-1 px-0 px-lg-1">
                                 <div class="form-label-group">
                                     <input type="date" name="hasta" id="hasta"
                                            class="form-control form-control-sm"
@@ -149,7 +149,30 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-12 col-xl-4 px-0 pl-lg-0 px-xl-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                                <div class="form-label-group">
+                                    <select class="custom-select form-control form-control-sm" name="link_enviado" id="link_enviado"
+                                            onchange="buscar()"
+                                        {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
+                                        <option
+                                            value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>
+                                            Todos
+                                        </option>
+                                        <option
+                                            value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>
+                                            Si
+                                        </option>
+                                        <option
+                                            value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>
+                                            No
+                                        </option>
+                                    </select>
+                                    <label for="link_enviado">Link enviado</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-9 col-lg-10 col-xl-4 px-0 pl-lg-0 px-xl-1">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-5 px-0">
