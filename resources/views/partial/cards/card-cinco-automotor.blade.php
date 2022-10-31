@@ -1,8 +1,7 @@
 <div class="card card-automotor background-automotor-card-four mx-auto" style="background-color: #546e7a !important;">
 	<div class="card-body">
-		<h5 class="card-title-automotor text-uppercase">CAR TOP FULL <span class="font-weight-bold  text-uppercase card-four-subtitle-automotor">RESPONSABILIDAD CIVIL, PÉRDIDAS TOTALES Y PARCIALES</span></h5>
-
-		<hr class="card-four-automotor-border">
+        <h6 class="text-white"><span class="card-title-automotor mr-2">CAR TOP FULL</span> RESPONSABILIDAD CIVIL, PÉRDIDAS TOTALES Y PARCIALES</h6>
+		<hr class="card-automotor-separador">
 		<div class="row">
 			<div class="col-12 col-lg-9">
 				<p class="card-automotor-text">Pérdida total por accidente, robo y/o hurto e incendio total y parcial, más adicionales de granizo y cristales</p>
@@ -15,8 +14,8 @@
 					<li class="card-icon-four text-list-automotor">Daños a luneta y parabrisas, hasta la suma Asegurada.</li>
 				</ul>
 			</div>
-			<div class="col-12 text-right pt-lg-5 mt-lg-5 col-lg-3">
-				<img src="{{url('/images/incluyeserviciogrua.svg')}}" class=" img-fluid">
+			<div class="col-12 col-lg-3 text-right d-flex align-items-end justify-content-end">
+				<img src="{{url('/images/incluyeserviciogrua.svg')}}" class="img-fluid">
 			</div>
 		</div>
 

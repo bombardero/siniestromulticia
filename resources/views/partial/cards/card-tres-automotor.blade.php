@@ -10,7 +10,7 @@
 
 				</div>
 			</div>
-		<hr class="card-three-automotor-border">
+		<hr class="card-automotor-separador">
 		<div class="row">
 			<div class="col-12 col-lg-9">
 				<p class="card-automotor-text">Pérdida total por accidente, robo y/o hurto e incendio.</p>
@@ -21,7 +21,7 @@
 					<li class="card-icon-three text-list-automotor">Cobertura por pérdidas totales: accidente, robo y/o hurto total e incendio total.</li>
 				</ul>
 			</div>
-			<div class="col-12 text-right pt-lg-5 mt-lg-5 col-lg-3">
+			<div class="col-12 col-lg-3 d-flex align-items-end justify-content-end">
 				<img src="{{url('/images/incluyeserviciogrua.svg')}}" class=" img-fluid">
 			</div>
 		</div>

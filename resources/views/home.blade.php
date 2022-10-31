@@ -117,6 +117,12 @@
                         @include('partial.cards.card-seis-automotor')
                     </div>
                     <div class="mt-4 col-12">
+                        @include('partial.cards.card-automotor-ao-sepelio')
+                    </div>
+                    <div class="mt-4 col-12">
+                        @include('partial.cards.card-automotor-ao-sepelio-plus')
+                    </div>
+                    <div class="mt-4 col-12">
                         @include('partial.cards.card-dos-automotor')
                     </div>
                 </div>

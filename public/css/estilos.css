@@ -1559,24 +1559,19 @@ p.monto-estimado:hover {
     background-color: #2D7841;
 }
 
+.bg-automotor-card-ao-sepelio {
+    background-color: #674D8E;
+}
+.bg-automotor-card-ao-sepelio-plus {
+    background-color: #545456;
+}
+
 .card-automotor {
     border-radius: 20px;
 }
 
-.card-one-automotor-border {
-    border: 1px solid #8080F3;
-}
-
-.card-two-automotor-border {
-    border: 1px solid #9369BF;
-}
-
-.card-three-automotor-border {
-    border: 1px solid #7AA2D6;
-}
-
-.card-four-automotor-border {
-    border: 1px solid #FFB27D;
+.card-automotor-separador{
+    border-top: 2px solid rgba(255,255,255,0.2);
 }
 
 .card-automotor-text {
@@ -1607,6 +1602,12 @@ p.monto-estimado:hover {
 
 .card-icon-six {
     list-style-image: url('/images/automotor/green-violet-check.svg');
+}
+.card-icon-ao-sepelio {
+    list-style-image: url('/images/automotor/check-violet-light.svg');
+}
+.card-icon-ao-sepelio-plus {
+    list-style-image: url('/images/automotor/check-gray.svg');
 }
 
 ul.automotor {

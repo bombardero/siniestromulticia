@@ -7,10 +7,9 @@
 				</div>
 				<div class="col-12 col-md-6 text-md-right">
 					<img src="{{url('/images/automotor/finisterre.com_seguro-automotor_cobertura-recomendada.svg')}}" class=" img-fluid">
-
 				</div>
 			</div>
-		<hr class="card-two-automotor-border">
+		<hr class="card-automotor-separador">
 		<div class="row">
 			<div class="col-12 col-lg-9">
 				<p class="card-automotor-text">Protege al titular o conductor autorizado por los daños que pudiera producir el vehículo a personas transportadas y no transportadas y/o cosas.</p>
@@ -21,7 +20,7 @@
 				</ul>
 
 			</div>
-			<div class="col-12 text-right pt-lg-5 col-lg-3">
+			<div class="col-12 col-lg-3 d-flex align-items-end justify-content-end">
 				<img src="{{url('/images/gruaopcional.svg')}}" class=" img-fluid">
 			</div>
 		</div>

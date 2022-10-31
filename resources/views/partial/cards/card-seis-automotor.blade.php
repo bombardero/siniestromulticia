@@ -3,7 +3,6 @@
         <div class="row">
             <div class="col-12 col-md-6">
                 <h5 class=" card-title-automotor text-uppercase ">RESPONSABILIDAD CIVIL OBLIGATORIA</h5>
-
             </div>
         </div>
         <div class="row">
@@ -14,14 +13,13 @@
                     <li class="card-icon-six text-list-automotor">Daños a personas transportados y no transportados.</li>
                     <li class="card-icon-six text-list-automotor">Límite de Responsabilidad Civil:  $2.300.000</li>
                 </ul>
-
             </div>
-            <div class="col-12 text-right pt-lg-5 col-lg-3">
-                <img src="{{url('/images/gruanoopcional.svg')}}" class=" img-fluid">
+            <div class="col-12 col-lg-3 d-flex align-items-end justify-content-end">
+                <img src="{{url('/images/gruanoopcional.svg')}}" class="img-fluid">
             </div>
-        </div>
-        <div class="col-12">
-            <p class="card-automotor-text">Solo cubre daños a cosas materiales dentro de zonas que corresponden a “campos petrolíferos”. Hasta la suma máxima de $100.000</p>
+            <div class="col-12">
+                <p class="card-automotor-text">Solo cubre daños a cosas materiales dentro de zonas que corresponden a “campos petrolíferos”. Hasta la suma máxima de $100.000</p>
+            </div>
         </div>
     </div>
 </div>
