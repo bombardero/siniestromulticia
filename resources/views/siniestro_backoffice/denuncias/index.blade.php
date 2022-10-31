@@ -90,6 +90,10 @@
                                             value="RC con Casco" {{(request()->cobertura && request()->cobertura == 'RC con Casco') ? 'selected' : ''}}>
                                             RC con Casco
                                         </option>
+                                        <option
+                                            value="ninguna" {{(request()->cobertura && request()->cobertura == 'ninguna') ? 'selected' : ''}}>
+                                            Ninguna
+                                        </option>
                                     </select>
                                     <label for="">Cobertura</label>
                                 </div>

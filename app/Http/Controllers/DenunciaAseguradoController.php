@@ -72,7 +72,7 @@ class DenunciaAseguradoController extends Controller
             })->when($estado && $estado != 'todos', function ($query) use ($estado) {
                 return $query->where('estado', $estado);
             })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
-                return $query->where('cobertura_activa', $cobertura);
+                return $cobertura == 'ninguna' ? $query->whereNull('cobertura_activa') : $query->where('cobertura_activa', $cobertura);
             })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {
                 return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
             });
