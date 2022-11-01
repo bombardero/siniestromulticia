@@ -110,6 +110,26 @@
                                         </div>
                                     @else
 
+                                        <div class="alert alert-secondary mt-3 " role="alert">Datos del Contacto</div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Nombre: {{ $denuncia->responsable_contacto_nombre }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Teléfono: {{ $denuncia->responsable_contacto_telefono }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Domicilio: {{ $denuncia->responsable_contacto_domicilio }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Email: {{ $denuncia->responsable_contacto_email }}</p>
+                                            </div>
+                                        </div>
+
                                         <div class="alert alert-secondary mt-3 " role="alert">Lugar del Siniestro<a
                                                 href="{{ route('asegurados-denuncias-paso2.create',['id' => $denuncia->identificador]) }}"
                                                 class="badge badge-secondary float-right "><i
