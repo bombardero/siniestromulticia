@@ -175,20 +175,23 @@
                                             </div>
 
                                             <div class="col-12 col-md-4">
-                                                <p>Tipo
-                                                    Calzada: {{ $denuncia->tipo_calzada_id != null ? $denuncia->tipoCalzada->nombre : ''}}</p>
+                                                <p>Intersección: {{ $denuncia->interseccion }}</p>
                                             </div>
 
                                             <div class="col-12 col-md-4">
-                                                <p>Detalle
-                                                    Calzada: {{ $denuncia->calzada_detalle }}</p>
+                                                <p>CP: {{ $denuncia->codigo_postal }}</p>
                                             </div>
+
                                         </div>
 
                                         <div class="row pt-0">
+                                            <div class="col-12 col-md-4">
+                                                <p>Tipo
+                                                    Calzada: {{ $denuncia->tipo_calzada_id != null ? $denuncia->tipoCalzada->nombre : ''}}</p>
+                                            </div>
                                             <div class="col-12 col-md-8">
-                                                <p>
-                                                    Intersección: {{ $denuncia->interseccion }}</p>
+                                                <p>Detalle
+                                                    Calzada: {{ $denuncia->calzada_detalle }}</p>
                                             </div>
                                         </div>
 
