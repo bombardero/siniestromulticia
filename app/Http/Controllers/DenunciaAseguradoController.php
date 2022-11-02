@@ -146,17 +146,14 @@ class DenunciaAseguradoController extends Controller
         return view('siniestro_backoffice.denuncias.show',["denuncia"=>$denuncia]);
     }
 
-    public function agregarObservaciones(DenunciaSiniestro $denuncia)
+    public function agregarObservacionesStore(Request $request,DenunciaSiniestro $denuncia)
     {
-
-        return view('siniestro_backoffice.denuncias.index-observaciones',['denuncia'=>$denuncia]);
-    }
-
-    public function agregarObservacionesStore(DenunciaSiniestro $denuncia)
-    {
-        $observaciones = request('descripcion_siniestro');
-        $denuncia->observaciones()->create(['detalle'=>$observaciones,'user_id'=>auth()->user()->id]);
-        return redirect()->route('panel-siniestros.denuncia.show',['denuncia'=>$denuncia]);
+        $rules =  [
+            'observacion' => 'required'
+        ];
+        Validator::make($request->all(),$rules)->validate();
+        $denuncia->observaciones()->create(['detalle' => $request->observacion, 'user_id' => Auth::user()->id ]);
+        return back();
     }
 
     public function delete(DenunciaSiniestro $denuncia)

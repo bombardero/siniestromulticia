@@ -11,6 +11,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CotizaVehiculoController;
 use App\Http\Controllers\DenunciaAseguradoController;
+use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
 use App\Http\Controllers\FormularioProductorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InmobiliariaController;
@@ -243,7 +244,6 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('panel-siniestros.denuncia.show');
     Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('panel-siniestros.denuncia.cambiar-estado');
     Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('panel-siniestros.denuncia.cambiar-cobertura-activa');
-    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservaciones'])->name('panel-siniestros.denuncia.observaciones');
     Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store');
     Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete');
     Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador');
@@ -255,6 +255,10 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('panel-siniestros.denuncia.update-certificado-poliza');
 });
 
+// Ajax
+Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/panel-siniestros'], function () {
+    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.panel-siniestros.denuncia.observaciones.index');
+});
 Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [SuperAdminController::class,'index'])->name('index');
     Route::resource('users', SuperAdminUserController::class)->except('show');

@@ -1177,10 +1177,6 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Observaciones
-                                            <a href="{{ route('panel-siniestros.denuncia.observaciones',['denuncia' => $denuncia]) }}"
-                                               class="badge badge-secondary float-right"><i
-                                                    class="fa-solid fa-pen-to-square"></i>
-                                                Agregar</a>
                                         </div>
 
                                         <table class="table">
@@ -1202,27 +1198,22 @@
                                             </tbody>
                                         </table>
 
+                                        <form action="{{ route('panel-siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Nueva observación</label>
+                                                <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
+                                                @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                                            </div>
+                                            <div class="float-right">
+                                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                            </div>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
                         </div>
-
-
-                        <div style="padding-left:8px;padding-right:8px;">
-
-
-                            <div style="padding-left:8px;padding-right:8px;">
-
-
-                                <div style="padding-left:8px;padding-right:8px;">
-
-                                </div>
-
-
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </div>
         </div>

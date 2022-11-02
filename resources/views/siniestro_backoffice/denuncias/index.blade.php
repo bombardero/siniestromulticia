@@ -215,6 +215,7 @@
                                     <th class="th-padding" scope="col">ESTADO</th>
                                     <th class="th-padding" scope="col">COBERTURA</th>
                                     <th class="th-padding" scope="col">PASO</th>
+                                    <th class="th-padding" scope="col">ÚLT. OBSERVACIÓN</th>
                                     <th class="th-padding" scope="col">LINK</th>
                                     <th class="th-padding" scope="col">OPERACIONES</th>
                                 </tr>
@@ -321,6 +322,9 @@
                                                     <span>{{ $denuncia->estado_carga.'/12' }}</span>
                                                 @endif</td>
                                             <td>
+                                                {{ $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : '' }}
+                                            </td>
+                                            <td>
                                                 <a target="_blank" class="btn-link"
                                                    href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia (dominio: {{$denuncia->dominio_vehiculo_asegurado}}) ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
                                                    style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-denuncia-id="{{ $denuncia->id }}"
@@ -328,7 +332,6 @@
                                                     <i class="fa-solid fa-link {{ $denuncia->link_enviado ? 'text-success' : '' }}"></i>
                                                 </a>
                                             </td>
-
                                             <td>
                                                 <div class="dropdown text-center">
                                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-expanded="false">
@@ -345,6 +348,10 @@
                                                         <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
                                                            class="dropdown-item" title="Editar">
                                                             <i class="fa-solid fa-file-pen"></i><span>Editar</span>
+                                                        </a>
+                                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#modalObservaciones" data-denuncia-id="{{ $denuncia->id }}"
+                                                           class="dropdown-item" title="Observaciones">
+                                                            <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
                                                         </a>
                                                         <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
                                                            class="dropdown-item" title="Descargar" target="_blank">
@@ -373,6 +380,46 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Observaciones-->
+    <div class="modal fade" id="modalObservaciones" aria-labelledby="modalObservacionesLabel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalObservacionesLabel">Observaciones</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-0">
+                    <table class="table m-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="th-padding" scope="col">Fecha</th>
+                                <th class="th-padding" scope="col">Comentario</th>
+                                <th class="th-padding" scope="col">Usuario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer ">
+                    <form action="" method="post" id="formNuevaObservacion" class="w-100">
+                        @csrf
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Nueva observación</label>
+                            <textarea class="form-control" id="observacion" name="observacion" rows="3" required></textarea>
+                        </div>
+                        <div class="float-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -534,6 +581,56 @@
     function buscar() {
         document.getElementById("buscador").submit();
     }
+
+
+    $('#modalObservaciones').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget)
+        let denuncia_id = button.data('denuncia-id')
+        let url = '{{ route('ajax.panel-siniestros.denuncia.observaciones.index', ['denuncia' =>  ':denuncia_id']) }}'
+        let url_store = '{{ route('panel-siniestros.denuncia.observaciones.store', ['denuncia' =>  ':denuncia_id']) }}'
+        url = url.replace(':denuncia_id',denuncia_id)
+        url_store = url_store.replace(':denuncia_id',denuncia_id)
+        $(this).find('tbody').append('<tr><td colspan="3" class="text-center"><i class="fas fa-spinner fa-pulse"></i> Cargando</td></tr>')
+        $(this).find('form').attr('action',url_store)
+        $.ajax({
+            url: url,
+            type: 'get',
+            data: {
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function (result) {
+                console.log(result);
+                $('#modalObservaciones').find('tbody').empty()
+                if(result.observaciones.length > 0)
+                {
+                    let rows = '';
+                    result.observaciones.forEach( (observacion) => {
+                        rows += '<tr><td>'+observacion.fecha_hora+'</td><td>'+observacion.detalle+'</td><td>'+observacion.user_name+'</td></tr>'
+                    })
+                    $('#modalObservaciones').find('tbody').append(rows)
+                }
+            },
+            error: function (error) {
+                console.log(error)
+                alert('Hubo un error.');
+            }
+        })
+    })
+
+    $('#modalObservaciones').on('shown.bs.modal', function (event)
+    {
+        $("#observacion").focus()
+    })
+
+    $('#modalObservaciones').on('hidden.bs.modal', function (event)
+    {
+        $(this).find('tbody').empty()
+        $(this).find('textarea').val('')
+    })
+
+    $("#modalObservaciones form").submit(function (e) {
+        showLoading()
+    });
 
 </script>
 

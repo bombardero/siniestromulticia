@@ -210,7 +210,7 @@ class DenunciaSiniestro extends Model
 
     public function observaciones()
     {
-        return $this->hasMany(Observacion::class)->latest();
+        return $this->hasMany(Observacion::class);
     }
 
     public function canEdit()
