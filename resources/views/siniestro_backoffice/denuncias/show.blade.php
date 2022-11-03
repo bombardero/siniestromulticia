@@ -137,6 +137,15 @@
                                         </div>
 
                                         <div class="row pt-0">
+                                            <div class="col-12 col-md-8">
+                                                <p>Lugar: {{ $denuncia->lugar_nombre }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>CP: {{ $denuncia->codigo_postal }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
                                             @if($denuncia->pais_id && $denuncia->province_id)
                                                 <div class="col-12 col-md-4">
                                                     <p>País: {{ $denuncia->pais->nombre }}</p>
@@ -173,15 +182,9 @@
                                             <div class="col-12 col-md-4">
                                                 <p>Calle/Ruta: {{ $denuncia->calle }}</p>
                                             </div>
-
-                                            <div class="col-12 col-md-4">
+                                            <div class="col-12 col-md-8">
                                                 <p>Intersección: {{ $denuncia->interseccion }}</p>
                                             </div>
-
-                                            <div class="col-12 col-md-4">
-                                                <p>CP: {{ $denuncia->codigo_postal }}</p>
-                                            </div>
-
                                         </div>
 
                                         <div class="row pt-0">
