@@ -1381,6 +1381,7 @@ class DenunciaAseguradoController extends Controller
             if($denuncia_siniestro->estado_carga == "11")
             {
                 $denuncia_siniestro->estado_carga = '12';
+                $denuncia_siniestro->finalized_at = Carbon::now()->toDateTimeString();
                 $denuncia_siniestro->save();
             }
         }

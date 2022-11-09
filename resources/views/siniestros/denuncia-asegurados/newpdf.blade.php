@@ -1173,14 +1173,16 @@
     </div>
 
     <table class="table tb-content pb-0">
+        @if($denuncia->estado_carga == '12' && $denuncia->finalized_at)
         <tr>
             <td>
-                Documento generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }}
+                <p>Fecha de entrega: {{ $denuncia->finalized_at->format('d/m/Y H:i:s') }}</p>
             </td>
         </tr>
+        @endif
         <tr>
-            <td>
-                en <a href="https://finisterreseguros.com.ar/">finisterreseguros.com.ar</a>
+            <td style="font-size: 10px">
+                Documento generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }} en <a href="https://finisterreseguros.com.ar/">finisterreseguros.com.ar</a>
             </td>
         </tr>
     </table>

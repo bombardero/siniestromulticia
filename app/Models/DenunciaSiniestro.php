@@ -100,6 +100,8 @@ class DenunciaSiniestro extends Model
         "certificado_cobertura_name",
         "certificado_cobertura_url",
         "certificado_cobertura_path",
+
+        "finalized_at"
     ];
 
     protected $casts = [
@@ -139,6 +141,8 @@ class DenunciaSiniestro extends Model
         'colision_transporte_publico' => 'boolean',
         'colision_otros' => 'boolean',
         'link_enviado' => 'boolean',
+
+        'finalized_at' => 'datetime'
     ];
 
     protected $dates = ['fecha'];

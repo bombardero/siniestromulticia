@@ -62,6 +62,13 @@
                                                 {{$denuncia->estado_tiempo_otros_detalles}}</p>
                                         </div>
                                     </div>
+                                    @if($denuncia->estado_carga == '12' && $denuncia->finalized_at)
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <p>Finalizado: {{ $denuncia->finalized_at->format('d/m/Y H:i:s') }}</p>
+                                        </div>
+                                    </div>
+                                    @endif
                                     @if($denuncia->estado_carga == 'precarga')
                                         <div class="row">
                                             <div class="col-12">
