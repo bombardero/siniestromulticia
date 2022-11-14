@@ -17,7 +17,7 @@
                 -->
                 <
                 <div class="d-inline text-center">
-                    <a target="_blank" href="http://qr.afip.gob.ar/?qr=BWNG6tVO4f7PLYPQB4n8hw">
+                    <a target="_blank" href="http://qr.afip.gob.ar/?qr=BWNG6tVO4f7PLYPQB4n8hw,,">
                         <img class="pt-3 pb-2 text-left" src="{{url('/images/afip.png')}}" class="img-fluid ">
                     </a>
                 </div>
