@@ -25,6 +25,10 @@
                         <p class="px-3 solicitud-enviada">
                             <button type="button" class="btn btn-primary boton-azul-full" onclick="descargarFile('{{ request()->get('link_certificado') }}')">Descargar Cerificado de Cobertura</button>
                         </p>
+                    @else
+                        <p class="pr-md-5 pl-md-5 solicitud-enviada-subtitulo">
+                            En los próximos días tendrá disponible el certificado de cobertura.<br>Podrá acceder al mismo mediante el enlace/link que le proporcionaron.
+                        </p>
                     @endif
                     <p class="pr-md-5 pl-md-5 pt-2 solicitud-enviada-subtitulo">
                         Hemos enviado tu trámite. Ante cualquier consulta puedes comunicarte al 0810 362 0700.
