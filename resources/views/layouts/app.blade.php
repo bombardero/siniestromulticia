@@ -182,7 +182,8 @@
     </script>
 
 <call-us
-     style="position: fixed; right: 20px; bottom: 20px;
+    phonesystem-url="https://finisterreseguros.3cx.lat:5001"
+    style="position: fixed; right: 20px; bottom: 20px;
          font-family: Arial;
          z-index: 99999;
          --call-us-form-header-background:#373737;
@@ -190,49 +191,46 @@
          --call-us-client-text-color:#d4d4d4;
          --call-us-agent-text-color:#eeeeee;
          --call-us-form-height:330px;"
-     id="wp-live-chat-by-3CX"
-     channel-url="https://finisterreseguros.3cx.lat:5001"
-     files-url="https://finisterreseguros.3cx.lat:5001"
-     minimized="false"
-     animation-style="none"
-     party="callcenter"
-     minimized-style="BubbleRight"
-     allow-call="true"
-     allow-video="true"
-     allow-soundnotifications="true"
-     enable-onmobile="true"
-     offline-enabled="true"
-     enable="true"
-     ignore-queueownership="false"
-     authentication="both"
-     operator-name="Support"
-     show-operator-actual-name="true"
-     channel="phone"
-     aknowledge-received="true"
-     gdpr-enabled="false"
-     gdpr-message="Acepto el uso de cookies."
-     message-userinfo-format="both"
-     message-dateformat="both"
-     start-chat-button-text="Chatear"
-     window-title="Chat Finisterre Seguros"
-     button-icon-type="Default"
-     invite-message="IMPORTANTE: Por favor no cierre esta ventana hasta tanto no termine la conversación o concluya su trámite. Caso contrario la sesión se cierra y la comunicación finaliza. Bienvenido, en que podemos ayudarte?"
-     authentication-message="Ingresa por favor tu nombre y tu email"
-     unavailable-message="No estamos disponibles, escribe tu mensaje y te estaremos contactando"
-     offline-finish-message="Mensaje recibido, te contactaremos"
-     ending-message="Sesion terminada"
-     greeting-visibility="none"
-     greeting-offline-visibility="none"
-     chat-delay="2000"
-     offline-name-message="Hola me podes decir tu nombre"
-     offline-email-message="Me podrias pasar tu email"
-     offline-form-invalid-name="Nombre no valido intente de nuevo"
-     offline-form-maximum-characters-reached="Cantidad caracteres maximo"
-     offline-form-invalid-email="Tu email no es valido intenta de nuevo"
-     >
-</call-us>
-
-
-<script defer src="https://cdn.3cx.com/livechat/v1/callus.js" id="tcx-callus-js"></script>
+    id="wp-live-chat-by-3CX"
+    minimized="true"
+    animation-style="noanimation"
+    party="LiveChat726775"
+    minimized-style="bubbleright"
+    allow-call="false"
+    allow-video="false"
+    allow-soundnotifications="true"
+    enable-mute="true"
+    enable-onmobile="true"
+    offline-enabled="true"
+    enable="true"
+    ignore-queueownership="false"
+    authentication="both"
+    show-operator-actual-name="true"
+    aknowledge-received="true"
+    gdpr-enabled="false"
+    gdpr-message="Acepto el uso de cookies."
+    message-userinfo-format="both"
+    message-dateformat="both"
+    lang="browser"
+    button-icon-type="default"
+    greeting-visibility="none"
+    greeting-offline-visibility="none"
+    chat-delay="2000"
+    enable-direct-call="true"
+    enable-ga="false"
+    start-chat-button-text="Chatear"
+    window-title="Chat Finisterre Seguros"
+    invite-message="IMPORTANTE: Por favor no cierre esta ventana hasta tanto no termine la conversación o concluya su trámite. Caso contrario la sesión se cierra y la comunicación finaliza. Bienvenido, en que podemos ayudarte?"
+    authentication-message="Ingresa por favor tu nombre y tu email"
+    unavailable-message="No estamos disponibles, escribe tu mensaje y te estaremos contactando"
+    offline-finish-message="Mensaje recibido, te contactaremos"
+    ending-message="Sesion terminada"
+    offline-name-message="Hola me podes decir tu nombre"
+    offline-email-message="Me podrias pasar tu email"
+    offline-form-invalid-name="Nombre no valido intente de nuevo"
+    offline-form-maximum-characters-reached="Cantidad caracteres maximo"
+    offline-form-invalid-email="Tu email no es valido intenta de nuevo"
+></call-us>-->
+<script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
 
 </html>
