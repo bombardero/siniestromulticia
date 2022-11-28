@@ -1386,12 +1386,7 @@ class DenunciaAseguradoController extends Controller
             }
         }
 
-        $data['link_denuncia'] = route('asegurados-denuncias.pdf', ['denuncia' =>  $denuncia_siniestro->id]);
-        if($denuncia_siniestro->certificado_cobertura_url)
-        {
-            $data['link_certificado'] = $denuncia_siniestro->certificado_cobertura_url;
-        }
-        return redirect()->route('gracias-denuncia', $data);
+        return redirect()->route('gracias-denuncia', ['id' => $denuncia_siniestro->identificador]);
     }
 
 

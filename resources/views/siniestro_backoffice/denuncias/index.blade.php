@@ -62,6 +62,17 @@
                                         <option
                                             value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
                                             Investigación
+                                        <option
+                                            value="derivado-proveedor" {{(request()->estado && request()->estado == 'derivado-proveedor') ? 'selected' : ''}}>
+                                            Derivado a proveedor
+                                        </option>
+                                        <option
+                                            value="solicitud-documentacion" {{(request()->estado && request()->estado == 'solicitud-documentacion') ? 'selected' : ''}}>
+                                            Solicitud de documentación
+                                        </option>
+                                        <option
+                                            value="informe-pericial" {{(request()->estado && request()->estado == 'informe-pericial') ? 'selected' : ''}}>
+                                            Informe Pericial
                                         </option>
                                     </select>
                                     <label for="estado">Estado</label>
@@ -289,6 +300,18 @@
                                                     <option
                                                         value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>
                                                         INVESTIGACIÓN
+                                                    </option>
+                                                    <option
+                                                        value="derivado-proveedor" {{( $denuncia->estado == 'derivado-proveedor') ? 'selected' : '' }}>
+                                                        DERIVADO A PROVEEDOR
+                                                    </option>
+                                                    <option
+                                                        value="solicitud-documentacion" {{( $denuncia->estado == 'solicitud-documentacion') ? 'selected' : '' }}>
+                                                        SOLICITUD DE DOCUMENTACIÓN
+                                                    </option>
+                                                    <option
+                                                        value="informe-pericial" {{( $denuncia->estado == 'informe-pericial') ? 'selected' : '' }}>
+                                                        INFORME PERICIAL
                                                     </option>
                                                 </select>
                                             </td>

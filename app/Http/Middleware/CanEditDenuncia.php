@@ -26,12 +26,7 @@ class CanEditDenuncia
                 return response()->json([ 'status' => false], 401);
             }
 
-            $data['link_denuncia'] = route('asegurados-denuncias.pdf', ['denuncia' =>  $denuncia->id]);
-            if($denuncia->certificado_cobertura_url)
-            {
-                $data['link_certificado'] = $denuncia->certificado_cobertura_url;
-            }
-            return redirect()->route('gracias-denuncia', $data);
+            return redirect()->route('denuncia-siniestros.asegurado.show', ['id' => $denuncia->identificador]);
         }
         return $next($request);
     }

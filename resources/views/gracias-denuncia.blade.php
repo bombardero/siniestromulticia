@@ -16,27 +16,16 @@
                     <p class="px-3 pt-4 solicitud-enviada">
                         Formulario registrado en nuestro sistema exitosamente
                     </p>
-                    @if(request()->get('link_denuncia'))
-                    <p class="px-3 pt-4 solicitud-enviada">
-                        <button type="button" class="btn btn-primary boton-azul-full" onclick="descargarFile('{{ request()->get('link_denuncia') }}')">Descargar Denuncia</button>
-                    </p>
-                    @endif
-                    @if(request()->get('link_certificado'))
-                        <p class="px-3 solicitud-enviada">
-                            <button type="button" class="btn btn-primary boton-azul-full" onclick="descargarFile('{{ request()->get('link_certificado') }}')">Descargar Cerificado de Cobertura</button>
-                        </p>
-                    @else
-                        <p class="pr-md-5 pl-md-5 solicitud-enviada-subtitulo">
-                            En los próximos días tendrá disponible el certificado de cobertura.<br>Podrá acceder al mismo mediante el enlace/link que le proporcionaron.
-                        </p>
-                    @endif
                     <p class="pr-md-5 pl-md-5 pt-2 solicitud-enviada-subtitulo">
                         Hemos enviado tu trámite. Ante cualquier consulta puedes comunicarte al 0810 362 0700.
                     </p>
 
                 </div>
                 <div class="col-12 text-center pt-5">
-                    @livewire('boton-azul',['name' => 'Volver', 'url' => '/'])
+                    <span class="btn btn-danger boton-azul-full">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        Redirigiendo en <span id="timer">5</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -47,6 +36,18 @@
         {
             window.open(url, '_blank').focus();
         }
+
+        setTimeout(function () {
+            window.location.replace('{{ route('denuncia-siniestros.asegurado.show', ['id' => request()->get('id')]) }}');
+        }, 5000);
+        setInterval(function () {
+            let counter = parseInt(document.getElementById('timer').textContent);
+            if(counter>0)
+            {
+                document.getElementById('timer').innerHTML = --counter;
+            }
+
+        }, 1000);
     </script>
 
 @endsection

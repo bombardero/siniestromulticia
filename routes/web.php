@@ -11,6 +11,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CotizaVehiculoController;
 use App\Http\Controllers\DenunciaAseguradoController;
+use App\Http\Controllers\DenunciaSiniestro\DenunciaSiniestroAseguradoController;
 use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
 use App\Http\Controllers\FormularioProductorController;
 use App\Http\Controllers\HomeController;
@@ -87,10 +88,6 @@ Route::get('/muchas-gracias',function (Request $request) {
 Route::get('/contacto/gracias',function (Request $request) {
     return view('gracias-contacto');
 })->name('gracias-contacto');
-
-Route::get('/denuncia/gracias',function (Request $request) {
-    return view('gracias-denuncia');
-})->name('gracias-denuncia');
 
 
 Route::get('/ciudades/{city}', [CityController::class, 'getCities'])->name('city.get');
@@ -174,6 +171,11 @@ Route::get('/callcenter/{cotizacion}', [CallCenterController::class,'show'])->na
 
 Route::get('siniestros/asegurados', [AseguradoController::class,'index'])->name('asegurado.index');
 Route::get('siniestros/terceros', [TerceroController::class,'index'])->name('tercero.index');
+
+Route::group(['prefix' => 'denuncia-siniestros'], function () {
+    Route::view('/gracias','gracias-denuncia')->name('gracias-denuncia');
+    Route::get('/{id}',[DenunciaSiniestroAseguradoController::class,'show'])->name('denuncia-siniestros.asegurado.show');
+});
 
 Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () {
     Route::get('paso-1',[DenunciaAseguradoController::class,'paso1create'])->name('asegurados-denuncias-paso1.create');
