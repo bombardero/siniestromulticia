@@ -40,6 +40,9 @@
                                 @case('informe-pericial')
                                     Informe Pericial
                                     @break
+                                @case('pendiente-de-pago')
+                                    Pendiente de pago
+                                    @break
                             @endswitch
                         @else
                             Carga Incompleta

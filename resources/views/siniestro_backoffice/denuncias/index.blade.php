@@ -74,6 +74,10 @@
                                             value="informe-pericial" {{(request()->estado && request()->estado == 'informe-pericial') ? 'selected' : ''}}>
                                             Informe Pericial
                                         </option>
+                                        <option
+                                            value="pendiente-de-pago" {{(request()->estado && request()->estado == 'pendiente-de-pago') ? 'selected' : ''}}>
+                                            Pendiente de pago
+                                        </option>
                                     </select>
                                     <label for="estado">Estado</label>
                                 </div>
@@ -312,6 +316,10 @@
                                                     <option
                                                         value="informe-pericial" {{( $denuncia->estado == 'informe-pericial') ? 'selected' : '' }}>
                                                         INFORME PERICIAL
+                                                    </option>
+                                                    <option
+                                                        value="pendiente-de-pago" {{( $denuncia->estado == 'pendiente-de-pago') ? 'selected' : '' }}>
+                                                        PENDIENTE DE PAGO
                                                     </option>
                                                 </select>
                                             </td>
