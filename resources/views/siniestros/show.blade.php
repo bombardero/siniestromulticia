@@ -43,6 +43,10 @@
                                 @case('pendiente-de-pago')
                                     Pendiente de pago
                                     @break
+                                @case('esperando-baja-de-unidad')
+                                    Esperando baja de unidad
+                                    @break
+
                             @endswitch
                         @else
                             Carga Incompleta

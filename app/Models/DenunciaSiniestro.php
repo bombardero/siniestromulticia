@@ -21,7 +21,8 @@ class DenunciaSiniestro extends Model
         'derivado-proveedor',
         'solicitud-documentacion',
         'informe-pericial',
-        'pendiente-de-pago'
+        'pendiente-de-pago',
+        'esperando-baja-de-unidad'
     ];
     const COBERTURAS_ACTIVAS = ['RC', 'Casco', 'RC con Casco'];
 

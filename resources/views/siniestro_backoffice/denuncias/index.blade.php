@@ -78,6 +78,10 @@
                                             value="pendiente-de-pago" {{(request()->estado && request()->estado == 'pendiente-de-pago') ? 'selected' : ''}}>
                                             Pendiente de pago
                                         </option>
+                                        <option
+                                            value="esperando-baja-de-unidad" {{(request()->estado && request()->estado == 'esperando-baja-de-unidad') ? 'selected' : ''}}>
+                                            Esperando baja de unidad
+                                        </option>
                                     </select>
                                     <label for="estado">Estado</label>
                                 </div>
@@ -320,6 +324,10 @@
                                                     <option
                                                         value="pendiente-de-pago" {{( $denuncia->estado == 'pendiente-de-pago') ? 'selected' : '' }}>
                                                         PENDIENTE DE PAGO
+                                                    </option>
+                                                    <option
+                                                        value="esperando-baja-de-unidad" {{( $denuncia->estado == 'esperando-baja-de-unidad') ? 'selected' : '' }}>
+                                                        ESPERANDO BAJA DE UNIDAD
                                                     </option>
                                                 </select>
                                             </td>
