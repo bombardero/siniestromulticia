@@ -175,6 +175,8 @@ Route::get('siniestros/terceros', [TerceroController::class,'index'])->name('ter
 Route::group(['prefix' => 'denuncia-siniestros'], function () {
     Route::view('/gracias','gracias-denuncia')->name('gracias-denuncia');
     Route::get('/{id}',[DenunciaSiniestroAseguradoController::class,'show'])->name('denuncia-siniestros.asegurado.show');
+    Route::post('/{id}/store-baja-unidad',[DenunciaSiniestroAseguradoController::class,'storeBajaUnidad'])->name('denuncia-siniestros.asegurado.store-baja-unidad');
+    Route::post('/{id}/delete-baja-unidad',[DenunciaSiniestroAseguradoController::class,'deleteBajaUnidad'])->name('denuncia-siniestros.asegurado.delete-baja-unidad');
 });
 
 Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () {
@@ -261,6 +263,10 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
 Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/panel-siniestros'], function () {
     Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.panel-siniestros.denuncia.observaciones.index');
 });
+
+
+
+// Super Admin
 Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [SuperAdminController::class,'index'])->name('index');
     Route::resource('users', SuperAdminUserController::class)->except('show');

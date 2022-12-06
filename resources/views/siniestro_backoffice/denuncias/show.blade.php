@@ -608,14 +608,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                           class="text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                     </p>
 
                                                                 </div>
@@ -634,14 +628,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                           class="text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -660,13 +648,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
+                                                                           class="documento-text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                         </button>
                                                                     </p>
                                                                 </div>
@@ -690,14 +673,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                           class="text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -718,13 +695,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
+                                                                           class="text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                         </button>
                                                                     </p>
 
@@ -745,14 +717,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                           class="text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -770,14 +736,8 @@
                                                                 <div class="col-12">
                                                                     <p>
                                                                         <a target="_blank"
-                                                                           class="documento-formato-texto pt-2"
-                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a><i
-                                                                            class="pl-2 fas fa-check"></i>
-                                                                        <button
-                                                                            style="border:none;background: none;"
-                                                                            id="confirmacion-popupa"><i
-                                                                                class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                           class="text-info pt-2"
+                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
                                                                     </p>
 
                                                                 </div>
@@ -1185,8 +1145,23 @@
                                                     </form>
                                                 </div>
                                             </div>
-
                                         </div>
+
+                                        @if($denuncia->documentosDenuncia()->where('type', 'baja_unidad')->count() > 0)
+                                            <div class="alert alert-secondary mt-3 " role="alert">
+                                                Baja de Unidad
+                                            </div>
+                                            @foreach($denuncia->documentosDenuncia()->where('type', 'baja_unidad')->get() as $archivo)
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p>
+                                                            <a target="_blank" class="text-info pt-2" href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Observaciones
