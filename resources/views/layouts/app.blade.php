@@ -231,7 +231,7 @@
     offline-form-invalid-name="Nombre no valido intente de nuevo"
     offline-form-maximum-characters-reached="Cantidad caracteres maximo"
     offline-form-invalid-email="Tu email no es valido intenta de nuevo"
-></call-us>-->
+></call-us>
 <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
 
 <script>

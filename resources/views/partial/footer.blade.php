@@ -39,26 +39,6 @@
                         class="lista-footer">• Producí con nosotros</p></a>
             </div>
             <div class="col-12 col-md-3 pt-4 text-center text-md-left">
-                <p class="siniestro-footer">
-                    <span style="font-weight: bold;">- Siniestros Denuncia</span>
-                <div
-                    style="width:fit-content;background:#398852;border-radius: 20px;border-color:#398852;padding-top:10px;padding-bottom:10px;padding-left:24px;padding-right:24px;">
-                    <a href="https://api.whatsapp.com/send?phone=5491158134014&text=Hola%20me%20contacto%20de%20la%20p&aacute;gina%20finisterre.%20Mi%20consulta%20es:&source=&data=&app_absent="
-                       target="_blank" style="color:white;text-decoration: none;"><img
-                            src="{{url('/images/icono_whatapp.svg')}}" class="mr-2"><span
-                            style="text-decoration:underline;"><span
-                                style="font-size:20px;">Asegurados</span></span><br> Chat de 9 a 13hs</a></div>
-                </p>
-                <p class="siniestro-footer">
-                    <span style="font-weight: bold;">- Siniestros Reclamos</span>
-                <div
-                    style="width:fit-content;background:#398852;border-radius: 20px;border-color:#398852;padding-top:10px;padding-bottom:10px;padding-left:24px;padding-right:24px;">
-                    <a href="https://api.whatsapp.com/send?phone=5491133536309&text=Hola%20me%20contacto%20de%20la%20p&aacute;gina%20finisterre.%20Mi%20consulta%20es:&source=&data=&app_absent="
-                       target="_blank" style="color:white;text-decoration: none;"><img
-                            src="{{url('/images/icono_whatapp.svg')}}" class="mr-2"><span
-                            style="text-decoration:underline;"><span style="font-size:20px;">Terceros</span></span><br>
-                        Chat de 9 a 13hs</a></div>
-                </p>
                 <h3 class="legales">Legales</h3>
                 <a class="enlace-footer" href="{{ route('legales') }}"><p class="subtitulo-footer lista-footer">•
                         Privacidad y Legales</p></a>
