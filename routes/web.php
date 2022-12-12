@@ -249,6 +249,8 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('panel-siniestros.denuncia.cambiar-estado');
     Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('panel-siniestros.denuncia.cambiar-cobertura-activa');
     Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store');
+    Route::post('denuncias/{denuncia}/asignar', [DenunciaAseguradoController::class,'asignar'])->name('panel-siniestros.denuncia.asignar');
+    Route::post('denuncias/{denuncia}/desasignar', [DenunciaAseguradoController::class,'desasignar'])->name('panel-siniestros.denuncia.desasignar');
     Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete');
     Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador');
 

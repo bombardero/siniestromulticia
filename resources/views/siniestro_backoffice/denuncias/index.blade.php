@@ -191,10 +191,35 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-9 col-lg-10 col-xl-4 px-0 pl-lg-0 px-xl-1">
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                                <div class="form-label-group">
+                                    <select class="custom-select form-control form-control-sm" name="responsable" id="responsable"
+                                            onchange="buscar()"
+                                        {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
+                                        <option
+                                            value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>
+                                            Todos
+                                        </option>
+                                        <option
+                                            value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>
+                                            Sin responsable
+                                        </option>
+                                        @foreach($users as $user)
+                                            <option
+                                                value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="link_enviado">Responsable</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-5 px-0">
+                                        <div class="col-4 px-0">
                                             <div class="form-label-group">
                                                 <select class="custom-select form-control form-control-sm no-border-radius-right" name="tipo" id="tipo">
                                                     <option value="dominio" {{ request()->tipo == 'id' ? 'selected' : '' }}>Dominio</option>
@@ -203,7 +228,7 @@
                                                 <label for="nro_denuncia">Buscar por</label>
                                             </div>
                                         </div>
-                                        <div class="col-7 px-0">
+                                        <div class="col-8 px-0">
                                             <div class="form-label-group input-group">
                                                 <input type="text" name="busqueda" class="form-control no-border-radius-left"
                                                        value="{{request()->busqueda}}" onchange="buscar()">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
 use App\Models\Province;
@@ -26,7 +27,9 @@ class DenunciaAseguradoController extends Controller
     public function index()
     {
         $denuncia_siniestros = DenunciaSiniestro::latest()->paginate(10);
-        return view('siniestro_backoffice.denuncias.index',["denuncia_siniestros"=>$denuncia_siniestros]);
+        $users = User::role('siniestros')->get();
+        return view('siniestro_backoffice.denuncias.index',
+            ['denuncia_siniestros' => $denuncia_siniestros, 'users' => $users ]);
     }
 
     public function buscar(Request $request)
@@ -43,6 +46,7 @@ class DenunciaAseguradoController extends Controller
         $cobertura = $request->cobertura;
         $nro_denuncia = $request->nro_denuncia;
         $link_enviado = $request->link_enviado;
+        $responsable = $request->responsable;
         switch ($request->carga)
         {
             case 'precarga':
@@ -78,6 +82,8 @@ class DenunciaAseguradoController extends Controller
                 return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
             })->when($link_enviado != null && $link_enviado != 'todos', function ($query) use ($link_enviado) {
                 return $query->where('link_enviado', $link_enviado);
+            })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
+                return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
             });
 
             $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
@@ -95,6 +101,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
 
         $data['denuncia_siniestros'] = $denuncia_siniestros;
+        $data['users'] =User::role('siniestros')->get();
 
         return view('siniestro_backoffice.denuncias.index',$data);
     }
@@ -1408,6 +1415,20 @@ class DenunciaAseguradoController extends Controller
         $denuncia->cobertura_activa = $request->cobertura_activa;
         $denuncia->save();
         return response()->json(['status' => true]);
+    }
+
+    public function asignar(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $denuncia->responsable()->associate(Auth::user());
+        $denuncia->save();
+        return redirect()->back();
+    }
+
+    public function desasignar(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $denuncia->responsable()->disassociate();
+        $denuncia->save();
+        return redirect()->back();
     }
 
 }

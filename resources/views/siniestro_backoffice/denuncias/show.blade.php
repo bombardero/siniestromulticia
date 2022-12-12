@@ -10,28 +10,45 @@
                             <div class="card card-show-denuncia col-12 px-0 mb-5">
                                 <div class="card-header container">
                                     <div class="row">
-                                        <h5 class="col-3 mb-0">
+                                        <h5 class="col-6 col-md-2 mb-0">
                                             Notificación: {{$denuncia->id}}
                                         </h5>
-                                        <h5 class="col-3 text-danger mb-0">
+                                        <h5 class="col-6 col-md-3 text-danger mb-0">
                                             Estado Carga: <span
                                                 class="text-uppercase">{{$denuncia->estado_carga}}</span>
                                         </h5>
-                                        <div class="col-6 text-right">
-                                            <img
-                                                src="{{url('/images/siniestros/denuncia_asegurado/backoffice/aprobar.png')}}"
-                                                class="px-2">
-                                            <img
-                                                src="{{url('/images/siniestros/denuncia_asegurado/backoffice/rechazar.png')}}"
-                                                class="px-2">
-                                            <a href="{{route('asegurados-denuncias.pdf',$denuncia->id)}}">
-                                                <img
-                                                    src="{{url('/images/siniestros/denuncia_asegurado/backoffice/bajarpdf.png')}}"
-                                                    class="px-2">
+                                        <div class="col-6 col-md-5">
+                                            <h5>Responsable:
+                                                @if($denuncia->responsable)
+                                                    <span>{{ $denuncia->responsable->name }}</span>
+                                                    <a href="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
+                                                       type="button" class="btn btn-danger btn-sm btn-quitar"
+                                                       onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
+                                                    ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
+                                                    <form id="form-desasignar" action="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                @else
+                                                    <a href="{{ route('panel-siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
+                                                       type="button" class="btn btn-primary btn-sm"
+                                                       onclick="event.preventDefault();document.getElementById('form-asignar').submit();"
+                                                    ><i class="fa-solid fa-user-plus"></i> Asignarme</a>
+                                                    <form id="form-asignar" action="{{ route('panel-siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                @endif
+                                            </h5>
+                                        </div>
+                                        <div class="col-6 col-md-2 text-right">
+                                            <a href="{{route('asegurados-denuncias.pdf',$denuncia->id)}}"
+                                               class="btn btn-info btn-sm"
+                                               title="Descargar PDF"
+                                            >
+                                                <i class="fa-solid fa-file-pdf"></i>
                                             </a>
                                             <a href="{{ route('panel-siniestros.denuncia.delete',$denuncia->id) }}"
-                                               class="px-2 btn-eliminar text-danger" title="Eliminar">
-                                                <i class="fa-solid fa-trash"></i>
+                                               class="px-2 btn btn-danger btn-sm btn-eliminar" title="Eliminar">
+                                                <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         </div>
                                     </div>

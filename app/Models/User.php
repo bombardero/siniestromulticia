@@ -55,15 +55,20 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Province');
     }
-    
+
     public function city()
     {
         return $this->belongsTo('App\Models\City');
     }
 
-    public function solicitudes() 
+    public function solicitudes()
     {
         return $this->hasMany('App\Models\Solicitud');
+    }
+
+    public function denunciasSiniestro()
+    {
+        return $this->hasMany(DenunciaSiniestro::class);
     }
 
     // public function productor()

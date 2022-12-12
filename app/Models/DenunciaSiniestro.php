@@ -229,6 +229,11 @@ class DenunciaSiniestro extends Model
         return $this->hasMany(Observacion::class);
     }
 
+    public function responsable()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function canEdit()
     {
         return Auth::check() || $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12);
