@@ -27,7 +27,7 @@ class DenunciaAseguradoController extends Controller
     public function index()
     {
         $denuncia_siniestros = DenunciaSiniestro::latest()->paginate(10);
-        $users = User::role('siniestros')->get();
+        $users = User::role('siniestros')->orderBy('name')->get();
         return view('siniestro_backoffice.denuncias.index',
             ['denuncia_siniestros' => $denuncia_siniestros, 'users' => $users ]);
     }
@@ -101,7 +101,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
 
         $data['denuncia_siniestros'] = $denuncia_siniestros;
-        $data['users'] =User::role('siniestros')->get();
+        $data['users'] =User::role('siniestros')->orderBy('name')->get();
 
         return view('siniestro_backoffice.denuncias.index',$data);
     }
