@@ -21,13 +21,15 @@
                                             <h5>Responsable:
                                                 @if($denuncia->responsable)
                                                     <span>{{ $denuncia->responsable->name }}</span>
-                                                    <a href="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
-                                                       type="button" class="btn btn-danger btn-sm btn-quitar"
-                                                       onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
-                                                    ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
-                                                    <form id="form-desasignar" action="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
-                                                        @csrf
-                                                    </form>
+                                                    @if($denuncia->user_id === auth()->user()->id)
+                                                        <a href="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
+                                                           type="button" class="btn btn-danger btn-sm btn-quitar"
+                                                           onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
+                                                        ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
+                                                        <form id="form-desasignar" action="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    @endif
                                                 @else
                                                     <a href="{{ route('panel-siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
                                                        type="button" class="btn btn-primary btn-sm"
