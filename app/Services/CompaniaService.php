@@ -162,6 +162,7 @@ class CompaniaService
             $xml = str_replace(':conductor_estado_civil:', '', $xml);
         }
 
+        $xml = str_replace(':conductor_estado_civil:', '', $xml);
         $xml = str_replace(':conductor_sexo:', '', $xml);
 
         $xml = str_replace(':tipo_lugar:', 'XX', $xml);
