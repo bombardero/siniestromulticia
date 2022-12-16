@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DenunciaSiniestro extends Model
 {
@@ -237,5 +239,23 @@ class DenunciaSiniestro extends Model
     public function canEdit()
     {
         return Auth::check() || $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12);
+    }
+
+    public function storeCertificadoCobertura(string $url_cerificado)
+    {
+        if($this->certificado_cobertura_url)
+        {
+            Storage::disk('s3')->delete($this->certificado_cobertura_url);
+        }
+        $fileName = 'certificado_de_cobertura_'.Carbon::now()->format('Ymd_His').'.pdf';
+        $filePath = 'denuncia_siniestro/'.$this->id.'/'.$fileName;
+
+        Storage::disk('s3')->put($filePath, file_get_contents($url_cerificado),'public');
+        $url = Storage::disk('s3')->url($filePath);
+
+        $this->certificado_cobertura_name = $fileName;
+        $this->certificado_cobertura_path = $filePath;
+        $this->certificado_cobertura_url = $url;
+        $this->save();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
+use App\Services\CompaniaService;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
 
@@ -23,6 +24,13 @@ class DenunciaAseguradoController extends Controller
             ];
         }
         return response()->json(['status' => true, 'observaciones' => $observaciones]);
+    }
+
+    public function enviarCompania(Request $request, DenunciaSiniestro $denuncia)
+    {
+        $result = CompaniaService::enviarDenuncia($denuncia, $request->tipo_vehiculo);
+
+        return response()->json(['status' => true, 'result' => $result]);
     }
 
 }

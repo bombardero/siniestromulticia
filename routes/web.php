@@ -259,11 +259,14 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-sin
     Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro');
     Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado');
     Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('panel-siniestros.denuncia.update-certificado-poliza');
+
+
 });
 
 // Ajax
 Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/panel-siniestros'], function () {
     Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.panel-siniestros.denuncia.observaciones.index');
+    Route::post('denuncias/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('ajax.panel-siniestros.denuncia.enviar-compania');
 });
 
 

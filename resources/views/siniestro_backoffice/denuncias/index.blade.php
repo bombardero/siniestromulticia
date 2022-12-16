@@ -402,7 +402,10 @@
                                                         <i class="fa-solid fa-gear"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a href="#" class="dropdown-item disabled" title="Enviar a compañia">
+                                                        <a href="#" class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null && auth()->user()->email === 'abanico.sa.dev@gmail.com'  ? '' : 'disabled' }}"
+                                                           title="Enviar a compañia"
+                                                           data-denuncia-id="{{ $denuncia->id }}"
+                                                           data-toggle="modal" data-target="#modalEnviarACompania">
                                                             <i class="fa-solid fa-file-export"></i><span>Enviar a compañía</span>
                                                         </a>
                                                         <a href="{{route('panel-siniestros.denuncia.show',$denuncia->id)}}"
@@ -480,6 +483,36 @@
                             <button type="submit" class="btn btn-primary">Agregar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Enviar a Compañia -->
+    <div class="modal" id="modalEnviarACompania" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enviar a compañía</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="formEnviarACompania" class="w-100">
+                        @csrf
+                        <div class="form-group">
+                            <label for="tipo_vehiculo">Tipo de Vehiculo</label>
+                            <select class="custom-select" name="tipo_vehiculo">
+                                <option selected value="autos">Automóvil</option>
+                                <option value="motos">Motocicleta</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" form="formEnviarACompania" class="btn btn-primary">Enviar</button>
                 </div>
             </div>
         </div>
@@ -579,6 +612,7 @@
                 },
                 success: function (result) {
                     //console.log(result);
+                    location.reload();
                 },
                 error: function (error) {
                     //console.log(error);
@@ -590,6 +624,31 @@
             })
 
     })
+
+    $('.btn-enviar-compania').click(function (event) {
+        event.preventDefault();
+        let denuncia_siniestro_id = $(this).data('denuncia-id');
+        let url = '{{ route('ajax.panel-siniestros.denuncia.enviar-compania', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
+        console.log(denuncia_siniestro_id);
+        showLoading();
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: { "_token": "{{ csrf_token() }}", 'tipo_vehiculo': 'autos' },
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
+    });
 
 
     function cambiarEstado(estado, denuncia_siniestro_id) {
@@ -646,7 +705,6 @@
         document.getElementById("buscador").submit();
     }
 
-
     $('#modalObservaciones').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget)
         let denuncia_id = button.data('denuncia-id')
@@ -694,6 +752,40 @@
 
     $("#modalObservaciones form").submit(function (e) {
         showLoading()
+    });
+
+    $('#modalEnviarACompania').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget)
+        let denuncia_id = button.data('denuncia-id')
+        let url = '{{ route('ajax.panel-siniestros.denuncia.enviar-compania', ['denuncia' =>  ':denuncia_id']) }}'
+        url = url.replace(':denuncia_id',denuncia_id)
+        console.log(url);
+        $('#modalEnviarACompania').find('form').attr('action',url);
+    })
+
+    $("#modalEnviarACompania form").submit(function (e) {
+        e.preventDefault();
+        showLoading();
+        let tipo_vehiculo = $(this).find('select').val()
+        let url = $(this).attr('action')
+
+        $.ajax(
+            {
+                url: url,
+                type: 'post',
+                data: { "_token": "{{ csrf_token() }}", 'tipo_vehiculo': tipo_vehiculo },
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                    $('#modalEnviarACompania').find('button.close').click();
+                }
+            })
     });
 
 </script>
