@@ -146,6 +146,8 @@ return [
     'compania_url' => env('COMPANIA_URL'),
     'compania_user' => env('COMPANIA_USER'),
     'compania_password' => env('COMPANIA_PASSWORD'),
+    'compania_siniestro_user' => env('COMPANIA_SINIESTRO_USER'),
+    'compania_siniestro_password' => env('COMPANIA_SINIESTRO_PASSWORD'),
 
     'providers' => [
 

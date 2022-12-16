@@ -53,7 +53,6 @@ class CompaniaService
 
     private function getToken()
     {
-        Cache::forget('token-siniestro');
         $token = Cache::get('token-siniestro');
 
         if($token)
@@ -64,10 +63,10 @@ class CompaniaService
 
         $data = [
             'token' => null,
-            'login' => env('COMPANIA_SINIESTRO_USER'),
-            'passwd' => env('COMPANIA_SINIESTRO_PASSWORD')
+            'login' => config('app.compania_siniestro_user'),
+            'passwd' => config('app.compania_siniestro_password')
         ];
-        $request = Http::withOptions(['curl' => [CURLOPT_POSTFIELDS => self::getCurlParams($data)]])->get(env('COMPANIA_URL'));
+        $request = Http::withOptions(['curl' => [CURLOPT_POSTFIELDS => self::getCurlParams($data)]])->get(config('app.compania_url'));
         $token = $request->body();
         if(Str::contains($token, 'El token utilizado ya no es valido'))
         {
