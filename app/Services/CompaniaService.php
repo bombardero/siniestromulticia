@@ -22,7 +22,7 @@ class CompaniaService
             'data' => self::setDataXML($denuncia, $tipo_vehiculo)
         ];
 
-        $request = Http::withOptions(['curl' => [CURLOPT_POSTFIELDS => self::getCurlParams($data)]])->timeout(60)->get(config('app.compania_url'));
+        $request = Http::withOptions(['curl' => [CURLOPT_POSTFIELDS => self::getCurlParams($data)]])->get(config('app.compania_url'));
         $response = $request->body();
         if(Str::contains($token, 'El token utilizado ya no es valido'))
         {

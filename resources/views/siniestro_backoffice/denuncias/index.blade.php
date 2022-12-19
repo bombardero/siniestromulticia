@@ -625,32 +625,6 @@
 
     })
 
-    $('.btn-enviar-compania').click(function (event) {
-        event.preventDefault();
-        let denuncia_siniestro_id = $(this).data('denuncia-id');
-        let url = '{{ route('ajax.panel-siniestros.denuncia.enviar-compania', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-        url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
-        console.log(denuncia_siniestro_id);
-        showLoading();
-        $.ajax(
-            {
-                url: url,
-                type: 'post',
-                data: { "_token": "{{ csrf_token() }}", 'tipo_vehiculo': 'autos' },
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function (error) {
-                    //console.log(error);
-                    alert('Hubo un error.');
-                },
-                complete: function (jqXHR, textStatus) {
-                    hideLoading();
-                }
-            })
-    });
-
-
     function cambiarEstado(estado, denuncia_siniestro_id) {
         let url = '{{ route('panel-siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
         url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
@@ -774,11 +748,12 @@
                 url: url,
                 type: 'post',
                 data: { "_token": "{{ csrf_token() }}", 'tipo_vehiculo': tipo_vehiculo },
+                timeout: 5*60*1000,
                 success: function (result) {
                     console.log(result);
                 },
                 error: function (error) {
-                    //console.log(error);
+                    console.log(error);
                     alert('Hubo un error.');
                 },
                 complete: function (jqXHR, textStatus) {
