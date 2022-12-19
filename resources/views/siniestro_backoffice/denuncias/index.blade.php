@@ -754,7 +754,7 @@
                     console.log(result);
                     if(result.mensaje)
                     {
-                        alert(result.mensaje;
+                        alert(result.mensaje);
                     }
                 },
                 error: function (error) {
