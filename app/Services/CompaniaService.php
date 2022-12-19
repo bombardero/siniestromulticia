@@ -36,30 +36,18 @@ class CompaniaService
         $response = "<?xml version='1.0'?><response>$response</response>";
         $response = (array)simplexml_load_string($response);
 
-        if(array_key_exists('Den-Nro',$response))
-        {
-            $denuncia->nro_denuncia = $response['Den-Nro'];
-            $denuncia->save();
-        }
-
-        if(array_key_exists('pdf-path',$response) && array_key_exists('pdf-doc',$response))
-        {
-            $url = $response['pdf-path'].$response['pdf-doc'];
-            $denuncia->storeCertificadoCobertura($url);
-        }
-
         return $response;
     }
 
     private function getToken()
     {
+        /*
         $token = Cache::get('token-siniestro');
-
         if($token)
         {
             Log::info('token: '.$token);
             return $token;
-        }
+        }*/
 
         $data = [
             'token' => null,
@@ -76,7 +64,7 @@ class CompaniaService
         $token = str_replace("\n", '', $token);
         $token = str_replace('token=', '', $token);
 
-        Cache::put('token-siniestro', $token, now()->addDays(30));
+        //Cache::put('token-siniestro', $token, now()->addMinutes(5));
         Log::info('token: '.$token);
         return $token;
     }

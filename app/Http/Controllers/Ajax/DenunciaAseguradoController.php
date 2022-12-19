@@ -30,7 +30,21 @@ class DenunciaAseguradoController extends Controller
     {
         $result = CompaniaService::enviarDenuncia($denuncia, $request->tipo_vehiculo);
 
-        return response()->json(['status' => true, 'result' => $result]);
+        if(array_key_exists('Den-Nro',$result))
+        {
+            $denuncia->nro_denuncia = $result['Den-Nro'];
+            $denuncia->save();
+        }
+
+        if(array_key_exists('pdf-path',$result) && array_key_exists('pdf-doc',$result))
+        {
+            $url = $result['pdf-path'].$result['pdf-doc'];
+            $denuncia->storeCertificadoCobertura($url);
+        }
+
+        $mensaje = array_key_exists('Mensaje',$result) ? $result['Mensaje'] : null;
+
+        return response()->json(['status' => true, 'result' => $result, 'mensaje' => $mensaje]);
     }
 
 }

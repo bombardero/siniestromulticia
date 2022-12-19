@@ -752,6 +752,10 @@
                 async: true,
                 success: function (result) {
                     console.log(result);
+                    if(result.mensaje)
+                    {
+                        alert('Hubo un error.');
+                    }
                 },
                 error: function (error) {
                     console.log(error);
