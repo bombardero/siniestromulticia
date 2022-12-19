@@ -402,7 +402,7 @@
                                                         <i class="fa-solid fa-gear"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a href="#" class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null && auth()->user()->email === 'abanico.sa.dev@gmail.com'  ? '' : 'disabled' }}"
+                                                        <a href="#" class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null ? '' : 'disabled' }}"
                                                            title="Enviar a compañia"
                                                            data-denuncia-id="{{ $denuncia->id }}"
                                                            data-toggle="modal" data-target="#modalEnviarACompania">
@@ -751,14 +751,16 @@
                 timeout: 0,
                 async: true,
                 success: function (result) {
-                    console.log(result);
+                    //console.log(result);
                     if(result.mensaje)
                     {
                         alert(result.mensaje);
+                    } else {
+                        location.reload();
                     }
                 },
                 error: function (error) {
-                    console.log(error);
+                    //console.log(error);
                     alert('Hubo un error.');
                 },
                 complete: function (jqXHR, textStatus) {
