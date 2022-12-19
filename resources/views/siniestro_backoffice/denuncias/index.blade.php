@@ -749,6 +749,7 @@
                 type: 'post',
                 data: { "_token": "{{ csrf_token() }}", 'tipo_vehiculo': tipo_vehiculo },
                 timeout: 5*60*1000,
+                async: true,
                 success: function (result) {
                     console.log(result);
                 },
