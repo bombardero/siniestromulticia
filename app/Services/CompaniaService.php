@@ -107,7 +107,7 @@ class CompaniaService
                     <Con-Doc-Nro>:conductor_numero_docuento:</Con-Doc-Nro>
                     <Con-Dom>:conductor_domicilio:</Con-Dom>
                     <Con-Ocu>:conductor_ocupacion:</Con-Ocu>
-                    <Con-sex>:conductor_sexo:</Con-sex>
+                    <Con-Sex>:conductor_sexo:</Con-Sex>
                     <Est-Civ>:conductor_estado_civil:</Est-Civ>
                     <Con-Con-Tip>:conductor_carnet_tipo:</Con-Con-Tip>
                     <Con-Con-Nro>:conductor_carnet_numero:</Con-Con-Nro>
