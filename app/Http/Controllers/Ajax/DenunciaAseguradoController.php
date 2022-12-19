@@ -32,7 +32,7 @@ class DenunciaAseguradoController extends Controller
 
         if(array_key_exists('Den-Nro',$result))
         {
-            $denuncia->nro_denuncia = $result['Den-Nro'];
+            $denuncia->nro_denuncia = trim($result['Den-Nro']);
             $denuncia->save();
         }
 
