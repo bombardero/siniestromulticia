@@ -111,6 +111,7 @@ class CompaniaService
                     <Les-Ter>:lesiones_terceros:</Les-Ter>
                     <Sin-Cod-Pos>:codigo_postal:</Sin-Cod-Pos>
                     <Fot-Rec-Con></Fot-Rec-Con>
+                    <path>:url_pdf:</path>
                 </Datos>';
 
         $xml = str_replace(':nro_poliza:', $denuncia->nro_poliza, $xml);
@@ -161,6 +162,10 @@ class CompaniaService
         $xml = str_replace(':lesiones_terceros:', $denuncia->hubo_lesionados ? 'S' : 'N' , $xml);
 
         $xml = str_replace(':codigo_postal:', $denuncia->codigo_postal, $xml);
+
+        $filename = 'DenunciaAsegurado'.$denuncia->id.'.pdf';
+        $urlpdf = route('asegurados-denuncias.pdf.filename', ['denuncia' => $denuncia, 'filename' => $filename]);
+        $xml = str_replace(':url_pdf:', $urlpdf, $xml);
 
         Log::info('CompaniaService $xml '.$xml);
         return $xml;
