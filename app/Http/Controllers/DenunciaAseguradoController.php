@@ -188,6 +188,18 @@ class DenunciaAseguradoController extends Controller
         return $pdf->stream();
     }
 
+    public function downloadPDF(Request $request, DenunciaSiniestro $denuncia, string $filename){
+        $data=[
+            'denuncia' => $denuncia
+        ];
+        PDF::setOptions(['dpi' => 150,'isPhpEnabled' => true, "isRemoteEnabled" => true]);
+
+        $pdf = PDF::loadView('siniestros.denuncia-asegurados.newpdf', $data);
+        $pdf->setPaper( 'a4' );
+
+        return $pdf->download($filename);
+    }
+
     public function paso1create(Request $request)
     {
         $denuncia_siniestro = DenunciaSiniestro::where("identificador",$request->id)->firstOrFail();
