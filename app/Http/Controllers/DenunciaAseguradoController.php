@@ -169,9 +169,9 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route('panel-siniestros');
     }
 
-    public function generarPDF(DenunciaSiniestro $denuncia){
+    public function generarPDF(Request $request, DenunciaSiniestro $denuncia){
         $data=[
-            'denuncia' =>$denuncia
+            'denuncia' => $denuncia
         ];
         PDF::setOptions(['dpi' => 150,'isPhpEnabled' => true, "isRemoteEnabled" => true]);
 
@@ -179,8 +179,13 @@ class DenunciaAseguradoController extends Controller
         $pdf->setPaper( 'a4' );
 
         //return view('siniestros.denuncia-asegurados.newpdf', $data);
-        //return $pdf->stream();
-        return $pdf->download('denuncia_'.$denuncia->dominio_vehiculo_asegurado.'.pdf');
+
+        if($request->download)
+        {
+            return $pdf->download('denuncia_'.$denuncia->dominio_vehiculo_asegurado.'.pdf');
+        }
+
+        return $pdf->stream();
     }
 
     public function paso1create(Request $request)
