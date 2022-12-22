@@ -35,7 +35,7 @@ class DenunciaSiniestroAseguradoController extends Controller
         $denuncia = DenunciaSiniestro::where('identificador',$id)->firstOrFail();
         $type = 'baja_unidad';
         $cant = $denuncia->documentosDenuncia->where('type',$type)->count();
-        $max = 5 - $cant;
+        $max = 8 - $cant;
         $rules =  [
             'baja_unidad' => ['required','array',"max:$max"],
             'baja_unidad.*' => 'required|file',
