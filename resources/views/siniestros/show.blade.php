@@ -66,7 +66,7 @@
                                 </div>
                                 <button type="submit" id="btn-enviar" class="btn btn-primary boton-azul mt-2 mb-0">Enviar</button>
                             </form>
-                            <h6 class="mt-3">Archivos subidos (máximo 5)</h6>
+                            <h6 class="mt-3">Archivos subidos (máximo 8)</h6>
                             <ul class="list-group">
                                 @if($denuncia->documentosDenuncia()->where('type', 'baja_unidad')->count() == 0)
                                     Ninguno
