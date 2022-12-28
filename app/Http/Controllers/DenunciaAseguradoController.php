@@ -15,6 +15,7 @@ use App\Models\TipoCarnet;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -165,6 +166,8 @@ class DenunciaAseguradoController extends Controller
 
     public function delete(DenunciaSiniestro $denuncia)
     {
+        Log::info("DenunciaAseguradoController::delete() denuncia ". json_encode($denuncia));
+        Log::info("DenunciaAseguradoController::delete() user ".json_encode(Auth::user()));
         $denuncia->delete();
         return redirect()->route('panel-siniestros');
     }
