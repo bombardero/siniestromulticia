@@ -29,7 +29,7 @@ class DenunciaAseguradoController extends Controller
     {
         $denuncia_siniestros = DenunciaSiniestro::latest()->paginate(10);
         $users = User::role('siniestros')->orderBy('name')->get();
-        return view('siniestro_backoffice.denuncias.index',
+        return view('backoffice.siniestros.index',
             ['denuncia_siniestros' => $denuncia_siniestros, 'users' => $users ]);
     }
 
@@ -104,7 +104,7 @@ class DenunciaAseguradoController extends Controller
         $data['denuncia_siniestros'] = $denuncia_siniestros;
         $data['users'] =User::role('siniestros')->orderBy('name')->get();
 
-        return view('siniestro_backoffice.denuncias.index',$data);
+        return view('backoffice.siniestros.index',$data);
     }
 
     public function updateDenunciaNroPoliza(Request $request, DenunciaSiniestro $denuncia)
@@ -151,7 +151,7 @@ class DenunciaAseguradoController extends Controller
 
     public function show(DenunciaSiniestro $denuncia)
     {
-        return view('siniestro_backoffice.denuncias.show',["denuncia"=>$denuncia]);
+        return view('backoffice.siniestros.show',["denuncia"=>$denuncia]);
     }
 
     public function agregarObservacionesStore(Request $request,DenunciaSiniestro $denuncia)
@@ -169,7 +169,7 @@ class DenunciaAseguradoController extends Controller
         Log::info("DenunciaAseguradoController::delete() denuncia ". json_encode($denuncia));
         Log::info("DenunciaAseguradoController::delete() user ".json_encode(Auth::user()));
         $denuncia->delete();
-        return redirect()->route('panel-siniestros');
+        return redirect()->route('admin.siniestros.index');
     }
 
     public function generarPDF(Request $request, DenunciaSiniestro $denuncia){

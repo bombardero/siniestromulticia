@@ -1,4 +1,4 @@
-@extends('layouts.backoffice')
+@extends('layouts.super-admin')
 @section('content')
     <section>
         <div class="container">
@@ -22,20 +22,20 @@
                                                 @if($denuncia->responsable)
                                                     <span>{{ $denuncia->responsable->name }}</span>
                                                     @if($denuncia->user_id === auth()->user()->id)
-                                                        <a href="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
+                                                        <a href="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
                                                            type="button" class="btn btn-danger btn-sm btn-quitar"
                                                            onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
                                                         ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
-                                                        <form id="form-desasignar" action="{{ route('panel-siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                        <form id="form-desasignar" action="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
                                                             @csrf
                                                         </form>
                                                     @endif
                                                 @else
-                                                    <a href="{{ route('panel-siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
+                                                    <a href="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
                                                        type="button" class="btn btn-primary btn-sm"
                                                        onclick="event.preventDefault();document.getElementById('form-asignar').submit();"
                                                     ><i class="fa-solid fa-user-plus"></i> Asignarme</a>
-                                                    <form id="form-asignar" action="{{ route('panel-siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                    <form id="form-asignar" action="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
                                                         @csrf
                                                     </form>
                                                 @endif
@@ -48,7 +48,7 @@
                                             >
                                                 <i class="fa-solid fa-file-pdf"></i>
                                             </a>
-                                            <a href="{{ route('panel-siniestros.denuncia.delete',$denuncia->id) }}"
+                                            <a href="{{ route('admin.siniestros.denuncia.delete',$denuncia->id) }}"
                                                class="px-2 btn btn-danger btn-sm btn-eliminar" title="Eliminar">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
@@ -1147,7 +1147,7 @@
                                             <div class="collapse" id="collapseCertificadoCobertura">
                                                 <div class="card-body">
 
-                                                    <form action="{{ route('panel-siniestros.denuncia.update-certificado-poliza', $denuncia->id) }}"
+                                                    <form action="{{ route('admin.siniestros.denuncia.update-certificado-poliza', $denuncia->id) }}"
                                                           method="post" id="formCartificadoCobertura" enctype="multipart/form-data"
                                                     >
                                                         @csrf
@@ -1205,7 +1205,7 @@
                                             </tbody>
                                         </table>
 
-                                        <form action="{{ route('panel-siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
+                                        <form action="{{ route('admin.siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
                                             @csrf
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea1">Nueva observación</label>

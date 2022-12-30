@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(15);
-        return view('super-admin.users.index', ["users" => $users]);
+        return view('backoffice.users.index', ["users" => $users]);
     }
 
     /**
@@ -37,7 +37,7 @@ class UserController extends Controller
         $localidades = City::where('province_id', $province_id)->orderBy('name')->get();
         $roles = Role::all();
 
-        return view('super-admin.users.create', [
+        return view('backoffice.users.create', [
             'provincias' => $provincias,
             'localidades' => $localidades,
             'roles' => $roles
@@ -109,7 +109,7 @@ class UserController extends Controller
         $localidades = City::where('province_id', $province_id)->orderBy('name')->get();
         $roles = Role::all();
 
-        return view('super-admin.users.edit', [
+        return view('backoffice.users.edit', [
             'provincias' => $provincias,
             'localidades' => $localidades,
             'roles' => $roles,
