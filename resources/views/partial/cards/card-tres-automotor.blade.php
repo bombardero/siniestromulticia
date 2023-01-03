@@ -17,7 +17,7 @@
 				<ul class="automotor">
 					<li class="card-icon-three text-list-automotor">Responsabilidad Civil</li>
 					<li class="card-icon-three text-list-automotor">Daños a personas transportados y no transportados.</li>
-					<li class="card-icon-three text-list-automotor">Límite de Responsabilidad Civil:  $23.000.000</li>
+					<li class="card-icon-three text-list-automotor">Límite de Responsabilidad Civil:  $39.000.000</li>
 					<li class="card-icon-three text-list-automotor">Cobertura por pérdidas totales: accidente, robo y/o hurto total e incendio total.</li>
 				</ul>
 			</div>
