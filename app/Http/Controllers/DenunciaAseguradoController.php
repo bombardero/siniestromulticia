@@ -1279,7 +1279,7 @@ class DenunciaAseguradoController extends Controller
         $denuncia->certificado_cobertura_url = $url;
         $denuncia->save();
 
-        return redirect()->route('panel-siniestros.denuncia.show', $denuncia);
+        return redirect()->route('admin.siniestros.denuncia.show', $denuncia);
     }
 
     public function uploadGrafico($request)

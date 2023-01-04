@@ -1139,7 +1139,7 @@
                                                     Ninguno
                                                 @endif
                                                 <a class="badge badge-secondary float-right"
-                                                   data-toggle="collapse" href="#collapseCertificadoCobertura" role="button" aria-expanded="false" aria-controls="collapseCertificadoCobertura">
+                                                   data-bs-toggle="collapse" href="#collapseCertificadoCobertura" role="button" aria-expanded="false" aria-controls="collapseCertificadoCobertura">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                     {{ $denuncia->certificado_cobertura_path ? 'Modificar' : 'Agregar' }}
                                                 </a>
