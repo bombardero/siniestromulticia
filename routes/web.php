@@ -24,7 +24,6 @@ use App\Http\Controllers\ProductorController;
 use App\Http\Controllers\SepelioController;
 use App\Http\Controllers\SiniestroController;
 use App\Http\Controllers\SolicitudController;
-use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Http\Controllers\SuperAdmin\UserController as SuperAdminUserController;
 use App\Http\Controllers\TerceroController;
 use App\Http\Livewire\Admin\PanelAdmin;
@@ -244,36 +243,39 @@ Route::get('asegurados/denuncias/{denuncia}/pdf/{filename}', [DenunciaAseguradoC
 Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field');
 
 
-Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'panel-siniestros'], function () {
-    Route::get('/', [DenunciaAseguradoController::class,'index'])->name('panel-siniestros');
-    Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('panel-siniestros.denuncia.show');
-    Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('panel-siniestros.denuncia.cambiar-estado');
-    Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('panel-siniestros.denuncia.cambiar-cobertura-activa');
-    Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('panel-siniestros.denuncia.observaciones.store');
-    Route::post('denuncias/{denuncia}/asignar', [DenunciaAseguradoController::class,'asignar'])->name('panel-siniestros.denuncia.asignar');
-    Route::post('denuncias/{denuncia}/desasignar', [DenunciaAseguradoController::class,'desasignar'])->name('panel-siniestros.denuncia.desasignar');
-    Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('panel-siniestros.denuncia.delete');
-    Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('panel-siniestros.denuncia.buscador');
-
-    Route::post('update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('panel-siniestros.denuncia.update.nropoliza');
-    Route::post('update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('panel-siniestros.denuncia.update.nrodenuncia');
-    Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('panel-siniestros.denuncia.update.nrosiniestro');
-    Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('panel-siniestros.denuncia.link-enviado');
-    Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('panel-siniestros.denuncia.update-certificado-poliza');
 
 
+
+
+
+// BackOffice
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::view('/', 'backoffice.index')->name('index');
+
+    Route::group(['middleware' => ['check.siniestro'], 'prefix' => 'siniestros', 'as' => 'siniestros.'], function () {
+        Route::get('/', [DenunciaAseguradoController::class,'index'])->name('index');
+        Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('denuncia.show');
+        Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('denuncia.cambiar-estado');
+        Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('denuncia.cambiar-cobertura-activa');
+        Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('denuncia.observaciones.store');
+        Route::post('denuncias/{denuncia}/asignar', [DenunciaAseguradoController::class,'asignar'])->name('denuncia.asignar');
+        Route::post('denuncias/{denuncia}/desasignar', [DenunciaAseguradoController::class,'desasignar'])->name('denuncia.desasignar');
+        Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('denuncia.delete');
+        Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('buscador');
+
+        Route::post('update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('denuncia.update.nropoliza');
+        Route::post('update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('denuncia.update.nrodenuncia');
+        Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('denuncia.update.nrosiniestro');
+        Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('denuncia.link-enviado');
+        Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('denuncia.update-certificado-poliza');
+    });
+
+    Route::resource('users', SuperAdminUserController::class)->except('show')->middleware('check.superadmin');
 });
 
 // Ajax
-Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/panel-siniestros'], function () {
-    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.panel-siniestros.denuncia.observaciones.index');
-    Route::post('denuncias/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('ajax.panel-siniestros.denuncia.enviar-compania');
+Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros'], function () {
+    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.admin.siniestros.denuncia.observaciones.index');
+    Route::post('denuncias/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('ajax.admin.siniestros.denuncia.enviar-compania');
 });
 
-
-
-// Super Admin
-Route::group(['middleware' => ['auth','check.superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('/', [SuperAdminController::class,'index'])->name('index');
-    Route::resource('users', SuperAdminUserController::class)->except('show');
-});

@@ -69,7 +69,7 @@ class LoginController extends Controller
         }
         elseif(Auth::user()->hasRole('siniestros'))
         {
-            return route('panel-siniestros');
+            return route('admin.index');
         }
     }
 
@@ -107,7 +107,7 @@ class LoginController extends Controller
             }
             elseif(Auth::user()->hasRole('siniestros'))
             {
-                return redirect()->route('panel-siniestros');
+                return redirect()->route('admin.index');
             }
             elseif(Auth::user()->hasRole('superadmin'))
             {

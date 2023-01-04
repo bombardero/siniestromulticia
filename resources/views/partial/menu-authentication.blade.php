@@ -23,7 +23,7 @@
             @elseif(Auth::user()->hasRole('admin'))
                 <a class="dropdown-item" href="{{ route('panel-admin')}}">Panel administrador</a>
             @elseif(Auth::user()->hasRole('siniestros'))
-                <a class="dropdown-item" href="{{ route('panel-siniestros')}}">Panel Siniestros</a>
+                <a class="dropdown-item" href="{{ route('admin.index')}}">Panel</a>
             @elseif(Auth::user()->hasRole('superadmin'))
                 <a class="dropdown-item" href="{{ route('admin.index')}}">Panel Super Admin</a>
             @endif

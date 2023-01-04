@@ -1,37 +1,39 @@
-@extends('layouts.backoffice')
+@extends('layouts.super-admin')
 @section('content')
     <section>
-        <div class="container-fluid px-5">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12 mt-5 pb-5">
-                    <h1 class="panel-operaciones-title">Bienvenido {{auth()->user()->name}}</h1>
-                    <p class="pt-3 panel-operaciones-subtitle">Panel de Notificaciones de Siniestros | Asegurados</p>
-                    <form action="/panel-siniestros/buscador" method="get" class="container-fluid" id="buscador">
+                    <form action="{{ route('admin.siniestros.buscador') }}" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
-                            <div class="col-12 col-md-6 col-lg-2 col-xl-1 px-0 pr-xl-1">
-                                <div class="form-label-group">
-                                    <input type="date" name="desde" id="desde" class="form-control form-control-sm"
-                                           value="{{ request()->desde ? request()->desde : (request()->tipo != 'id' ? Carbon\Carbon::now()->subMonth()->toDateString() : '') }}"
-                                           onchange="buscar()"
-                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                    >
-                                    <label for="desde">Desde</label>
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0 pr-xl-1">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="checkbox" id="check-fechas" {{ request()->collect()->count() == 0 || (request()->desde &&  request()->desde) ? 'checked' : '' }}>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="date" name="desde" id="desde" class="form-control form-control-sm"
+                                               value="{{ request()->desde ? request()->desde : (request()->tipo != 'id' ? Carbon\Carbon::now()->subMonth()->toDateString() : '') }}"
+                                               onchange="buscar()"
+                                                {{ request()->collect()->count() == 0 ? '' : (request()->tipo == 'id' || !request()->desde ? 'disabled' : '') }}
+                                        >
+                                        <label for="desde">Desde</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="date" name="hasta" id="hasta"
+                                               class="form-control form-control-sm"
+                                               value="{{ request()->hasta ? request()->hasta : (request()->tipo != 'id' ? Carbon\Carbon::now()->toDateString() : '') }}"
+                                               onchange="buscar()"
+                                            {{ request()->collect()->count() == 0 ? '' : (request()->tipo == 'id' || !request()->hasta ? 'disabled' : '') }}
+                                        >
+                                        <label for="hasta">Hasta</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-2 col-xl-1 px-0 px-lg-1">
-                                <div class="form-label-group">
-                                    <input type="date" name="hasta" id="hasta"
-                                           class="form-control form-control-sm"
-                                           value="{{ request()->hasta ? request()->hasta : (request()->tipo != 'id' ? Carbon\Carbon::now()->toDateString() : '') }}"
-                                           onchange="buscar()"
-                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                    >
-                                    <label for="hasta">Hasta</label>
-                                </div>
+
                             </div>
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1">
-                                <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="estado" id="estado"
+                                <div class="form-floating">
+                                    <select class="form-select" name="estado" id="estado"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -88,8 +90,8 @@
                             </div>
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-md-0 px-xl-1">
-                                <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="cobertura" id="cobertura"
+                                <div class="form-floating">
+                                    <select class="form-select" name="cobertura" id="cobertura"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -119,8 +121,8 @@
                             </div>
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pl-md-0 px-xl-1">
-                                <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="carga" id="carga"
+                                <div class="form-floating">
+                                    <select class="form-select" name="carga" id="carga"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -146,8 +148,8 @@
                             </div>
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1 pr-lg-0">
-                                <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="nro_denuncia" id="nro_denuncia"
+                                <div class="form-floating">
+                                    <select class="form-select" name="nro_denuncia" id="nro_denuncia"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -169,8 +171,8 @@
                             </div>
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
-                                <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="link_enviado" id="link_enviado"
+                                <div class="form-floating">
+                                    <select class="form-select" name="link_enviado" id="link_enviado"
                                             onchange="buscar()"
                                         {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -192,8 +194,8 @@
                             </div>
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
-                                <div class="form-label-group">
-                                    <select class="custom-select form-control form-control-sm" name="responsable" id="responsable"
+                                <div class="form-floating">
+                                    <select class="form-select" name="responsable" id="responsable"
                                             onchange="buscar()"
                                         {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -217,98 +219,84 @@
                             </div>
 
                             <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-4 px-0">
-                                            <div class="form-label-group">
-                                                <select class="custom-select form-control form-control-sm no-border-radius-right" name="tipo" id="tipo">
-                                                    <option value="dominio" {{ request()->tipo == 'id' ? 'selected' : '' }}>Dominio</option>
-                                                    <option value="id" {{ request()->tipo == 'id' ? 'selected' : '' }}>ID o N° Gestión</option>
-                                                </select>
-                                                <label for="nro_denuncia">Buscar por</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-8 px-0">
-                                            <div class="form-label-group input-group">
-                                                <input type="text" name="busqueda" class="form-control no-border-radius-left"
-                                                       value="{{request()->busqueda}}" onchange="buscar()">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="input-group">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="tipo" id="tipo">
+                                            <option value="dominio" {{ request()->tipo == 'id' ? 'selected' : '' }}>Dominio</option>
+                                            <option value="id" {{ request()->tipo == 'id' ? 'selected' : '' }}>ID o N° Gestión</option>
+                                        </select>
+                                        <label for="tipo">Buscar por</label>
                                     </div>
+                                    <input type="text" name="busqueda" class="form-control no-border-radius-left"
+                                           value="{{request()->busqueda}}" onchange="buscar()">
+                                    <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
                                 </div>
-
                             </div>
                         </div>
                     </form>
                     <div class="mt-3">
                         <div class="table-responsive">
-                            <table class="table table-sm table-hover table-panel-siniestros">
-                                <thead class="thead tabla-panel">
-                                <tr class="tabla-cabecera ">
-                                    <th class="th-padding" scope="col">ID</th>
-                                    <th class="th-padding" scope="col">FECHA CREACIÓN</th>
-                                    <th class="th-padding" scope="col">FECHA SINIESTRO</th>
-                                    <th class="th-padding" scope="col">ASEGURADO</th>
-                                    <th class="th-padding" scope="col">DOMINIO</th>
-                                    <th class="th-padding" scope="col">N° POLIZA</th>
-                                    <th class="th-padding" scope="col">N° DENUNCIA</th>
-                                    <th class="th-padding" scope="col">N° SINIESTRO</th>
-                                    <th class="th-padding" scope="col">ESTADO</th>
-                                    <th class="th-padding" scope="col">COBERTURA</th>
-                                    <th class="th-padding" scope="col">PASO</th>
-                                    <th class="th-padding" scope="col">ÚLT. OBSERVACIÓN</th>
-                                    <th class="th-padding" scope="col">LINK</th>
-                                    <th class="th-padding" scope="col">OPERACIONES</th>
-                                </tr>
+                            <table class="table table-sm table-hover table-border-external">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">FECHA CREACIÓN</th>
+                                        <th scope="col">FECHA SINIESTRO</th>
+                                        <th scope="col">ASEGURADO</th>
+                                        <th scope="col">DOMINIO</th>
+                                        <th scope="col">N° POLIZA</th>
+                                        <th scope="col">N° DENUNCIA</th>
+                                        <th scope="col">N° SINIESTRO</th>
+                                        <th scope="col">ESTADO</th>
+                                        <th scope="col">COBERTURA</th>
+                                        <th scope="col">PASO</th>
+                                        <th scope="col">ÚLT. OBSERVACIÓN</th>
+                                        <th scope="col">LINK</th>
+                                        <th scope="col">OPERACIONES</th>
+                                    </tr>
                                 </thead>
-
                                 <tbody>
                                 @if($denuncia_siniestros)
                                     @foreach($denuncia_siniestros as $denuncia)
-                                        <tr class="borde-tabla">
+                                        <tr>
                                             <td>{{ $denuncia->id }}</td>
                                             <td>{{ $denuncia->created_at->format('d/m/Y H:i') }}</td>
                                             <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
                                             <td>{{ $denuncia->asegurado ? $denuncia->asegurado->nombre : ''}}</td>
                                             <td>{{$denuncia->dominio_vehiculo_asegurado}}</td>
                                             <td>
-                                                <form action="{{ route('panel-siniestros.denuncia.update.nropoliza',$denuncia->id) }}" class="form-update-denuncia">
+                                                <form action="{{ route('admin.siniestros.denuncia.update.nropoliza',$denuncia->id) }}" class="form-update-denuncia">
                                                     <div class="input-group input-group-sm">
                                                         <input type="text" class="form-control" name="value" value="{{ $denuncia->nro_poliza }}">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary" type="submit"
-                                                            ><i class="fa-solid fa-rotate"></i></button>
-                                                        </div>
+                                                        <button class="btn btn-outline-secondary" type="submit">
+                                                            <i class="fa-solid fa-rotate"></i>
+                                                        </button>
                                                     </div>
+
                                                 </form>
                                             </td>
                                             <td>
-                                                <form action="{{ route('panel-siniestros.denuncia.update.nrodenuncia',$denuncia->id) }}" class="form-update-denuncia">
+                                                <form action="{{ route('admin.siniestros.denuncia.update.nrodenuncia',$denuncia->id) }}" class="form-update-denuncia">
                                                     <div class="input-group input-group-sm">
                                                         <input type="text" class="form-control" name="value" value="{{ $denuncia->nro_denuncia }}">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary" type="submit"
-                                                            ><i class="fa-solid fa-rotate"></i></button>
-                                                        </div>
+                                                        <button class="btn btn-outline-secondary" type="submit">
+                                                            <i class="fa-solid fa-rotate"></i>
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form action="{{ route('panel-siniestros.denuncia.update.nrosiniestro',$denuncia->id) }}" class="form-update-denuncia">
+                                                <form action="{{ route('admin.siniestros.denuncia.update.nrosiniestro',$denuncia->id) }}" class="form-update-denuncia">
                                                     <div class="input-group input-group-sm">
                                                         <input type="text" class="form-control" name="value" value="{{ $denuncia->nro_siniestro }}">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary" type="submit"
-                                                            ><i class="fa-solid fa-rotate"></i></button>
-                                                        </div>
+                                                        <button class="btn btn-outline-secondary" type="submit">
+                                                            <i class="fa-solid fa-rotate"></i>
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </td>
                                             <td>
-                                                <select name="select" id="estado" class="form-control form-control-sm"
+                                                <select id="estado" class="form-select form-select-sm"
                                                         onchange="cambiarEstado(this, {{ $denuncia->id  }})">
                                                     <option
                                                         value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>
@@ -357,7 +345,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="select" id="cobertura_activa" class="form-control form-control-sm"
+                                                <select id="cobertura_activa" class="form-select form-select-sm"
                                                         onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
                                                     <option
                                                         value="" {{( $denuncia->cobertura_activa == null) ? 'selected' : '' }}>
@@ -397,38 +385,50 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <div class="dropdown text-center">
-                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" data-boundary="viewport" aria-expanded="false">
+                                                <div class="dropstart position-static">
+                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="fa-solid fa-gear"></i>
                                                     </button>
-                                                    <div class="dropdown-menu">
-                                                        <a href="#" class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null ? '' : 'disabled' }}"
-                                                           title="Enviar a compañia"
-                                                           data-denuncia-id="{{ $denuncia->id }}"
-                                                           data-toggle="modal" data-target="#modalEnviarACompania">
-                                                            <i class="fa-solid fa-file-export"></i><span>Enviar a compañía</span>
-                                                        </a>
-                                                        <a href="{{route('panel-siniestros.denuncia.show',$denuncia->id)}}"
-                                                           class="dropdown-item" title="Ver">
-                                                            <i class="fa-solid fa-file-lines"></i><span>Ver</span>
-                                                        </a>
-                                                        <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
-                                                           class="dropdown-item" title="Editar">
-                                                            <i class="fa-solid fa-file-pen"></i><span>Editar</span>
-                                                        </a>
-                                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#modalObservaciones" data-denuncia-id="{{ $denuncia->id }}"
-                                                           class="dropdown-item" title="Observaciones">
-                                                            <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
-                                                        </a>
-                                                        <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
-                                                           class="dropdown-item" title="Descargar" target="_blank">
-                                                            <i class="fa-solid fa-file-pdf"></i><span>Descargar</span>
-                                                        </a>
-                                                        <a href="{{route('panel-siniestros.denuncia.delete',$denuncia->id)}}"
-                                                           class="dropdown-item btn-eliminar text-danger" title="Eliminar">
-                                                            <i class="fa-solid fa-trash"></i><span>Eliminar</span>
-                                                        </a>
-                                                    </div>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="#" class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null ? '' : 'disabled' }}"
+                                                               title="Enviar a compañia"
+                                                               data-denuncia-id="{{ $denuncia->id }}"
+                                                               data-toggle="modal" data-target="#modalEnviarACompania">
+                                                                <i class="fa-solid fa-file-export"></i><span>Enviar a compañía</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{route('admin.siniestros.denuncia.show',$denuncia->id)}}"
+                                                               class="dropdown-item" title="Ver">
+                                                                <i class="fa-solid fa-file-lines"></i><span>Ver</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
+                                                               class="dropdown-item" title="Editar">
+                                                                <i class="fa-solid fa-file-pen"></i><span>Editar</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalObservaciones" data-denuncia-id="{{ $denuncia->id }}"
+                                                               class="dropdown-item" title="Observaciones">
+                                                                <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
+                                                               class="dropdown-item" title="Descargar" target="_blank">
+                                                                <i class="fa-solid fa-file-pdf"></i><span>Descargar</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{route('admin.siniestros.denuncia.delete',$denuncia->id)}}"
+                                                               class="dropdown-item btn-eliminar text-danger" title="Eliminar">
+                                                                <i class="fa-solid fa-trash"></i><span>Eliminar</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -454,9 +454,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalObservacionesLabel">Observaciones</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
                     <table class="table m-0">
@@ -474,12 +472,12 @@
                 <div class="modal-footer ">
                     <form action="" method="post" id="formNuevaObservacion" class="w-100">
                         @csrf
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Nueva observación</label>
+                        <div class="mb-3">
+                            <label for="observacion" class="form-label">Nueva observación</label>
                             <textarea class="form-control" id="observacion" name="observacion" rows="3" required></textarea>
                         </div>
-                        <div class="float-right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Agregar</button>
                         </div>
                     </form>
@@ -535,7 +533,7 @@
     $('.btn-link').click(function (event) {
         event.preventDefault();
         let btn_link = $(this);
-        let url = '{{ route('panel-siniestros.denuncia.link-enviado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        let url = '{{ route('admin.siniestros.denuncia.link-enviado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
         url = url.replace(':denuncia_siniestro_id', btn_link.data('denuncia-id'));
         let link = btn_link.attr('href');
 
@@ -563,6 +561,7 @@
 
     $('#tipo').change(function (event) {
         let tipo = $(this).val();
+        let fechas = $('#check-fechas');
         let desde = $('#desde');
         let hasta = $('#hasta');
         let estado = $('#estado');
@@ -572,6 +571,7 @@
         console.log(tipo);
         if(tipo == 'id')
         {
+            fechas.attr('checked', false);
             desde.attr('disabled', true);
             desde.val('');
             hasta.attr('disabled', true);
@@ -585,6 +585,7 @@
             nro_denuncia.attr('disabled', true);
             nro_denuncia.val('todos');
         } else {
+            fechas.attr('checked', true);
             desde.attr('disabled', false);
             desde.val('{{ Carbon\Carbon::now()->subMonth()->toDateString() }}');
             hasta.attr('disabled', false);
@@ -626,7 +627,7 @@
     })
 
     function cambiarEstado(estado, denuncia_siniestro_id) {
-        let url = '{{ route('panel-siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        let url = '{{ route('admin.siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
         url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
         showLoading();
         $.ajax(
@@ -651,7 +652,7 @@
     }
 
     function cambiarCoberturaActiva(cobertura, denuncia_siniestro_id) {
-        let url = '{{ route('panel-siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+        let url = '{{ route('admin.siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
         url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
         showLoading();
         $.ajax(
@@ -682,8 +683,8 @@
     $('#modalObservaciones').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget)
         let denuncia_id = button.data('denuncia-id')
-        let url = '{{ route('ajax.panel-siniestros.denuncia.observaciones.index', ['denuncia' =>  ':denuncia_id']) }}'
-        let url_store = '{{ route('panel-siniestros.denuncia.observaciones.store', ['denuncia' =>  ':denuncia_id']) }}'
+        let url = '{{ route('ajax.admin.siniestros.denuncia.observaciones.index', ['denuncia' =>  ':denuncia_id']) }}'
+        let url_store = '{{ route('admin.siniestros.denuncia.observaciones.store', ['denuncia' =>  ':denuncia_id']) }}'
         url = url.replace(':denuncia_id',denuncia_id)
         url_store = url_store.replace(':denuncia_id',denuncia_id)
         $(this).find('tbody').append('<tr><td colspan="3" class="text-center"><i class="fas fa-spinner fa-pulse"></i> Cargando</td></tr>')
@@ -731,7 +732,7 @@
     $('#modalEnviarACompania').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget)
         let denuncia_id = button.data('denuncia-id')
-        let url = '{{ route('ajax.panel-siniestros.denuncia.enviar-compania', ['denuncia' =>  ':denuncia_id']) }}'
+        let url = '{{ route('ajax.admin.siniestros.denuncia.enviar-compania', ['denuncia' =>  ':denuncia_id']) }}'
         url = url.replace(':denuncia_id',denuncia_id)
         console.log(url);
         $('#modalEnviarACompania').find('form').attr('action',url);
@@ -769,6 +770,17 @@
                 }
             })
     });
+
+    $('#check-fechas').change(function () {
+        if($(this).prop('checked'))
+        {
+            $('#desde').attr('disabled', false)
+            $('#hasta').attr('disabled', false)
+        } else {
+            $('#desde').attr('disabled', true)
+            $('#hasta').attr('disabled', true)
+        }
+    })
 
 </script>
 
