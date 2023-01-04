@@ -80,3 +80,8 @@ table .dropdown-menu i{
 table td .dropstart {
     text-align: center;
 }
+
+.table-border-external {
+    border: 1px solid;
+    border-color: var(--bs-table-border-color);
+}

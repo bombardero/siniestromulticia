@@ -236,7 +236,7 @@
                     </form>
                     <div class="mt-3">
                         <div class="table-responsive">
-                            <table class="table table-sm table-hover">
+                            <table class="table table-sm table-hover table-border-external">
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">ID</th>
