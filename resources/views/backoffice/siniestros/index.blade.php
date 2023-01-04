@@ -394,7 +394,7 @@
                                                             <a href="#" class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null ? '' : 'disabled' }}"
                                                                title="Enviar a compañia"
                                                                data-denuncia-id="{{ $denuncia->id }}"
-                                                               data-toggle="modal" data-target="#modalEnviarACompania">
+                                                               data-bs-toggle="modal" data-bs-target="#modalEnviarACompania">
                                                                 <i class="fa-solid fa-file-export"></i><span>Enviar a compañía</span>
                                                             </a>
                                                         </li>
@@ -492,16 +492,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Enviar a compañía</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" id="formEnviarACompania" class="w-100">
                         @csrf
                         <div class="form-group">
                             <label for="tipo_vehiculo">Tipo de Vehiculo</label>
-                            <select class="custom-select" name="tipo_vehiculo">
+                            <select class="form-select" name="tipo_vehiculo">
                                 <option selected value="autos">Automóvil</option>
                                 <option value="motos">Motocicleta</option>
                             </select>
