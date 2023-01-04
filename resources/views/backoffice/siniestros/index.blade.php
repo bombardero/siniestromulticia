@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1">
                                 <div class="form-floating">
-                                    <select class="custom-select form-control form-control-sm" name="estado" id="estado"
+                                    <select class="form-select" name="estado" id="estado"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -91,7 +91,7 @@
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-md-0 px-xl-1">
                                 <div class="form-floating">
-                                    <select class="custom-select form-control form-control-sm" name="cobertura" id="cobertura"
+                                    <select class="form-select" name="cobertura" id="cobertura"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -122,7 +122,7 @@
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pl-md-0 px-xl-1">
                                 <div class="form-floating">
-                                    <select class="custom-select form-control form-control-sm" name="carga" id="carga"
+                                    <select class="form-select" name="carga" id="carga"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -149,7 +149,7 @@
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1 pr-lg-0">
                                 <div class="form-floating">
-                                    <select class="custom-select form-control form-control-sm" name="nro_denuncia" id="nro_denuncia"
+                                    <select class="form-select" name="nro_denuncia" id="nro_denuncia"
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -172,7 +172,7 @@
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
                                 <div class="form-floating">
-                                    <select class="custom-select form-control form-control-sm" name="link_enviado" id="link_enviado"
+                                    <select class="form-select" name="link_enviado" id="link_enviado"
                                             onchange="buscar()"
                                         {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -195,7 +195,7 @@
 
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
                                 <div class="form-floating">
-                                    <select class="custom-select form-control form-control-sm" name="responsable" id="responsable"
+                                    <select class="form-select" name="responsable" id="responsable"
                                             onchange="buscar()"
                                         {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
@@ -221,7 +221,7 @@
                             <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
                                 <div class="input-group">
                                     <div class="form-floating">
-                                        <select class="custom-select form-control form-control-sm no-border-radius-right" name="tipo" id="tipo">
+                                        <select class="form-select" name="tipo" id="tipo">
                                             <option value="dominio" {{ request()->tipo == 'id' ? 'selected' : '' }}>Dominio</option>
                                             <option value="id" {{ request()->tipo == 'id' ? 'selected' : '' }}>ID o N° Gestión</option>
                                         </select>
@@ -297,7 +297,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <select name="select" id="estado" class="form-control form-control-sm"
+                                                <select id="estado" class="form-select form-select-sm"
                                                         onchange="cambiarEstado(this, {{ $denuncia->id  }})">
                                                     <option
                                                         value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>
@@ -346,7 +346,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="select" id="cobertura_activa" class="form-control form-control-sm"
+                                                <select id="cobertura_activa" class="form-select form-select-sm"
                                                         onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
                                                     <option
                                                         value="" {{( $denuncia->cobertura_activa == null) ? 'selected' : '' }}>
