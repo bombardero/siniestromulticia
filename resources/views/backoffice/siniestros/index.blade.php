@@ -236,30 +236,29 @@
                     </form>
                     <div class="mt-3">
                         <div class="table-responsive">
-                            <table class="table table-sm table-hover table-panel-siniestros">
-                                <thead class="thead tabla-panel">
-                                <tr class="tabla-cabecera ">
-                                    <th class="th-padding" scope="col">ID</th>
-                                    <th class="th-padding" scope="col">FECHA CREACIÓN</th>
-                                    <th class="th-padding" scope="col">FECHA SINIESTRO</th>
-                                    <th class="th-padding" scope="col">ASEGURADO</th>
-                                    <th class="th-padding" scope="col">DOMINIO</th>
-                                    <th class="th-padding" scope="col">N° POLIZA</th>
-                                    <th class="th-padding" scope="col">N° DENUNCIA</th>
-                                    <th class="th-padding" scope="col">N° SINIESTRO</th>
-                                    <th class="th-padding" scope="col">ESTADO</th>
-                                    <th class="th-padding" scope="col">COBERTURA</th>
-                                    <th class="th-padding" scope="col">PASO</th>
-                                    <th class="th-padding" scope="col">ÚLT. OBSERVACIÓN</th>
-                                    <th class="th-padding" scope="col">LINK</th>
-                                    <th class="th-padding" scope="col">OPERACIONES</th>
-                                </tr>
+                            <table class="table table-sm table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">FECHA CREACIÓN</th>
+                                        <th scope="col">FECHA SINIESTRO</th>
+                                        <th scope="col">ASEGURADO</th>
+                                        <th scope="col">DOMINIO</th>
+                                        <th scope="col">N° POLIZA</th>
+                                        <th scope="col">N° DENUNCIA</th>
+                                        <th scope="col">N° SINIESTRO</th>
+                                        <th scope="col">ESTADO</th>
+                                        <th scope="col">COBERTURA</th>
+                                        <th scope="col">PASO</th>
+                                        <th scope="col">ÚLT. OBSERVACIÓN</th>
+                                        <th scope="col">LINK</th>
+                                        <th scope="col">OPERACIONES</th>
+                                    </tr>
                                 </thead>
-
                                 <tbody>
                                 @if($denuncia_siniestros)
                                     @foreach($denuncia_siniestros as $denuncia)
-                                        <tr class="borde-tabla">
+                                        <tr>
                                             <td>{{ $denuncia->id }}</td>
                                             <td>{{ $denuncia->created_at->format('d/m/Y H:i') }}</td>
                                             <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
@@ -521,15 +520,6 @@
 
 @section('scripts')
 <script>
-    /*
-    $( document ).ready(function() {
-        const customBoundary = document.querySelector('#boundary');
-
-        detectOverflow(state, {
-            boundary: customBoundary,
-        });
-    });*/
-
 
     $('.btn-eliminar').click(function (event) {
         let result = confirm('¿Confirma desea eliminar la denuncia?');
