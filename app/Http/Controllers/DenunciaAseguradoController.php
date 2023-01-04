@@ -35,12 +35,19 @@ class DenunciaAseguradoController extends Controller
 
     public function buscar(Request $request)
     {
-        $desde = $request->desde ?
-            Carbon::createFromFormat('Y-m-d',$request->desde)->startOfDay()->toDateTimeString() :
-            Carbon::now()->startOfDay()->subMonth()->toDateTimeString();
-        $hasta = $request->hasta ?
-            Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() :
-            Carbon::now()->endOfDay()->toDateTimeString();
+        if( count($request->all()) == 0)
+        {
+            $desde = Carbon::now()->startOfDay()->subMonth()->toDateTimeString();
+            $hasta = Carbon::now()->endOfDay()->toDateTimeString();
+        } else {
+            $desde = $request->desde ?
+                Carbon::createFromFormat('Y-m-d',$request->desde)->startOfDay()->toDateTimeString() :
+                null;
+            $hasta = $request->hasta ?
+                Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() :
+                null;
+        }
+
         $busqueda = $request->busqueda;
         $tipo = $request->tipo;
         $estado = $request->estado;
@@ -48,6 +55,7 @@ class DenunciaAseguradoController extends Controller
         $nro_denuncia = $request->nro_denuncia;
         $link_enviado = $request->link_enviado;
         $responsable = $request->responsable;
+
         switch ($request->carga)
         {
             case 'precarga':
@@ -87,7 +95,10 @@ class DenunciaAseguradoController extends Controller
                 return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
             });
 
-            $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
+            if($desde &&  $hasta)
+            {
+                $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
+            }
         }
 
         /*

@@ -9,13 +9,13 @@
                             <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0 pr-xl-1">
                                 <div class="input-group">
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="checkbox" id="check-fechas" checked>
+                                        <input class="form-check-input mt-0" type="checkbox" id="check-fechas" {{ request()->collect()->count() == 0 || (request()->desde &&  request()->desde) ? 'checked' : '' }}>
                                     </div>
                                     <div class="form-floating">
                                         <input type="date" name="desde" id="desde" class="form-control form-control-sm"
                                                value="{{ request()->desde ? request()->desde : (request()->tipo != 'id' ? Carbon\Carbon::now()->subMonth()->toDateString() : '') }}"
                                                onchange="buscar()"
-                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                                {{ request()->collect()->count() == 0 ? '' : (request()->tipo == 'id' || !request()->desde ? 'disabled' : '') }}
                                         >
                                         <label for="desde">Desde</label>
                                     </div>
@@ -24,7 +24,7 @@
                                                class="form-control form-control-sm"
                                                value="{{ request()->hasta ? request()->hasta : (request()->tipo != 'id' ? Carbon\Carbon::now()->toDateString() : '') }}"
                                                onchange="buscar()"
-                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                            {{ request()->collect()->count() == 0 ? '' : (request()->tipo == 'id' || !request()->hasta ? 'disabled' : '') }}
                                         >
                                         <label for="hasta">Hasta</label>
                                     </div>
@@ -571,6 +571,7 @@
 
     $('#tipo').change(function (event) {
         let tipo = $(this).val();
+        let fechas = $('#check-fechas');
         let desde = $('#desde');
         let hasta = $('#hasta');
         let estado = $('#estado');
@@ -580,6 +581,7 @@
         console.log(tipo);
         if(tipo == 'id')
         {
+            fechas.attr('checked', false);
             desde.attr('disabled', true);
             desde.val('');
             hasta.attr('disabled', true);
@@ -593,6 +595,7 @@
             nro_denuncia.attr('disabled', true);
             nro_denuncia.val('todos');
         } else {
+            fechas.attr('checked', true);
             desde.attr('disabled', false);
             desde.val('{{ Carbon\Carbon::now()->subMonth()->toDateString() }}');
             hasta.attr('disabled', false);
