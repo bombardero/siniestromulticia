@@ -95,6 +95,14 @@ Route::get('/legales',function () {
     return view('legales');
 })->name('legales');
 
+Route::get('/prevencion-de-fraude/',function () {
+    return view('legales.prevenciondefraude');
+})->name('legales.prevencion-de-fraude');
+
+Route::get('/lavado-de-activos/',function () {
+    return view('legales.lavadodeactivos');
+})->name('legales.lavado-de-activos');
+
 Route::get('/preguntas-frecuentes',function () {
     return view('preguntas-frecuentes');
 })->name('preguntas-frecuentes');

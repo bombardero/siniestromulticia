@@ -40,9 +40,17 @@
             </div>
             <div class="col-12 col-md-3 pt-4 text-center text-md-left">
                 <h3 class="legales">Legales</h3>
-                <a class="enlace-footer" href="{{ route('legales') }}"><p class="subtitulo-footer lista-footer">•
-                        Privacidad y Legales</p></a>
-                <a class="enlace-footer" href=""><p class="subtitulo-footer lista-footer">• Protección de datos</p></a>
+                <a class="enlace-footer" href="{{ route('legales') }}">
+                    <p class="subtitulo-footer lista-footer">• Privacidad y Legales</p></a>
+                <a class="enlace-footer" href="">
+                    <p class="subtitulo-footer lista-footer">• Protección de datos</p>
+                </a>
+                <a class="enlace-footer" href="{{ route('legales.prevencion-de-fraude') }}">
+                    <p class="subtitulo-footer lista-footer">• Prevención de fraude</p>
+                </a>
+                <a class="enlace-footer" href="{{ route('legales.lavado-de-activos') }}">
+                    <p class="subtitulo-footer lista-footer">• Lavado de activos</p>
+                </a>
             </div>
             <div class="col-12 col-md-3 pt-4 text-center text-md-left">
                 <h3 class="titulo-footer"><span style="font-weight: bold;">Mesa de Ayuda</span></h3>

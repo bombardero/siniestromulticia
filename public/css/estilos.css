@@ -2530,3 +2530,10 @@ a.volver:hover {
         transform: scale(0);
     }
 }
+
+.legales-fraude p, h1, h5, h6{
+    color: #545358;
+}
+.legales-fraude h4{
+    color: #6E4697;
+}
