@@ -223,7 +223,7 @@
     window-title="Chat Finisterre Seguros"
     invite-message="IMPORTANTE: Por favor no cierre esta ventana hasta tanto no termine la conversación o concluya su trámite. Caso contrario la sesión se cierra y la comunicación finaliza. Bienvenido, en que podemos ayudarte?"
     authentication-message="Ingresa por favor tu nombre y tu email"
-    unavailable-message="No estamos disponibles, escribe tu mensaje y te estaremos contactando"
+    unavailable-message="En este momento no estamos disponibles, por favor deje su mensaje y un número de contacto (con código de área) así nos comunicamos a la brevedad."
     offline-finish-message="Mensaje recibido, te contactaremos"
     ending-message="Sesion terminada"
     offline-name-message="Hola me podes decir tu nombre"
