@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Marca;
+use App\Models\Modelo;
 use App\Models\Province;
 use App\Models\ReclamoTercero;
 use App\Models\TipoDocumento;
@@ -95,10 +97,19 @@ class ReclamoTerceroController extends Controller
     public function paso2create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+        $marcas = Marca::all();
+        $modelos = Modelo::where('marca_id', $reclamo->vehiculo ? $reclamo->vehiculo->marca_id : 1)->get();
+        $provincias = Province::orderBy('name')->get();
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id != null ? $reclamo->reclamante->conductor_province_id : $provincias->first()->id);
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         $data = [
             'reclamo' => $reclamo,
             'paso' => 2,
+            'marcas' => $marcas,
+            'modelos' => $modelos,
+            'provincias' => $provincias,
+            'localidades' => $localidades
         ];
 
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);

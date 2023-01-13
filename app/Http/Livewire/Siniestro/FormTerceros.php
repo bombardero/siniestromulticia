@@ -36,7 +36,7 @@ class FormTerceros extends Component
             'fecha_siniestro' => 'required|date|before_or_equal:today',
             'hora_siniestro' => 'required',
             'responsable_contacto' => 'required',
-            'dominio' => 'sometimes|max:7',
+            'dominio' => 'nullable|max:7',
             'dominio_asegurado' => 'required|max:7',
             'telefono' => 'required|numeric|digits_between:5,15|confirmed',
             'email' => 'required|email|max:255|confirmed',
