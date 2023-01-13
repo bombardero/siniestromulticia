@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Siniestro;
 
 use App\Mail\MailSiniestroCompania;
 use App\Mail\MailTercero;
+use App\Models\ReclamoTercero;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class FormTerceros extends Component
@@ -75,11 +77,26 @@ class FormTerceros extends Component
                 'responsable_contacto' => $this->responsable_contacto,
                 'telefono' => '549'.$this->telefono,
                 ];
-        //cliente
+
+        ReclamoTercero::create([
+            'estado_carga' => 'precarga',
+            'identificador' => Str::uuid(),
+            'dominio_vehiculo_asegurado' => strtoupper($this->dominio_asegurado),
+            'dominio_vehiculo_tercero' => $this->dominio != null ? strtoupper($this->dominio) : null,
+            'fecha' => $this->fecha_siniestro,
+            'hora' => $this->hora_siniestro,
+            'lugar_nombre' => $this->lugar_siniestro,
+            'direccion' => $this->setNoDeclarado($this->direccion_siniestro),
+            'descripcion' => $this->setNoDeclarado($this->descripcion_siniestro),
+            'responsable_contacto_nombre' => $this->responsable_contacto,
+            'responsable_contacto_telefono' => '549'.$this->telefono,
+            'responsable_contacto_email' => $this->email
+        ]);
+
+        // Cliente
         Mail::to($this->email)->send(new MailTercero($data));
 
-        //compania
-
+        // Compañía
         Mail::to(config('app.mail_siniestro_tercero'))->send(new MailSiniestroCompania($data));
 
         return redirect()->to('/gracias');

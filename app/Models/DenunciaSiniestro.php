@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class DenunciaSiniestro extends Model
+class   DenunciaSiniestro extends Model
 {
     use HasFactory, SoftDeletes;
 

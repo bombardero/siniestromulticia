@@ -11,6 +11,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CotizaVehiculoController;
 use App\Http\Controllers\DenunciaAseguradoController;
+use App\Http\Controllers\ReclamoTerceroController;
 use App\Http\Controllers\DenunciaSiniestro\DenunciaSiniestroAseguradoController;
 use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
 use App\Http\Controllers\FormularioProductorController;
@@ -176,8 +177,8 @@ Route::get('render-tipos', [CotizaVehiculoController::class,'renderTipos'])->nam
 Route::get('/callcenter', [CallCenterController::class,'index'])->name('panel-callcenter')->middleware('check.callcenter');
 Route::get('/callcenter/{cotizacion}', [CallCenterController::class,'show'])->name('panel-callcenter.show')->middleware('check.callcenter');
 
-Route::get('siniestros/asegurados', [AseguradoController::class,'index'])->name('asegurado.index');
-Route::get('siniestros/terceros', [TerceroController::class,'index'])->name('tercero.index');
+Route::view('siniestros/asegurados', 'siniestros.asegurados')->name('asegurado.index');
+Route::view('siniestros/terceros', 'siniestros.terceros')->name('tercero.index');
 
 Route::group(['prefix' => 'denuncia-siniestros'], function () {
     Route::view('/gracias','gracias-denuncia')->name('gracias-denuncia');
@@ -244,6 +245,15 @@ Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () 
     Route::post('paso-12',[DenunciaAseguradoController::class,'paso12store'])->name('asegurados-denuncias-paso12.store');
 
     Route::post('croquis/', [DenunciaAseguradoController::class,'storeCroquis'])->name('asegurados-denuncias.storeCroquis');
+});
+
+// Reclamos Terceros
+Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' ], function () {
+    Route::get('paso-1',[ReclamoTerceroController::class,'paso1create'])->name('paso1.create');
+    Route::post('paso-1',[ReclamoTerceroController::class,'paso1store'])->name('paso1.store');
+
+    Route::get('paso-2',[ReclamoTerceroController::class,'paso2create'])->name('paso2.create');
+    Route::post('paso-2',[ReclamoTerceroController::class,'paso2store'])->name('paso2.store');
 });
 
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
