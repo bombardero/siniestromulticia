@@ -117,6 +117,54 @@ class ReclamoTerceroController extends Controller
 
     public function paso2store(Request $request)
     {
+        $rules = [
+            'vehiculo' => 'required',
+            'marca_id' => 'required_if:vehiculo,1',
+            'marca' => 'required_with:otra_marca',
+            'modelo_id' => 'required_if:vehiculo,1',
+            'modelo' => 'required_with:otro_modelo',
+            'modelo_id' => 'required_if:vehiculo,1',
+            'vehiculo_tipo' => 'required_if:vehiculo,1',
+            'vehiculo_anio' => 'required_if:vehiculo,1',
+            'vehiculo_dominio' => 'required_if:vehiculo,1',
+            'compania_seguro' => 'required_if:vehiculo,1',
+            'numero_poliza' => 'required_if:vehiculo,1',
+            'tipo_cobertura' => 'required_if:vehiculo,1',
+            'franquicia' => 'required_if:vehiculo,1',
+            'reclamante_conductor' => 'required_if:vehiculo,1',
+            'conductor_nombre' => 'required_if:reclamante_conductor,0',
+            'conductor_telefono' => 'required_if:reclamante_conductor,0',
+            'conductor_domicilio' => 'required_if:reclamante_conductor,0',
+            'conductor_codigo_postal' => 'required_if:reclamante_conductor,0',
+            'otro_pais_provincia_localidad' => 'required_if:pais,otro',
+            'otra_localidad' => 'required_with:check_otra_localidad',
+
+            'licencia_numero' => 'required_if:reclamante_conductor,0',
+            'licencia_clase' => 'required_if:reclamante_conductor,0',
+        ];
+        $messages = [
+            'marca.required_with' => 'El campo marca es obligatorio.',
+            'modelo.required_with' => 'El campo modelo es obligatorio.',
+            'vehiculo_tipo.required_if' => 'El campo tipo de vehículo es obligatorio.',
+            'vehiculo_anio.required_if' => 'El campo año de vehículo es obligatorio.',
+            'vehiculo_dominio.required_if' => 'El campo dominio del vehículo es obligatorio.',
+            'compania_seguro.required_if' => 'El campo compañía de seguro es obligatorio.',
+            'numero_poliza.required_if' => 'El campo número de póliza es obligatorio.',
+            'tipo_cobertura.required_if' => 'El campo tipo de cobertura es obligatorio.',
+            'franquicia.required_if' => 'El campo franquicia es obligatorio.',
+            'reclamante_conductor.required_if' => 'El campo reclamante conductor es obligatorio.',
+            'conductor_nombre.required_if' => 'El campo nombre completo es obligatorio.',
+            'conductor_telefono.required_if' => 'El campo teléfono es obligatorio.',
+            'conductor_domicilio.required_if' => 'El campo domicilio es obligatorio.',
+            'conductor_codigo_postal.required_if' => 'El campo código postal es obligatorio.',
+            'otro_pais_provincia_localidad.required_if' => 'El campo otro país, provincia y localidad es obligatorio.',
+            'otra_localidad.required_with' => 'El campo otra localidad es obligatorio.',
+
+            'licencia_numero.required_if' => 'El campo número de licencia es obligatorio.',
+            'licencia_clase.required_if' => 'El campo clase de licencia es obligatorio.',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
         dd($request->all());
+
     }
 }
