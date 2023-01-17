@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="nombre">Nombre y Apellido *</label>
                     <input type="text" name="nombre" placeholder="Nombre completo"
-                           class="form-control form-estilo @error('nombre') is-invalid @enderror"
+                               class="form-control @error('nombre') is-invalid @enderror"
                            value="{{ $reclamo->reclamante ? $reclamo->reclamante->nombre : '' }}"
                     >
                     @error('nombre') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="tipo_documentos">Tipo de Documento *</label>
                     <select name="tipo_documento_id" id="tipo_documento"
-                            class="custom-select form-estilo">
+                                class="custom-select">
                         @foreach($tipo_documentos as $tipo_documento)
                             <option
                                 value="{{$tipo_documento->id}}" {{ $reclamo->reclamante && $reclamo->reclamante->tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}>{{ $tipo_documento->nombre }}</option>
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label for="documento_numero">Número de Documento *</label>
                     <input type="text" name="documento_numero" id="documento_numero" maxlength="8"
-                           class="form-control form-estilo @error('documento_numero') is-invalid @enderror"
+                               class="form-control @error('documento_numero') is-invalid @enderror"
                            value="{{ $reclamo->reclamante ? $reclamo->reclamante->documento_numero : '' }}">
                     @error('documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label for="telefono">Teléfono *</label>
                     <input type="text" id="telefono" name="telefono"
-                           class="form-control form-estilo @error('telefono') is-invalid @enderror"
+                               class="form-control @error('telefono') is-invalid @enderror"
                            value="{{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}">
                     @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label for="domicilio">Domicilio *</label>
                     <input type="text" name="domicilio" id="domicilio"
-                           class="form-control form-estilo @error('domicilio') is-invalid @enderror"
+                               class="form-control @error('domicilio') is-invalid @enderror"
                            value="{{ $reclamo->reclamante ? $reclamo->reclamante->domicilio : '' }}">
                     @error('domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label for="codigo_postal">Código Postal *</label>
                     <input type="text" name="codigo_postal" id="codigo_postal"
-                           class="form-control form-estilo @error('codigo_postal') is-invalid @enderror"
+                               class="form-control @error('codigo_postal') is-invalid @enderror"
                            value="{{ $reclamo->reclamante ? $reclamo->reclamante->codigo_postal : '' }}">
                     @error('codigo_postal') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -78,7 +78,7 @@
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="pais">País *</label>
-                    <select name="pais" id="pais" class="custom-select form-estilo">
+                        <select name="pais" id="pais" class="custom-select">
                         <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($reclamo->reclamante && $reclamo->reclamante->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
                         <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($reclamo->reclamante && $reclamo->reclamante->pais_id == null ? 'selected' : '') }}>Otro</option>
                     </select>
@@ -89,7 +89,7 @@
                 <div class="form-group">
                     <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
                     <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
-                           class="form-control form-estilo @error('otro_pais_provincia_localidad') is-invalid @enderror"
+                           class="form-control @error('otro_pais_provincia_localidad') is-invalid @enderror"
                            maxlength="255"
                            value="{{ old('otro_pais_provincia_localidad') ?  old('otro_pais_provincia_localidad') : ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad != null ? $reclamo->reclamante->otro_pais_provincia_localidad : '') }}">
                     @error('otro_pais_provincia_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -99,7 +99,7 @@
             <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->reclamante && $reclamo->reclamante->province_id == null) ?  'd-none' : '' }}" id="div_provincia">
                 <div class="form-group">
                     <label for="provincias">Provincia *</label>
-                    <select name="provincia_id" id="provincias" class="custom-select form-estilo">
+                    <select name="provincia_id" id="provincias" class="custom-select">
                         @foreach($provincias as $provincia)
                             <option value="{{ $provincia->id }}"
                                 {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($reclamo->reclamante && $reclamo->reclamante->province_id ==  $provincia->id ? 'selected' : '') }}
@@ -114,7 +114,7 @@
                 <div class="form-group">
                     <label for="localidades">Localidad *</label>
                     <div class="input-group">
-                        <select name="localidad_id" id="localidades" class="custom-select form-estilo {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? 'd-none' :  '' }}">
+                        <select name="localidad_id" id="localidades" class="custom-select {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? 'd-none' :  '' }}">
                             @foreach($localidades as $localidad)
                                 <option value="{{ $localidad->id }}"
                                     {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($reclamo->reclamante && $reclamo->reclamante->city_id == $localidad->id ? 'selected' : '') }}
@@ -122,7 +122,7 @@
                             @endforeach
                         </select>
                         <input type="text" name="otra_localidad" id="otra_localidad" maxlength="255"
-                               class="form-control form-estilo {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? '' : 'd-none' }}"
+                               class="form-control {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? '' : 'd-none' }}"
                                value="{{ $reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad != null ? $reclamo->reclamante->otro_pais_provincia_localidad : '' }}"
                         >
                         <div class="input-group-append">
