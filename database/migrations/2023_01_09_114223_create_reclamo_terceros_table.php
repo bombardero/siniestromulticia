@@ -53,8 +53,16 @@ class CreateReclamoTercerosTable extends Migration
 
             $table->boolean('link_enviado')->default(false);
             */
+            $table->boolean('reclamo_vehicular')->nullable();
+            $table->boolean('reclamo_danios_materiales')->nullable();
+            $table->boolean('reclamo_lesiones')->nullable();
+
+            $table->unsignedBigInteger('monto_vehicular')->nullable();
+            $table->unsignedBigInteger('monto_danios_materiales')->nullable();
+            $table->unsignedBigInteger('monto_lesiones')->nullable();
 
             $table->timestamps();
+            $table->timestamp('finalized_at')->nullable();
             $table->softDeletes();
         });
     }

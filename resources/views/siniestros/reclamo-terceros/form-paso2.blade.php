@@ -18,7 +18,7 @@
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="vehiculo_si"
                            name="vehiculo"
-                           value="1" {{ old('vehiculo') && old('vehiculo') === '1' ? 'checked' : ($reclamo->dominio_vehiculo_tercero != null ? 'checked' : '') }}>
+                           value="1" {{ (old('vehiculo') && old('vehiculo') === '1') || $reclamo->reclamo_vehicular ? 'checked' : '' }}>
                     <label for="vehiculo_si" class="form-check-label">Si</label>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="vehiculo_no"
                            name="vehiculo"
-                           value="0" {{ old('vehiculo') && old('vehiculo') === '0' ? 'checked' : '' }}>
+                           value="0" {{ (old('vehiculo') && old('vehiculo') === '0') || $reclamo->reclamo_vehicular === false ? 'checked' : '' }}>
                     <label for="vehiculo_no" class="form-check-label">No</label>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="marca">Marca</label>
                     <div class="input-group">
-                        <select name="marca_id" id="marca-select" class="custom-select {{ old('otra_marca') ? 'd-none' : '' }} @error('marca_id') is-invalid @enderror">
+                        <select name="marca_id" id="marca-select" class="custom-select {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? 'd-none' : '' }} @error('marca_id') is-invalid @enderror">
                             @foreach($marcas as $marca)
                                 <option value="{{ $marca->id }}"
                                     {{ old('marca_id') == $marca->id || ($reclamo->vehiculo && $reclamo->vehiculo->marca_id == $marca->id) ? 'selected' : '' }}
@@ -50,12 +50,15 @@
                             @endforeach
                         </select>
                         <input type="text" id="marca-text" name="marca"
-                               class="form-control {{ old('otra_marca') ? '' : 'd-none' }} @error('marca') is-invalid @enderror"
-                               value=""
+                               class="form-control {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? '' : 'd-none' }} @error('marca') is-invalid @enderror"
+                               value="{{ old('marca') ? old('marca') : ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca ? $reclamo->vehiculo->otra_marca : '') }}"
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="otra_marca" id="otra-marca" class="mr-1" {{ old('otra_marca') ? 'checked' : '' }}>Otra
+                                <input type="checkbox" name="otra_marca" id="otra-marca"
+                                       class="mr-1"
+                                        {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? 'checked' : '' }}
+                                >Otra
                             </div>
                         </div>
                         @error('marca_id') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -68,7 +71,7 @@
                 <div class="form-group">
                     <label for="modelo">Modelo</label>
                     <div class="input-group">
-                        <select name="modelo_id" id="modelo-select" class="custom-select {{ old('otro_modelo') ? 'd-none' : '' }} @error('modelo_id') is-invalid @enderror">
+                        <select name="modelo_id" id="modelo-select" class="custom-select {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? 'd-none' : '' }} @error('modelo_id') is-invalid @enderror">
                             @foreach($modelos as $modelo)
                                 <option value="{{ $modelo->id }}"
                                     {{  old('modelo_id') == $marca->id || ($reclamo->vehiculo && $reclamo->vehiculo->modelo_id == $modelo->id) ? 'selected' : '' }}
@@ -76,12 +79,12 @@
                             @endforeach
                         </select>
                         <input type="text" id="modelo-text" name="modelo"
-                               class="form-control {{ old('otro_modelo') ? '' : 'd-none' }} @error('modelo') is-invalid @enderror"
-                               value=""
+                               class="form-control {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? '' : 'd-none' }} @error('modelo') is-invalid @enderror"
+                               value="{{ old('modelo') ? old('modelo') : ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo ? $reclamo->vehiculo->otro_modelo : '') }}"
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="otro_modelo" id="otro-modelo" class="mr-1" {{ old('otro_modelo') ? 'checked' : '' }}>Otro
+                                <input type="checkbox" name="otro_modelo" id="otro-modelo" class="mr-1" {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? 'checked' : '' }}>Otro
                             </div>
                         </div>
                         @error('modelo_id') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -128,12 +131,12 @@
 
             <div class="col-12 col-md-6">
                 <div class="form-group">
-                    <label for="compania_seguro">Compañía de Seguro</label>
-                    <input type="text" id="compania_seguro" name="compania_seguro"
-                           class="form-control @error('compania_seguro') is-invalid @enderror"
-                           value="{{ old('compania_seguro') ? old('compania_seguro') : ($reclamo->vehiculo ? $reclamo->vehiculo->compania_seguro : '') }}"
+                    <label for="compania_seguros">Compañía de Seguro</label>
+                    <input type="text" id="compania_seguros" name="compania_seguros"
+                           class="form-control @error('compania_seguros') is-invalid @enderror"
+                           value="{{ old('compania_seguros') ? old('compania_seguros') : ($reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '') }}"
                     >
-                    @error('compania_seguro') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                    @error('compania_seguros') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -247,13 +250,13 @@
                 <div class="form-group">
                     <label for="pais">País *</label>
                     <select name="pais" id="pais" class="custom-select">
-                        <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
-                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->pais_id == null ? 'selected' : '') }}>Otro</option>
+                        <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_pais_id == 1 ? 'selected' : '') }}>Argentina</option>
+                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_pais_id == null ? 'selected' : '') }}>Otro</option>
                     </select>
                 </div>
             </div>
 
-            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->vehiculo && !$reclamo->vehiculo->pais_id && !$reclamo->vehiculo->province_id && !$reclamo->vehiculo->city_id)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
+            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->vehiculo && !$reclamo->vehiculo->conductor_pais_id && !$reclamo->vehiculo->conductor_province_id && !$reclamo->vehiculo->conductor_city_id)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
                 <div class="form-group">
                     <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
                     <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
@@ -264,13 +267,13 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->vehiculo && $reclamo->vehiculo->province_id == null) ?  'd-none' : '' }}" id="div_provincia">
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id == null) ?  'd-none' : '' }}" id="div_provincia">
                 <div class="form-group">
                     <label for="provincias">Provincia *</label>
-                    <select name="asegurado_provincia_id" id="provincias" class="custom-select">
+                    <select name="provincia_id" id="provincias" class="custom-select">
                         @foreach($provincias as $provincia)
                             <option value="{{ $provincia->id }}"
-                                {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->province_id ==  $provincia->id ? 'selected' : '') }}
+                                {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id ==  $provincia->id ? 'selected' : '') }}
                             >{{ $provincia->name }}</option>
                         @endforeach
                     </select>
@@ -278,25 +281,25 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->vehiculo && !$reclamo->vehiculo->pais_id && !$reclamo->vehiculo->province_id) ?  'd-none' : '' }}" id="div_localidad">
+            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->vehiculo && !$reclamo->vehiculo->conductor_pais_id && !$reclamo->vehiculo->conductor_province_id) ?  'd-none' : '' }}" id="div_localidad">
                 <div class="form-group">
                     <label for="localidades">Localidad *</label>
                     <div class="input-group">
-                        <select name="localidad_id" id="localidades" class="custom-select {{ old('check_otra_localidad') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_pais_provincia_localidad) ? 'd-none' :  '' }}">
+                        <select name="localidad_id" id="localidades" class="custom-select {{ old('check_otra_localidad') || ($reclamo->vehiculo && $reclamo->vehiculo->conductor_otro_pais_provincia_localidad) ? 'd-none' :  '' }}">
                             @foreach($localidades as $localidad)
                                 <option value="{{ $localidad->id }}"
-                                    {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->city_id == $localidad->id ? 'selected' : '') }}
+                                    {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_city_id == $localidad->id ? 'selected' : '') }}
                                 >{{ $localidad->name }}</option>
                             @endforeach
                         </select>
                         <input type="text" name="otra_localidad" id="otra_localidad" maxlength="255"
-                               class="form-control {{ old('check_otra_localidad') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_pais_provincia_localidad) ? '' : 'd-none' }} @error('otra_localidad') is-invalid @enderror"
-                               value="{{ $reclamo->vehiculo && $reclamo->vehiculo->otro_pais_provincia_localidad != null ? $reclamo->vehiculo->otro_pais_provincia_localidad : '' }}"
+                               class="form-control {{ old('check_otra_localidad') || ($reclamo->vehiculo && $reclamo->vehiculo->conductor_otro_pais_provincia_localidad) ? '' : 'd-none' }} @error('otra_localidad') is-invalid @enderror"
+                               value="{{ $reclamo->vehiculo && $reclamo->vehiculo->conductor_otro_pais_provincia_localidad != null ? $reclamo->vehiculo->conductor_otro_pais_provincia_localidad : '' }}"
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <input type="checkbox" id="check_otra_localidad" name="check_otra_localidad"
-                                       class="mr-1" {{ old('check_otra_localidad') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_pais_provincia_localidad) ? 'checked' :  '' }}>Otra
+                                       class="mr-1" {{ old('check_otra_localidad') || ($reclamo->vehiculo && $reclamo->vehiculo->conductor_otro_pais_provincia_localidad) ? 'checked' :  '' }}>Otra
                             </div>
                         </div>
                     </div>
@@ -309,7 +312,7 @@
                     <label for="licencia_numero">Número de Licencia</label>
                     <input type="text" name="licencia_numero" id="licencia_numero"
                            class="form-control @error('licencia_numero') is-invalid @enderror"
-                           value="{{ ($reclamo->vehiculo && $reclamo->vehiculo->licencia_numero) ? $reclamo->vehiculo->licencia_numero : '' }}">
+                           value="{{ old('licencia_numero') ? old('licencia_numero') : (($reclamo->vehiculo && $reclamo->vehiculo->licencia_numero) ? $reclamo->vehiculo->licencia_numero : '') }}">
                     @error('licencia_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -319,7 +322,7 @@
                     <label for="licencia_clase">Clase de Licencia</label>
                     <input type="text" id="licencia_clase" name="licencia_clase"
                            class="form-control @error('licencia_clase') is-invalid @enderror"
-                           value="{{ ($reclamo->vehiculo && $reclamo->vehiculo->licencia_clase) ? $reclamo->vehiculo->licencia_clase : '' }}">
+                           value="{{ old('licencia_clase') ? old('licencia_clase') : (($reclamo->vehiculo && $reclamo->vehiculo->licencia_clase) ? $reclamo->vehiculo->licencia_clase : '') }}">
                     @error('licencia_clase') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -359,7 +362,7 @@
         $('#vehiculo_tipo').attr('disabled', deshabilitar);
         $('#vehiculo_anio').attr('disabled', deshabilitar);
         $('#vehiculo_dominio').attr('disabled', deshabilitar);
-        $('#compania_seguro').attr('disabled', deshabilitar);
+        $('#compania_seguros').attr('disabled', deshabilitar);
         $('#numero_poliza').attr('disabled', deshabilitar);
         $('#tipo_cobertura').attr('disabled', deshabilitar);
         $('#franquicia').attr('disabled', deshabilitar);
@@ -369,10 +372,12 @@
         {
             deshabilitarConductor();
         }
-        if(!deshabilitar && $('#reclamante_conductor_no').is(':checked'))
+        if(!deshabilitar && ($('#reclamante_conductor_no').is(':checked') || (!$('#reclamante_conductor_si').is(':checked') && !$('#reclamante_conductor_no').is(':checked'))))
         {
             deshabilitarConductor(deshabilitar);
         }
+        $('#licencia_numero').attr('disabled', deshabilitar);
+        $('#licencia_clase').attr('disabled', deshabilitar);
     }
 
     $("input[type='radio'][name='reclamante_conductor']").change(function () {
@@ -397,8 +402,17 @@
         $('#otra_localidad').attr('disabled', deshabilitar);
         $('#check_otra_localidad').attr('disabled', deshabilitar);
         $('#otro_pais_provincia_localidad').attr('disabled', deshabilitar);
-        $('#licencia_numero').attr('disabled', deshabilitar);
-        $('#licencia_clase').attr('disabled', deshabilitar);
     }
+
+    $( document ).ready(function() {
+        if($('#vehiculo_si').is(':checked'))
+        {
+            deshabilitarCampos(false);
+        }
+        if($('#vehiculo_no').is(':checked'))
+        {
+            deshabilitarCampos();
+        }
+    });
 </script>
 @endsection

@@ -25,25 +25,31 @@ class ReclamoTercero extends Model
     ];
 
     protected $fillable = [
-        "identificador",
-        "estado_carga",
-        "dominio_vehiculo_asegurado",
-        "dominio_vehiculo_tercero",
-        "fecha",
-        "hora",
-        "lugar_nombre",
-        "codigo_postal",
-        "direccion",
-        "descripcion",
-        "responsable_contacto_nombre",
-        "responsable_contacto_domicilio",
-        "responsable_contacto_telefono",
-        "responsable_contacto_email",
+        'identificador',
+        'estado_carga',
+        'dominio_vehiculo_asegurado',
+        'dominio_vehiculo_tercero',
+        'fecha',
+        'hora',
+        'lugar_nombre',
+        'codigo_postal',
+        'direccion',
+        'descripcion',
+        'responsable_contacto_nombre',
+        'responsable_contacto_domicilio',
+        'responsable_contacto_telefono',
+        'responsable_contacto_email',
+        'reclamo_vehicular',
+        'reclamo_danios_materiales',
+        'reclamo_lesiones',
 
         "finalized_at"
     ];
 
     protected $casts = [
+        'reclamo_vehicular' => 'boolean',
+        'reclamo_danios_materiales' => 'boolean',
+        'reclamo_lesiones' => 'boolean',
         'finalized_at' => 'datetime'
     ];
     protected $dates = ['fecha'];
@@ -51,6 +57,11 @@ class ReclamoTercero extends Model
     public function reclamante()
     {
         return $this->hasOne(Reclamante::class);
+    }
+
+    public function vehiculo()
+    {
+        return $this->hasOne(VehiculoReclamante::class);
     }
 
 

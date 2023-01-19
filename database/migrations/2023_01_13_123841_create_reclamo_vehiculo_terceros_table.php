@@ -19,8 +19,6 @@ class CreateReclamoVehiculoTercerosTable extends Migration
             $table->string('dominio',7);
             $table->string('tipo');
             $table->year('anio');
-            $table->string('motor');
-            $table->string('chasis');
             $table->foreignId('marca_id')->nullable()->constrained('marcas');
             $table->foreignId('modelo_id')->nullable()->constrained('modelos');
             $table->string('otra_marca')->nullable();
@@ -29,7 +27,7 @@ class CreateReclamoVehiculoTercerosTable extends Migration
             $table->string('numero_poliza');
             $table->string('tipo_cobertura');
             $table->integer('franquicia');
-
+            $table->boolean('reclamante_conductor');
             $table->string('conductor_nombre')->nullable();
             $table->string('conductor_telefono',15)->nullable();
             $table->foreignId('conductor_tipo_documento_id')->nullable()->constrained('tipo_documentos');
@@ -41,10 +39,8 @@ class CreateReclamoVehiculoTercerosTable extends Migration
             $table->foreign('conductor_province_id')->references('id')->on('provinces');
             $table->foreignId('conductor_city_id')->nullable()->constrained('cities');
             $table->string('conductor_otro_pais_provincia_localidad')->nullable();
-
             $table->string('licencia_numero')->nullable();
             $table->string('licencia_clase')->nullable();
-
             $table->timestamps();
         });
     }
