@@ -254,6 +254,12 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
 
     Route::get('paso-2',[ReclamoTerceroController::class,'paso2create'])->name('paso2.create');
     Route::post('paso-2',[ReclamoTerceroController::class,'paso2store'])->name('paso2.store');
+
+    Route::get('paso-3',[ReclamoTerceroController::class,'paso3create'])->name('paso3.create');
+    Route::post('paso-3',[ReclamoTerceroController::class,'paso3store'])->name('paso3.store');
+
+    Route::get('paso-4',[ReclamoTerceroController::class,'paso4create'])->name('paso4.create');
+    Route::post('paso-4',[ReclamoTerceroController::class,'paso4store'])->name('paso4.store');
 });
 
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
