@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-12">
 			<!--<p class="pt-5 text-center pb-5 cotiza-vehiculo-title">Cotizá tu vehículo aquí</p>-->
-            <p class="mt-5 pt-5 text-center pb-5 cotiza-vehiculo-title" style="font-size: 26px;">No disponible momentáneamente</p>
+            <p class="mt-5 pt-5 text-center pb-5 cotiza-vehiculo-title" style="font-size: 26px;">Solicitá una cotización a tu productor de confianza</p>
 		</div>
 	</div>
 </div>
