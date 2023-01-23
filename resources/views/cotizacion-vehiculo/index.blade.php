@@ -5,17 +5,21 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<p class="pt-5 text-center pb-5 cotiza-vehiculo-title">Cotizá tu vehículo aquí</p>
+			<!--<p class="pt-5 text-center pb-5 cotiza-vehiculo-title">Cotizá tu vehículo aquí</p>-->
+            <p class="mt-5 pt-5 text-center pb-5 cotiza-vehiculo-title" style="font-size: 26px;">No disponible momentáneamente</p>
 		</div>
 	</div>
 </div>
 
 </section>
 
+<section style="height:600px;" class="bg-cotizacion">
+
+</section>
+
+{{--
 <section>
-
-<div id="cover-spin"></div>
-
+    <div id="cover-spin"></div>
 	<form onsubmit="loading()" method="POST" id="form2" action={{route('cotiza-vehiculo-mail')}}>
 		@csrf
 		@include('forms.cotiza-vehiculo')
@@ -23,10 +27,11 @@
 		<section style="height:600px;" class="bg-cotizacion">
 	    <div class="col-12 text-center">
 	    	<button id="btnCotiza" type="submit" class="mt-3 boton-cotiza btn btn-warning">Enviar</button>
-	    </div>	
+	    </div>
 		</section>
 	</form>
 </section>
+--}}
 @php
     $url_tipos=route('render-tipos');
     $url_marcas=route('render-marcas');
@@ -43,7 +48,7 @@ $( document ).ready(function() {
     // if( $("#tipos").val() != "") { renderMarcas("<?php echo $url_marcas; ?>"); renderUsos("<?php echo $url_usos; ?>"); }
     // if( $("#marcas").val() != "") renderModelos("<?php echo $url_modelos; ?>");
 });
-$("#cover-spin").hide()    
+$("#cover-spin").hide()
 
 function loading() {
       // disable button
@@ -63,11 +68,11 @@ function loading() {
             url,
             method: "GET",
             beforeSend: function() {
-                $("#cover-spin").show()         
+                $("#cover-spin").show()
             },
             success: (result) => {
-                $("#tipos").replaceWith(result); 
-                 $("#cover-spin").hide()                  
+                $("#tipos").replaceWith(result);
+                 $("#cover-spin").hide()
             },
             failure: (result) =>  {
                 $("#cover-spin").hide()
@@ -86,11 +91,11 @@ function loading() {
             url,
             method: "GET",
             beforeSend: function() {
-			    $("#cover-spin").show()    		
+			    $("#cover-spin").show()
             },
             success: (result) => {
-                $("#marcas").replaceWith(result); 
-                renderUsos('<?php echo $url_usos; ?>');              	
+                $("#marcas").replaceWith(result);
+                renderUsos('<?php echo $url_usos; ?>');
             },
             failure: (result) =>  {
                 alert(msg_error)
@@ -113,10 +118,10 @@ function loading() {
             url,
             method: "GET",
             beforeSend: function() {
-                $("#cover-spin").show()         
-            },            
+                $("#cover-spin").show()
+            },
             success: (result) => {
-                $("#modelos").replaceWith(result);               	
+                $("#modelos").replaceWith(result);
                 $("#cover-spin").hide()
             },
             failure: (result) => {
@@ -124,7 +129,7 @@ function loading() {
                 $("#cover-spin").hide()
             },
         });
-    };		
+    };
 
   	function renderUsos(url) {
         var checked = $("input[name='inlineRadioOptions']:checked").val();
@@ -135,9 +140,9 @@ function loading() {
                 tipoVehiculo,
             },
             url,
-            method: "GET",               
+            method: "GET",
             success: (result) => {
-                $("#usos").replaceWith(result);               	
+                $("#usos").replaceWith(result);
                 $("#cover-spin").hide()
             },
             failure: (result) => {
@@ -149,28 +154,28 @@ function loading() {
     };
 $('#form2 input[type=checkbox], input[type=radio], select, textarea').on('change invalid', function() {
     var field = $(this).get(0);
-    
+
     // 'setCustomValidity' not only sets the message, but also marks
     // the field as invalid. In order to see whether the field really is
     // invalid, we have to remove the message first
     field.setCustomValidity('');
-    
+
     if (!field.validity.valid) {
-      field.setCustomValidity('Por favor, elija una opcion');  
+      field.setCustomValidity('Por favor, elija una opcion');
     }
 });
 
 
 $('#form2 input[type=text], input[type=email]').on('change invalid', function() {
     var field = $(this).get(0);
-    
+
     // 'setCustomValidity' not only sets the message, but also marks
     // the field as invalid. In order to see whether the field really is
     // invalid, we have to remove the message first
     field.setCustomValidity('');
-    
+
     if (!field.validity.valid) {
-      field.setCustomValidity('Por favor, rellene el dato ');  
+      field.setCustomValidity('Por favor, rellene el dato ');
     }
 });
 
