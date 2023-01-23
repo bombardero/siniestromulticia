@@ -39,6 +39,10 @@ class VehiculoReclamante extends Model
         'licencia_clase'
     ];
 
+    protected $casts = [
+        'reclamante_conductor' => 'boolean',
+    ];
+
     public function reclamo()
     {
         return $this->belongsTo(ReclamoTercero::class);
