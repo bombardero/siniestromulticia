@@ -7,6 +7,7 @@ use App\Models\Marca;
 use App\Models\Modelo;
 use App\Models\Province;
 use App\Models\ReclamoTercero;
+use App\Models\TipoCalzada;
 use App\Models\TipoDocumento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -278,10 +279,17 @@ class ReclamoTerceroController extends Controller
     public function paso4create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
+        $provincia_id = $reclamo->province_id != null ? $reclamo->province_id : $provincias->first()->id;
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
+        $tipoCalzadas = TipoCalzada::all();
 
         $data = [
             'reclamo' => $reclamo,
             'paso' => 4,
+            'provincias' => $provincias,
+            'localidades' => $localidades,
+            'tipo_calzadas' => $tipoCalzadas
         ];
 
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
@@ -289,8 +297,42 @@ class ReclamoTerceroController extends Controller
 
     public function paso4store(Request $request)
     {
+
+        $rules = [
+            'pais' => 'required',
+            'otro_pais_provincia_localidad' => 'required_if:pais,otro',
+            'otra_localidad'=>'required_with:check_otra_localidad',
+            'calle'=>'required',
+        ];
+        $messages = [
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
+            'otra_localidad.required_with' => 'El campo localidad es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
+
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
 
-        dd($request->all());
+        $reclamo->pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null ;
+        $reclamo->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+        $reclamo->city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
+        $reclamo->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
+        $reclamo->calle = $request->calle;
+        $reclamo->tipo_calzada_id = $request->calzada_id;
+        $reclamo->calzada_detalle = $request->calzada_detalle;
+        $reclamo->interseccion = $request->interseccion;
+        $reclamo->cruce_senalizado = $request->cruce_senalizado ==  'on';
+        $reclamo->tren = $request->tren;
+        $reclamo->semaforo = $request->semaforo ==  'on';
+        $reclamo->semaforo_funciona = $request->semaforo_funciona ==  'on';
+        $reclamo->semaforo_intermitente = $request->semaforo_intermitente ==  'on';
+        $reclamo->semaforo_color = $request->semaforo_color;
+
+        if($reclamo->estado_carga == "3")
+        {
+            $reclamo->estado_carga = "4";
+        }
+        $reclamo->save();
+
+        dd($reclamo);
     }
 }

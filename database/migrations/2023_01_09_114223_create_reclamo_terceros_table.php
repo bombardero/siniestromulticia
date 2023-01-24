@@ -31,7 +31,6 @@ class CreateReclamoTercerosTable extends Migration
             $table->string('responsable_contacto_email');
 
             //Lugar
-            /*
             $table->foreignId('pais_id')->nullable()->constrained('paises');
             $table->foreignId('province_id')->nullable();
             $table->foreignId('city_id')->nullable();
@@ -49,10 +48,8 @@ class CreateReclamoTercerosTable extends Migration
 
             $table->string('croquis_url')->nullable();
             $table->string('croquis_path')->nullable();
-            $table->string('croquis_descripcion')->nullable();
 
             $table->boolean('link_enviado')->default(false);
-            */
             $table->boolean('reclamo_vehicular')->nullable();
             $table->boolean('reclamo_danios_materiales')->nullable();
             $table->boolean('reclamo_lesiones')->nullable();
