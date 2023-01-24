@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\DenunciaSiniestro;
 use App\Models\Marca;
 use App\Models\Modelo;
 use App\Models\Province;
 use App\Models\ReclamoTercero;
 use App\Models\TipoCalzada;
 use App\Models\TipoDocumento;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -333,6 +336,105 @@ class ReclamoTerceroController extends Controller
         }
         $reclamo->save();
 
+        return redirect()->route('siniestros.terceros.paso5.create', ['id'=> $request->id]);
+    }
+
+    public function paso5create(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => 5
+        ];
+
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso5store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'graficoManual' => 'nullable',
+            'descripcion' => 'required'
+        ]);
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+
+        if(!$reclamo->croquis_url && !$request->hasFile('graficoManual') )
+        {
+            $validator->errors()->add('graficoManual', 'Debe crear un croquis o cargar una imagen.');
+            return redirect()->route("siniestros.terceros.paso5.create",['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if($request->hasFile('graficoManual'))
+        {
+            if($reclamo->croquis_url)
+            {
+                Storage::disk('s3')->delete($reclamo->croquis_path);
+            }
+
+            $format = 'jpg';
+            $filePath = $this->getCroquisPath($reclamo, $format);
+
+            $imgFile = Image::make($request->file('graficoManual'));
+
+            if($imgFile->width() > 2100)
+            {
+                $imgFile->widen(2100);
+            }
+
+            Storage::disk('s3')->put($filePath, $imgFile->stream($format), 'public');
+            $url = Storage::disk('s3')->url($filePath);
+
+            if($url)
+            {
+                $reclamo->croquis_url = $url;
+                $reclamo->croquis_path = $filePath;
+                $reclamo->save();
+            }
+        }
+
+        $reclamo->descripcion = $request->descripcion;
+        if($reclamo->estado_carga == '4')
+        {
+            $reclamo->estado_carga = '5';
+        }
+        $reclamo->save();
+
         dd($reclamo);
+    }
+
+    public function storeCroquis(Request $request)
+    {
+        Validator::make($request->all(), [
+            'id' => 'required|exists:reclamo_terceros',
+            'croquis' => 'required'
+        ])->validate();
+
+        $reclamo = ReclamoTercero::findOrFail($request->id);
+
+        if($reclamo->croquis_url)
+        {
+            Storage::disk('s3')->delete($reclamo->croquis_path);
+        }
+
+        $filePath = $this->getCroquisPath($reclamo);
+        Storage::disk('s3')->put($filePath, file_get_contents($request->croquis),'public');
+        $url = Storage::disk('s3')->url($filePath);
+
+        if($url)
+        {
+            $reclamo->croquis_url = $url;
+            $reclamo->croquis_path = $filePath;
+            $reclamo->save();
+        }
+
+        return response()->json([ 'status' => true]);
+    }
+
+    private function getCroquisPath(ReclamoTercero $reclamo, $format = 'jpg')
+    {
+        return 'reclamo_tercero/'.$reclamo->id.'/croquis_'.Carbon::now()->format('Ymd_His').'.'.$format;
     }
 }
