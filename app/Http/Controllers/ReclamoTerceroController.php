@@ -281,6 +281,26 @@ class ReclamoTerceroController extends Controller
 
     public function paso4create(Request $request)
     {
+        dd('Paso 4 Create');
+    }
+
+    public function paso4store(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function paso5create(Request $request)
+    {
+        dd('Paso 5 Create');
+    }
+
+    public function paso5store(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function paso6create(Request $request)
+    {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
         $provincia_id = $reclamo->province_id != null ? $reclamo->province_id : $provincias->first()->id;
@@ -289,7 +309,7 @@ class ReclamoTerceroController extends Controller
 
         $data = [
             'reclamo' => $reclamo,
-            'paso' => 4,
+            'paso' => 6,
             'provincias' => $provincias,
             'localidades' => $localidades,
             'tipo_calzadas' => $tipoCalzadas
@@ -298,7 +318,7 @@ class ReclamoTerceroController extends Controller
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
-    public function paso4store(Request $request)
+    public function paso6store(Request $request)
     {
 
         $rules = [
@@ -336,22 +356,22 @@ class ReclamoTerceroController extends Controller
         }
         $reclamo->save();
 
-        return redirect()->route('siniestros.terceros.paso5.create', ['id'=> $request->id]);
+        return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
     }
 
-    public function paso5create(Request $request)
+    public function paso7create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
 
         $data = [
             'reclamo' => $reclamo,
-            'paso' => 5
+            'paso' => 7
         ];
 
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
-    public function paso5store(Request $request)
+    public function paso7store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'graficoManual' => 'nullable',
