@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 3 </b>de 6 | Datos del Conductor</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 3 </b>de 8 | Datos del Conductor</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 
@@ -58,7 +58,7 @@
                         @foreach($tipo_documentos as $tipo_documento)
                             <option
                                 value="{{$tipo_documento->id}}"
-                                {{ old('tipo_documento_id') == '$tipo_documento->id' || $reclamo->vehiculo->conductor_tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}>{{ $tipo_documento->nombre }}</option>
+                                {{ old('tipo_documento_id') == $tipo_documento->id || $reclamo->vehiculo->conductor_tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}>{{ $tipo_documento->nombre }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -64,6 +64,11 @@ class ReclamoTercero extends Model
         return $this->hasOne(VehiculoReclamante::class);
     }
 
+    public function vehiculoAsegurado()
+    {
+        return $this->hasOne(VehiculoAsegurado::class);
+    }
+
 
 
 }

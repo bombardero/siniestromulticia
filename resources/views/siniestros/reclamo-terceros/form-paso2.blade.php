@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 2 </b>de 6 | Datos del Vehículo</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 2 </b>de 8 | Datos del Vehículo</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 

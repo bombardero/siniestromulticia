@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-12 ">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 1 </b>de 6 | Datos del Reclamante</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 1 </b>de 8 | Datos del Reclamante</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 

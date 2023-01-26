@@ -104,17 +104,12 @@ class ReclamoTerceroController extends Controller
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
         $marcas = Marca::all();
         $modelos = Modelo::where('marca_id', $reclamo->vehiculo && $reclamo->vehiculo->marca_id ? $reclamo->vehiculo->marca_id : $marcas->first()->id)->get();
-        $provincias = Province::orderBy('name')->get();
-        $provincia_id = old('provincia_id') ? old('provincia_id') : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id != null ? $reclamo->reclamante->conductor_province_id : $provincias->first()->id);
-        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
         $data = [
             'reclamo' => $reclamo,
             'paso' => 2,
             'marcas' => $marcas,
-            'modelos' => $modelos,
-            'provincias' => $provincias,
-            'localidades' => $localidades
+            'modelos' => $modelos
         ];
 
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
@@ -281,7 +276,25 @@ class ReclamoTerceroController extends Controller
 
     public function paso4create(Request $request)
     {
-        dd('Paso 4 Create');
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+        $marcas = Marca::all();
+        $modelos = Modelo::where('marca_id', $reclamo->vehiculoAsegurado && $reclamo->vehiculoAsegurado->marca_id ? $reclamo->vehiculoAsegurado->marca_id : $marcas->first()->id)->get();
+        $provincias = Province::orderBy('name')->get();
+        $provincia_id = old('provincia_id') ? old('provincia_id') : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id != null ? $reclamo->reclamante->conductor_province_id : $provincias->first()->id);
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
+        $tiposDocumentos = TipoDocumento::all();
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => 4,
+            'marcas' => $marcas,
+            'modelos' => $modelos,
+            'provincias' => $provincias,
+            'localidades' => $localidades,
+            'tipo_documentos' => $tiposDocumentos
+        ];
+
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
     public function paso4store(Request $request)
