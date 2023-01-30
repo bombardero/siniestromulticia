@@ -567,7 +567,7 @@ class DenunciaAseguradoController extends Controller
                     "otro_modelo" => $request->modelo,
                     "tipo" => $request->vehiculo_tipo,
                     "anio" => $request->vehiculo_anio,
-                    "dominio" => strtoupper($request->vehiculo_dominio),
+                    "dominio" => $denuncia_siniestro->dominio_vehiculo_asegurado,
                     "motor" => $request->vehiculo_motor,
                     "chasis" => $request->vehiculo_chasis,
                     "uso_particular" => $request->vehiculo_particular  == 'on',
@@ -588,7 +588,6 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->vehiculo->otro_modelo = $request->modelo;
                 $denuncia_siniestro->vehiculo->tipo = $request->vehiculo_tipo;
                 $denuncia_siniestro->vehiculo->anio = $request->vehiculo_anio;
-                $denuncia_siniestro->vehiculo->dominio = strtoupper($request->vehiculo_dominio);
                 $denuncia_siniestro->vehiculo->motor = $request->vehiculo_motor;
                 $denuncia_siniestro->vehiculo->chasis = $request->vehiculo_chasis;
                 $denuncia_siniestro->vehiculo->uso_particular = $request->vehiculo_particular == 'on';
@@ -603,8 +602,6 @@ class DenunciaAseguradoController extends Controller
                 $denuncia_siniestro->vehiculo->detalles = $request->vehiculo_detalles;
                 $denuncia_siniestro->vehiculo->save();
             }
-
-            $denuncia_siniestro->dominio_vehiculo_asegurado = strtoupper($request->vehiculo_dominio);
 
             if($denuncia_siniestro->estado_carga == "4")
             {
@@ -1192,7 +1189,7 @@ class DenunciaAseguradoController extends Controller
                 }
             }
 
-            $denuncia_siniestro->croquis_descripcion = $request->description;
+            $denuncia_siniestro->descripcion = $denuncia_siniestro->descripcion."\n".$request->description;
             $denuncia_siniestro->denuncia_policial_comisaria = $request->comisaria;
             $denuncia_siniestro->denuncia_policial_acta = $request->acta;
             $denuncia_siniestro->denuncia_policial_folio = $request->folio;

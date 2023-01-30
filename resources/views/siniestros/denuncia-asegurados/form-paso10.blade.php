@@ -242,15 +242,23 @@
 
             <hr class="mt-3">
 
-
             <div class="col-12 mt-3">
                 <div class="form-group">
                     <label for="description">Descripción</label>
-                    <textarea name="description" id="description" rows="4"
-                              placeholder="Ampliar descripcion del siniestro" class="form-control form-estilo"
-                    >{{ $denuncia_siniestro->croquis_descripcion != null ? $denuncia_siniestro->croquis_descripcion : $denuncia_siniestro->descripcion      }}</textarea>
+                    <textarea id="description" rows="4"
+                              class="form-control form-estilo"
+                              readonly
+                    >{{ $denuncia_siniestro->descripcion }}</textarea>
                 </div>
+            </div>
 
+            <div class="col-12 mt-3">
+                <div class="form-group">
+                    <label for="description">Ampliar descripción del siniestro</label>
+                    <textarea name="description" id="description" rows="4"
+                              class="form-control form-estilo"
+                    ></textarea>
+                </div>
             </div>
 
 

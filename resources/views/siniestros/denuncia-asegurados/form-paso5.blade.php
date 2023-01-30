@@ -97,7 +97,9 @@
                     <label for="vehiculo_dominio">Dominio *</label>
                     <input type="text" id="vehiculo_dominio" name="vehiculo_dominio"
                            class="form-control form-estilo text-uppercase @error('vehiculo_dominio') is-invalid @enderror"
-                           value="{{ old('vehiculo_dominio') ? old('vehiculo_dominio') : ($denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->dominio : $denuncia_siniestro->dominio_vehiculo_asegurado) }}">
+                           value="{{ $denuncia_siniestro->vehiculo ? $denuncia_siniestro->vehiculo->dominio : $denuncia_siniestro->dominio_vehiculo_asegurado }}"
+                           readonly
+                    >
                     @error('vehiculo_dominio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>

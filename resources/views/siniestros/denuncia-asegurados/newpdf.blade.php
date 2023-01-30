@@ -516,7 +516,7 @@
         </tr>
         <td colspan="6">
             <b>Descripción:</b>
-            {{ $denuncia->croquis_descripcion }}
+            {{ $denuncia->descripcion }}
         </td>
     </table>
 

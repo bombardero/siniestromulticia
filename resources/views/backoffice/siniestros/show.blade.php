@@ -507,38 +507,28 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-12 col-md-3">
+                                            <div class="col-12 col-md-4">
                                                 <p>Comisaria: {{ $denuncia->denuncia_policial_comisaria }}</p>
                                             </div>
 
-                                            <div class="col-12 col-md-3">
+                                            <div class="col-12 col-md-4">
                                                 <p>Acta: {{ $denuncia->denuncia_policial_acta }} </p>
                                             </div>
 
-                                            <div class="col-12 col-md-3">
+                                            <div class="col-12 col-md-4">
                                                 <p>Folio: {{ $denuncia->denuncia_policial_folio }}</p>
                                             </div>
-
-                                            <div class="col-12 col-md-3">
-                                                <p>Sumario: {{ $denuncia->denuncia_policial_sumario }}</p>
-                                            </div>
-
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-4">
-                                                <p>
-                                                    Juzgado: {{ $denuncia->denuncia_policial_juzgado }}</p>
+                                                <p>Sumario: {{ $denuncia->denuncia_policial_sumario }}</p>
                                             </div>
-
                                             <div class="col-12 col-md-4">
-                                                <p>
-                                                    Secretaria: {{ $denuncia->denuncia_policial_secretaria }}</p>
+                                                <p>Juzgado: {{ $denuncia->denuncia_policial_juzgado }}</p>
                                             </div>
-
                                             <div class="col-12 col-md-4">
-                                                <p>
-                                                    Descripcion: {{ $denuncia->croquis_descripcion }}</p>
+                                                <p>Secretaria: {{ $denuncia->denuncia_policial_secretaria }}</p>
                                             </div>
                                         </div>
 
@@ -552,7 +542,7 @@
                                                      alt="">
                                             </div>
                                             <div class="col-12">
-                                                <p>Descripción: {{ $denuncia->croquis_descripcion }}</p>
+                                                <p>Descripción: {{ $denuncia->descripcion }}</p>
                                             </div>
                                         </div>
 

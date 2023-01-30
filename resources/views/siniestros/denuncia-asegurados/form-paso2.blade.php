@@ -11,6 +11,17 @@
         </div>
 
         <div class="row mt-3">
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="dominio">Lugar del Siniestro</label>
+                    <input type="text" id="lugar_nombre" name="lugar_nombre"
+                           class="form-control form-estilo"
+                           maxlength="255" readonly
+                           value="{{ $denuncia_siniestro->lugar_nombre }}">
+                </div>
+            </div>
+
             <div class="col-12 col-md-4">
                 <div class="form-group">
                     <label for="pasis">País *</label>
