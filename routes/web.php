@@ -262,6 +262,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     Route::group(['middleware' => ['check.siniestro'], 'prefix' => 'siniestros', 'as' => 'siniestros.'], function () {
         Route::get('/', [DenunciaAseguradoController::class,'index'])->name('index');
+        Route::get('denuncias/export', [DenunciaAseguradoController::class,'export'])->name('export');
         Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('denuncia.show');
         Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('denuncia.cambiar-estado');
         Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('denuncia.cambiar-cobertura-activa');
@@ -269,7 +270,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::post('denuncias/{denuncia}/asignar', [DenunciaAseguradoController::class,'asignar'])->name('denuncia.asignar');
         Route::post('denuncias/{denuncia}/desasignar', [DenunciaAseguradoController::class,'desasignar'])->name('denuncia.desasignar');
         Route::get('delete/denuncias/{denuncia}', [DenunciaAseguradoController::class,'delete'])->name('denuncia.delete');
-        Route::get('buscador', [DenunciaAseguradoController::class,'buscar'])->name('buscador');
 
         Route::post('update/denuncias/{denuncia}/nropoliza', [DenunciaAseguradoController::class,'updateDenunciaNroPoliza'])->name('denuncia.update.nropoliza');
         Route::post('update/denuncias/{denuncia}/nrodenuncia', [DenunciaAseguradoController::class,'updateDenunciaNroDenuncia'])->name('denuncia.update.nrodenuncia');

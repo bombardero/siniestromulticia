@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DenunciasExport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
@@ -19,101 +20,22 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Image;
 
 class DenunciaAseguradoController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $denuncia_siniestros = DenunciaSiniestro::latest()->paginate(10);
-        $users = User::role('siniestros')->orderBy('name')->get();
-        return view('backoffice.siniestros.index',
-            ['denuncia_siniestros' => $denuncia_siniestros, 'users' => $users ]);
-    }
-
-    public function buscar(Request $request)
-    {
-        if( count($request->all()) == 0)
-        {
-            $desde = Carbon::now()->startOfDay()->subMonth()->toDateTimeString();
-            $hasta = Carbon::now()->endOfDay()->toDateTimeString();
-        } else {
-            $desde = $request->desde ?
-                Carbon::createFromFormat('Y-m-d',$request->desde)->startOfDay()->toDateTimeString() :
-                null;
-            $hasta = $request->hasta ?
-                Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() :
-                null;
-        }
-
-        $busqueda = $request->busqueda;
-        $tipo = $request->tipo;
-        $estado = $request->estado;
-        $cobertura = $request->cobertura;
-        $nro_denuncia = $request->nro_denuncia;
-        $link_enviado = $request->link_enviado;
-        $responsable = $request->responsable;
-
-        switch ($request->carga)
-        {
-            case 'precarga':
-                $carga = 'precarga';
-                break;
-            case 'incompleto':
-                $carga = ['1','2','3','4','5','6','7','8','9','10','11'];
-                break;
-            case 'completo':
-                $carga = '12';
-                break;
-            default:
-                $carga = null;
-        }
-
-        if($tipo == 'id' && $busqueda)
-        {
-            $denuncia_siniestros = DenunciaSiniestro::where('id',$busqueda);
-        } else {
-            $denuncia_siniestros = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
-                return $query->where('dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%");
-            })->when($carga, function ($query) use ($carga) {
-                if(is_array($carga))
-                {
-                    return $query->whereIn('estado_carga', $carga);
-                }
-                return $query->where('estado_carga', $carga);
-            })->when($estado && $estado != 'todos', function ($query) use ($estado) {
-                return $query->where('estado', $estado);
-            })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
-                return $cobertura == 'ninguna' ? $query->whereNull('cobertura_activa') : $query->where('cobertura_activa', $cobertura);
-            })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {
-                return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
-            })->when($link_enviado != null && $link_enviado != 'todos', function ($query) use ($link_enviado) {
-                return $query->where('link_enviado', $link_enviado);
-            })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
-                return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
-            });
-
-            if($desde &&  $hasta)
-            {
-                $denuncia_siniestros = $denuncia_siniestros->whereBetween('created_at',[$desde,$hasta]);
-            }
-        }
-
-        /*
-        if($busqueda != null)
-        {
-            $denuncia_siniestros = $denuncia_siniestros->whereHas('asegurado', function (Builder $query) use ($busqueda) {
-                return $query->where('carga_paso_4_asegurado_nombre', 'LIKE', "%{$busqueda}%")
-                        ->orWhere('carga_paso_4_asegurado_documento_numero','LIKE', "%{$busqueda}%");
-            });
-        }*/
+        $denuncia_siniestros = $this->searchDenuncias($request);
 
         $denuncia_siniestros = $denuncia_siniestros->latest()->paginate(10);
+        $users = User::role('siniestros')->orderBy('name')->get();
 
         $data['denuncia_siniestros'] = $denuncia_siniestros;
-        $data['users'] =User::role('siniestros')->orderBy('name')->get();
+        $data['users'] = $users;
 
         return view('backoffice.siniestros.index',$data);
     }
@@ -1458,5 +1380,141 @@ class DenunciaAseguradoController extends Controller
         $denuncia->save();
         return redirect()->back();
     }
+
+    public function export(Request $request)
+    {
+        $denuncias = $this->searchDenuncias($request);
+        $denuncias = $denuncias->latest()->get();
+
+        $denuncias = $denuncias->map(function ($denuncia) {
+
+            $arreglo = [
+                'ID' => $denuncia->id,
+                'Fecha de Creación' => $denuncia->created_at->format('d/m/Y H:i'),
+                'Fecha del Siniestro' => $denuncia->fecha->format('d/m/Y').' '.Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i'),
+                'Dominio' => $denuncia->dominio_vehiculo_asegurado,
+                'Nro de Denuncia' => $denuncia->nro_denuncia,
+                'Nro de Siniestro' => $denuncia->nro_siniestro,
+            ];
+
+            switch ($denuncia->estado)
+            {
+                case 'ingresado':
+                    $arreglo['Estado'] = 'Ingresado';
+                    break;
+                case 'aceptado':
+                    $arreglo['Estado'] = 'Aceptado';
+                    break;
+                case 'rechazado':
+                    $arreglo['Estado'] = 'Rechazado';
+                    break;
+                case 'aceptado':
+                    $arreglo['Estado'] = 'Aceptado';
+                    break;
+                case 'cerrado':
+                    $arreglo['Estado'] = 'Cerrado';
+                    break;
+                case 'legales':
+                    $arreglo['Estado'] = 'Legales';
+                    break;
+                case 'investigacion':
+                    $arreglo['Estado'] = 'Investigación';
+                    break;
+                case 'derivado-proveedor':
+                    $arreglo['Estado'] = 'Derivado a proveedor';
+                    break;
+                case 'solicitud-documentacion':
+                    $arreglo['Estado'] = 'Solicitud de documentación';
+                    break;
+                case 'informe-pericial':
+                    $arreglo['Estado'] = 'Informe pericial';
+                    break;
+                case 'pendiente-de-pago':
+                    $arreglo['Estado'] = 'Pendiente de pago';
+                    break;
+                case 'esperando-baja-de-unidad':
+                    $arreglo['Estado'] = 'Esperando baja de unidad';
+                    break;
+                default:
+                    $arreglo['Estado'] = $denuncia->estado;
+            }
+            $arreglo['Última Observación'] = $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : null;
+
+            return collect($arreglo);
+
+        });
+
+
+        return $denuncias->downloadExcel('denuncias.xlsx', null, true);
+    }
+
+    private function searchDenuncias(Request $request)
+    {
+        if(count($request->all()) == 0)
+        {
+            $desde = Carbon::now()->subMonth()->startOfDay()->toDateTimeString();
+            $hasta = Carbon::now()->endOfDay()->toDateTimeString();
+            $denuncias = DenunciaSiniestro::whereBetween('created_at',[$desde,$hasta]);
+        } else {
+            $desde = $request->desde ? Carbon::createFromFormat('Y-m-d',$request->desde)->startOfDay()->toDateTimeString() : null;
+            $hasta = $request->hasta ? Carbon::createFromFormat('Y-m-d',$request->hasta)->endOfDay()->toDateTimeString() : null;
+
+            $busqueda = $request->busqueda;
+            $tipo = $request->tipo;
+            $estado = $request->estado;
+            $cobertura = $request->cobertura;
+            $nro_denuncia = $request->nro_denuncia;
+            $link_enviado = $request->link_enviado;
+            $responsable = $request->responsable;
+
+            switch ($request->carga)
+            {
+                case 'precarga':
+                    $carga = 'precarga';
+                    break;
+                case 'incompleto':
+                    $carga = ['1','2','3','4','5','6','7','8','9','10','11'];
+                    break;
+                case 'completo':
+                    $carga = '12';
+                    break;
+                default:
+                    $carga = null;
+            }
+
+            if($tipo == 'id' && $busqueda)
+            {
+                $denuncias = DenunciaSiniestro::where('id',$busqueda);
+            } else {
+                $denuncias = DenunciaSiniestro::when($busqueda, function ($query, $busqueda) {
+                    return $query->where('dominio_vehiculo_asegurado', 'LIKE', "%{$busqueda}%");
+                })->when($carga, function ($query) use ($carga) {
+                    if(is_array($carga))
+                    {
+                        return $query->whereIn('estado_carga', $carga);
+                    }
+                    return $query->where('estado_carga', $carga);
+                })->when($estado && $estado != 'todos', function ($query) use ($estado) {
+                    return $query->where('estado', $estado);
+                })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
+                    return $cobertura == 'ninguna' ? $query->whereNull('cobertura_activa') : $query->where('cobertura_activa', $cobertura);
+                })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {
+                    return $nro_denuncia == 'si' ? $query->whereNotNull('nro_denuncia') : $query->whereNull('nro_denuncia');
+                })->when($link_enviado != null && $link_enviado != 'todos', function ($query) use ($link_enviado) {
+                    return $query->where('link_enviado', $link_enviado);
+                })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
+                    return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
+                });
+
+                if($desde && $hasta)
+                {
+                    $denuncias = $denuncias->whereBetween('created_at',[$desde,$hasta]);
+                }
+            }
+        }
+        return $denuncias;
+    }
+
+
 
 }

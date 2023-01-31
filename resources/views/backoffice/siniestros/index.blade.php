@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 mt-5 pb-5">
-                    <form action="{{ route('admin.siniestros.buscador') }}" method="get" class="container-fluid" id="buscador">
+                    <form action="{{ route('admin.siniestros.index') }}" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
                             <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0 pr-xl-1">
                                 <div class="input-group">
@@ -229,7 +229,7 @@
                                     </div>
                                     <input type="text" name="busqueda" class="form-control no-border-radius-left"
                                            value="{{request()->busqueda}}" onchange="buscar()">
-                                    <button class="btn btn-outline-secondary" type="submit" id="">Buscar</button>
+                                    <button class="btn btn-primary" type="submit">Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +438,16 @@
                                 @endif
                                 </tbody>
                             </table>
-                            {{ $denuncia_siniestros->appends(request()->input())->links('vendor.pagination.bootstrap-4') }}
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ $denuncia_siniestros->appends(request()->input())->links('vendor.pagination.bootstrap-4') }}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-secondary" type="button" id="btn-exportar" data-query="{{ request()->getQueryString() }}">
+                                    <i class="fa-solid fa-file-excel mr-2"></i> Exportar
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -779,6 +788,37 @@
             $('#hasta').attr('disabled', true)
         }
     })
+
+    $('#btn-exportar').click(function () {
+        let url = '{{ route('admin.siniestros.export') }}'+'?'+$(this).data('query');
+
+        showLoading();
+        $.ajax(
+            {
+                url: url,
+                type: 'get',
+                timeout: 0,
+                xhrFields:{
+                    responseType: 'blob'
+                },
+                success: function (result) {
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(result);
+                    link.download = `denuncias.xlsx`;
+                    link.click();
+                    link.remove();
+
+                },
+                error: function (error) {
+                    //console.log(error);
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
+        //console.log(url);
+    });
 
 </script>
 

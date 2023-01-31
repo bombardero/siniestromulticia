@@ -21,6 +21,7 @@
         "laravel/ui": "^3.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "livewire/livewire": "^2.2",
+        "maatwebsite/excel": "^3.1",
         "mercadopago/dx-php": "2.1.1",
         "nesbot/carbon": "^2.41",
         "owen-it/laravel-auditing": "^11.0",

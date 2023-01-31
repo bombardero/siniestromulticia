@@ -1,6 +1,6 @@
 @if ($paginator->hasPages())
     <nav>
-        <ul class="justify-content-center pagination mb-1">
+        <ul class="pagination mb-1">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
@@ -43,7 +43,7 @@
             @endif
         </ul>
     </nav>
-    <div class="text-center mb-3">
+    <div class="mb-3">
         {{ $paginator->firstItem() }}-{{ $paginator->lastItem() }}, de {{ $paginator->total() }}
     </div>
 @endif
