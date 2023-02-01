@@ -1395,6 +1395,7 @@ class DenunciaAseguradoController extends Controller
                 'Dominio' => $denuncia->dominio_vehiculo_asegurado,
                 'Nro de Denuncia' => $denuncia->nro_denuncia,
                 'Nro de Siniestro' => $denuncia->nro_siniestro,
+                'Cobertura' => $denuncia->cobertura_activa,
             ];
 
             switch ($denuncia->estado)
