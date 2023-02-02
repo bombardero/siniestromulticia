@@ -280,7 +280,7 @@ class ReclamoTerceroController extends Controller
         $marcas = Marca::all();
         $modelos = Modelo::where('marca_id', $reclamo->vehiculoAsegurado && $reclamo->vehiculoAsegurado->marca_id ? $reclamo->vehiculoAsegurado->marca_id : $marcas->first()->id)->get();
         $provincias = Province::orderBy('name')->get();
-        $provincia_id = old('provincia_id') ? old('provincia_id') : ($reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id != null ? $reclamo->reclamante->conductor_province_id : $provincias->first()->id);
+        $provincia_id = $reclamo->vehiculoAsegurado && $reclamo->vehiculoAsegurado->conductor_province_id != null ? $reclamo->vehiculoAsegurado->conductor_province_id : $provincias->first()->id;
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
         $tiposDocumentos = TipoDocumento::all();
 
@@ -299,17 +299,134 @@ class ReclamoTerceroController extends Controller
 
     public function paso4store(Request $request)
     {
-        dd($request->all());
+        $rules = [
+            'marca_id' => 'required',
+            'marca' => 'required_with:otra_marca',
+            'modelo_id' => 'required',
+            'modelo' => 'required_with:otro_modelo',
+            'vehiculo_tipo' => 'required',
+            'vehiculo_anio' => 'required',
+            'vehiculo_dominio' => 'required',
+        ];
+        $messages = [
+            'marca.required_with' => 'El campo marca es obligatorio.',
+            'modelo.required_with' => 'El campo modelo es obligatorio.',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
+
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+
+        if(!$reclamo->vehiculoAsegurado)
+        {
+            $reclamo->vehiculoAsegurado()->create([
+                'dominio' => $reclamo->dominio_vehiculo_asegurado,
+                'tipo' => $request->vehiculo_tipo,
+                'anio' => $request->vehiculo_anio,
+                'marca_id' => !$request->otra_marca ? $request->marca_id : null,
+                'modelo_id' => !$request->otro_modelo ? $request->modelo_id : null,
+                'otra_marca' => $request->otra_marca ? $request->marca : null,
+                'otro_modelo' => $request->otro_modelo ? $request->modelo : null,
+                'conductor_nombre' => $request->nombre ? $request->nombre : null,
+                'conductor_telefono' => $request->telefono ? $request->telefono : null,
+                'conductor_tipo_documento_id' => $request->documento_numero ? $request->tipo_documento_id : null,
+                'conductor_documento_numero' => $request->documento_numero ? $request->documento_numero : null,
+                'conductor_domicilio' => $request->domicilio ? $request->domicilio : null,
+                'conductor_codigo_postal' => $request->codigo_postal ? $request->codigo_postal : null,
+                'conductor_pais_id' => $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null,
+                'conductor_province_id' => $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null,
+                'conductor_city_id' => $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id,
+                'conductor_otro_pais_provincia_localidad' => $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null ),
+                'propietario_conductor' => $request->propietario_conductor
+            ]);
+        } else {
+            $reclamo->vehiculoAsegurado->dominio = $reclamo->dominio_vehiculo_asegurado;
+            $reclamo->vehiculoAsegurado->tipo = $request->vehiculo_tipo;
+            $reclamo->vehiculoAsegurado->anio = $request->vehiculo_anio;
+            $reclamo->vehiculoAsegurado->marca_id = !$request->otra_marca ? $request->marca_id : null;
+            $reclamo->vehiculoAsegurado->modelo_id = !$request->otro_modelo ? $request->modelo_id : null;
+            $reclamo->vehiculoAsegurado->otra_marca = $request->otra_marca ? $request->marca : null;
+            $reclamo->vehiculoAsegurado->otro_modelo = $request->otro_modelo ? $request->modelo : null;
+            $reclamo->vehiculoAsegurado->conductor_nombre = $request->nombre ? $request->nombre : null;
+            $reclamo->vehiculoAsegurado->conductor_telefono = $request->telefono ? $request->telefono : null;
+            $reclamo->vehiculoAsegurado->conductor_tipo_documento_id = $request->documento_numero ? $request->tipo_documento_id : null;
+            $reclamo->vehiculoAsegurado->conductor_documento_numero = $request->documento_numero ? $request->documento_numero : null;
+            $reclamo->vehiculoAsegurado->conductor_domicilio = $request->domicilio ? $request->domicilio : null;
+            $reclamo->vehiculoAsegurado->conductor_codigo_postal = $request->codigo_postal ? $request->codigo_postal : null;
+            $reclamo->vehiculoAsegurado->conductor_pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
+            $reclamo->vehiculoAsegurado->conductor_province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+            $reclamo->vehiculoAsegurado->conductor_city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
+            $reclamo->vehiculoAsegurado->conductor_otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
+            $reclamo->vehiculoAsegurado->propietario_conductor = $request->propietario_conductor;
+            $reclamo->vehiculoAsegurado->save();
+        }
+
+        if($request->propietario_conductor === '1')
+        {
+            $reclamo->load('vehiculoAsegurado');
+            $reclamo->vehiculoAsegurado->propietario_nombre = $reclamo->vehiculoAsegurado->conductor_nombre;
+            $reclamo->vehiculoAsegurado->propietario_telefono = $reclamo->vehiculoAsegurado->conductor_telefono;
+            $reclamo->vehiculoAsegurado->propietario_tipo_documento_id = $reclamo->vehiculoAsegurado->conductor_tipo_documento_id;
+            $reclamo->vehiculoAsegurado->propietario_documento_numero = $reclamo->vehiculoAsegurado->conductor_documento_numero;
+            $reclamo->vehiculoAsegurado->propietario_domicilio = $reclamo->vehiculoAsegurado->conductor_domicilio;
+            $reclamo->vehiculoAsegurado->propietario_codigo_postal = $reclamo->vehiculoAsegurado->conductor_codigo_postal;
+            $reclamo->vehiculoAsegurado->propietario_pais_id = $reclamo->vehiculoAsegurado->conductor_pais_id;
+            $reclamo->vehiculoAsegurado->propietario_province_id = $reclamo->vehiculoAsegurado->conductor_province_id;
+            $reclamo->vehiculoAsegurado->propietario_city_id = $reclamo->vehiculoAsegurado->conductor_city_id;
+            $reclamo->vehiculoAsegurado->propietario_otro_pais_provincia_localidad = $reclamo->vehiculoAsegurado->conductor_otro_pais_provincia_localidad;
+            $reclamo->vehiculoAsegurado->save();
+        }
+
+        if($reclamo->estado_carga === '3')
+        {
+            $reclamo->estado_carga = '4';
+            $reclamo->save();
+        }
+
+        return redirect()->route('siniestros.terceros.paso5.create', ['id'=> $request->id]);
     }
 
     public function paso5create(Request $request)
     {
-        dd('Paso 5 Create');
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
+        $provincia_id = $reclamo->vehiculoAsegurado && $reclamo->vehiculoAsegurado->propietario_province_id != null ? $reclamo->vehiculoAsegurado->propietario_province_id : $provincias->first()->id;
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
+        $tiposDocumentos = TipoDocumento::all();
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => 5,
+            'provincias' => $provincias,
+            'localidades' => $localidades,
+            'tipo_documentos' => $tiposDocumentos
+        ];
+
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
     public function paso5store(Request $request)
     {
-        dd($request->all());
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+
+        $reclamo->vehiculoAsegurado->propietario_nombre = $request->nombre ? $request->nombre : null;
+        $reclamo->vehiculoAsegurado->propietario_telefono = $request->telefono ? $request->telefono : null;
+        $reclamo->vehiculoAsegurado->propietario_tipo_documento_id = $request->documento_numero ? $request->tipo_documento_id : null;
+        $reclamo->vehiculoAsegurado->propietario_documento_numero = $request->documento_numero ? $request->documento_numero : null;
+        $reclamo->vehiculoAsegurado->propietario_domicilio = $request->domicilio ? $request->domicilio : null;
+        $reclamo->vehiculoAsegurado->propietario_codigo_postal = $request->codigo_postal ? $request->codigo_postal : null;
+        $reclamo->vehiculoAsegurado->propietario_pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
+        $reclamo->vehiculoAsegurado->propietario_province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+        $reclamo->vehiculoAsegurado->propietario_city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
+        $reclamo->vehiculoAsegurado->propietario_otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
+        $reclamo->vehiculoAsegurado->save();
+
+        if($reclamo->estado_carga === '4')
+        {
+            $reclamo->estado_carga = '5';
+            $reclamo->save();
+        }
+
+        return redirect()->route('siniestros.terceros.paso6.create', ['id'=> $request->id]);
     }
 
     public function paso6create(Request $request)
@@ -436,6 +553,16 @@ class ReclamoTerceroController extends Controller
         $reclamo->save();
 
         dd($reclamo);
+    }
+
+    public function paso8create(Request $request)
+    {
+        dd('Paso 8 Create');
+    }
+
+    public function pasoostore(Request $request)
+    {
+        dd('Paso 8 Store');
     }
 
     public function storeCroquis(Request $request)
