@@ -58,6 +58,9 @@ class CreateReclamoTercerosTable extends Migration
             $table->unsignedBigInteger('monto_danios_materiales')->nullable();
             $table->unsignedBigInteger('monto_lesiones')->nullable();
 
+            $table->string('comisaria')->nullable();
+            $table->string('testigos')->nullable();
+
             $table->timestamps();
             $table->timestamp('finalized_at')->nullable();
             $table->softDeletes();

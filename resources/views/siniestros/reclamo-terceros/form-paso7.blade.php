@@ -251,10 +251,84 @@
         <div class="row">
             <div class="col-12 mt-3">
                 <div class="form-group">
-                    <label for="descripcion">Descripción</label>
+                    <label>Descripción</label>
+                    <textarea rows="4" class="form-control" readonly>{{ $reclamo->descripcion }}</textarea>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="descripcion">Ampliar Descripción</label>
                     <textarea name="descripcion" id="descripcion" rows="4"
                               placeholder="Ampliar descripcion del siniestro" class="form-control"
-                    >{{ $reclamo->croquis_descripcion != null ? $reclamo->croquis_descripcion : $reclamo->descripcion      }}</textarea>
+                    >{{ old('descripcion') ? old('descripcion') : ''  }}</textarea>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="comisaria">Comisaría que intervino</label>
+                    <input  type="text" name="comisaria" id="comisaria"
+                            class="form-control"
+                            value="{{ old('comisaria') ? old('comisaria') : $reclamo->comisaria  }}"
+                    >
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="testigos">Testigos</label>
+                    <input  type="text" name="testigos" id="testigos"
+                            class="form-control"
+                            value="{{ old('testigos') ? old('testigos') : $reclamo->testigos  }}"
+                    >
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label><b>Importes que reclama</b></label>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="monto_vehicular">Daño vehicular</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input  type="text" name="monto_vehicular" id="monto_vehicular"
+                                class="form-control"
+                                value="{{ old('monto_vehicular') ? old('monto_vehicular') : $reclamo->monto_vehicular  }}"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="monto_danios_materiales">Daños materiales</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input  type="text" name="monto_danios_materiales" id="monto_danios_materiales"
+                                class="form-control"
+                                value="{{ old('monto_danios_materiales') ? old('monto_danios_materiales') : $reclamo->monto_danios_materiales  }}"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="monto_lesiones">Lesiones</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input  type="text" name="monto_lesiones" id="monto_lesiones"
+                                class="form-control"
+                                value="{{ old('monto_lesiones') ? old('monto_lesiones') : $reclamo->monto_lesiones  }}"
+                        >
+                    </div>
                 </div>
             </div>
         </div>

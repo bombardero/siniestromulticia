@@ -64,6 +64,43 @@
             </div>
         </div>
 
+        <div class="col-12 mb-2">
+            <label class="form-check-label">Tipos de reclamos (*)</label>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="form-group mb-0 form-check">
+                <input type="checkbox" class="form-check-input"
+                       id="reclamo_vehicular" name="reclamo_vehicular"
+                       wire:model.defer="reclamo_vehicular"
+                >
+                <label class="form-check-label" for="reclamo_vehicular">Daño vehicular</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group mb-0 form-check">
+                <input type="checkbox" class="form-check-input"
+                       id="reclamo_danios_materiales" name="reclamo_danios_materiales"
+                       wire:model.defer="reclamo_danios_materiales"
+                >
+                <label class="form-check-label" for="reclamo_danios_materiales">Daños materiales</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group mb-0 form-check">
+                <input type="checkbox" class="form-check-input"
+                       id="reclamo_lesiones" name="reclamo_lesiones"
+                       wire:model.defer="reclamo_lesiones"
+                >
+                <label class="form-check-label" for="reclamo_lesiones">Lesiones</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                @error('reclamo_tipos') <span class="pl-3 text-danger">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
         <div class="col-12">
             <div class="form-group">
                 <label for="responsable_contacto">Responsable de contacto (*)</label>

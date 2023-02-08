@@ -480,9 +480,9 @@ class ReclamoTerceroController extends Controller
         $reclamo->semaforo_intermitente = $request->semaforo_intermitente ==  'on';
         $reclamo->semaforo_color = $request->semaforo_color;
 
-        if($reclamo->estado_carga == "3")
+        if($reclamo->estado_carga == "5")
         {
-            $reclamo->estado_carga = "4";
+            $reclamo->estado_carga = "6";
         }
         $reclamo->save();
 
@@ -545,14 +545,20 @@ class ReclamoTerceroController extends Controller
             }
         }
 
-        $reclamo->descripcion = $request->descripcion;
-        if($reclamo->estado_carga == '4')
+        $reclamo->descripcion = $reclamo->descripcion."\n".$request->descripcion;
+        $reclamo->comisaria = $request->comisaria;
+        $reclamo->testigos = $request->testigos;
+        $reclamo->monto_vehicular = $request->monto_vehicular;
+        $reclamo->monto_danios_materiales = $request->monto_danios_materiales;
+        $reclamo->monto_lesiones = $request->monto_lesiones;
+
+        if($reclamo->estado_carga == '6')
         {
-            $reclamo->estado_carga = '5';
+            $reclamo->estado_carga = '7';
         }
         $reclamo->save();
 
-        dd($reclamo);
+        return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $request->id]);
     }
 
     public function paso8create(Request $request)

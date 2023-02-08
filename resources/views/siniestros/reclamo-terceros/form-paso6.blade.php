@@ -73,7 +73,7 @@
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="dominio">Calle o Ruta *</label>
+                    <label for="dominio">Calle o Ruta</label>
                     <input type="text" id="calle" name="calle"
                            class="form-control @error('calle') is-invalid @enderror"
                            maxlength="255"
