@@ -49,7 +49,7 @@
                                                 <i class="fa-solid fa-file-pdf"></i>
                                             </a>
                                             <a href="{{ route('admin.siniestros.denuncia.delete',$denuncia->id) }}"
-                                               class="px-2 btn btn-danger btn-sm btn-eliminar" title="Eliminar">
+                                               class="px-2 btn btn-danger btn-sm btn-eliminar disabled" title="Eliminar">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         </div>

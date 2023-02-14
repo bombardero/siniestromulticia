@@ -424,7 +424,8 @@
                                                         </li>
                                                         <li>
                                                             <a href="{{route('admin.siniestros.denuncia.delete',$denuncia->id)}}"
-                                                               class="dropdown-item btn-eliminar text-danger" title="Eliminar">
+                                                               class="dropdown-item btn-eliminar text-secondary disabled"
+                                                               title="Eliminar">
                                                                 <i class="fa-solid fa-trash"></i><span>Eliminar</span>
                                                             </a>
                                                         </li>
