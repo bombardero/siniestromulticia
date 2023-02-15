@@ -169,6 +169,23 @@ class UserController extends Controller
         //
     }
 
+    public function permisosShow(User $user)
+    {
+        return view('backoffice.users.permisos', ['user' => $user]);
+    }
+
+    public function permisosStore(Request  $request,User $user)
+    {
+        if($request->borrar_denuncias)
+        {
+            $user->givePermissionTo('borrar denuncias');
+        } else {
+            $user->revokePermissionTo('borrar denuncias');
+        }
+
+        return redirect()->route('admin.users.index');
+    }
+
 
 
 }

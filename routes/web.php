@@ -279,6 +279,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     });
 
     Route::resource('users', SuperAdminUserController::class)->except('show')->middleware('check.superadmin');
+    Route::get('users/{user}/permisos/', [SuperAdminUserController::class,'permisosShow'])->name('users.permisos.show');
+    Route::post('users/{user}/permisos/', [SuperAdminUserController::class,'permisosStore'])->name('users.permisos.store');
 });
 
 // Ajax
