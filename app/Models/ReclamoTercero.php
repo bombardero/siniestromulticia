@@ -27,8 +27,8 @@ class ReclamoTercero extends Model
     protected $fillable = [
         'identificador',
         'estado_carga',
-        'dominio_vehiculo_asegurado',
-        'dominio_vehiculo_tercero',
+        'vehiculo_asegurado_dominio',
+        'vehiculo_tercero_dominio',
         'fecha',
         'hora',
         'lugar_nombre',
@@ -39,6 +39,12 @@ class ReclamoTercero extends Model
         'responsable_contacto_domicilio',
         'responsable_contacto_telefono',
         'responsable_contacto_email',
+        'asegurado_nombre',
+        'vehiculo_asegurado_marca_id',
+        'vehiculo_asegurado_modelo_id',
+        'vehiculo_asegurado_otra_marca',
+        'vehiculo_asegurado_otro_modelo',
+
         'reclamo_vehicular',
         'reclamo_danios_materiales',
         'reclamo_lesiones',

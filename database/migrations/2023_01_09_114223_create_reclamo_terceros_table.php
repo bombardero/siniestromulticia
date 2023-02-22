@@ -17,8 +17,8 @@ class CreateReclamoTercerosTable extends Migration
             $table->id();
             $table->string('identificador');
             $table->string('estado_carga');
-            $table->string('dominio_vehiculo_asegurado');
-            $table->string('dominio_vehiculo_tercero')->nullable();
+            $table->string('vehiculo_asegurado_dominio');
+            $table->string('vehiculo_tercero_dominio')->nullable();
             $table->date('fecha');
             $table->time('hora');
 
@@ -29,6 +29,13 @@ class CreateReclamoTercerosTable extends Migration
             $table->string('responsable_contacto_nombre');
             $table->string('responsable_contacto_telefono');
             $table->string('responsable_contacto_email');
+
+            //Asegurado
+            $table->string('asegurado_nombre')->nullable();
+            $table->foreignId('vehiculo_asegurado_marca_id')->nullable()->constrained('marcas');
+            $table->foreignId('vehiculo_asegurado_modelo_id')->nullable()->constrained('modelos');
+            $table->string('vehiculo_asegurado_otra_marca')->nullable();
+            $table->string('vehiculo_asegurado_otro_modelo')->nullable();
 
             //Lugar
             $table->foreignId('pais_id')->nullable()->constrained('paises');

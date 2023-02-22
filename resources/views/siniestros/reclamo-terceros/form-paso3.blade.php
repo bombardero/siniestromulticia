@@ -1,4 +1,4 @@
-<form class="" action='{{route("siniestros.terceros.paso3.store")}}' method="post">
+    <form class="" action='{{route("siniestros.terceros.paso3.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 

@@ -6,135 +6,96 @@
 
         <div class="row">
 
-            <div class="col-12 ">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 1 </b>de 8 | Datos del Reclamante</span>
+            <div class="col-12">
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 1 </b>de 8 | Datos del Asegurado</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 
             <div class="col-12 mt-3">
+                <label><b>Titular</b></label>
+            </div>
+
+            <div class="col-12">
                 <div class="form-group">
-                    <label for="nombre">Nombre y Apellido *</label>
-                    <input type="text" name="nombre" placeholder="Nombre completo"
-                               class="form-control @error('nombre') is-invalid @enderror"
-                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->nombre : '' }}"
+                    <label for="nombre">Nombre y Apellido</label>
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre completo"
+                           class="form-control @error('nombre') is-invalid @enderror"
+                           value="{{ old('nombre') ? old('nombre') : $reclamo->asegurado_nombre != null ? $reclamo->asegurado_nombre : '' }}"
                     >
                     @error('nombre') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="tipo_documentos">Tipo de Documento *</label>
-                    <select name="tipo_documento_id" id="tipo_documento"
-                                class="custom-select">
-                        @foreach($tipo_documentos as $tipo_documento)
-                            <option
-                                value="{{$tipo_documento->id}}" {{ $reclamo->reclamante && $reclamo->reclamante->tipo_documento_id == $tipo_documento->id ? 'selected' : '' }}>{{ $tipo_documento->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <div class="col-12 mt-3">
+                <label><b>Vehículo</b></label>
             </div>
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="documento_numero">Número de Documento *</label>
-                    <input type="text" name="documento_numero" id="documento_numero" maxlength="8"
-                               class="form-control @error('documento_numero') is-invalid @enderror"
-                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->documento_numero : '' }}">
-                    @error('documento_numero') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                    <label for="vehiculo_dominio">Dominio</label>
+                    <input type="text" id="vehiculo_dominio" name="vehiculo_dominio"
+                           class="form-control text-uppercase @error('vehiculo_dominio') is-invalid @enderror"
+                           readonly
+                           value="{{ $reclamo->vehiculo_asegurado_dominio }}">
+                    @error('vehiculo_dominio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="telefono">Teléfono *</label>
-                    <input type="text" id="telefono" name="telefono"
-                               class="form-control @error('telefono') is-invalid @enderror"
-                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}">
-                    @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-
-            <div class="col-12 col-md-8">
-                <div class="form-group">
-                    <label for="domicilio">Domicilio *</label>
-                    <input type="text" name="domicilio" id="domicilio"
-                               class="form-control @error('domicilio') is-invalid @enderror"
-                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->domicilio : '' }}">
-                    @error('domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="codigo_postal">Código Postal *</label>
-                    <input type="text" name="codigo_postal" id="codigo_postal"
-                               class="form-control @error('codigo_postal') is-invalid @enderror"
-                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->codigo_postal : '' }}">
-                    @error('codigo_postal') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="pais">País *</label>
-                        <select name="pais" id="pais" class="custom-select">
-                        <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($reclamo->reclamante && $reclamo->reclamante->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
-                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($reclamo->reclamante && $reclamo->reclamante->pais_id == null ? 'selected' : '') }}>Otro</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->reclamante && !$reclamo->reclamante->pais_id && !$reclamo->reclamante->province_id && !$reclamo->reclamante->city_id)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
-                <div class="form-group">
-                    <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
-                    <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
-                           class="form-control @error('otro_pais_provincia_localidad') is-invalid @enderror"
-                           maxlength="255"
-                           value="{{ old('otro_pais_provincia_localidad') ?  old('otro_pais_provincia_localidad') : ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad != null ? $reclamo->reclamante->otro_pais_provincia_localidad : '') }}">
-                    @error('otro_pais_provincia_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->reclamante && $reclamo->reclamante->province_id == null) ?  'd-none' : '' }}" id="div_provincia">
-                <div class="form-group">
-                    <label for="provincias">Provincia *</label>
-                    <select name="provincia_id" id="provincias" class="custom-select">
-                        @foreach($provincias as $provincia)
-                            <option value="{{ $provincia->id }}"
-                                {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($reclamo->reclamante && $reclamo->reclamante->province_id ==  $provincia->id ? 'selected' : '') }}
-                            >{{ $provincia->name }}</option>
-                        @endforeach
-                    </select>
-
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || ($reclamo->reclamante && !$reclamo->reclamante->pais_id && !$reclamo->reclamante->province_id) ?  'd-none' : '' }}" id="div_localidad">
-                <div class="form-group">
-                    <label for="localidades">Localidad *</label>
+                    <label for="marca">Marca</label>
                     <div class="input-group">
-                        <select name="localidad_id" id="localidades" class="custom-select {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? 'd-none' :  '' }}">
-                            @foreach($localidades as $localidad)
-                                <option value="{{ $localidad->id }}"
-                                    {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($reclamo->reclamante && $reclamo->reclamante->city_id == $localidad->id ? 'selected' : '') }}
-                                >{{ $localidad->name }}</option>
+                        <select name="marca_id" id="marca-select" class="custom-select {{ old('otra_marca') || $reclamo->vehiculo_asegurado_otra_marca ? 'd-none' : '' }} @error('marca_id') is-invalid @enderror">
+                            @foreach($marcas as $marca)
+                                <option value="{{ $marca->id }}"
+                                    {{ old('marca_id') == $marca->id || $reclamo->vehiculo_asegurado_marca_id == $marca->id ? 'selected' : '' }}
+                                >{{ $marca->nombre }}</option>
                             @endforeach
                         </select>
-                        <input type="text" name="otra_localidad" id="otra_localidad" maxlength="255"
-                               class="form-control {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? '' : 'd-none' }}"
-                               value="{{ $reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad != null ? $reclamo->reclamante->otro_pais_provincia_localidad : '' }}"
+                        <input type="text" id="marca-text" name="marca"
+                               class="form-control {{ old('otra_marca') || $reclamo->vehiculo_asegurado_otra_marca ? '' : 'd-none' }} @error('marca') is-invalid @enderror"
+                               value="{{ old('marca') ? old('marca') : ($reclamo->vehiculo_asegurado_otra_marca != null ? $reclamo->vehiculo_asegurado_otra_marca : '') }}"
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" id="check_otra_localidad" name="check_otra_localidad"
-                                       class="mr-1" {{ old('check_otra_localidad') || ($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad) ? 'checked' :  '' }}>Otra
+                                <input type="checkbox" name="otra_marca" id="otra-marca"
+                                       class="mr-1"
+                                        {{ old('otra_marca') || $reclamo->vehiculo_asegurado_otra_marca != null ? 'checked' : '' }}
+                                >Otra
                             </div>
                         </div>
+                        @error('marca_id') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                        @error('marca') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                     </div>
-                    @error('otra_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
+
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="modelo">Modelo</label>
+                    <div class="input-group">
+                        <select name="modelo_id" id="modelo-select" class="custom-select {{ old('otro_modelo') || $reclamo->vehiculo_asegurado_otro_modelo != null ? 'd-none' : '' }} @error('modelo_id') is-invalid @enderror">
+                            @foreach($modelos as $modelo)
+                                <option value="{{ $modelo->id }}"
+                                    {{  old('modelo_id') == $marca->id || ($reclamo->vehiculo_asegurado_modelo_id == $modelo->id) ? 'selected' : '' }}
+                                >{{ $modelo->nombre }}</option>
+                            @endforeach
+                        </select>
+                        <input type="text" id="modelo-text" name="modelo"
+                               class="form-control {{ old('otro_modelo') || $reclamo->vehiculo_asegurado_otro_modelo != null ? '' : 'd-none' }} @error('modelo') is-invalid @enderror"
+                               value="{{ old('modelo') ? old('modelo') : ($reclamo->vehiculo_asegurado_otro_modelo != null ? $reclamo->vehiculo_asegurado_otro_modelo : '') }}"
+                        >
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <input type="checkbox" name="otro_modelo" id="otro-modelo" class="mr-1" {{ old('otro_modelo') || $reclamo->vehiculo_asegurado_otro_modelo != null ? 'checked' : '' }}>Otro
+                            </div>
+                        </div>
+                        @error('modelo_id') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                        @error('modelo') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
@@ -146,64 +107,9 @@
 </form>
 
 @section('scripts')
+<script src="{{ asset('js/marca_modelo.js')}}"></script>
+
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#provincias").change(function () {
-            provincia_id = $("#provincias").val();
-            console.log(provincia_id);
-            $.ajax({
-                url: '/api/provincias/' + provincia_id + '/localidades',
-                type: 'get',
-                dataType: 'json',
-                success: function (cities) {
-                    $('#localidades').empty();
-                    cities.forEach(city => {
-                        $('#localidades').append($('<option>', {
-                            value: city['id'],
-                            text: city['name']
-                        }));
-                    })
 
-                },
-                complete: function () {
-                    $('#check_otra_localidad').prop("checked",false);
-                    $('#localidades').removeClass('d-none');
-                    $("#localidades").prop('disabled', false);
-                    $('#otra_localidad').addClass('d-none');
-                    $("#otra_localidad").prop('disabled', true);
-                }
-            })
-        });
-
-        $("#pais").change(function () {
-            let pais = $(this).val();
-            //console.log(pais);
-            if(pais == 'otro')
-            {
-                $('#div_otro_pais_provincia_localidad').removeClass('d-none')
-                $('#div_provincia').addClass('d-none')
-                $('#div_localidad').addClass('d-none')
-            } else {
-                $('#div_otro_pais_provincia_localidad').addClass('d-none')
-                $('#div_provincia').removeClass('d-none')
-                $('#div_localidad').removeClass('d-none')
-            }
-        });
-
-        $("#check_otra_localidad").click(function () {
-            if ($(this).prop("checked")) {
-                $('#localidades').addClass('d-none');
-                $("#localidades").prop('disabled', true);
-                $('#otra_localidad').removeClass('d-none');
-                $("#otra_localidad").prop('disabled', false);
-            } else{
-                $('#localidades').removeClass('d-none');
-                $("#localidades").prop('disabled', false);
-                $('#otra_localidad').addClass('d-none');
-                $("#otra_localidad").prop('disabled', true);
-            }
-        });
-
-    });
 </script>
 @endsection

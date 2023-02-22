@@ -100,8 +100,8 @@ class FormTerceros extends Component
         ReclamoTercero::create([
             'estado_carga' => 'precarga',
             'identificador' => Str::uuid(),
-            'dominio_vehiculo_asegurado' => strtoupper($this->dominio_asegurado),
-            'dominio_vehiculo_tercero' => $this->dominio != null ? strtoupper($this->dominio) : null,
+            'vehiculo_asegurado_dominio' => strtoupper($this->dominio_asegurado),
+            'vehiculo_tercero_dominio' => $this->dominio != null ? strtoupper($this->dominio) : null,
             'fecha' => $this->fecha_siniestro,
             'hora' => $this->hora_siniestro,
             'lugar_nombre' => $this->lugar_siniestro,
