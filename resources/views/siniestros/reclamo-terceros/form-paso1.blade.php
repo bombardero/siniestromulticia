@@ -11,10 +11,6 @@
                 <hr style="border:1px solid lightgray;">
             </div>
 
-            <div class="col-12 mt-3">
-                <label><b>Titular</b></label>
-            </div>
-
             <div class="col-12">
                 <div class="form-group">
                     <label for="nombre">Nombre y Apellido</label>
@@ -26,11 +22,7 @@
                 </div>
             </div>
 
-            <div class="col-12 mt-3">
-                <label><b>Vehículo</b></label>
-            </div>
-
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label for="vehiculo_dominio">Dominio</label>
                     <input type="text" id="vehiculo_dominio" name="vehiculo_dominio"
@@ -41,7 +33,18 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="numero_poliza">Número de Póliza</label>
+                    <input type="text" name="numero_poliza" id="numero_poliza"
+                           class="form-control @error('numero_poliza') is-invalid @enderror"
+                           value="{{ old('numero_poliza') ? old('numero_poliza') : $reclamo->numero_poliza != null ? $reclamo->numero_poliza : '' }}"
+                    >
+                    @error('numero_poliza') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label for="marca">Marca</label>
                     <div class="input-group">
@@ -70,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label for="modelo">Modelo</label>
                     <div class="input-group">

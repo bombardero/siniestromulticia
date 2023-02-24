@@ -50,6 +50,7 @@ class ReclamoTerceroController extends Controller
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
 
         $reclamo->asegurado_nombre = $request->nombre;
+        $reclamo->vehiculo_asegurado_nro_poliza = $request->numero_poliza;
         $reclamo->vehiculo_asegurado_marca_id = !$request->otra_marca ? $request->marca_id : null;
         $reclamo->vehiculo_asegurado_otra_marca = $request->otra_marca ? $request->marca : null;
         $reclamo->vehiculo_asegurado_modelo_id = !$request->otro_modelo ? $request->modelo_id : null;

@@ -32,6 +32,7 @@ class CreateReclamoTercerosTable extends Migration
 
             //Asegurado
             $table->string('asegurado_nombre')->nullable();
+            $table->string('vehiculo_asegurado_nro_poliza')->nullable();
             $table->foreignId('vehiculo_asegurado_marca_id')->nullable()->constrained('marcas');
             $table->foreignId('vehiculo_asegurado_modelo_id')->nullable()->constrained('modelos');
             $table->string('vehiculo_asegurado_otra_marca')->nullable();

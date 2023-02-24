@@ -40,6 +40,7 @@ class ReclamoTercero extends Model
         'responsable_contacto_telefono',
         'responsable_contacto_email',
         'asegurado_nombre',
+        'vehiculo_asegurado_nro_poliza',
         'vehiculo_asegurado_marca_id',
         'vehiculo_asegurado_modelo_id',
         'vehiculo_asegurado_otra_marca',
