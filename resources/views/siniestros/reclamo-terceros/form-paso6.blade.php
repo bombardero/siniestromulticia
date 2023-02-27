@@ -1,189 +1,333 @@
-<form class="" action='{{route("siniestros.terceros.paso6.store")}}' method="post">
+<form class="" action='{{route("siniestros.terceros.paso7.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
         <div class="row">
-
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 6 </b>de 8 | Lugar del Siniestro</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 7 </b>de 8 | Lugar del Siniestro</span>
                 <hr style="border:1px solid lightgray;">
             </div>
+        </div>
 
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="pasis">País</label>
-                    <select class="custom-select" name="pais" id="pais">
-                        <option value="1" {{ old('pais') && old('pais') == '1' ?  'selected' : ($reclamo->pais_id == 1 ? 'selected' : '') }}>Argentina</option>
-                        <option value="otro" {{ old('pais') && old('pais') == 'otro' ?  'selected' : ($reclamo->pais_id == null && $reclamo->otro_pais_provincia_localidad != null ? 'selected' : '') }}>Otro</option>
-                    </select>
-                </div>
-            </div>
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-id="rotonda">Rotonda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-id="ruta-calle" >Ruta/Calle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-id="interseccion">Intersección</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-id="otro" id="otro">Otro</a>
+                    </li>
+                </ul>
 
-            <div class="col-12 col-md-8 {{ (old('pais') && old('pais') == 'otro') || (!$reclamo->pais_id && !$reclamo->province_id && !$reclamo->city_id && $reclamo->otro_pais_provincia_localidad != null)  ?  '' : 'd-none' }}" id="div_otro_pais_provincia_localidad">
-                <div class="form-group">
-                    <label for="otro_pais_provincia_localidad">Localidad - Provincia - País *</label>
-                    <input type="text" id="otro_pais_provincia_localidad" name="otro_pais_provincia_localidad"
-                           class="form-control @error('otro_pais_provincia_localidad') is-invalid @enderror"
-                           maxlength="255"
-                           value="{{ old('otro_pais_provincia_localidad') ?  old('otro_pais_provincia_localidad') : $reclamo->otro_pais_provincia_localidad }}">
-                    @error('otro_pais_provincia_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
+                <div class="row mt-2">
+                    <div class="col-12 grafico" id="grafico">
+                        @if(isset($reclamo->croquis_url))
+                            <div class="col-12">
+                                <img class="w-100" id="graficoBD" src="{{$reclamo->croquis_url}}" alt="">
+                                <div id="container" style="display:none;" class="dropContainer"></div>
+                                <div class="pt-3 form-check">
+                                    <label class="terminos-condiciones-entiendo" style="color:red;"><img
+                                            src="/images/siniestros/denuncia_asegurado/informacion_rojo.png"
+                                            style=" margin-bottom: 2px;"><span class="pl-1">Para editar el gráfico, apriete en el boton "Limpiar"</span></label>
+                                </div>
+                            </div>
+                        @else
+                            <div id="container" class="dropContainer"></div>
+                        @endif
 
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || (!$reclamo->pais_id && !$reclamo->province_id && !$reclamo->city_id && $reclamo->otro_pais_provincia_localidad != null) ?  'd-none' : '' }}" id="div_provincia">
-                <div class="form-group">
-                    <label for="provincias">Provincia</label>
-                    <select class="custom-select" name="provincia_id" id="provincias">
-                        @foreach($provincias as $provincia)
-                            <option  value="{{ $provincia->id }}"
-                                {{ old('provincia_id') && old('provincia_id') == $provincia->id ? 'selected' : ($reclamo->province_id == $provincia->id ? 'selected' : '') }}
-                            >{{ $provincia->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+                        <div id="cardAutomotor" class="mt-3 w-100 card card-automotor background-card-iconos mx-auto">
+                            <div class="ml-4 mr-4 pt-3" id="drag-items">
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                        <span
+                                            class="font-weight-bold denuncia-vehiculo-asegurado">Vehiculo asegurado</span>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <img draggable="true" id="auto_asegurado"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/auto_asegurado.png">
+                                                <img draggable="true" id="moto_asegurado"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/moto_asegurado.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="row">
 
-            <div class="col-12 col-md-4 {{ (old('pais') && old('pais') == 'otro') || (!$reclamo->pais_id && !$reclamo->province_id && !$reclamo->city_id && $reclamo->otro_pais_provincia_localidad != null) ?  'd-none' : '' }}" id="div_localidad">
-                <div class="form-group">
-                    <label for="localidades">Localidad</label>
-                    <div class="input-group">
-                        <select name="localidad_id" id="localidades" class="custom-select {{ old('check_otra_localidad') || $reclamo->otro_pais_provincia_localidad ? 'd-none' :  '' }}">
-                            @foreach($localidades as $localidad)
-                                <option value="{{ $localidad->id }}"
-                                    {{ old('localidad_id') && old('localidad_id') == $localidad->id ? 'selected' : ($reclamo->city_id == $localidad->id ? 'selected' : '') }}
-                                >{{ $localidad->name }}</option>
-                            @endforeach
-                        </select>
-                        <input type="text" name="otra_localidad" id="otra_localidad" maxlength="255"
-                               class="form-control {{ old('check_otra_localidad') || ($reclamo->otro_pais_provincia_localidad) ? '' : 'd-none' }}"
-                               value="{{ $reclamo->otro_pais_provincia_localidad != null ? $reclamo->otro_pais_provincia_localidad : '' }}"
-                        >
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <input type="checkbox" id="check_otra_localidad" name="check_otra_localidad"
-                                       class="mr-1" {{ old('check_otra_localidad') || $reclamo->otro_pais_provincia_localidad ? 'checked' : '' }}>Otra
+                                            <div class="col-12 col-md-4">
+                                                <span class="font-weight-bold semaforo text-right">Semáforos</span>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <img draggable="true" id="semaforo_rojo"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/semaforo_rojo.png">
+                                                <img draggable="true" id="semaforo_verde"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/semaforo_verde.png">
+                                                <img draggable="true" id="semaforo_amarillo"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/semaforo_amarillo.png">
+                                                <img draggable="true" id="semaforo_roto"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/semaforo_roto.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-2">
+                                    <div class="col-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                <span class="font-weight-bold denuncia-vehiculo-tercero">Terceros</span>
+
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <img draggable="true" id="auto_tercero"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/auto_tercero.png">
+                                                <img draggable="true" id="moto_tercero"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/moto_tercero.png">
+                                                <img draggable="true" id="animal_tercero"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/animal_tercero.png">
+                                                <img draggable="true" id="cosa_tercero"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/cosa_tercero.png">
+                                                <img draggable="true" id="persona_tercero"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/persona_tercero.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                <span class="font-weight-bold sentido-circulacion"> Sentido de circ. </span>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <img draggable="true" id="abajo"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/abajo.png">
+                                                <img draggable="true" id="arriba"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/arriba.png">
+                                                <img draggable="true" id="izquierda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/izquierda.png">
+                                                <img draggable="true" id="derecha"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/derecha.png">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row pt-2">
+                                    <div class="col-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                        <span
+                                            class="font-weight-bold vehiculo-trayectoria">Trayectoria hasta impacto</span>
+
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <img draggable="true" id="trayectoria_abajo"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_abajo.png">
+                                                <img draggable="true" id="trayectoria_arriba"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_arriba.png">
+                                                <img draggable="true" id="trayectoria_derecha"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_derecha.png">
+                                                <img draggable="true" id="trayectoria_izquierda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_izquierda.png">
+                                                <img draggable="true" id="trayectoria_abajo_derecha"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_abajo_derecha.png">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-12">
+
+                                                <img draggable="true" id="trayectoria_arriba_derecha"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_arriba_derecha.png">
+                                                <img draggable="true" id="trayectoria_arriba_izquierda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_arriba_izquierda.png">
+                                                <img draggable="true" id="trayectoria_giro_abajoderecha"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_giro_abajoderecha.png">
+
+                                                <img draggable="true" id="trayectoria_abajo_izquierda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_abajo_izquierda.png">
+                                                <img draggable="true" id="trayectoria__giro_abajoizqueirda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_giro_abajoizquierda.png">
+                                                <img draggable="true" id="trayectoria_giro_arribaderecha"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_giro_arribaderecha.png">
+                                                <img draggable="true" id="trayectoria_giro_arribaizquierda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_giro_arribaizquierda.png">
+                                                <img draggable="true" id="trayectoria_giro_arribaizquierda"
+                                                     src="/images/siniestros/recursos_siniestros/iconos/trayectoria_giro_arribaizquierda.png">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="pt-1 row">
+                                    <div class="col-12">
+                                        <span class="font-weight-bold arrastrar">Arrastrar íconos correspondientes al escenario seleccionado para graficar el siniestro</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 pt-3">
+                            <button id="clearBtn" class="btn boton-azul mb-0">Limpiar</button>
+                            &nbsp
+                            <button disabled id="saveBtn" class="btn boton-azul mb-0">Confirmar Dibujo</button>
+                        </div>
+
+                        <div class="col-12">
+                            @error('graficoManual') <span class="invalid-feedback pl-2" style="font-size: .9em;"><b>{{ $message }}</b></span> @enderror
+                        </div>
+
+                    </div>
+                    <div class="col-12">
+                        <div id="previewImg" class="text-center mt-3 d-none"></div>
+                    </div>
+                    <div class="col-12 d-none" id="subidaManual">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col-12 col-md-8 p-4 ">
+                                <label class="terminos-condiciones-entiendo" style="color:#2D2D7B;"><img
+                                        src="/images/siniestros/recursos_siniestros/alert-circle-outline 1frame10-.png"
+                                        style=" margin-bottom: 2px;"><span class=" font-weight-bold pl-1">En caso de que ningún escenario represente el evento o no pudiera utilizar la herramienta digital, puede adjuntar una foto de un croquis manuscrito.</span></label>
+                            </div>
+                            <div class="pt-1 pt-md-4 col-12 col-md-4">
+                                <div class="form-group row ">
+                                    <div class="text-center col-12 ">
+                                        <input onchange="getFileData(this);" type="file" name="graficoManual"
+                                               id="graficoManual" accept="image/png,image/jpeg">
+                                        <label for="graficoManual">
+                                            <div class="row">
+                                                <div class="col-12  subir-archivo-bg-morado">
+                                                    <img
+                                                        src="{{url('/images/siniestros/recursos_siniestros/upload-icon-frame11.png')}}"
+                                                        class="img-fluid pt-4">
+                                                    <p class="subir-archivo-morado">Subir Imagen</p>
+                                                </div>
+
+                                            </div>
+                                        </label>
+                                        </p>
+                                        @if(isset($reclamo->croquis_url))
+                                            <div id="databaseIMG" class="row">
+                                                <div class="col-12">
+                                                    <p>
+                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                           href={{$reclamo->croquis_url}}>Ver Archivo Subido
+                                                            Anteriormente</a><i class="pl-2 fas fa-check"></i>
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>
+                                                    <a id="subidaReciente" class="documento-formato-texto pt-2"></a><i
+                                                        id="iconoReciente" class="d-none pl-2 fas fa-check"></i>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @error('otra_localidad') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="dominio">Calle o Ruta</label>
-                    <input type="text" id="calle" name="calle"
-                           class="form-control @error('calle') is-invalid @enderror"
-                           maxlength="255"
-                           value="{{ $reclamo->calle }}">
-                    @error('calle') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="tipo_calzadas">Tipo de Calzada</label>
-                    <select class="custom-select" name="calzada_id" id="tipo_calzadas">
-                        @foreach($tipo_calzadas as $tipo_calzada)
-                            <option value="{{ $tipo_calzada->id }}"
-                                {{ $reclamo->tipo_calzada_id == $tipo_calzada->id ? 'selected' : '' }}
-                            >{{$tipo_calzada->nombre}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="calzada_detalle">Detalle de la calzada</label>
-                    <input type="text" id="calzada_detalle" name="calzada_detalle"
-                           class="form-control"
-                           placeholder="Describa el estado de calzada"
-                           maxlength="255"
-                           value="{{ $reclamo->calzada_detalle }}">
-                </div>
-            </div>
-
-            <div class="form-group col-12 col-md-8">
-                <label for="calzada_detalle">Insersección de calles</label>
-                <input type="text" id="interseccion" name="interseccion"
-                       class="form-control"
-                       placeholder="Indique entre que calles ocurrió el siniestro"
-                       maxlength="255"
-                       value="{{ $reclamo->interseccion }}">
-            </div>
-
-            <div class="form-group col-12 col-md-4 pt-2">
-                <label for=""></label>
-                <div class="custom-control custom-checkbox pt-2">
-                    <input type="checkbox" class="custom-control-input" id="cruce_senalizado" name="cruce_senalizado"
-                        {{ $reclamo->cruce_senalizado  ? 'checked' : '' }}
-                    >
-                    <label class="custom-control-label" for="cruce_senalizado">Cruce Señalizado</label>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-12 col-md-4">
-                <div class="input-group">
-                    <label>Tren barrera señalizado</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-1">
-                <div class="input-group  ">
-                    <input type="radio" wire:model.defer="tren" class="form-check-input"
-                           id="checkbox_tren_si" name="tren" value="1"
-                        {{ $reclamo->tren ? 'checked':''}}
-                    >
-                    <label>Si</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-1">
-                <div class="input-group  ">
-                    <input type="radio" wire:model.defer="tren" class="form-check-input"
-                           id="checkbox_tren_no" name="tren"
-                           value="0" {{ $reclamo->tren === 0 ? 'checked' : '' }}>
-                    <label>No</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-12 col-md-3">
-                <div class="form-check mt-2">
-                    <input type="checkbox" class="form-check-input"
-                           id="checkbox_semaforo" name="semaforo" {{ $reclamo->semaforo ? 'checked' : '' }}>
-                    <label for="checkbox_semaforo">Semaforo</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-                <div class="form-check mt-2">
-                    <input type="checkbox" class="form-check-input"
-                           id="checkbox_semaforo_funciona" name="semaforo_funciona"
-                           {{ $reclamo->semaforo_funciona  ? 'checked' : '' }} disabled>
-                    <label for="checkbox_semaforo_funciona">Funciona bien</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-                <div class="form-check mt-2">
-                    <input type="checkbox" class="form-check-input"
-                           id="checkbox_semaforo_intermitente" name="semaforo_intermitente"
-                           {{ $reclamo->semaforo_intermitente ? 'checked':'' }} disabled>
-                    <label for="checkbox_semaforo_intermitente">Intermitente</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
+        <div class="row">
+            <div class="col-12 mt-3">
                 <div class="form-group">
-                    <div class="input-group">
+                    <label>Descripción</label>
+                    <textarea rows="4" class="form-control" readonly>{{ $reclamo->descripcion }}</textarea>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="descripcion">Ampliar Descripción</label>
+                    <textarea name="descripcion" id="descripcion" rows="4"
+                              placeholder="Ampliar descripcion del siniestro" class="form-control"
+                    >{{ old('descripcion') ? old('descripcion') : ''  }}</textarea>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="comisaria">Comisaría que intervino</label>
+                    <input  type="text" name="comisaria" id="comisaria"
+                            class="form-control"
+                            value="{{ old('comisaria') ? old('comisaria') : $reclamo->comisaria  }}"
+                    >
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label for="testigos">Testigos</label>
+                    <input  type="text" name="testigos" id="testigos"
+                            class="form-control"
+                            value="{{ old('testigos') ? old('testigos') : $reclamo->testigos  }}"
+                    >
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label><b>Importes que reclama</b></label>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="monto_vehicular">Daño vehicular</label>
+                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Color</span>
+                            <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" id='semaforo_color' name="semaforo_color"
-                               class="form-control"
-                               value="{{ $reclamo->semaforo_color }}" disabled>
+                        <input  type="text" name="monto_vehicular" id="monto_vehicular"
+                                class="form-control"
+                                value="{{ old('monto_vehicular') ? old('monto_vehicular') : $reclamo->monto_vehicular  }}"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="monto_danios_materiales">Daños materiales</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input  type="text" name="monto_danios_materiales" id="monto_danios_materiales"
+                                class="form-control"
+                                value="{{ old('monto_danios_materiales') ? old('monto_danios_materiales') : $reclamo->monto_danios_materiales  }}"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="monto_lesiones">Lesiones</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input  type="text" name="monto_lesiones" id="monto_lesiones"
+                                class="form-control"
+                                value="{{ old('monto_lesiones') ? old('monto_lesiones') : $reclamo->monto_lesiones  }}"
+                        >
                     </div>
                 </div>
             </div>
@@ -197,45 +341,211 @@
     </div>
 </form>
 
+<style>
+    a{
+        color: #495057;
+    }
+    a:hover {
+        color: #000;
+        font-weight: bold;
+    }
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #000;
+        font-weight: bold;
+    }
+</style>
+
 @section('scripts')
-<script src="{{ asset('js/pais_provincia_localidad.js')}}"></script>
+
 
 <script type="text/javascript">
-    $("#checkbox_tren_si").click(function () {
-        $("#checkbox_tren_no").prop('checked', false);
-    });
 
-    $("#checkbox_tren_no").click(function () {
-        $("#checkbox_tren_si").prop('checked', false);
-    });
+    $(document).ready(function () {
 
-    $("#checkbox_semaforo_funciona").click(function () {
-        $("#checkbox_semaforo_intermitente").prop('checked', false);
-    });
+        const width = 697;
+        const height = 300;
+        const options = {container: 'container', width, height}
+        const stage = new Konva.Stage(options);
+        const layer = new Konva.Layer();
+        stage.add(layer);
+        const canvas = document.querySelector('canvas');
+        const base_image = new Image();
+        const rotonda = '/images/siniestros/recursos_siniestros/iconos/escenarios/rotonda.png';
+        const avenida = '/images/siniestros/recursos_siniestros/iconos/escenarios/avenida.png';
+        const intersección = '/images/siniestros/recursos_siniestros/iconos/escenarios/interseccion.png'
 
-    $("#checkbox_semaforo_intermitente").click(function () {
-        $("#checkbox_semaforo_funciona").prop('checked', false);
-    });
+        const grafico = $('#grafico');
+        const subidaManual = $('#subidaManual');
 
-    $("#checkbox_semaforo").click(function () {
-        if ($(this).prop("checked") == true) {
-            $("#checkbox_semaforo_funciona").prop('disabled', false);
-            $("#checkbox_semaforo_intermitente").prop('disabled', false);
-            $("#semaforo_color").prop('disabled', false);
-            if ($("#checkbox_semaforo_intermitente").prop("checked") == true) {
-            }
-        } else if ($(this).prop("checked") == false) {
-            $("#checkbox_semaforo_funciona").prop('disabled', true);
-            $("#checkbox_semaforo_intermitente").prop('disabled', true);
-            $("#semaforo_color").prop('disabled', true);
+        base_image.src = rotonda;
+        canvas.style.backgroundImage = `url(${base_image.src})`;
+        canvas.style.backgroundRepeat = 'no-repeat';
+        canvas.parentElement.classList.add("mx-auto");
+
+        if (window.innerWidth <= 1200) {
+
+            base_image.src = '';
+            canvas.style.backgroundImage = '';
+            grafico.addClass('d-none');
+            subidaManual.removeClass('d-none');
+            $('.nav-link').removeClass('active');
+            $('#otro').addClass('active')
         }
+
+        window.addEventListener('resize', function () {
+            if(window.innerWidth <= 1200)
+            {
+                $("#otro").click();
+            }
+        });
+
+        $('.nav-link').click(function (e) {
+            e.preventDefault();
+            $('.nav-link').removeClass('active');
+            $(this).addClass('active')
+
+            if ($(this).data('id') == 'rotonda') {
+                base_image.src = rotonda;
+                canvas.style.backgroundImage = `url(${base_image.src})`;
+            } else if($(this).data('id') == 'ruta-calle') {
+                base_image.src = avenida;
+            } else if($(this).data('id') == 'interseccion') {
+                base_image.src = intersección;
+            } else {
+                base_image.src = '';
+            }
+
+            if($(this).data('id') == 'otro')
+            {
+                canvas.style.backgroundImage = '';
+                grafico.addClass('d-none');
+                subidaManual.removeClass('d-none');
+            } else {
+                canvas.style.backgroundImage = `url(${base_image.src})`;
+                grafico.removeClass('d-none');
+                subidaManual.addClass('d-none');
+            }
+        });
+
+        const listImg = document.querySelectorAll('img');
+        listImg.forEach(img => {
+            img.addEventListener('drag', (e) => {
+                e.preventDefault();
+            });
+
+            img.addEventListener('dragend', (e) => {
+                e.preventDefault();
+                if (layer.children.length > 0) {
+                    $('#saveBtn').attr('disabled', false);
+                } else {
+                    $('#saveBtn').attr('disabled', true);
+                }
+            });
+        });
+
+        let itemURL = '';
+        document
+            .getElementById('drag-items')
+            .addEventListener('dragstart', e => {
+                itemURL = e.target.src;
+
+            });
+
+        const con = stage.container();
+        con.addEventListener('dragover', e => {
+            e.preventDefault(); // !important
+        });
+
+        con.addEventListener('drop', e => {
+            e.preventDefault();
+            stage.setPointersPositions(e);
+
+            Konva.Image.fromURL(itemURL, (image) => {
+                const base_path = "{{url('/')}}";
+
+                // lista de los posibles asegurados
+                const noRepeat = [base_path + '/images/siniestros/recursos_siniestros/iconos/auto_asegurado.png',
+                    base_path + '/images/siniestros/recursos_siniestros/iconos/moto_asegurado.png']
+                layer.add(image);
+                // recopilo en el canvas la cantidad de asegurados
+                let asegurados = layer.children.filter(child => noRepeat.includes(child.attrs.image.src))
+
+                // analiZo la lista de asegurados y elimino los duplicados para agregar el nuevo
+                if (asegurados.length > 1) {
+                    asegurados.forEach(asegurado => {
+                        asegurado.remove();
+                        layer.add(image);
+                    })
+                }
+
+                image.position(stage.getPointerPosition());
+                image.draggable(true);
+            });
+        });
+
+        document.getElementById("clearBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            layer.destroyChildren();
+            $('#saveBtn').attr('disabled', true);
+            if (document.getElementById("graficoBD") != null) {
+                document.getElementById("graficoBD").remove();
+                $.when($('graficoBD').remove()).then(document.getElementById("container").style.display = 'block');
+            }
+        });
+
+        document.getElementById('saveBtn').addEventListener(
+            'click',
+            function (e) {
+                e.preventDefault();
+                document.getElementById('previewImg').innerHTML = "";
+
+                html2canvas(document.getElementById("container")).then(function (canvas) {
+
+                    let preview_img = document.getElementById("previewImg");
+                    let anchorTag = document.createElement("a");
+                    document.body.appendChild(anchorTag);
+                    preview_img.appendChild(canvas);
+                    ctx = canvas.getContext("2d");
+
+                    let background = new Image();
+                    background.src = base_image.src;
+
+                    // Make sure the image is loaded first otherwise nothing will draw.
+                    background.onload = function () {
+                        ctx.drawImage(background, 0, 0);
+                        url = '{{ route('siniestros.terceros.storeCroquis') }}';
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            dataType: 'json',
+                            data:
+                                {
+                                    "_token": "{{ csrf_token() }}",
+                                    "id": "{{ $reclamo->id }}",
+                                    "croquis": canvas.toDataURL()
+                                },
+                            success: function (data) {
+                                console.log(data);
+                                //console.log("Grafico seteado correctamente");
+                                preview_img.classList.remove("d-none")
+                            },
+                            error: function (data) {
+                                console.log('ERROR: ', data);
+                                alert('Hubo un error.');
+                            },
+                        });
+                    }
+
+                });
+
+            },
+            false
+        );
     });
 
-    if ($("#checkbox_semaforo").prop("checked") == true) {
-        $("#checkbox_semaforo_funciona").prop('disabled', false);
-        $("#checkbox_semaforo_intermitente").prop('disabled', false);
-        $("#semaforo_color").prop('disabled', false);
-    }
+
+
+
 
 </script>
 @endsection
