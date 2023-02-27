@@ -1,4 +1,4 @@
-    <form class="" action='{{route("siniestros.terceros.paso3.store")}}' method="post">
+    <form class="" action='{{route("siniestros.terceros.paso4.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 
@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 3 </b>de 8 | Datos del Conductor</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 4 </b>de 8 | Datos del Conductor</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 

@@ -73,9 +73,6 @@ class ReclamoTerceroController extends Controller
         $provincia_id = old('provincia_id') ? old('provincia_id') : ($reclamo->reclamante && $reclamo->reclamante->province_id != null ? $reclamo->reclamante->province_id : $provincias->first()->id);
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
 
-        $marcas = Marca::all();
-        $modelos = Modelo::where('marca_id', $reclamo->vehiculo && $reclamo->vehiculo->marca_id ? $reclamo->vehiculo->marca_id : $marcas->first()->id)->get();
-
         $data = [
             'reclamo' => $reclamo,
             'paso' => 2,
@@ -89,7 +86,6 @@ class ReclamoTerceroController extends Controller
 
     public function paso2store(Request $request)
     {
-        
         $rules = [
             'nombre' => 'required',
             'documento_numero' => 'required',
@@ -147,22 +143,37 @@ class ReclamoTerceroController extends Controller
         return redirect()->route("siniestros.terceros.paso3.create",['id'=> $request->id]);
     }
 
-    public function paso2storeOld(Request $request)
+    public function paso3create(Request $request)
     {
-        //dd($request->all());
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+        $marcas = Marca::all();
+        $modelos = Modelo::where('marca_id', $reclamo->vehiculo && $reclamo->vehiculo->marca_id ? $reclamo->vehiculo->marca_id : $marcas->first()->id)->get();
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => 3,
+            'marcas' => $marcas,
+            'modelos' => $modelos
+        ];
+
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso3store(Request $request)
+    {
         $rules = [
-            'vehiculo' => 'required',
-            'marca_id' => 'required_if:vehiculo,1',
+            'reclamo_vehicular' => 'required',
+            'marca_id' => 'required_if:reclamo_vehicular,1',
             'marca' => 'required_with:otra_marca',
-            'modelo_id' => 'required_if:vehiculo,1',
+            'modelo_id' => 'required_if:reclamo_vehicular,1',
             'modelo' => 'required_with:otro_modelo',
-            'vehiculo_tipo' => 'required_if:vehiculo,1',
-            'vehiculo_anio' => 'required_if:vehiculo,1',
-            'vehiculo_dominio' => 'required_if:vehiculo,1',
-            'compania_seguros' => 'required_if:vehiculo,1',
-            'numero_poliza' => 'required_if:vehiculo,1',
-            'tipo_cobertura' => 'required_if:vehiculo,1',
-            'franquicia' => 'required_if:vehiculo,1'
+            'vehiculo_tipo' => 'required_if:reclamo_vehicular,1',
+            'vehiculo_anio' => 'required_if:reclamo_vehicular,1',
+            'vehiculo_dominio' => 'required_if:reclamo_vehicular,1',
+            'compania_seguros' => 'required_if:reclamo_vehicular,1',
+            'numero_poliza' => 'required_if:reclamo_vehicular,1',
+            'tipo_cobertura' => 'required_if:reclamo_vehicular,1',
+            'franquicia' => 'required_if:reclamo_vehicular,1'
         ];
         $messages = [
             'marca.required_with' => 'El campo marca es obligatorio.',
@@ -179,7 +190,7 @@ class ReclamoTerceroController extends Controller
 
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
 
-        if($request->vehiculo === '1')
+        if($reclamo->reclamo_vehicular)
         {
             if(!$reclamo->vehiculo)
             {
@@ -210,31 +221,20 @@ class ReclamoTerceroController extends Controller
                 $reclamo->vehiculo->franquicia = $request->franquicia;
                 $reclamo->vehiculo->save();
             }
-            $reclamo->dominio_vehiculo_tercero = strtoupper($request->vehiculo_dominio);
-            $reclamo->reclamo_vehicular = true;
 
-        } else {
-            $reclamo->dominio_vehiculo_tercero = null;
-            $reclamo->reclamo_vehicular = false;
-
-            if($reclamo->vehiculo)
-            {
-                $reclamo->vehiculo->delete();
-            }
         }
 
-        if($reclamo->estado_carga === '1')
+        if($reclamo->estado_carga === '2')
         {
-            $reclamo->estado_carga = $request->vehiculo ? '2' : '3';
+            $reclamo->estado_carga = '3';
         }
         $reclamo->save();
 
-        $nextroute =  $request->vehiculo ? 'siniestros.terceros.paso3.create' : 'siniestros.terceros.paso4.create';
-        return redirect()->route($nextroute, ['id'=> $request->id]);
+        return redirect()->route('siniestros.terceros.paso4.create', ['id'=> $request->id]);
     }
 
 
-    public function paso3create(Request $request)
+    public function paso3createOld(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
         $tiposDocumentos = TipoDocumento::all();
@@ -253,7 +253,7 @@ class ReclamoTerceroController extends Controller
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
-    public function paso3store(Request $request)
+    public function paso3storeOld(Request $request)
     {
         $rules = [
             'reclamante_conductor' => 'required',
@@ -419,50 +419,6 @@ class ReclamoTerceroController extends Controller
 
     public function paso5create(Request $request)
     {
-        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
-        $provincias = Province::orderBy('name')->get();
-        $provincia_id = $reclamo->vehiculoAsegurado && $reclamo->vehiculoAsegurado->propietario_province_id != null ? $reclamo->vehiculoAsegurado->propietario_province_id : $provincias->first()->id;
-        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
-        $tiposDocumentos = TipoDocumento::all();
-
-        $data = [
-            'reclamo' => $reclamo,
-            'paso' => 5,
-            'provincias' => $provincias,
-            'localidades' => $localidades,
-            'tipo_documentos' => $tiposDocumentos
-        ];
-
-        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
-    }
-
-    public function paso5store(Request $request)
-    {
-        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
-
-        $reclamo->vehiculoAsegurado->propietario_nombre = $request->nombre ? $request->nombre : null;
-        $reclamo->vehiculoAsegurado->propietario_telefono = $request->telefono ? $request->telefono : null;
-        $reclamo->vehiculoAsegurado->propietario_tipo_documento_id = $request->documento_numero ? $request->tipo_documento_id : null;
-        $reclamo->vehiculoAsegurado->propietario_documento_numero = $request->documento_numero ? $request->documento_numero : null;
-        $reclamo->vehiculoAsegurado->propietario_domicilio = $request->domicilio ? $request->domicilio : null;
-        $reclamo->vehiculoAsegurado->propietario_codigo_postal = $request->codigo_postal ? $request->codigo_postal : null;
-        $reclamo->vehiculoAsegurado->propietario_pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
-        $reclamo->vehiculoAsegurado->propietario_province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
-        $reclamo->vehiculoAsegurado->propietario_city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
-        $reclamo->vehiculoAsegurado->propietario_otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
-        $reclamo->vehiculoAsegurado->save();
-
-        if($reclamo->estado_carga === '4')
-        {
-            $reclamo->estado_carga = '5';
-            $reclamo->save();
-        }
-
-        return redirect()->route('siniestros.terceros.paso6.create', ['id'=> $request->id]);
-    }
-
-    public function paso6create(Request $request)
-    {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
         $provincia_id = $reclamo->province_id != null ? $reclamo->province_id : $provincias->first()->id;
@@ -480,7 +436,7 @@ class ReclamoTerceroController extends Controller
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
-    public function paso6store(Request $request)
+    public function paso5store(Request $request)
     {
 
         $rules = [
@@ -521,7 +477,7 @@ class ReclamoTerceroController extends Controller
         return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
     }
 
-    public function paso7create(Request $request)
+    public function paso6create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
 
@@ -533,7 +489,7 @@ class ReclamoTerceroController extends Controller
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
-    public function paso7store(Request $request)
+    public function paso6store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'graficoManual' => 'nullable',
@@ -593,14 +549,14 @@ class ReclamoTerceroController extends Controller
         return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $request->id]);
     }
 
-    public function paso8create(Request $request)
+    public function paso7create(Request $request)
     {
-        dd('Paso 8 Create');
+        dd('Paso 7 Create');
     }
 
-    public function pasoostore(Request $request)
+    public function paso7store(Request $request)
     {
-        dd('Paso 8 Store');
+        dd('Paso 7 Store');
     }
 
     public function storeCroquis(Request $request)

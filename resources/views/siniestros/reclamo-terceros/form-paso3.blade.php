@@ -1,4 +1,4 @@
-<form class="" action='{{route("siniestros.terceros.paso2.store")}}' method="post">
+<form class="" action='{{route("siniestros.terceros.paso3.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 
@@ -7,32 +7,11 @@
         <div class="row">
 
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 2 </b>de 8 | Datos del Vehículo</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 3 </b>de 8 | Datos del Vehículo</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 
-            <div class="col-12 col-md-4">
-                <label>Tengo un vehículo involucrado</label>
-            </div>
-            <div class="col-12 col-md-1">
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="form-check-input" id="vehiculo_si"
-                           name="vehiculo"
-                           value="1" {{ (old('vehiculo') && old('vehiculo') === '1') || $reclamo->reclamo_vehicular ? 'checked' : '' }}>
-                    <label for="vehiculo_si" class="form-check-label">Si</label>
-                </div>
-            </div>
-            <div class="col-12 col-md-7">
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="form-check-input" id="vehiculo_no"
-                           name="vehiculo"
-                           value="0" {{ (old('vehiculo') && old('vehiculo') === '0') || $reclamo->reclamo_vehicular === false ? 'checked' : '' }}>
-                    <label for="vehiculo_no" class="form-check-label">No</label>
-                </div>
-            </div>
-            <div class="col-12 offset-md-4 col-md-8">
-                @error('vehiculo') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-            </div>
+            <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
 
             <div class="col-12 mt-3">
                 <label><b>Vehículo</b></label>
@@ -42,7 +21,10 @@
                 <div class="form-group">
                     <label for="marca">Marca</label>
                     <div class="input-group">
-                        <select name="marca_id" id="marca-select" class="custom-select {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? 'd-none' : '' }} @error('marca_id') is-invalid @enderror">
+                        <select name="marca_id" id="marca-select"
+                                class="custom-select {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? 'd-none' : '' }} @error('marca_id') is-invalid @enderror"
+                                {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                        >
                             @foreach($marcas as $marca)
                                 <option value="{{ $marca->id }}"
                                     {{ old('marca_id') == $marca->id || ($reclamo->vehiculo && $reclamo->vehiculo->marca_id == $marca->id) ? 'selected' : '' }}
@@ -52,12 +34,14 @@
                         <input type="text" id="marca-text" name="marca"
                                class="form-control {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? '' : 'd-none' }} @error('marca') is-invalid @enderror"
                                value="{{ old('marca') ? old('marca') : ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca ? $reclamo->vehiculo->otra_marca : '') }}"
+                                {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <input type="checkbox" name="otra_marca" id="otra-marca"
                                        class="mr-1"
                                         {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? 'checked' : '' }}
+                                    {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                                 >Otra
                             </div>
                         </div>
@@ -71,7 +55,10 @@
                 <div class="form-group">
                     <label for="modelo">Modelo</label>
                     <div class="input-group">
-                        <select name="modelo_id" id="modelo-select" class="custom-select {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? 'd-none' : '' }} @error('modelo_id') is-invalid @enderror">
+                        <select name="modelo_id" id="modelo-select"
+                                class="custom-select {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? 'd-none' : '' }} @error('modelo_id') is-invalid @enderror"
+                                {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                        >
                             @foreach($modelos as $modelo)
                                 <option value="{{ $modelo->id }}"
                                     {{  old('modelo_id') == $marca->id || ($reclamo->vehiculo && $reclamo->vehiculo->modelo_id == $modelo->id) ? 'selected' : '' }}
@@ -81,10 +68,14 @@
                         <input type="text" id="modelo-text" name="modelo"
                                class="form-control {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? '' : 'd-none' }} @error('modelo') is-invalid @enderror"
                                value="{{ old('modelo') ? old('modelo') : ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo ? $reclamo->vehiculo->otro_modelo : '') }}"
+                                {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                         >
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <input type="checkbox" name="otro_modelo" id="otro-modelo" class="mr-1" {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? 'checked' : '' }}>Otro
+                                <input type="checkbox" name="otro_modelo" id="otro-modelo"
+                                       class="mr-1" {{ old('otro_modelo') || ($reclamo->vehiculo && $reclamo->vehiculo->otro_modelo) ? 'checked' : '' }}
+                                        {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                                >Otro
                             </div>
                         </div>
                         @error('modelo_id') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -99,6 +90,7 @@
                     <input type="text" id="vehiculo_tipo" name="vehiculo_tipo"
                            class="form-control @error('vehiculo_tipo') is-invalid @enderror"
                            value="{{ old('vehiculo_tipo') ? old('vehiculo_tipo') : ($reclamo->vehiculo ? $reclamo->vehiculo->tipo : '') }}"
+                            {{ $reclamo->reclamo_vehicular == false ? 'readonly' : '' }}
                     >
                     @error('vehiculo_tipo') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -110,6 +102,7 @@
                     <input type="text" id="vehiculo_anio" name="vehiculo_anio"
                            class="form-control @error('vehiculo_anio') is-invalid @enderror"
                            value="{{ old('vehiculo_anio') ? old('vehiculo_anio') : ($reclamo->vehiculo ? $reclamo->vehiculo->anio : '') }}"
+                            {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                     @error('vehiculo_anio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -120,8 +113,9 @@
                     <label for="vehiculo_dominio">Dominio</label>
                     <input type="text" id="vehiculo_dominio" name="vehiculo_dominio"
                            class="form-control text-uppercase @error('vehiculo_dominio') is-invalid @enderror"
-                           value="{{ old('vehiculo_dominio') ? old('vehiculo_dominio') : ($reclamo->vehiculo ? $reclamo->vehiculo->dominio : $reclamo->dominio_vehiculo_tercero) }}"
-                           {{ $reclamo->dominio_vehiculo_tercero != null ? 'readonly' : '' }}
+                           value="{{ old('vehiculo_dominio') ? old('vehiculo_dominio') : ($reclamo->vehiculo ? $reclamo->vehiculo->dominio : $reclamo->vehiculo_tercero_dominio) }}"
+                           {{ $reclamo->vehiculo_tercero_dominio != null ? 'readonly' : '' }}
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                     @error('vehiculo_dominio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -137,6 +131,7 @@
                     <input type="text" id="compania_seguros" name="compania_seguros"
                            class="form-control @error('compania_seguros') is-invalid @enderror"
                            value="{{ old('compania_seguros') ? old('compania_seguros') : ($reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '') }}"
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                     @error('compania_seguros') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -148,6 +143,7 @@
                     <input type="text" id="numero_poliza" name="numero_poliza"
                            class="form-control @error('numero_poliza') is-invalid @enderror"
                            value="{{ old('numero_poliza') ? old('numero_poliza') : ($reclamo->vehiculo ? $reclamo->vehiculo->numero_poliza : '') }}"
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                     @error('numero_poliza') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -159,6 +155,7 @@
                     <input type="text" id="tipo_cobertura" name="tipo_cobertura"
                            class="form-control @error('tipo_cobertura') is-invalid @enderror"
                            value="{{ old('tipo_cobertura') ? old('tipo_cobertura') : ($reclamo->vehiculo ? $reclamo->vehiculo->tipo_cobertura : '') }}"
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                     @error('tipo_cobertura') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -170,6 +167,7 @@
                     <input type="text" id="franquicia" name="franquicia"
                            class="form-control @error('franquicia') is-invalid @enderror"
                            value="{{ old('franquicia') ? old('franquicia') : ($reclamo->vehiculo ? $reclamo->vehiculo->franquicia : '') }}"
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                     @error('franquicia') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
