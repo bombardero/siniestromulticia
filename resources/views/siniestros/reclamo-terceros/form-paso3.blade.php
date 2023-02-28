@@ -1,6 +1,7 @@
 <form class="" action='{{route("siniestros.terceros.paso3.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
+    <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
 
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
@@ -10,8 +11,6 @@
                 <span style="color:#6e4697;font-size: 24px;"><b>Paso 3 </b>de 8 | Datos del Vehículo</span>
                 <hr style="border:1px solid lightgray;">
             </div>
-
-            <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
 
             <div class="col-12 mt-3">
                 <label><b>Vehículo</b></label>
@@ -41,7 +40,7 @@
                                 <input type="checkbox" name="otra_marca" id="otra-marca"
                                        class="mr-1"
                                         {{ old('otra_marca') || ($reclamo->vehiculo && $reclamo->vehiculo->otra_marca) ? 'checked' : '' }}
-                                    {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                                        {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                                 >Otra
                             </div>
                         </div>
