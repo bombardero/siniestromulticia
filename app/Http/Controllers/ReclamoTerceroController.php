@@ -429,7 +429,7 @@ class ReclamoTerceroController extends Controller
 
         $data = [
             'reclamo' => $reclamo,
-            'paso' => 6,
+            'paso' => 5,
             'provincias' => $provincias,
             'localidades' => $localidades,
             'tipo_calzadas' => $tipoCalzadas
@@ -440,7 +440,6 @@ class ReclamoTerceroController extends Controller
 
     public function paso5store(Request $request)
     {
-
         $rules = [
             'pais' => 'required',
             'otro_pais_provincia_localidad' => 'required_if:pais,otro',
@@ -470,13 +469,13 @@ class ReclamoTerceroController extends Controller
         $reclamo->semaforo_intermitente = $request->semaforo_intermitente ==  'on';
         $reclamo->semaforo_color = $request->semaforo_color;
 
-        if($reclamo->estado_carga == "5")
+        if($reclamo->estado_carga == "4")
         {
-            $reclamo->estado_carga = "6";
+            $reclamo->estado_carga = "5";
         }
         $reclamo->save();
 
-        return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
+        return redirect()->route('siniestros.terceros.paso6.create', ['id'=> $request->id]);
     }
 
     public function paso6create(Request $request)
@@ -485,7 +484,7 @@ class ReclamoTerceroController extends Controller
 
         $data = [
             'reclamo' => $reclamo,
-            'paso' => 7
+            'paso' => 6
         ];
 
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
@@ -542,13 +541,13 @@ class ReclamoTerceroController extends Controller
         $reclamo->monto_danios_materiales = $request->monto_danios_materiales;
         $reclamo->monto_lesiones = $request->monto_lesiones;
 
-        if($reclamo->estado_carga == '6')
+        if($reclamo->estado_carga == '5')
         {
-            $reclamo->estado_carga = '7';
+            $reclamo->estado_carga = '6';
         }
         $reclamo->save();
 
-        return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $request->id]);
+        return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
     }
 
     public function paso7create(Request $request)
