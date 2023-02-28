@@ -265,22 +265,12 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-6">
+            <div class="col-12">
                 <div class="form-group">
                     <label for="comisaria">Comisaría que intervino</label>
                     <input  type="text" name="comisaria" id="comisaria"
                             class="form-control"
                             value="{{ old('comisaria') ? old('comisaria') : $reclamo->comisaria  }}"
-                    >
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6">
-                <div class="form-group">
-                    <label for="testigos">Testigos</label>
-                    <input  type="text" name="testigos" id="testigos"
-                            class="form-control"
-                            value="{{ old('testigos') ? old('testigos') : $reclamo->testigos  }}"
                     >
                 </div>
             </div>

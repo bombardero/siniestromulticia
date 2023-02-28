@@ -536,7 +536,6 @@ class ReclamoTerceroController extends Controller
 
         $reclamo->descripcion = $reclamo->descripcion."\n".$request->descripcion;
         $reclamo->comisaria = $request->comisaria;
-        $reclamo->testigos = $request->testigos;
         $reclamo->monto_vehicular = $request->monto_vehicular;
         $reclamo->monto_danios_materiales = $request->monto_danios_materiales;
         $reclamo->monto_lesiones = $request->monto_lesiones;
