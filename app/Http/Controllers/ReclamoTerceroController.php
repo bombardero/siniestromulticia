@@ -551,12 +551,130 @@ class ReclamoTerceroController extends Controller
 
     public function paso7create(Request $request)
     {
-        dd('Paso 7 Create');
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => 7
+        ];
+        $reclamo->load('testigos');
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
     public function paso7store(Request $request)
     {
-        dd('Paso 7 Store');
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        if($reclamo->estado_carga == '6')
+        {
+            $reclamo->estado_carga = '7';
+        }
+        $reclamo->save();
+
+        return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $request->id]);
+    }
+
+    public function paso7testigoCreate(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
+        $localidades = City::where('province_id', $provincias->first()->id)->orderBy('name')->get();
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '7-agregar',
+            'provincias' => $provincias,
+            'localidades' => $localidades,
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso7testigoStore(Request $request)
+    {
+        $rules = [
+            'nombre' => 'required',
+            'telefono' => 'required',
+            'domicilio' => 'required',
+            'pais' => 'required',
+            'otro_pais_provincia_localidad' => 'required_if:pais,otro',
+            'otra_localidad'=>'required_with:check_otra_localidad',
+        ];
+        $messages = [
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
+            'otra_localidad.required_with' => 'El campo localidad es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
+
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+
+        $reclamo->testigos()->create([
+            'nombre' => $request->nombre,
+            'telefono' => $request->telefono,
+            'domicilio' => $request->domicilio,
+            'pais_id' => $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null,
+            'province_id' => $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null,
+            'city_id' => $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id,
+            'otro_pais_provincia_localidad' => $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )
+        ]);
+
+        return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
+    }
+
+    public function paso7testigoEdit(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $testigo = $reclamo->testigos()->where('id',$request->testigo)->firstOrFail();
+        $provincias = Province::orderBy('name')->get();
+        $provincia_id = $testigo->province_id != null ? $testigo->province_id : $provincias->first()->id;
+        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '7-editar',
+            'testigo' => $testigo,
+            'provincias' => $provincias,
+            'localidades' => $localidades,
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso7testigoUpdate(Request $request)
+    {
+        $rules = [
+            'nombre' => 'required',
+            'telefono' => 'required',
+            'domicilio' => 'required',
+            'pais' => 'required',
+            'otro_pais_provincia_localidad' => 'required_if:pais,otro',
+            'otra_localidad'=>'required_with:check_otra_localidad',
+        ];
+        $messages = [
+            'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
+            'otra_localidad.required_with' => 'El campo localidad es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
+
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $testigo = $reclamo->testigos()->where('id',$request->testigo)->firstOrFail();
+
+        $testigo->nombre = $request->nombre;
+        $testigo->telefono = $request->telefono;
+        $testigo->domicilio = $request->domicilio;
+        $testigo->pais_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null;
+        $testigo->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
+        $testigo->city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
+        $testigo->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
+        $testigo->save();
+
+        return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
+    }
+
+    public function paso7testigoDelete(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $testigo = $reclamo->testigos()->where('id',$request->testigo)->firstOrFail();
+
+        $testigo->delete();
+
+        return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
     }
 
     public function storeCroquis(Request $request)
@@ -590,5 +708,20 @@ class ReclamoTerceroController extends Controller
     private function getCroquisPath(ReclamoTercero $reclamo, $format = 'jpg')
     {
         return 'reclamo_tercero/'.$reclamo->id.'/croquis_'.Carbon::now()->format('Ymd_His').'.'.$format;
+    }
+
+    public function paso8create(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => 8
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso8store(Request $request)
+    {
+        dd('Paso 8 Store');
     }
 }

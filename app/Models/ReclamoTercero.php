@@ -76,6 +76,9 @@ class ReclamoTercero extends Model
         return $this->hasOne(VehiculoAsegurado::class);
     }
 
-
+    public function testigos()
+    {
+        return $this->hasMany(Testigo::class, 'reclamo_tercero_id');
+    }
 
 }

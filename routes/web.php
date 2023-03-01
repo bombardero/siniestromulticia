@@ -270,6 +270,13 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::get('paso-7',[ReclamoTerceroController::class,'paso7create'])->name('paso7.create');
     Route::post('paso-7',[ReclamoTerceroController::class,'paso7store'])->name('paso7.store');
 
+    Route::get('paso-7/agregar',[ReclamoTerceroController::class,'paso7testigoCreate'])->name('paso7.testigo.create');
+    Route::post('paso-7/agregar',[ReclamoTerceroController::class,'paso7testigoStore'])->name('paso7.testigo.store');
+    Route::get('paso-7/editar',[ReclamoTerceroController::class,'paso7testigoEdit'])->name('paso7.testigo.edit');
+    Route::post('paso-7/editar',[ReclamoTerceroController::class,'paso7testigoUpdate'])->name('paso7.testigo.update');
+    Route::get('paso-7/delete',[ReclamoTerceroController::class,'paso7testigoDelete'])->name('paso7.testigo.delete');
+
+
     Route::get('paso-8',[ReclamoTerceroController::class,'paso8create'])->name('paso8.create');
     Route::post('paso-8',[ReclamoTerceroController::class,'paso8store'])->name('paso8.store');
 
