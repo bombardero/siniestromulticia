@@ -85,3 +85,21 @@ table td .dropstart {
     border: 1px solid;
     border-color: var(--bs-table-border-color);
 }
+
+/** SIDEBAR **/
+.sb-links-link{
+    margin-left: 1.9rem;
+}
+
+.sb-links-heading{
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+}
+.sb-links-heading i{
+    width: 1.5rem;
+}
+.nav-item .sb-links-heading
+/*
+.bd-links-link:hover, .bd-links-link:focus, .bd-links-link.active {
+    color: var(--bs-emphasis-color);
+    background-color: var(--bs-primary);
+}*/

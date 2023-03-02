@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CotizaVehiculoController;
 use App\Http\Controllers\DenunciaAseguradoController;
 use App\Http\Controllers\ReclamoTerceroController;
+use App\Http\Controllers\Siniestros\ReclamoTerceroController as SiniestroReclamoTerceroController;
 use App\Http\Controllers\DenunciaSiniestro\DenunciaSiniestroAseguradoController;
 use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
 use App\Http\Controllers\FormularioProductorController;
@@ -286,6 +287,7 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
 Route::get('asegurados/denuncias/{denuncia}/pdf/{filename}', [DenunciaAseguradoController::class,'downloadPDF'])->name('asegurados-denuncias.pdf.filename');
 Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field');
+Route::get('terceros/reclamos/{reclamo}/pdf', [SiniestroReclamoTerceroController::class,'generarPDF'])->name('terceros-reclamos.pdf');
 
 
 
@@ -313,6 +315,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('denuncia.update.nrosiniestro');
         Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('denuncia.link-enviado');
         Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('denuncia.update-certificado-poliza');
+
+        Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
+            Route::get('/', [SiniestroReclamoTerceroController::class,'index'])->name('index');
+            Route::get('{reclamo}', [SiniestroReclamoTerceroController::class,'show'])->name('show');
+        });
     });
 
     Route::resource('users', SuperAdminUserController::class)->except('show')->middleware('check.superadmin');

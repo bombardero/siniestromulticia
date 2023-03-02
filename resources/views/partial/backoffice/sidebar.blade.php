@@ -7,21 +7,33 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="{{ route('admin.index') }}" class="nav-link text-white {{ Route::currentRouteName() === 'admin.index' ? 'active' : '' }}" aria-current="page">
-                        Dashboard
+                    <a href="{{ route('admin.index') }}" class="nav-link sb-links-heading text-white {{ Route::currentRouteName() === 'admin.index' ? 'active' : '' }}" aria-current="page">
+                        <strong><i class="fas fa-th"></i>Dashboard</strong>
                     </a>
                 </li>
                 @if(auth()->user()->hasRole('siniestros'))
                     <li>
-                        <a href="{{ route('admin.siniestros.index') }}" class="nav-link text-white {{ str_contains(Route::currentRouteName(),'admin.siniestros.') ? 'active' : '' }}">
+                        <strong class="sb-links-heading d-flex w-100 align-items-center">
+                            <i class="fa-solid fa-car-burst"></i>
                             Siniestros
-                        </a>
+                        </strong>
+                        <ul class="list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a href="{{ route('admin.siniestros.index') }}"
+                                   class="sb-links-link btn btn-dark btn-sm d-inline-block rounded {{ Route::currentRouteName() === 'admin.siniestros.index' || Route::currentRouteName() === 'admin.siniestros.denuncias.show' ? 'active' : ''}}"
+                                >Denuncias</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.siniestros.reclamos.index') }}"
+                                   class="sb-links-link btn btn-dark btn-sm d-inline-block rounded {{str_contains(Route::currentRouteName(),'admin.siniestros.reclamos.') ? 'active' : ''}}"
+                                >Reclamos</a></li>
+                        </ul>
                     </li>
                 @endif
                 @if(auth()->user()->hasRole('superadmin'))
                     <li>
-                        <a href="{{ route('admin.users.index') }}" class="nav-link text-white {{ str_contains(Route::currentRouteName(),'admin.users.') ? 'active' : '' }}">
-                            Usuarios
+                        <a href="{{ route('admin.users.index') }}" class="nav-link sb-links-heading text-white {{ str_contains(Route::currentRouteName(),'admin.users.') ? 'active' : '' }}">
+                            <i class="fa-solid fa-users"></i> Usuarios
                         </a>
                     </li>
                 @endif

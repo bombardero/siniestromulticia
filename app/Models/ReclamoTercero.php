@@ -59,7 +59,26 @@ class ReclamoTercero extends Model
         'reclamo_lesiones' => 'boolean',
         'finalized_at' => 'datetime'
     ];
+
     protected $dates = ['fecha'];
+
+    public function getTiposReclamosAttribute()
+    {
+        $tiposReclamos = [];
+        if($this->reclamo_vehicular)
+        {
+            array_push($tiposReclamos, 'Vehicular');
+        }
+        if($this->reclamo_danios_materiales)
+        {
+            array_push($tiposReclamos, 'Daños Materiales');
+        }
+        if($this->reclamo_lesiones)
+        {
+            array_push($tiposReclamos,'Lesiones');
+        }
+        return $tiposReclamos;
+    }
 
     public function reclamante()
     {
