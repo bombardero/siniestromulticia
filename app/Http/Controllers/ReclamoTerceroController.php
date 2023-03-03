@@ -257,7 +257,7 @@ class ReclamoTerceroController extends Controller
     {
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
-        $provincia_id = $reclamo->vehiculoAsegurado && $reclamo->vehiculoAsegurado->conductor_province_id != null ? $reclamo->vehiculoAsegurado->conductor_province_id : $provincias->first()->id;
+        $provincia_id = $reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id != null ? $reclamo->vehiculo->conductor_province_id : $provincias->first()->id;
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
         $tiposDocumentos = TipoDocumento::all();
 
