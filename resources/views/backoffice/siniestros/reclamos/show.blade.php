@@ -160,16 +160,16 @@
                                                 <p>Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Número de Póliza: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                                <p>Número de Póliza: {{ $reclamo->vehiculo_asegurado_nro_poliza }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <p>Marca: {{ $reclamo->marca ? $reclamo->marca->nombre : $reclamo->vehiculo_asegurado_otra_marca }}</p>
+                                                <p>Marca: {{ $reclamo->marcaVehiculoAsegurado ? $reclamo->marcaVehiculoAsegurado->nombre : $reclamo->vehiculo_asegurado_otra_marca }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Modelo: {{ $reclamo->modelo ? $reclamo->modelo->nombre : $reclamo->vehiculo_asegurado_otro_modelo }}</p>
+                                                <p>Modelo: {{ $reclamo->modeloVehiculoAsegurado ? $reclamo->modeloVehiculoAsegurado->nombre : $reclamo->vehiculo_asegurado_otro_modelo }}</p>
                                             </div>
                                         </div>
 
