@@ -163,11 +163,19 @@
             <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label for="franquicia">Franquicia</label>
-                    <input type="text" id="franquicia" name="franquicia"
-                           class="form-control @error('franquicia') is-invalid @enderror"
-                           value="{{ old('franquicia') ? old('franquicia') : ($reclamo->vehiculo ? $reclamo->vehiculo->franquicia : '') }}"
-                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    <select name="franquicia" id="franquicia"
+                            class="custom-select @error('franquicia') is-invalid @enderror"
                     >
+                        <option value="Si"
+                            {{ old('franquicia') == 'Si' || ($reclamo->vehiculo && $reclamo->vehiculo->franquicia == 'Si') ? 'selected' : '' }}
+                        >Si</option>
+                        <option value="No"
+                            {{ old('franquicia') == 'No' || ($reclamo->vehiculo && $reclamo->vehiculo->franquicia == 'No') ? 'selected' : '' }}
+                        >No</option>
+                        <option value="No se"
+                            {{ old('franquicia') == 'No se' || ($reclamo->vehiculo && $reclamo->vehiculo->franquicia == 'No se') ? 'selected' : '' }}
+                        >No se</option>
+                    </select>
                     @error('franquicia') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>

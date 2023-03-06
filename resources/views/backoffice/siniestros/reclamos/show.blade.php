@@ -72,11 +72,11 @@
                                     </div>
 
                                     @if($reclamo->estado_carga == '8' && $reclamo->finalized_at)
-                                    <div class="row">
-                                        <div class="col-12 col-md-12">
-                                            <p>Finalizado: {{ $reclamo->finalized_at->format('d/m/Y H:i:s') }}</p>
+                                        <div class="row">
+                                            <div class="col-12 col-md-12">
+                                                <p>Finalizado: {{ $reclamo->finalized_at->format('d/m/Y H:i:s') }}</p>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
 
                                     @if($reclamo->estado_carga == 'precarga')
@@ -124,6 +124,164 @@
                                         </div>
 
                                     @else
+
+                                        <div class="alert alert-secondary mt-3 " role="alert"><b>Datos del Contacto</b></div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Nombre: {{ $reclamo->responsable_contacto_nombre }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Teléfono: {{ $reclamo->responsable_contacto_telefono }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Email: {{ $reclamo->responsable_contacto_email }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Datos del Asegurado</b>
+                                            <a href="{{ route('siniestros.terceros.paso1.create',['id' => $reclamo->identificador]) }}"
+                                                class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Nombre: {{ $reclamo->asegurado_nombre }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Número de Póliza: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Marca: {{ $reclamo->marca ? $reclamo->marca->nombre : $reclamo->vehiculo_asegurado_otra_marca }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Modelo: {{ $reclamo->modelo ? $reclamo->modelo->nombre : $reclamo->vehiculo_asegurado_otro_modelo }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Reclamante</b>
+                                            <a href="{{ route('siniestros.terceros.paso2.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Nombre: {{ $reclamo->reclamante ? $reclamo->reclamante->nombre : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p>Tipo de Documento: {{ $reclamo->reclamante ? $reclamo->reclamante->tipoDocumento->nombre : '' }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>N° de Documento: {{ $reclamo->reclamante ? $reclamo->reclamante->documento_numero : '' }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Teléfono: {{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p>Domicilio: {{ $reclamo->reclamante ? $reclamo->reclamante->domicilio : '' }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Código Postal: {{ $reclamo->reclamante ? $reclamo->reclamante->codigo_postal : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            @if($reclamo->reclamante && $reclamo->reclamante->pais_id && $reclamo->reclamante->province_id)
+                                                <div class="col-md-4">
+                                                    <p>País: {{ $reclamo->reclamante->pais->nombre }}</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>Provincia: {{ $reclamo->reclamante->provincia->name }}</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>Localidad: {{ $reclamo->reclamante->city_id != null ? $reclamo->reclamante->localidad->name : $reclamo->reclamante->otro_pais_provincia_localidad }}</p>
+                                                </div>
+                                            @elseif($denuncia->otro_pais_provincia_localidad)
+                                                <div class="col-12">
+                                                    <p>Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
+                                                </div>
+                                            @else
+                                                <div class="col-12 col-md-4">
+                                                    <p>País:</p>
+                                                </div>
+
+                                                <div class="col-12 col-md-4">
+                                                    <p>Provincia:</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Localidad:</p>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Vehículo</b>
+                                            <a href="{{ route('siniestros.terceros.paso3.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p>Marca: {{ $reclamo->vehiculo ? ($reclamo->vehiculo->marca ? $reclamo->vehiculo->marca->nombre : $reclamo->vehiculo->otra_marca) : '' }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Modelo: {{ $reclamo->vehiculo ? ($reclamo->vehiculo->modelo ? $reclamo->vehiculo->modelo->nombre : $reclamo->vehiculo->otro_modelo) : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                <p>Tipo: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipo : '' }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Año: {{ $reclamo->vehiculo ? $reclamo->vehiculo->anio : '' }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Compañía de Seguro: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Número de Póliza: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <p>Tipo de Cobertura: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipo_cobertura : '' }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <p>Franquicia: {{ $reclamo->vehiculo ? $reclamo->vehiculo->franquicia : '' }}</p>
+                                            </div>
+                                        </div>
+
 
                                         {{--
 

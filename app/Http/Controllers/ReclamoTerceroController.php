@@ -134,9 +134,9 @@ class ReclamoTerceroController extends Controller
             $reclamo->reclamante->save();
         }
 
-        if($reclamo->estado_carga === 'precarga')
+        if($reclamo->estado_carga === '1')
         {
-            $reclamo->estado_carga = '1';
+            $reclamo->estado_carga = '2';
             $reclamo->save();
         }
 

@@ -90,9 +90,14 @@ class ReclamoTercero extends Model
         return $this->hasOne(VehiculoReclamante::class);
     }
 
-    public function vehiculoAsegurado()
+    public function marcaVehiculoAsegurado()
     {
-        return $this->hasOne(VehiculoAsegurado::class);
+        return $this->belongsTo(Marca::class, 'vehiculo_asegurado_marca_id');
+    }
+
+    public function modeloVehiculoAsegurado()
+    {
+        return $this->belongsTo(Modelo::class, 'vehiculo_asegurado_modelo_id');
     }
 
     public function testigos()
