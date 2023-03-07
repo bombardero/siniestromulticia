@@ -218,7 +218,7 @@
                                                 <div class="col-md-4">
                                                     <p>Localidad: {{ $reclamo->reclamante->city_id != null ? $reclamo->reclamante->localidad->name : $reclamo->reclamante->otro_pais_provincia_localidad }}</p>
                                                 </div>
-                                            @elseif($denuncia->otro_pais_provincia_localidad)
+                                            @elseif($denuncia->reclamante && $denuncia->reclamante->otro_pais_provincia_localidad)
                                                 <div class="col-12">
                                                     <p>Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
                                                 </div>
@@ -226,7 +226,6 @@
                                                 <div class="col-12 col-md-4">
                                                     <p>País:</p>
                                                 </div>
-
                                                 <div class="col-12 col-md-4">
                                                     <p>Provincia:</p>
                                                 </div>
@@ -281,6 +280,258 @@
                                                 <p>Franquicia: {{ $reclamo->vehiculo ? $reclamo->vehiculo->franquicia : '' }}</p>
                                             </div>
                                         </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Conductor del Vehículo</b>
+                                            <a href="{{ route('siniestros.terceros.paso4.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        @if($reclamo->vehiculo && $reclamo->vehiculo->reclamante_conductor)
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p>El conductor es el reclamante</p>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p>Nombre: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_nombre : '' }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p>Tipo de Documento: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipoDocumento->nombre : '' }}</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>N° de Documento: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_documento_numero : '' }}</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>Teléfono: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_telefono : '' }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <p>Domicilio: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_domicilio : '' }}</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p>Código Postal: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_codigo_postal : '' }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                @if($reclamo->vehiculo && $reclamo->vehiculo->conductor_pais_id && $reclamo->vehiculo->conductor_province_id)
+                                                    <div class="col-md-4">
+                                                        <p>País: {{ $reclamo->vehiculo->pais->nombre }}</p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p>Provincia: {{ $reclamo->vehiculo->provincia->name }}</p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p>Localidad: {{ $reclamo->vehiculo->conductor_city_id != null ? $reclamo->vehiculo->localidad->name : $reclamo->vehiculo->conductor_otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @elseif($reclamo->vehiculo && $reclamo->vehiculo->conductor_otro_pais_provincia_localidad)
+                                                    <div class="col-12">
+                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->vehiculo->conductor_otro_pais_provincia_localidad }}</p>
+                                                    </div>
+                                                @else
+                                                    <div class="col-12 col-md-4">
+                                                        <p>País:</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Provincia:</p>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <p>Localidad:</p>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @endif
+
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p>Número de Licencia: {{ $reclamo->vehiculo ? $reclamo->vehiculo->licencia_numero : '' }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p>Licencia Clase: {{ $reclamo->vehiculo ? $reclamo->vehiculo->licencia_clase : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Lugar del Siniestro</b>
+                                            <a href="{{ route('siniestros.terceros.paso5.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12">
+                                                <p>Lugar: {{ $reclamo->lugar_nombre }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            @if($reclamo->pais_id && $reclamo->province_id)
+                                                <div class="col-12 col-md-4">
+                                                    <p>País: {{ $reclamo->pais->nombre }}</p>
+                                                </div>
+
+                                                <div class="col-12 col-md-4">
+                                                    <p>Provincia: {{ $reclamo->provincia->name }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>
+                                                        Localidad:
+                                                        {{ $reclamo->city_id != null ? $reclamo->localidad->name : $reclamo->otro_pais_provincia_localidad }}
+                                                    </p>
+                                                </div>
+                                            @elseif($reclamo->otro_pais_provincia_localidad)
+                                                <div class="col-12">
+                                                    <p>Localidad/Provincia/Pais: {{ $reclamo->otro_pais_provincia_localidad }}</p>
+                                                </div>
+                                            @else
+                                                <div class="col-12 col-md-4">
+                                                    <p>País:</p>
+                                                </div>
+
+                                                <div class="col-12 col-md-4">
+                                                    <p>Provincia:</p>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <p>Localidad:</p>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12 col-md-4">
+                                                <p>Calle/Ruta: {{ $reclamo->calle }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <p>Tipo
+                                                    Calzada: {{ $reclamo->tipo_calzada_id != null ? $reclamo->tipoCalzada->nombre : ''}}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12 col-md-4">
+                                                <p>Detalle Calzada: {{ $reclamo->calzada_detalle }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Intersección: {{ $reclamo->interseccion }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Cruce Señalizado: {{ $reclamo->cruce_senalizado ? 'Si' : 'No' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12">
+                                                <p>Barrera de tren señalizado: {{ $reclamo->tren != null ? ($reclamo->tren ? 'Si' : 'No') : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12 col-md-3">
+                                                <p>Semaforo: {{ $reclamo->semaforo ? 'Si' : 'No' }}</p>
+                                            </div>
+                                            @if($reclamo->semaforo)
+                                                <div class="col-12 col-md-3">
+                                                    <p>Funciona: {{ $reclamo->semaforo_funciona ? 'Si' : 'No' }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-3">
+                                                    <p>Intermitente: {{ $reclamo->semaforo_funciona ? 'Si' : 'No' }}</p>
+                                                </div>
+                                                <div class="col-12 col-md-3">
+                                                    <p>Color: {{ $reclamo->semaforo_color }}</p>
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Detalles del Siniestro</b>
+                                            <a href="{{ route('siniestros.terceros.paso6.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p>Croquis: </p>
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <img class="w-100"
+                                                     src="{{ $reclamo->croquis_url }}"
+                                                     alt="">
+                                            </div>
+                                            <div class="col-12">
+                                                <p>Descripción: {{ $reclamo->descripcion }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12">
+                                                <p>Comisaría: {{ $reclamo->comisaria }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row pt-0">
+                                            <div class="col-12 col-md-4">
+                                                <p>Detalle Calzada: $ {{ $reclamo->monto_vehicular != null ? $reclamo->monto_vehicular : '0'}}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Intersección: $ {{ $reclamo->monto_danios_materiales != null ? $reclamo->monto_danios_materiales : '0' }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Cruce Señalizado: $ {{ $reclamo->monto_lesiones != null ? $reclamo->monto_lesiones : '0' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Testigos</b>
+                                            <a href="{{ route('siniestros.terceros.paso7.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+                                        @if(!$reclamo->testigos)
+                                            <div class="row pt-0">
+                                                <div class="col-12">
+                                                    <p>Sin testigos</p>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Teléfono</th>
+                                                    <th scope="col">Domicilio</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($reclamo->testigos as $testigo)
+                                                    <tr>
+                                                        <td>{{ $testigo->nombre }}</td>
+                                                        <td>{{ $testigo->telefono }}</td>
+                                                        <td>{{ $testigo->domicilio_completo }}</td>
+                                                    </tr>
+                                                @endforeach
+                                                @if($reclamo->testigos()->count() == 0)
+                                                    <tr>
+                                                        <td class="text-center" colspan="3">Sin testigos</td>
+                                                    </tr>
+                                                @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+
 
 
                                         {{--

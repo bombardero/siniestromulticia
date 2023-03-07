@@ -90,6 +90,26 @@ class ReclamoTercero extends Model
         return $this->hasOne(VehiculoReclamante::class);
     }
 
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id');
+    }
+
+    public function provincia()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+
+    public function localidad()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function tipoCalzada()
+    {
+        return $this->belongsTo(TipoCalzada::class);
+    }
+
     public function marcaVehiculoAsegurado()
     {
         return $this->belongsTo(Marca::class, 'vehiculo_asegurado_marca_id');

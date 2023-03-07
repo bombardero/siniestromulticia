@@ -21,6 +21,21 @@ class Testigo extends Model
         'otro_pais_provincia_localidad',
     ];
 
+    public function getDomicilioCompletoAttribute()
+    {
+        $domicilio_completo = $this->domicilio;
+        if($this->city_id != null && $this->province_id != null && $this->pais_id != null)
+        {
+            $domicilio_completo .= ', '.$this->localidad->name.', '.$this->provincia->name.', '.$this->pais->nombre;
+        } elseif ($this->province_id != null && $this->pais_id != null)
+        {
+            $domicilio_completo .= ', '.$this->otro_pais_provincia_localidad.', '.$this->provincia->name.', '.$this->pais->nombre;
+        } else {
+            $domicilio_completo .= ', '.$this->otro_pais_provincia_localidad;
+        }
+        return $domicilio_completo;
+    }
+
     public function reclamo()
     {
         return $this->belongsTo(ReclamoTercero::class, 'reclamo_tercero_id');

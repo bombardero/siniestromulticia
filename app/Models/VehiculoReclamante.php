@@ -32,7 +32,6 @@ class VehiculoReclamante extends Model
         'conductor_codigo_postal',
         'conductor_pais_id',
         'conductor_province_id',
-        'conductor_province_id',
         'conductor_city_id',
         'conductor_otro_pais_provincia_localidad',
         'licencia_numero',
@@ -56,5 +55,25 @@ class VehiculoReclamante extends Model
     public function modelo()
     {
         return $this->belongsTo(Modelo::class, 'modelo_id');
+    }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'conductor_tipo_documento_id');
+    }
+
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'conductor_pais_id');
+    }
+
+    public function provincia()
+    {
+        return $this->belongsTo(Province::class, 'conductor_province_id');
+    }
+
+    public function localidad()
+    {
+        return $this->belongsTo(City::class, 'conductor_city_id');
     }
 }
