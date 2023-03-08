@@ -4,7 +4,6 @@
     <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
     <input type="hidden" name="reclamo_danios_materiales" value="{{ $reclamo->reclamo_danios_materiales ? '1' : '0' }}">
     <input type="hidden" name="reclamo_lesiones" value="{{ $reclamo->reclamo_lesiones ? '1' : '0' }}">
-    <input type="hidden" name="con_croquis" value="{{ $reclamo->croquis_url != null ? '1' : '0' }}">
 
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
@@ -291,6 +290,7 @@
                         <input  type="number" name="monto_vehicular" id="monto_vehicular" min="0" step="100"
                                 class="form-control @error('monto_vehicular') is-invalid @enderror"
                                 value="{{ old('monto_vehicular') ? old('monto_vehicular') : $reclamo->monto_vehicular  }}"
+                                @if(!$reclamo->reclamo_vehicular) disabled @endif
                         >
                     </div>
                     @error('monto_vehicular') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -306,6 +306,7 @@
                         <input  type="number" name="monto_danios_materiales" id="monto_danios_materiales" min="0" step="100"
                                 class="form-control @error('monto_danios_materiales') is-invalid @enderror"
                                 value="{{ old('monto_danios_materiales') ? old('monto_danios_materiales') : $reclamo->monto_danios_materiales  }}"
+                                @if(!$reclamo->reclamo_danios_materiales) disabled @endif
                         >
                     </div>
                     @error('monto_danios_materiales') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
@@ -321,6 +322,7 @@
                         <input  type="number" name="monto_lesiones" id="monto_lesiones" min="0" step="100"
                                 class="form-control @error('monto_lesiones') is-invalid @enderror"
                                 value="{{ old('monto_lesiones') ? old('monto_lesiones') : $reclamo->monto_lesiones  }}"
+                                @if(!$reclamo->reclamo_lesiones) disabled @endif
                         >
                     </div>
                     @error('monto_lesiones') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
