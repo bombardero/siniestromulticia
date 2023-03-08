@@ -1,6 +1,10 @@
 <form class="" action='{{route("siniestros.terceros.paso6.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
+    <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
+    <input type="hidden" name="reclamo_danios_materiales" value="{{ $reclamo->reclamo_danios_materiales ? '1' : '0' }}">
+    <input type="hidden" name="reclamo_lesiones" value="{{ $reclamo->reclamo_lesiones ? '1' : '0' }}">
+    <input type="hidden" name="con_croquis" value="{{ $reclamo->croquis_url != null ? '1' : '0' }}">
 
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
@@ -11,7 +15,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card @error('graficoManual') is-invalid @enderror">
             <div class="card-body">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -179,15 +183,10 @@
                             </div>
                         </div>
 
-
                         <div class="col-12 pt-3">
                             <button id="clearBtn" class="btn boton-azul mb-0">Limpiar</button>
                             &nbsp
                             <button disabled id="saveBtn" class="btn boton-azul mb-0">Confirmar Dibujo</button>
-                        </div>
-
-                        <div class="col-12">
-                            @error('graficoManual') <span class="invalid-feedback pl-2" style="font-size: .9em;"><b>{{ $message }}</b></span> @enderror
                         </div>
 
                     </div>
@@ -247,6 +246,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            @error('graficoManual') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+        </div>
 
         <div class="row">
             <div class="col-12 mt-3">
@@ -286,11 +288,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input  type="text" name="monto_vehicular" id="monto_vehicular"
-                                class="form-control"
+                        <input  type="number" name="monto_vehicular" id="monto_vehicular" min="0" step="100"
+                                class="form-control @error('monto_vehicular') is-invalid @enderror"
                                 value="{{ old('monto_vehicular') ? old('monto_vehicular') : $reclamo->monto_vehicular  }}"
                         >
                     </div>
+                    @error('monto_vehicular') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="col-12 col-md-4">
@@ -300,11 +303,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input  type="text" name="monto_danios_materiales" id="monto_danios_materiales"
-                                class="form-control"
+                        <input  type="number" name="monto_danios_materiales" id="monto_danios_materiales" min="0" step="100"
+                                class="form-control @error('monto_danios_materiales') is-invalid @enderror"
                                 value="{{ old('monto_danios_materiales') ? old('monto_danios_materiales') : $reclamo->monto_danios_materiales  }}"
                         >
                     </div>
+                    @error('monto_danios_materiales') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="col-12 col-md-4">
@@ -314,11 +318,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input  type="text" name="monto_lesiones" id="monto_lesiones"
-                                class="form-control"
+                        <input  type="number" name="monto_lesiones" id="monto_lesiones" min="0" step="100"
+                                class="form-control @error('monto_lesiones') is-invalid @enderror"
                                 value="{{ old('monto_lesiones') ? old('monto_lesiones') : $reclamo->monto_lesiones  }}"
                         >
                     </div>
+                    @error('monto_lesiones') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
         </div>
@@ -345,6 +350,9 @@
     .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
         color: #000;
         font-weight: bold;
+    }
+    .card.is-invalid{
+        border-color: #dc3545;
     }
 </style>
 

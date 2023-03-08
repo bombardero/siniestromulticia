@@ -492,19 +492,21 @@ class ReclamoTerceroController extends Controller
 
     public function paso6store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'graficoManual' => 'nullable',
-            'descripcion' => 'required'
-        ]);
+        $rules = [
+            'descripcion' => 'nullable',
+            'graficoManual' => 'required_if:con_croquis,0',
+            'monto_vehicular' => 'required_if:reclamo_vehicular,1',
+            'monto_danios_materiales' => 'required_if:reclamo_danios_materiales,1',
+            'monto_lesiones' => 'required_if:reclamo_lesiones,1'
+        ];
+        $messages = [
+            'graficoManual.required_if' => 'Debe crear un croquis o cargar una imagen.',
+            'monto_vehicular.required_if' => 'El campo monto por daño vehicular es requerido',
+            'monto_danios_materiales.required_if' => 'El campo monto por daños materiales es requerido',
+            'monto_lesiones.required_if' => 'El campo monto por lesiones es requerido',
+        ];
+        Validator::make($request->all(),$rules, $messages)->validate();
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
-
-        if(!$reclamo->croquis_url && !$request->hasFile('graficoManual') )
-        {
-            $validator->errors()->add('graficoManual', 'Debe crear un croquis o cargar una imagen.');
-            return redirect()->route("siniestros.terceros.paso5.create",['id'=> $request->id])
-                ->withErrors($validator)
-                ->withInput();
-        }
 
         if($request->hasFile('graficoManual'))
         {
