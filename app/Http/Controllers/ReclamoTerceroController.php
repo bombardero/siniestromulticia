@@ -22,6 +22,15 @@ class ReclamoTerceroController extends Controller
     public function paso1create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+        if($request->noredirect == null)
+        {
+            $paso = $this->checkIfRedirect($reclamo);
+            if($paso != '1' && $paso != 'precarga')
+            {
+                $routeredirect = "siniestros.terceros.paso$paso.create";
+                return redirect()->route($routeredirect, ['id' => $request->id]);
+            }
+        }
         $marcas = Marca::all();
         $modelos = Modelo::where('marca_id', $reclamo->vehiculo_asegurado_marca_id != null ? $reclamo->vehiculo_asegurado_marca_id : $marcas->first()->id)->get();
 
@@ -62,7 +71,7 @@ class ReclamoTerceroController extends Controller
         }
         $reclamo->save();
 
-        return redirect()->route("siniestros.terceros.paso2.create",['id'=> $request->id]);
+        return redirect()->route('siniestros.terceros.paso2.create',['id'=> $request->id]);
     }
 
     public function paso2create(Request $request)
@@ -734,5 +743,12 @@ class ReclamoTerceroController extends Controller
     public function paso8store(Request $request)
     {
         dd('Paso 8 Store');
+    }
+
+    private function checkIfRedirect(ReclamoTercero $reclamo)
+    {
+        $paso = $reclamo->estado_carga;
+        $paso = is_numeric($paso) && intval($paso) < 8  ? intval($paso) + 1 : $reclamo->estado_carga;
+        return $paso;
     }
 }
