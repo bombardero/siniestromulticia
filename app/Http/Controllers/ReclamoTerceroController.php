@@ -211,6 +211,7 @@ class ReclamoTerceroController extends Controller
                     'modelo_id' => !$request->otro_modelo ? $request->modelo_id : null,
                     'otra_marca' => $request->otra_marca ? $request->marca : null,
                     'otro_modelo' => $request->otro_modelo ? $request->modelo : null,
+                    'en_transferencia' => $request->en_transferencia == 'on',
                     'compania_seguros' => $request->compania_seguros,
                     'numero_poliza' => $request->numero_poliza,
                     'tipo_cobertura' => $request->tipo_cobertura,
@@ -224,6 +225,7 @@ class ReclamoTerceroController extends Controller
                 $reclamo->vehiculo->modelo_id = !$request->otro_modelo ? $request->modelo_id : null;
                 $reclamo->vehiculo->otra_marca = $request->otra_marca ? $request->marca : null;
                 $reclamo->vehiculo->otro_modelo = $request->otro_modelo ? $request->modelo : null;
+                $reclamo->vehiculo->en_transferencia = $request->en_transferencia == 'on';
                 $reclamo->vehiculo->compania_seguros = $request->compania_seguros;
                 $reclamo->vehiculo->numero_poliza = $request->numero_poliza;
                 $reclamo->vehiculo->tipo_cobertura = $request->tipo_cobertura;

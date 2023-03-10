@@ -120,7 +120,18 @@
                 </div>
             </div>
 
-                <div class="col-12 mt-3">
+            <div class="col-12">
+                <div class="custom-control custom-radio">
+                    <input type="checkbox" class="form-check-input" id="en_transferencia"
+                           name="en_transferencia"
+                           {{ old('en_transferencia') || ($reclamo->vehiculo && $reclamo->vehiculo->en_transferencia) ? 'checked' : '' }}
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    >
+                    <label for="en_transferencia" class="form-check-label">Vehículo en transferencia</label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
                 <label><b>Seguro del vehículo</b></label>
             </div>
 
@@ -165,6 +176,7 @@
                     <label for="franquicia">Franquicia</label>
                     <select name="franquicia" id="franquicia"
                             class="custom-select @error('franquicia') is-invalid @enderror"
+                            {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
                     >
                         <option value="Si"
                             {{ old('franquicia') == 'Si' || ($reclamo->vehiculo && $reclamo->vehiculo->franquicia == 'Si') ? 'selected' : '' }}
