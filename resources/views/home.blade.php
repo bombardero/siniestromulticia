@@ -222,28 +222,6 @@
                             <div class="col-md-3 d-sm-none d-md-block"></div>
                         </div>
                     </div>
-
-                    <p class="text-md-left subencabezado-texto-imagenes"><b>• COBERTURA “B1”</b> RESPONSABILIDAD CIVIL
-                        con límite, robo y/o hurto e incendio total.</p>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3 d-sm-none d-md-block"></div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="mb-5 card-seguro-moto">
-                                    <div class="card-body text-center">
-                                        <img
-                                            src="{{url('/images/automotor/Finisterre.com_seguro-motos_servicio-de-grua.svg')}}"
-                                            class="text-center img-fluid">
-                                        <br>
-                                        <span class="card-seguro-moto-title">Servicio de grúa</span>
-                                        <br>
-                                        <span class="card-seguro-moto-subtitle">Hasta 250 Km</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 d-sm-none d-md-block"></div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-12 col-md-3 pt-2 pt-md-5  text-center text-md-right order-md-2">
                     <a href="tel:08103620700"><img src="{{url('/images/llamargrua.svg')}}" class="text-right img-fluid"></a>
