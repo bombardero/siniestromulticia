@@ -250,6 +250,9 @@ Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () 
 
 // Reclamos Terceros
 Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' ], function () {
+
+    Route::view('/gracias','gracias-reclamo')->name('gracias');
+
     Route::get('paso-1',[ReclamoTerceroController::class,'paso1create'])->name('paso1.create');
     Route::post('paso-1',[ReclamoTerceroController::class,'paso1store'])->name('paso1.store');
 
@@ -281,7 +284,9 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::get('paso-8',[ReclamoTerceroController::class,'paso8create'])->name('paso8.create');
     Route::post('paso-8',[ReclamoTerceroController::class,'paso8store'])->name('paso8.store');
 
-    Route::post('croquis/', [ReclamoTerceroController::class,'storeCroquis'])->name('storeCroquis');
+    Route::post('croquis', [ReclamoTerceroController::class,'storeCroquis'])->name('storeCroquis');
+
+    Route::get('{id}',[ReclamoTerceroController::class,'show'])->name('show');
 });
 
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');

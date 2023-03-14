@@ -746,15 +746,16 @@ class ReclamoTerceroController extends Controller
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
-    public function paso8store(Request $request)
-    {
-        dd('Paso 8 Store');
-    }
-
     private function checkIfRedirect(ReclamoTercero $reclamo)
     {
         $paso = $reclamo->estado_carga;
         $paso = is_numeric($paso) && intval($paso) < 8  ? intval($paso) + 1 : $reclamo->estado_carga;
         return $paso;
+    }
+
+    public function show(Request $request, $id)
+    {
+        $reclamo = ReclamoTercero::where('identificador',$id)->firstOrFail();
+        return view('siniestros.reclamo-terceros.show',['reclamo' => $reclamo]);
     }
 }
