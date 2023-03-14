@@ -20,6 +20,7 @@ class VehiculoReclamante extends Model
         'otra_marca',
         'otro_modelo',
         'en_transferencia',
+        'con_seguro',
         'compania_seguros',
         'numero_poliza',
         'tipo_cobertura',
@@ -41,6 +42,7 @@ class VehiculoReclamante extends Model
 
     protected $casts = [
         'en_transferencia' => 'boolean',
+        'con_seguro' => 'boolean',
         'reclamante_conductor' => 'boolean',
     ];
 

@@ -6,11 +6,13 @@
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
         <div class="row">
-
             <div class="col-12">
                 <span style="color:#6e4697;font-size: 24px;"><b>Paso 3 </b>de 8 | Datos del Vehículo</span>
                 <hr style="border:1px solid lightgray;">
             </div>
+        </div>
+
+        <div class="row">
 
             <div class="col-12 mt-3">
                 <label><b>Vehículo</b></label>
@@ -130,11 +132,43 @@
                     <label for="en_transferencia" class="form-check-label">Vehículo en transferencia</label>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-12 mt-3">
                 <label><b>Seguro del vehículo</b></label>
             </div>
+        </div>
 
+        <div class="row mb-2">
+            <div class="col-12 col-md-4">
+                <label>¿Cobertura al momento del siniestro?</label>
+            </div>
+            <div class="col-12 col-md-1">
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="form-check-input" id="con_seguro_si"
+                           name="con_seguro"
+                           value="1"
+                        {{ old('con_seguro') === '1' || ($reclamo->vehiculo && $reclamo->vehiculo->con_seguro) ? 'checked' : '' }}
+                        {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    >
+                    <label for="con_seguro_si" class="form-check-label">Si</label>
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="form-check-input" id="con_seguro_no"
+                           name="con_seguro"
+                           value="0"
+                        {{ old('con_seguro') === '0' || ($reclamo->vehiculo && $reclamo->vehiculo->con_seguro === false) ? 'checked' : '' }}
+                        {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    >
+                    <label for="con_seguro_no" class="form-check-label">No</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label for="compania_seguros">Compañía de Seguro</label>
@@ -191,7 +225,6 @@
                     @error('franquicia') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
-
         </div>
 
         <div class="row">
@@ -210,7 +243,7 @@
 <script src="{{ asset('js/marca_modelo.js')}}"></script>
 
 <script type="text/javascript">
-    $("input[type='radio'][name='vehiculo']").change(function () {
+    $("input[type='radio'][name='con_seguro']").change(function () {
         if($(this).val() === '1')
         {
             deshabilitarCampos(false);
@@ -221,29 +254,18 @@
 
     function deshabilitarCampos(deshabilitar = true)
     {
-        $('#marca-select').attr('disabled', deshabilitar);
-        $('#marca-text').attr('disabled', deshabilitar);
-        $('#otra-marca').attr('disabled', deshabilitar);
-        $('#modelo-select').attr('disabled', deshabilitar);
-        $('#modelo-text').attr('disabled', deshabilitar);
-        $('#otro-modelo').attr('disabled', deshabilitar);
-        $('#vehiculo_tipo').attr('disabled', deshabilitar);
-        $('#vehiculo_anio').attr('disabled', deshabilitar);
-        $('#vehiculo_dominio').attr('disabled', deshabilitar);
         $('#compania_seguros').attr('disabled', deshabilitar);
         $('#numero_poliza').attr('disabled', deshabilitar);
         $('#tipo_cobertura').attr('disabled', deshabilitar);
         $('#franquicia').attr('disabled', deshabilitar);
-        $('#reclamante_conductor_si').attr('disabled', deshabilitar);
-        $('#reclamante_conductor_no').attr('disabled', deshabilitar);
     }
 
     $( document ).ready(function() {
-        if($('#vehiculo_si').is(':checked'))
+        if($('#con_seguro_si').is(':checked'))
         {
             deshabilitarCampos(false);
         }
-        if($('#vehiculo_no').is(':checked'))
+        if($('#con_seguro_no').is(':checked'))
         {
             deshabilitarCampos();
         }

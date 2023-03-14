@@ -35,6 +35,6 @@ class CreateReclamoTestigosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reclamo_vehiculo_asegurados');
+        Schema::dropIfExists('reclamo_testigos');
     }
 }

@@ -24,10 +24,11 @@ class CreateReclamoVehiculoTercerosTable extends Migration
             $table->string('otra_marca')->nullable();
             $table->string('otro_modelo')->nullable();
             $table->boolean('en_transferencia');
-            $table->string('compania_seguros');
-            $table->string('numero_poliza');
-            $table->string('tipo_cobertura');
-            $table->string('franquicia');
+            $table->boolean('con_seguro');
+            $table->string('compania_seguros')->nullable();
+            $table->string('numero_poliza')->nullable();
+            $table->string('tipo_cobertura')->nullable();
+            $table->string('franquicia')->nullable();
             $table->boolean('reclamante_conductor')->nullable();
             $table->string('conductor_nombre')->nullable();
             $table->string('conductor_telefono',15)->nullable();

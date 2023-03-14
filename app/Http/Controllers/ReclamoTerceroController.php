@@ -179,10 +179,11 @@ class ReclamoTerceroController extends Controller
             'vehiculo_tipo' => 'required_if:reclamo_vehicular,1',
             'vehiculo_anio' => 'required_if:reclamo_vehicular,1',
             'vehiculo_dominio' => 'required_if:reclamo_vehicular,1',
-            'compania_seguros' => 'required_if:reclamo_vehicular,1',
-            'numero_poliza' => 'required_if:reclamo_vehicular,1',
-            'tipo_cobertura' => 'required_if:reclamo_vehicular,1',
-            'franquicia' => 'required_if:reclamo_vehicular,1'
+            'con_seguro' => 'required_if:reclamo_vehicular,1',
+            'compania_seguros' => 'required_if:con_seguro,1',
+            'numero_poliza' => 'required_if:con_seguro,1',
+            'tipo_cobertura' => 'required_if:con_seguro,1',
+            'franquicia' => 'required_if:con_seguro,1'
         ];
         $messages = [
             'marca.required_with' => 'El campo marca es obligatorio.',
@@ -190,7 +191,8 @@ class ReclamoTerceroController extends Controller
             'vehiculo_tipo.required_if' => 'El campo tipo de vehículo es obligatorio.',
             'vehiculo_anio.required_if' => 'El campo año de vehículo es obligatorio.',
             'vehiculo_dominio.required_if' => 'El campo dominio del vehículo es obligatorio.',
-            'compania_seguro.required_if' => 'El campo compañía de seguro es obligatorio.',
+            'con_seguro.required_if' => 'El campo seguro con cobertura es obligatorio.',
+            'compania_seguros.required_if' => 'El campo compañía de seguro es obligatorio.',
             'numero_poliza.required_if' => 'El campo número de póliza es obligatorio.',
             'tipo_cobertura.required_if' => 'El campo tipo de cobertura es obligatorio.',
             'franquicia.required_if' => 'El campo franquicia es obligatorio.'
@@ -212,10 +214,11 @@ class ReclamoTerceroController extends Controller
                     'otra_marca' => $request->otra_marca ? $request->marca : null,
                     'otro_modelo' => $request->otro_modelo ? $request->modelo : null,
                     'en_transferencia' => $request->en_transferencia == 'on',
-                    'compania_seguros' => $request->compania_seguros,
-                    'numero_poliza' => $request->numero_poliza,
-                    'tipo_cobertura' => $request->tipo_cobertura,
-                    'franquicia' => $request->franquicia,
+                    'con_seguro' => $request->con_seguro,
+                    'compania_seguros' => $request->con_seguro ? $request->compania_seguros : null,
+                    'numero_poliza' => $request->con_seguro ? $request->numero_poliza : null,
+                    'tipo_cobertura' => $request->con_seguro ? $request->tipo_cobertura : null,
+                    'franquicia' => $request->con_seguro ? $request->franquicia : null
                 ]);
             } else {
                 $reclamo->vehiculo->dominio = strtoupper($request->vehiculo_dominio);
@@ -226,10 +229,11 @@ class ReclamoTerceroController extends Controller
                 $reclamo->vehiculo->otra_marca = $request->otra_marca ? $request->marca : null;
                 $reclamo->vehiculo->otro_modelo = $request->otro_modelo ? $request->modelo : null;
                 $reclamo->vehiculo->en_transferencia = $request->en_transferencia == 'on';
-                $reclamo->vehiculo->compania_seguros = $request->compania_seguros;
-                $reclamo->vehiculo->numero_poliza = $request->numero_poliza;
-                $reclamo->vehiculo->tipo_cobertura = $request->tipo_cobertura;
-                $reclamo->vehiculo->franquicia = $request->franquicia;
+                $reclamo->vehiculo->con_seguro = $request->con_seguro;
+                $reclamo->vehiculo->compania_seguros = $request->con_seguro ? $request->compania_seguros : null;
+                $reclamo->vehiculo->numero_poliza = $request->con_seguro ? $request->numero_poliza : null;
+                $reclamo->vehiculo->tipo_cobertura = $request->con_seguro ? $request->tipo_cobertura : null;
+                $reclamo->vehiculo->franquicia = $request->con_seguro ? $request->franquicia : null;
                 $reclamo->vehiculo->save();
             }
 
