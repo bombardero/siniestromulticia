@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Siniestro\Reclamo;
 
 use App\Models\DenunciaSiniestro;
 use App\Models\DocumentosDenuncia;
+use App\Models\DocumentosReclamo;
 use App\Services\FileUploadService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -232,14 +233,13 @@ class Paso8 extends Component
     {
         // TODO: if($this->reclamo->canEdit())
 
-        $archivo = DocumentosDenuncia::find($id);
-        if($archivo)
+        $archivo = DocumentosReclamo::find($id);
+        if($archivo && $archivo->reclamo_tercero_id == $this->reclamo->id)
         {
             FileUploadService::delete($archivo->path);
             $archivo->delete();
         }
 
-
-        return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $this->identificador]);
+        return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $this->reclamo->identificador]);
     }
 }
