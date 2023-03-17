@@ -38,7 +38,7 @@
                     <label for="numero_poliza">Número de Póliza</label>
                     <input type="text" name="numero_poliza" id="numero_poliza"
                            class="form-control @error('numero_poliza') is-invalid @enderror"
-                           value="{{ old('numero_poliza') ? old('numero_poliza') : $reclamo->numero_poliza != null ? $reclamo->numero_poliza : '' }}"
+                           value="{{ old('numero_poliza') ? old('numero_poliza') : $reclamo->vehiculo_asegurado_nro_poliza != null ? $reclamo->vehiculo_asegurado_nro_poliza : '' }}"
                     >
                     @error('numero_poliza') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>

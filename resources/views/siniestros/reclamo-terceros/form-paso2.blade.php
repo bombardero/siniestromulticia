@@ -1,6 +1,8 @@
 <form class="" action='{{route("siniestros.terceros.paso2.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
+    <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
+    <input type="hidden" name="reclamo_lesiones" value="{{ $reclamo->reclamo_lesiones ? '1' : '0' }}">
 
     <div class="container mt-3 form-denuncia-siniestro p-4">
 
@@ -136,6 +138,68 @@
                 </div>
             </div>
         </div>
+
+        @if($reclamo->reclamo_vehicular)
+            <div class="row mb-2">
+                <div class="col-12 col-md-4">
+                    <label>¿Es el conductor?</label>
+                </div>
+                <div class="col-12 col-md-1">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="form-check-input" id="conductor_si"
+                               name="conductor"
+                               value="1"
+                               {{ old('conductor') === '1' || ($reclamo->reclamante && $reclamo->reclamante->conductor) ? 'checked' : '' }}
+                        >
+                        <label for="conductor_si" class="form-check-label">Si</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="form-check-input" id="conductor_no"
+                               name="conductor"
+                               value="0"
+                               {{ old('conductor') === '0' || ($reclamo->reclamante && $reclamo->reclamante->conductor === false) ? 'checked' : '' }}
+                        >
+                        <label for="conductor_no" class="form-check-label">No</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8 offset-md-4">
+                    @error('conductor') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
+            </div>
+        @endif
+
+        @if($reclamo->reclamo_lesiones)
+            <div class="row mb-2">
+                <div class="col-12 col-md-4">
+                    <label>¿Sufrió lesiones?</label>
+                </div>
+                <div class="col-12 col-md-1">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="form-check-input" id="lesiones_si"
+                               name="lesiones"
+                               value="1"
+                            {{ old('lesiones') === '1' || ($reclamo->reclamante && $reclamo->reclamante->lesiones) ? 'checked' : '' }}
+                        >
+                        <label for="lesiones_si" class="form-check-label">Si</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" class="form-check-input" id="lesiones_no"
+                               name="lesiones"
+                               value="0"
+                            {{ old('lesiones') === '0' || ($reclamo->reclamante && $reclamo->reclamante->lesiones === false) ? 'checked' : '' }}
+                        >
+                        <label for="lesiones_no" class="form-check-label">No</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8 offset-md-4">
+                    @error('lesiones') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
+            </div>
+        @endif
 
         <div class="row">
             <div class="col-12">

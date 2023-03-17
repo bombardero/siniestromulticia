@@ -19,7 +19,14 @@ class Reclamante extends Model
         'city_id',
         'otro_pais_provincia_localidad',
         'tipo_documento_id',
-        'documento_numero'
+        'documento_numero',
+        'lesiones',
+        'conductor'
+    ];
+
+    protected $casts = [
+        'lesiones' => 'boolean',
+        'conductor' => 'boolean'
     ];
 
     public function reclamo()
