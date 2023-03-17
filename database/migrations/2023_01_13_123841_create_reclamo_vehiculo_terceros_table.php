@@ -43,6 +43,8 @@ class CreateReclamoVehiculoTercerosTable extends Migration
             $table->string('conductor_otro_pais_provincia_localidad')->nullable();
             $table->string('licencia_numero')->nullable();
             $table->string('licencia_clase')->nullable();
+            $table->boolean('alcoholemia')->nullable();
+            $table->boolean('alcoholemia_se_nego')->nullable();
             $table->timestamps();
         });
     }

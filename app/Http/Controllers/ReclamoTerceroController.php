@@ -301,6 +301,7 @@ class ReclamoTerceroController extends Controller
             'otra_localidad' => 'required_with:check_otra_localidad',
             'licencia_numero' => 'required_if:reclamo_vehicular,1',
             'licencia_clase' => 'required_if:reclamo_vehicular,1',
+            'alcoholemia'=>'required_if:reclamo_vehicular,1',
         ];
         $messages = [
             'reclamante_conductor.required_if' => 'El campo es obligatorio.',
@@ -314,6 +315,7 @@ class ReclamoTerceroController extends Controller
             'otra_localidad.required_with' => 'El campo otra localidad es obligatorio.',
             'licencia_numero.required_if' => 'El campo número de licencia es obligatorio.',
             'licencia_clase.required_if' => 'El campo clase de licencia es obligatorio.',
+            'alcoholemia.required_if' => 'El campo alcoholemia es obligatorio.',
         ];
         Validator::make($request->all(),$rules,$messages)->validate();
 
@@ -334,6 +336,8 @@ class ReclamoTerceroController extends Controller
             $reclamo->vehiculo->conductor_otro_pais_provincia_localidad = $request->reclamante_conductor == '0' ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )) : null;
             $reclamo->vehiculo->licencia_numero = $request->licencia_numero;
             $reclamo->vehiculo->licencia_clase = $request->licencia_clase;
+            $reclamo->vehiculo->alcoholemia = $request->alcoholemia;
+            $reclamo->vehiculo->alcoholemia_se_nego = $request->alcoholemia_nego == 'on';
             $reclamo->vehiculo->save();
         }
 

@@ -214,7 +214,46 @@
                     @error('licencia_clase') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
+        </div>
 
+        <div class="row mt-3">
+            <div class="col-12 col-md-4">
+                <label>Examen de alcoholemia *</label>
+            </div>
+
+            <div class="col-12 col-md-1">
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="form-check-input" id="checkbox_alcoholemia_si" value="1" name="alcoholemia"
+                        {{ $reclamo->vehiculo && $reclamo->vehiculo->alcoholemia ? 'checked' : '' }}
+                        {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    >
+                    <label class="form-check-label" for="checkbox_alcoholemia_si">Si</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-1">
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="form-check-input" id="checkbox_alcoholemia_no" value="0" name="alcoholemia"
+                        {{ $reclamo->vehiculo && $reclamo->vehiculo->alcoholemia === false ? 'checked' : '' }}
+                        {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    >
+                    <label class="form-check-label" for="checkbox_alcoholemia_no">No</label>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-2">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input"
+                           id="checkbox_alcoholemia_nego"
+                           name="alcoholemia_nego" {{ $reclamo->vehiculo && $reclamo->vehiculo->alcoholemia_se_nego ? 'checked' : '' }}
+                           {{ $reclamo->reclamo_vehicular == false ? 'disabled' : '' }}
+                    >
+                    <label for="checkbox_alcoholemia_nego" class="form-check-label">Se negó</label>
+                </div>
+            </div>
+            <div class="col-12 col-md-8 offset-md-4">
+                @error('alcoholemia') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+            </div>
         </div>
 
         <div class="row">
