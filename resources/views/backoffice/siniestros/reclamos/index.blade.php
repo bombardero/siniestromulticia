@@ -260,10 +260,10 @@
                                             <td>
                                                 @if($reclamo->estado_carga == 'precarga')
                                                     <span>PRECARGA</span>
-                                                @elseif($reclamo->estado_carga == '8')
+                                                @elseif($reclamo->estado_carga == '10')
                                                     <span>COMPLETO</span>
                                                 @else
-                                                    <span>{{ $reclamo->estado_carga.'/8' }}</span>
+                                                    <span>{{ $reclamo->estado_carga.'/10' }}</span>
                                                 @endif</td>
                                             <td>
                                                 {{-- $reclamo->observaciones->count() > 0 ? $reclamo->observaciones()->latest()->first()->detalle : '' --}}

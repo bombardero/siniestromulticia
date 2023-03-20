@@ -12,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Image;
 
-class Paso8 extends Component
+class Paso10 extends Component
 {
     use WithFileUploads;
 
@@ -47,7 +47,7 @@ class Paso8 extends Component
 
     public function render()
     {
-        return view('livewire.siniestro.reclamo.paso8');
+        return view('livewire.siniestro.reclamo.paso10');
     }
 
     public function submit()

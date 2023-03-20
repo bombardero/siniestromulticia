@@ -274,15 +274,21 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::get('paso-7',[ReclamoTerceroController::class,'paso7create'])->name('paso7.create');
     Route::post('paso-7',[ReclamoTerceroController::class,'paso7store'])->name('paso7.store');
 
-    Route::get('paso-7/agregar',[ReclamoTerceroController::class,'paso7testigoCreate'])->name('paso7.testigo.create');
-    Route::post('paso-7/agregar',[ReclamoTerceroController::class,'paso7testigoStore'])->name('paso7.testigo.store');
-    Route::get('paso-7/editar',[ReclamoTerceroController::class,'paso7testigoEdit'])->name('paso7.testigo.edit');
-    Route::post('paso-7/editar',[ReclamoTerceroController::class,'paso7testigoUpdate'])->name('paso7.testigo.update');
-    Route::get('paso-7/delete',[ReclamoTerceroController::class,'paso7testigoDelete'])->name('paso7.testigo.delete');
-
-
     Route::get('paso-8',[ReclamoTerceroController::class,'paso8create'])->name('paso8.create');
     Route::post('paso-8',[ReclamoTerceroController::class,'paso8store'])->name('paso8.store');
+
+    Route::get('paso-9',[ReclamoTerceroController::class,'paso9create'])->name('paso9.create');
+    Route::post('paso-9',[ReclamoTerceroController::class,'paso9store'])->name('paso9.store');
+
+    Route::get('paso-9/agregar',[ReclamoTerceroController::class,'paso9testigoCreate'])->name('paso9.testigo.create');
+    Route::post('paso-9/agregar',[ReclamoTerceroController::class,'paso9testigoStore'])->name('paso9.testigo.store');
+    Route::get('paso-9/editar',[ReclamoTerceroController::class,'paso9testigoEdit'])->name('paso9.testigo.edit');
+    Route::post('paso-9/editar',[ReclamoTerceroController::class,'paso9testigoUpdate'])->name('paso9.testigo.update');
+    Route::get('paso-9/delete',[ReclamoTerceroController::class,'paso9testigoDelete'])->name('paso9.testigo.delete');
+
+
+    Route::get('paso-10',[ReclamoTerceroController::class,'paso10create'])->name('paso10.create');
+    Route::post('paso-10',[ReclamoTerceroController::class,'paso10store'])->name('paso10.store');
 
     Route::post('croquis', [ReclamoTerceroController::class,'storeCroquis'])->name('storeCroquis');
 

@@ -1,4 +1,4 @@
-<form class="" action='{{route("siniestros.terceros.paso7.testigo.store")}}' method="post">
+<form class="" action='{{route("siniestros.terceros.paso9.testigo.store")}}' method="post">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
 
@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 7 </b>de 8 | Testigos</span>
+                <span style="color:#6e4697;font-size: 24px;"><b>Paso 9 </b>de 10 | Testigos</span>
                 <hr style="border:1px solid lightgray;">
             </div>
         </div>
@@ -124,7 +124,7 @@
             <div class="col-12">
                 <a class="mt-3 boton-enviar-siniestro btn"
                    style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-                   href='{{route('siniestros.terceros.paso7.create',['id' => request('id')])}}'>VOLVER</a>
+                   href='{{route('siniestros.terceros.paso9.create',['id' => request('id')])}}'>VOLVER</a>
                 <input type="submit" class="mt-3 boton-enviar-siniestro btn " value='AGREGAR'
                        style="background:#6e4697;font-weight: bold;"/>
             </div>
