@@ -5,34 +5,47 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reclamante extends Model
+class LesionadoReclamo extends Model
 {
     use HasFactory;
+
+    protected $table = "reclamo_lesionados";
 
     protected $fillable = [
         'nombre',
         'telefono',
-        'fecha_nacimiento',
+        'tipo_documento_id',
+        'documento_numero',
+        'codigo_postal',
         'domicilio',
         'codigo_postal',
         'pais_id',
         'province_id',
         'city_id',
         'otro_pais_provincia_localidad',
-        'tipo_documento_id',
-        'documento_numero',
-        'lesiones',
-        'conductor'
+        'fecha_nacimiento',
+        'tipo',
+        'gravedad_lesion',
+        'alcoholemia',
+        'alcoholemia_se_nego',
+        'centro_asistencial'
     ];
 
     protected $casts = [
-        'lesiones' => 'boolean',
-        'conductor' => 'boolean'
+        'alcoholemia' => 'boolean',
+        'alcoholemia_se_nego' => 'boolean',
     ];
+
+    protected $dates = ['fecha_nacimiento'];
 
     public function reclamo()
     {
         return $this->belongsTo(ReclamoTercero::class, 'reclamo_tercero_id');
+    }
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
     }
 
     public function pais()
@@ -48,10 +61,5 @@ class Reclamante extends Model
     public function localidad()
     {
         return $this->belongsTo(City::class, 'city_id');
-    }
-
-    public function tipoDocumento()
-    {
-        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
     }
 }

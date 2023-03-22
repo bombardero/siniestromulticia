@@ -18,6 +18,7 @@ class CreateReclamantesTable extends Migration
             $table->foreignId('reclamo_tercero_id')->constrained('reclamo_terceros');
             $table->string('nombre');
             $table->string('telefono',15);
+            $table->date('fecha_nacimiento');
             $table->string('domicilio');
             $table->string('codigo_postal',8);
             $table->foreignId('pais_id')->nullable()->constrained('paises');

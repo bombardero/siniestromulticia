@@ -268,6 +268,12 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::get('paso-5',[ReclamoTerceroController::class,'paso5create'])->name('paso5.create');
     Route::post('paso-5',[ReclamoTerceroController::class,'paso5store'])->name('paso5.store');
 
+    Route::get('paso-5/agregar',[ReclamoTerceroController::class,'paso5lesionadoCreate'])->name('paso5.lesionado.create');
+    Route::post('paso-5/agregar',[ReclamoTerceroController::class,'paso5lesionadoStore'])->name('paso5.lesionado.store');
+    Route::get('paso-5/editar',[ReclamoTerceroController::class,'paso5lesionadoEdit'])->name('paso5.lesionado.edit');
+    Route::post('paso-5/editar',[ReclamoTerceroController::class,'paso5lesionadoUpdate'])->name('paso5.lesionado.update');
+    Route::get('paso-5/delete',[ReclamoTerceroController::class,'paso5lesionadoDelete'])->name('paso5.lesionado.delete');
+
     Route::get('paso-6',[ReclamoTerceroController::class,'paso6create'])->name('paso6.create');
     Route::post('paso-6',[ReclamoTerceroController::class,'paso6store'])->name('paso6.store');
 
