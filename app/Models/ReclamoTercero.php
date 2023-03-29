@@ -130,6 +130,11 @@ class ReclamoTercero extends Model
         return $this->hasMany(LesionadoReclamo::class, 'reclamo_tercero_id');
     }
 
+    public function daniosMateriales()
+    {
+        return $this->hasMany(DanioMaterialReclamo::class, 'reclamo_tercero_id');
+    }
+
     public function documentos()
     {
         return $this->hasMany(DocumentosReclamo::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\DanioMaterialReclamo;
 use App\Models\DenunciaSiniestro;
 use App\Models\Marca;
 use App\Models\Modelo;
@@ -371,6 +372,21 @@ class ReclamoTerceroController extends Controller
     public function paso5store(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $validator = Validator::make($request->all(),[]);
+
+        $validator->after(function ($validator) use ($request, $reclamo) {
+            if ($reclamo->reclamo_lesiones && ($reclamo->lesionados()->count() == 0 || !$reclamo->reclamante->lesiones) ) {
+                $validator->errors()->add('lesionados', 'Debe agregar al menos un lesionado');
+            }
+        });
+
+        if ($validator->fails())
+        {
+            return redirect()->route('siniestros.terceros.paso5.create',['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         if($reclamo->estado_carga === '4')
         {
             $reclamo->estado_carga = '5';
@@ -433,6 +449,7 @@ class ReclamoTerceroController extends Controller
             'province_id' => $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null,
             'city_id' => $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id,
             'otro_pais_provincia_localidad' => $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null ),
+            'tipo' => $request->tipo,
             'telefono' => $request->telefono,
             'fecha_nacimiento' => $request->fecha_nacimiento,
             'gravedad_lesion' => $request->gravedad_lesion,
@@ -521,18 +538,31 @@ class ReclamoTerceroController extends Controller
     public function paso6create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
-
         $data = [
             'reclamo' => $reclamo,
             'paso' => 6
         ];
-
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
     public function paso6store(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $validator = Validator::make($request->all(),[]);
+
+        $validator->after(function ($validator) use ($request, $reclamo) {
+            if ($reclamo->reclamo_danios_materiales && $reclamo->daniosMateriales()->count() == 0) {
+                $validator->errors()->add('danios_materiales', 'Debe agregar al menos un daño material');
+            }
+        });
+
+        if ($validator->fails())
+        {
+            return redirect()->route('siniestros.terceros.paso6.create',['id'=> $request->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         if($reclamo->estado_carga === '5')
         {
             $reclamo->estado_carga = '6';
@@ -540,6 +570,86 @@ class ReclamoTerceroController extends Controller
         }
 
         return redirect()->route('siniestros.terceros.paso7.create', ['id'=> $request->id]);
+    }
+
+    public function paso6daniomaterialCreate(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $tipos = DanioMaterialReclamo::TIPOS;
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '6-agregar',
+            'tipos' => $tipos
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso6daniomaterialStore(Request $request)
+    {
+        $rules = [
+            'tipo' => 'required_unless:check_otro_tipo,on',
+            'otro_tipo' => 'required_if:check_otro_tipo,on',
+            'check_otro_tipo' => 'nullable',
+            'detalles' => 'required',
+        ];
+        $messages = [
+            'otro_tipo.required_if' => 'El campo tipo es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
+
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
+        $reclamo->daniosMateriales()->create([
+            'tipo' => $request->check_otro_tipo ? $request->otro_tipo : $request->tipo,
+            'detalles' => $request->detalles
+        ]);
+        return redirect()->route("siniestros.terceros.paso6.create",['id'=> $request->id]);
+    }
+
+    public function paso6daniomaterialEdit(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $danioMaterial = $reclamo->daniosMateriales()->where('id',$request->dm)->firstOrFail();
+        $tipos = DanioMaterialReclamo::TIPOS;
+
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '6-editar',
+            'danioMaterial' => $danioMaterial,
+            'tipos' => $tipos,
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso6daniomaterialUpdate(Request $request)
+    {
+        $rules = [
+            'tipo' => 'required_unless:check_otro_tipo,on',
+            'otro_tipo' => 'required_if:check_otro_tipo,on',
+            'check_otro_tipo' => 'nullable',
+            'detalles' => 'required',
+        ];
+        $messages = [
+            'otro_tipo.required_if' => 'El campo tipo es requerido',
+        ];
+        Validator::make($request->all(),$rules,$messages)->validate();
+
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $danioMaterial = $reclamo->daniosMateriales()->where('id',$request->daniomaterial)->firstOrFail();
+
+        $danioMaterial->tipo = $request->check_otro_tipo ? $request->otro_tipo : $request->tipo;
+        $danioMaterial->detalles = $request->detalles;
+        $danioMaterial->save();
+
+        return redirect()->route('siniestros.terceros.paso6.create', ['id'=> $request->id]);
+    }
+
+    public function paso6daniomaterialDelete(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $danio = $reclamo->daniosMateriales()->where('id',$request->dm)->firstOrFail();
+        $danio->delete();
+        return redirect()->route('siniestros.terceros.paso6.create', ['id'=> $request->id]);
     }
 
     public function paso7create(Request $request)

@@ -36,6 +36,12 @@
             </table>
         </div>
 
+        <div class="row mb-2">
+            <div class="col-12">
+                @error('lesionados') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <a href="{{ route('siniestros.terceros.paso5.lesionado.create', ['id' => request('id')] )}}"

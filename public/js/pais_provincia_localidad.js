@@ -1,5 +1,4 @@
-
-    $(document).ready(function () {
+$(document).ready(function () {
     $("#provincias").change(function () {
         provincia_id = $("#provincias").val();
         console.log(provincia_id);
@@ -17,7 +16,7 @@
                 })
             },
             complete: function () {
-                $('#check_otra_localidad').prop("checked",false);
+                $('#check_otra_localidad').prop("checked", false);
                 $('#localidades').removeClass('d-none');
                 $("#localidades").prop('disabled', false);
                 $('#otra_localidad').addClass('d-none');
@@ -27,31 +26,30 @@
     });
 });
 
-    $("#pais").change(function () {
+$("#pais").change(function () {
     let pais = $(this).val();
     //console.log(pais);
-    if(pais == 'otro')
-{
-    $('#div_otro_pais_provincia_localidad').removeClass('d-none')
-    $('#div_provincia').addClass('d-none')
-    $('#div_localidad').addClass('d-none')
-} else {
-    $('#div_otro_pais_provincia_localidad').addClass('d-none')
-    $('#div_provincia').removeClass('d-none')
-    $('#div_localidad').removeClass('d-none')
-}
+    if (pais == 'otro') {
+        $('#div_otro_pais_provincia_localidad').removeClass('d-none')
+        $('#div_provincia').addClass('d-none')
+        $('#div_localidad').addClass('d-none')
+    } else {
+        $('#div_otro_pais_provincia_localidad').addClass('d-none')
+        $('#div_provincia').removeClass('d-none')
+        $('#div_localidad').removeClass('d-none')
+    }
 });
 
-    $("#check_otra_localidad").click(function () {
+$("#check_otra_localidad").click(function () {
     if ($(this).prop("checked")) {
-    $('#localidades').addClass('d-none');
-    $("#localidades").prop('disabled', true);
-    $('#otra_localidad').removeClass('d-none');
-    $("#otra_localidad").prop('disabled', false);
-} else{
-    $('#localidades').removeClass('d-none');
-    $("#localidades").prop('disabled', false);
-    $('#otra_localidad').addClass('d-none');
-    $("#otra_localidad").prop('disabled', true);
-}
+        $('#localidades').addClass('d-none');
+        $("#localidades").prop('disabled', true);
+        $('#otra_localidad').removeClass('d-none');
+        $("#otra_localidad").prop('disabled', false);
+    } else {
+        $('#localidades').removeClass('d-none');
+        $("#localidades").prop('disabled', false);
+        $('#otra_localidad').addClass('d-none');
+        $("#otra_localidad").prop('disabled', true);
+    }
 });
