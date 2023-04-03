@@ -228,7 +228,7 @@
                 </div>
                 <div class="col-12 col-md-6 text-center order-md-3 ">
 
-
+                    {{--
                     <img src="{{url('/images/celu-segumotos-nueva.png')}}"
                          class="text-center img-fluid d-block d-md-none w-100">
                     <p class="pt-5 text-md-left">
@@ -245,6 +245,7 @@
                         <br>
                         <b>ZONA 7: $320 x mes.</b> Corrientes, Chaco, Formosa, Jujuy, Misiones, Salta, Santiago del Estero, Tucumán.
                     </p>
+                    --}}
                     {{--           <a href="https://segumotos.com.ar/">
                                 <button class="mt-5 mb-5 boton-personalizado-seccion-moto">Solicitar Mi Seguro de Moto</button>
                               </a> --}}
