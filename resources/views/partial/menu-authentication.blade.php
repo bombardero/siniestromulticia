@@ -19,7 +19,7 @@
             @elseif(Auth::user()->hasRole('operario'))
                 <a class="dropdown-item" href="{{ route('panel-operario')}}">Panel operario</a>
             @elseif(Auth::user()->hasRole('productor'))
-                <a class="dropdown-item" href="{{ route('panel-productor')}}">Panel productor</a>
+                <a class="dropdown-item" href="{{ route('admin.index')}}">Panel</a>
             @elseif(Auth::user()->hasRole('admin'))
                 <a class="dropdown-item" href="{{ route('panel-admin')}}">Panel administrador</a>
             @elseif(Auth::user()->hasRole('siniestros'))

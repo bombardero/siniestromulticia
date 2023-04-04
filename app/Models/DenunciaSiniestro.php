@@ -109,6 +109,7 @@ class DenunciaSiniestro extends Model
         "nro_denuncia",
         "nro_siniestro",
         "estado",
+        "observacion_estado",
         "link_enviado",
 
         "certificado_cobertura_name",

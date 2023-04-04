@@ -432,8 +432,17 @@
                                                            data-bs-target="#modalObservaciones"
                                                            data-denuncia-id="{{ $denuncia->id }}"
                                                            class="dropdown-item" title="Observaciones">
-                                                            <i class="fa-solid fa-message"></i></i>
+                                                            <i class="fa-solid fa-inbox"></i>
                                                             <span>Observaciones</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                           data-bs-target="#modalEstado"
+                                                           data-denuncia-id="{{ $denuncia->id }}"
+                                                           class="dropdown-item" title="Estado">
+                                                            <i class="fa-solid fa-message"></i></i>
+                                                            <span>Estado</span>
                                                         </a>
                                                     </li>
                                                     <li>
@@ -476,7 +485,7 @@
         </div>
     </section>
 
-    <!-- Modal Observaciones-->
+    <!-- Modal Observaciones -->
     <div class="modal fade" id="modalObservaciones" aria-labelledby="modalObservacionesLabel" tabindex="-1"
          aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -507,8 +516,51 @@
                                       required></textarea>
                         </div>
                         <div class="float-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estado -->
+    <div class="modal fade" id="modalEstado" aria-labelledby="modalEstadoLabel" tabindex="-1"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEstadoLabel">Estado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="formEstadoDenuncia" class="w-100">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select id="modalestado-estado" name="estado" class="form-select form-select-sm">
+                                <option value="ingresado">INGRESADO</option>
+                                <option value="aceptado">ACEPTADO</option>
+                                <option value="rechazado">RECHAZADO</option>
+                                <option value="cerrado">CERRADO</option>
+                                <option value="legales">LEGALES</option>
+                                <option value="investigacion">INVESTIGACIÓN</option>
+                                <option value="derivado-proveedor">DERIVADO A PROVEEDOR</option>
+                                <option value="solicitud-documentacion">SOLICITUD DE DOCUMENTACIÓN</option>
+                                <option value="informe-pericial">INFORME PERICIAL</option>
+                                <option value="pendiente-de-pago">PENDIENTE DE PAGO</option>
+                                <option value="esperando-baja-de-unidad">ESPERANDO BAJA DE UNIDAD</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observacion" class="form-label">Observación</label>
+                            <textarea class="form-control" id="modalestado-observacion"
+                                      name="observacion" rows="3"></textarea>
+                        </div>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
                     </form>
                 </div>
@@ -750,6 +802,37 @@
         })
 
         $("#modalObservaciones form").submit(function (e) {
+            showLoading()
+        });
+
+        $('#modalEstado').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget)
+            let denuncia_id = button.data('denuncia-id')
+            let url = '{{ route('ajax.admin.siniestros.denuncia.estado.index', ['denuncia' =>  ':denuncia_id']) }}'
+            let url_store = '{{ route('admin.siniestros.denuncia.estado.store', ['denuncia' =>  ':denuncia_id']) }}'
+            url = url.replace(':denuncia_id', denuncia_id)
+            url_store = url_store.replace(':denuncia_id', denuncia_id)
+            $(this).find('tbody').append('<tr><td colspan="3" class="text-center"><i class="fas fa-spinner fa-pulse"></i> Cargando</td></tr>')
+            $(this).find('form').attr('action', url_store)
+            $.ajax({
+                url: url,
+                type: 'get',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function (result) {
+                    console.log(result);
+                    $('#modalestado-estado').val(result.estado);
+                    $('#modalestado-observacion').val(result.observacion_estado);
+                },
+                error: function (error) {
+                    console.log(error)
+                    alert('Hubo un error.');
+                }
+            })
+        })
+
+        $("#modalEstado form").submit(function (e) {
             showLoading()
         });
 

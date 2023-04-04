@@ -21,6 +21,7 @@ use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PrecioEstimativoController;
 use App\Http\Controllers\ProductorController;
+use  \App\Http\Controllers\Backoffice\ProductorController as BackofficeProductorController;
 use App\Http\Controllers\SepelioController;
 use App\Http\Controllers\SiniestroController;
 use App\Http\Controllers\SolicitudController;
@@ -276,6 +277,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('denuncia.update.nrosiniestro');
         Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('denuncia.link-enviado');
         Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('denuncia.update-certificado-poliza');
+        Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');
+    });
+
+    Route::group(['middleware' => ['check.productor'], 'prefix' => 'productores', 'as' => 'productores.'], function () {
+
+        Route::get('siniestros/denuncias', [ BackofficeProductorController::class,'denuncias' ])->name('siniestros.denuncias');
+
     });
 
     Route::resource('users', SuperAdminUserController::class)->except('show')->middleware('check.superadmin');
@@ -287,5 +295,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros'], function () {
     Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.admin.siniestros.denuncia.observaciones.index');
     Route::post('denuncias/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('ajax.admin.siniestros.denuncia.enviar-compania');
+
+    Route::get('denuncias/{denuncia}/estado', [DenunciaAseguradoAjaxController::class,'estado'])->name('ajax.admin.siniestros.denuncia.estado.index');
 });
 
