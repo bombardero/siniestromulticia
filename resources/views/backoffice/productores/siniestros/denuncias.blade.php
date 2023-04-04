@@ -64,7 +64,7 @@
                                             @if($denuncia->estado == 'esperando-baja-de-unidad') ESPERANDO BAJA DE UNIDAD @endif
                                         </td>
                                         <td>
-
+                                            {{ $denuncia->observacion_estado }}</td>
                                         </td>
                                         <td>
                                             @if($denuncia->estado_carga == 'precarga')
