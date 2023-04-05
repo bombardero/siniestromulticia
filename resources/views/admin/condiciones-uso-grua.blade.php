@@ -6,7 +6,7 @@
                 <div class="col-12 pt-5">
                     <h1 class="panel-operaciones-title">Hola {{$user->name}}</h1>
                     <a href="{{route('panel-admin')}}" class="pt-3 panel-admin-volver">Volver al panel</a>
-                    <p class="pt-4 panel-admin-table-title">Historial de carga: Anexos pólizas de automotor</p>
+                    <p class="pt-4 panel-admin-table-title">Historial de carga: Condiciones uso de grúa</p>
                     <div class="table-responsive">
                         <table class="table">
 

@@ -109,8 +109,8 @@
                 </div>
                 <div class="row mx-auto">
                     <div class="col-12">
-                        @if($manualSuscripcionAuto)
-                            @include('partial.cards.card-uno-automotor', ['manualSuscripcionAuto' => $manualSuscripcionAuto])
+                        @if($condicionesUsoGrua)
+                            @include('partial.cards.card-uno-automotor', ['condicionesUsoGrua' => $condicionesUsoGrua])
                         @endif
                     </div>
                     <div class="mt-4 col-12">

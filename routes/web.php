@@ -160,6 +160,7 @@ Route::group(['middleware' =>'auth'], function () {
     Route::get('/panel-admin/anexos-polizas-automotor', [AnexosPolizasAutomotorController::class,'index'])->name('anexos-polizas-automotor')->middleware('check.admin');
     Route::get('/panel-admin/manual-suscripcion-automotor', [ManualSuscripcionAutoController::class,'index'])->name('manual-suscripcion-automotor')->middleware('check.admin');
     Route::get('/panel-admin/manual-suscripcion-moto', [ManualSuscripcionMotoController::class,'index'])->name('manual-suscripcion-moto')->middleware('check.admin');
+    Route::get('/panel-admin/condiciones-uso-grua', [DocumentosAnexosController::class,'indexCondicionesUsoGrua'])->name('panel-admin.condiciones-uso-grua')->middleware('check.admin');
     Route::post('/panel-admin/agregardocumento', [DocumentosAnexosController::class,'store'])->name('documentoanexo.store')->middleware('check.admin');
 });
 

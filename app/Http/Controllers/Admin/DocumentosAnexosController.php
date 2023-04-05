@@ -8,6 +8,7 @@ use App\Models\DocumentosAnexos;
 use App\Services\FileUploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class DocumentosAnexosController extends Controller
@@ -20,7 +21,7 @@ class DocumentosAnexosController extends Controller
 
 
   	public function store(StoreDocumentosAdminRequest $request)
-    {   
+    {
         $data = $request->validated();
         $documentType = '';
 
@@ -31,24 +32,21 @@ class DocumentosAnexosController extends Controller
         	$documentType = 'manualsuscripcionauto';
         } elseif($data['tipo'] == 3) {
         	$documentType = 'manualsuscripcionmoto';
-
+        } elseif($data['tipo'] == 4) {
+            $documentType = 'condicionesusogrua';
         }
      	$url = $this->fileUploadService->uploadFile($data['file'],$documentType);
 
-        $dateName = Carbon::now()->isoFormat('DD-MM-Y h:mm:ss');
-    
         DocumentosAnexos::create([
                 'tipo' => $data['tipo'],
                 'url' => $url,
         ]);
         session()->flash('success', 'Documento cargado con éxito.');
         return redirect()->route('panel-admin');
+    }
 
-        // $documents_number = DocumentosAnexos::where('type', $data->tipo)->count();
-        // if(!$documents_number >0){
-        //     $this->validate();
-        // }
-        
-
+    public function indexCondicionesUsoGrua()
+    {
+        return view('admin.condiciones-uso-grua',['user' => Auth::user(),'documentos' => DocumentosAnexos::where('tipo', 4)->orderBy('id', 'DESC')->paginate(15)]);
     }
 }
