@@ -251,8 +251,8 @@
                                 <th scope="col">N° POLIZA</th>
                                 <th scope="col">N° DENUNCIA</th>
                                 <th scope="col">N° SINIESTRO</th>
-                                <th scope="col">ESTADO</th>
                                 <th scope="col">COBERTURA</th>
+                                <th scope="col">ESTADO</th>
                                 <th scope="col">PASO</th>
                                 <th scope="col">ÚLT. OBSERVACIÓN</th>
                                 <th scope="col">LINK</th>
@@ -309,55 +309,6 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <select id="estado" class="form-select form-select-sm"
-                                                    onchange="cambiarEstado(this, {{ $denuncia->id  }})">
-                                                <option
-                                                    value="ingresado" {{( $denuncia->estado == 'ingresado') ? 'selected' : '' }}>
-                                                    INGRESADO
-                                                </option>
-                                                <option
-                                                    value="aceptado" {{( $denuncia->estado == 'aceptado') ? 'selected' : '' }}>
-                                                    ACEPTADO
-                                                </option>
-                                                <option
-                                                    value="rechazado" {{( $denuncia->estado == 'rechazado') ? 'selected' : '' }}>
-                                                    RECHAZADO
-                                                </option>
-                                                <option
-                                                    value="cerrado" {{( $denuncia->estado == 'cerrado') ? 'selected' : '' }}>
-                                                    CERRADO
-                                                </option>
-                                                <option
-                                                    value="legales" {{( $denuncia->estado == 'legales') ? 'selected' : '' }}>
-                                                    LEGALES
-                                                </option>
-                                                <option
-                                                    value="investigacion" {{( $denuncia->estado == 'investigacion') ? 'selected' : '' }}>
-                                                    INVESTIGACIÓN
-                                                </option>
-                                                <option
-                                                    value="derivado-proveedor" {{( $denuncia->estado == 'derivado-proveedor') ? 'selected' : '' }}>
-                                                    DERIVADO A PROVEEDOR
-                                                </option>
-                                                <option
-                                                    value="solicitud-documentacion" {{( $denuncia->estado == 'solicitud-documentacion') ? 'selected' : '' }}>
-                                                    SOLICITUD DE DOCUMENTACIÓN
-                                                </option>
-                                                <option
-                                                    value="informe-pericial" {{( $denuncia->estado == 'informe-pericial') ? 'selected' : '' }}>
-                                                    INFORME PERICIAL
-                                                </option>
-                                                <option
-                                                    value="pendiente-de-pago" {{( $denuncia->estado == 'pendiente-de-pago') ? 'selected' : '' }}>
-                                                    PENDIENTE DE PAGO
-                                                </option>
-                                                <option
-                                                    value="esperando-baja-de-unidad" {{( $denuncia->estado == 'esperando-baja-de-unidad') ? 'selected' : '' }}>
-                                                    ESPERANDO BAJA DE UNIDAD
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
                                             <select id="cobertura_activa" class="form-select form-select-sm"
                                                     onchange="cambiarCoberturaActiva(this,{{ $denuncia->id  }})">
                                                 <option
@@ -377,6 +328,19 @@
                                                     RC con Casco
                                                 </option>
                                             </select>
+                                        </td>
+                                        <td>
+                                            @if($denuncia->estado == 'ingresado') INGRESADO @endif
+                                            @if($denuncia->estado == 'aceptado') ACEPTADO @endif
+                                            @if($denuncia->estado == 'rechazado') RECHAZADO @endif
+                                            @if($denuncia->estado == 'cerrado') CERRADO @endif
+                                            @if($denuncia->estado == 'legales') LEGALES @endif
+                                            @if($denuncia->estado == 'investigacion') INVESTIGACIÓN @endif
+                                            @if($denuncia->estado == 'derivado-proveedor') DERIVADO A PROVEEDOR @endif
+                                            @if($denuncia->estado == 'solicitud-documentacion') SOLICITUD DE DOCUMENTACIÓN @endif
+                                            @if($denuncia->estado == 'informe-pericial') INFORME PERICIAL @endif
+                                            @if($denuncia->estado == 'pendiente-de-pago') PENDIENTE DE PAGO @endif
+                                            @if($denuncia->estado == 'esperando-baja-de-unidad') ESPERANDO BAJA DE UNIDAD @endif
                                         </td>
                                         <td>
                                             @if($denuncia->estado_carga == 'precarga')
@@ -704,31 +668,6 @@
                 })
 
         })
-
-        function cambiarEstado(estado, denuncia_siniestro_id) {
-            let url = '{{ route('admin.siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-            url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
-            showLoading();
-            $.ajax(
-                {
-                    url: url,
-                    type: 'post',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "estado": estado.value
-                    },
-                    success: function (result) {
-                        //console.log(result);
-                    },
-                    error: function (error) {
-                        //console.log(error);
-                        alert('Hubo un error.');
-                    },
-                    complete: function (jqXHR, textStatus) {
-                        hideLoading();
-                    }
-                })
-        }
 
         function cambiarCoberturaActiva(cobertura, denuncia_siniestro_id) {
             let url = '{{ route('admin.siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
