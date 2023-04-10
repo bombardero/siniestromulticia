@@ -56,11 +56,11 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
-            'telefono' => 'required',
-            'cuit' => 'required|unique:users',
-            'codigo_postal' => 'required',
-            'province_id' => 'required|exists:provinces,id',
-            'city_id' => 'required|exists:cities,id',
+            'telefono' => 'nullable',
+            'cuit' => 'nullable|unique:users',
+            'codigo_postal' => 'nullable',
+            'province_id' => 'nullable|exists:provinces,id',
+            'city_id' => 'nullable|exists:cities,id',
             'roles' => 'required|array',
             'role.*' => 'required|exists:roles,name',
         ];
@@ -73,8 +73,8 @@ class UserController extends Controller
             'telefono' => $request->telefono,
             'cuit' => $request->cuit,
             'codigo_postal' => $request->codigo_postal,
-            'province_id' => $request->province_id,
-            'city_id' => $request->city_id,
+            'province_id' => $request->province_id ? $request->province_id : null,
+            'city_id' => $request->city_id ? $request->city_id : null,
         ]);
 
         foreach ($request->roles as $role)

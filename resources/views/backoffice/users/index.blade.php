@@ -1,14 +1,11 @@
 @extends('layouts.super-admin')
 @section('content')
     <section class="container-fluid">
-        <div class="row">
-            <div class="col-12 mt-5">
-                <h2>
-                    Usuarios
-                    @if(auth()->user()->hasRole('superadmin'))
-                        <a class="btn btn-primary float-end" href="{{ route('admin.users.create') }}" role="button">Nuevo Usuario</a>
-                    @endif
-                </h2>
+        <div class="row mt-3 mb-2">
+            <div class="col-12">
+                @if(auth()->user()->hasRole('superadmin'))
+                    <a class="btn btn-primary float-end" href="{{ route('admin.users.create') }}" role="button">Nuevo Usuario</a>
+                @endif
             </div>
         </div>
         <div class="row">
