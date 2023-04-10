@@ -3,7 +3,7 @@
     <section class="container-fluid">
         <div class="row">
             <div class="col-12 mt-5 pb-5">
-                <form action="{{ route('admin.productores.siniestros.denuncias') }}" method="get" class="container-fluid" id="buscador">
+                <form action="{{ route('admin.productores.siniestros.denuncias.index') }}" method="get" class="container-fluid" id="buscador">
                     <div class="row mb-3">
                         <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
                             <div class="input-group">
@@ -86,26 +86,32 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
-                                                           class="dropdown-item" title="Editar" target="_blank">
-                                                            <i class="fa-solid fa-link"></i><span>Link</span>
+                                                        <a href="{{ route('admin.productores.siniestros.denuncias.show', ['denuncia' => $denuncia]) }}"
+                                                           class="dropdown-item" title="Ver">
+                                                            <i class="fa-solid fa-file-lines"></i><span>Ver</span>
                                                         </a>
                                                     </li>
                                                     @if($denuncia->estado_carga == '12')
+                                                        <li>
+                                                            <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
+                                                               class="dropdown-item" title="Editar" target="_blank">
+                                                                <i class="fa-solid fa-link"></i><span>Link</span>
+                                                            </a>
+                                                        </li>
                                                         <li>
                                                             <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
                                                                class="dropdown-item" title="Descargar" target="_blank">
                                                                 <i class="fa-solid fa-file-pdf"></i><span>Descargar Denuncia</span>
                                                             </a>
                                                         </li>
-                                                        @if($denuncia->certificado_cobertura_url)
-                                                            <li>
-                                                                <a href="{{ $denuncia->certificado_cobertura_url }}"
-                                                                   class="dropdown-item" title="Descargar" target="_blank">
-                                                                    <i class="fa-solid fa-file-pdf"></i><span>Certificado de Cobertura</span>
-                                                                </a>
-                                                            </li>
-                                                        @endif
+                                                    @endif
+                                                    @if($denuncia->certificado_cobertura_url)
+                                                        <li>
+                                                            <a href="{{ $denuncia->certificado_cobertura_url }}"
+                                                               class="dropdown-item" title="Descargar" target="_blank">
+                                                                <i class="fa-solid fa-file-pdf"></i><span>Certificado de Cobertura</span>
+                                                            </a>
+                                                        </li>
                                                     @endif
                                                 </ul>
                                             </div>

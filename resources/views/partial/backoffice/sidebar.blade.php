@@ -20,7 +20,7 @@
                 @endif
                 @if(auth()->user()->hasRole('productor'))
                     <li>
-                        <a href="{{ route('admin.productores.siniestros.denuncias') }}" class="nav-link text-white {{ str_contains(Route::currentRouteName(),'admin.productores.siniestros.denuncias') ? 'active' : '' }}">
+                        <a href="{{ route('admin.productores.siniestros.denuncias.index') }}" class="nav-link text-white {{ str_contains(Route::currentRouteName(),'admin.productores.siniestros.denuncias') ? 'active' : '' }}">
                             Siniestros
                         </a>
                     </li>

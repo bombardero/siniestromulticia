@@ -281,9 +281,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     });
 
     Route::group(['middleware' => ['check.productor'], 'prefix' => 'productores', 'as' => 'productores.'], function () {
-
-        Route::get('siniestros/denuncias', [ BackofficeProductorController::class,'denuncias' ])->name('siniestros.denuncias');
-
+        Route::get('siniestros/denuncias', [ BackofficeProductorController::class,'index' ])->name('siniestros.denuncias.index');
+        Route::get('siniestros/denuncias/{denuncia}', [ BackofficeProductorController::class,'show' ])->name('siniestros.denuncias.show');
     });
 
     Route::resource('users', SuperAdminUserController::class)->except('show')->middleware('check.superadmin');

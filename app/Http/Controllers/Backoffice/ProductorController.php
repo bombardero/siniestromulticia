@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductorController extends Controller
 {
-    public function denuncias(Request $request)
+    public function index(Request $request)
     {
         if($request->tipo == 'id' && $request->busqueda)
         {
@@ -18,6 +18,11 @@ class ProductorController extends Controller
         } else {
             $denuncia = null;
         }
-        return view('backoffice.productores.siniestros.denuncias', ['denuncia' => $denuncia]);
+        return view('backoffice.productores.siniestros.denuncias.index', ['denuncia' => $denuncia]);
+    }
+
+    public function show(Request $request, DenunciaSiniestro $denuncia)
+    {
+        return view('backoffice.productores.siniestros.denuncias.show', ['denuncia' => $denuncia]);
     }
 }
