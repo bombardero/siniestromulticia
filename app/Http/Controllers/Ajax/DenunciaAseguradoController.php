@@ -49,7 +49,12 @@ class DenunciaAseguradoController extends Controller
 
     public function estado(DenunciaSiniestro $denuncia)
     {
-        return response()->json(['status' => true, 'estado' => $denuncia->estado, 'observacion_estado' => $denuncia->observacion_estado]);
+        return response()->json([
+            'status' => true,
+            'estado' => $denuncia->estado,
+            'observacion' => $denuncia->estado_observacion,
+            'fecha' => $denuncia->estado_fecha->toDateString()
+        ]);
     }
 
 }

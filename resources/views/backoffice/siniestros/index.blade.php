@@ -522,6 +522,10 @@
                             <textarea class="form-control" id="modalestado-observacion"
                                       name="observacion" rows="3"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="observacion" class="form-label">Modificado el</label>
+                            <input type="date" class="form-control" id="modalestado-fecha" readonly/>
+                        </div>
                         <div class="float-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -760,19 +764,18 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function (result) {
-                    console.log(result);
                     $('#modalestado-estado').val(result.estado);
-                    $('#modalestado-observacion').val(result.observacion_estado);
+                    $('#modalestado-observacion').val(result.observacion);
+                    $('#modalestado-fecha').val(result.fecha);
                 },
                 error: function (error) {
-                    console.log(error)
                     alert('Hubo un error.');
                 }
             })
         })
 
         $("#modalEstado form").submit(function (e) {
-            showLoading()
+            showLoading();
         });
 
         $('#modalEnviarACompania').on('show.bs.modal', function (event) {

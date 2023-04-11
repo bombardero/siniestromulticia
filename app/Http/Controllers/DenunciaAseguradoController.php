@@ -1523,7 +1523,8 @@ class DenunciaAseguradoController extends Controller
         ])->validate();
 
         $denuncia->estado = $request->estado;
-        $denuncia->observacion_estado = $request->observacion;
+        $denuncia->estado_observacion = $request->observacion;
+        $denuncia->estado_fecha = Carbon::now()->toDateString();
         $denuncia->save();
 
         return back();

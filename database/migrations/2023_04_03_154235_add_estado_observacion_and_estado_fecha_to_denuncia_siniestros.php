@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddObservacionEstadoToDenunciaSiniestros extends Migration
+class AddEstadoObservacionAndEstadoFechaToDenunciaSiniestros extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddObservacionEstadoToDenunciaSiniestros extends Migration
     public function up()
     {
         Schema::table('denuncia_siniestros', function (Blueprint $table) {
-            $table->string('observacion_estado')->nullable()->after('estado');
+            $table->string('estado_observacion')->nullable()->after('estado');
+            $table->date('estado_fecha')->nullable()->after('estado_observacion');
         });
     }
 
@@ -26,7 +27,8 @@ class AddObservacionEstadoToDenunciaSiniestros extends Migration
     public function down()
     {
         Schema::table('denuncia_siniestros', function (Blueprint $table) {
-            $table->dropColumn('observacion_estado');
+            $table->dropColumn('estado_observacion');
+            $table->dropColumn('estado_fecha');
         });
     }
 }

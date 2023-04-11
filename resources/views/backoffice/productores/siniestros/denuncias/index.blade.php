@@ -64,8 +64,8 @@
                                             @if($denuncia->estado == 'esperando-baja-de-unidad') ESPERANDO BAJA DE UNIDAD @endif
                                         </td>
                                         <td>
-                                            {{ $denuncia->observacion_estado }}</td>
-                                        </td>
+                                            {{ $denuncia->estado_observacion != null ? $denuncia->estado_observacion : 'Sin observación.' }}
+                                            {{ $denuncia->estado_fecha ? '[Actualizado el '.$denuncia->estado_fecha->format('d/m/y').']' : '' }}</td>
                                         <td>
                                             @if($denuncia->estado_carga == 'precarga')
                                                 <span>PRECARGA</span>
@@ -113,6 +113,7 @@
                                                             </a>
                                                         </li>
                                                     @endif
+
                                                 </ul>
                                             </div>
                                         </td>

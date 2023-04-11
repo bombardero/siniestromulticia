@@ -109,7 +109,8 @@ class DenunciaSiniestro extends Model
         "nro_denuncia",
         "nro_siniestro",
         "estado",
-        "observacion_estado",
+        "estado_observacion",
+        "estado_fecha",
         "link_enviado",
 
         "certificado_cobertura_name",
@@ -160,7 +161,7 @@ class DenunciaSiniestro extends Model
         'finalized_at' => 'datetime'
     ];
 
-    protected $dates = ['fecha'];
+    protected $dates = ['fecha','estado_fecha'];
 
     public function pais()
     {
