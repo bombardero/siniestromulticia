@@ -19,10 +19,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(15);
-        return view('backoffice.users.index', ["users" => $users]);
+        $roles = Role::all();
+        if($request->rol)
+        {
+            $users = User::role($request->rol)->paginate(15);
+        } else
+        {
+            $users = User::paginate(15);
+        }
+        return view('backoffice.users.index', ['users' => $users, 'roles' => $roles]);
     }
 
     /**

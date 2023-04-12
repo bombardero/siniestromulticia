@@ -2,7 +2,28 @@
 @section('content')
     <section class="container-fluid">
         <div class="row mt-3 mb-2">
-            <div class="col-12">
+            <div class="col col-md-8">
+                <form action="{{ route('admin.users.index') }}" method="get" class="row" id="buscador">
+                    <div class="col col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="floatingSelect" name="rol"
+                                        onchange="buscar()">
+                                    <option value="todos">Todos</option>
+                                    @foreach($roles as $rol)
+                                        <option value="{{ $rol->name }}"
+                                                {{ request()->rol && request()->rol == $rol->name ? 'selected' : ''}}
+                                        >{{ $rol->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="floatingSelect">Rol</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col col-md-4">
                 @if(auth()->user()->hasRole('superadmin'))
                     <a class="btn btn-primary float-end" href="{{ route('admin.users.create') }}" role="button">Nuevo Usuario</a>
                 @endif
@@ -62,8 +83,17 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $users->links('vendor.pagination.bootstrap-4') }}
+                {{ $users->withQueryString()->links('vendor.pagination.bootstrap-4') }}
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+<script>
+    function buscar()
+    {
+        document.getElementById("buscador").submit();
+    }
+</script>
 @endsection
