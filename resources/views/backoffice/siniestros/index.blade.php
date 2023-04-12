@@ -766,7 +766,10 @@
                 success: function (result) {
                     $('#modalestado-estado').val(result.estado);
                     $('#modalestado-observacion').val(result.observacion);
-                    $('#modalestado-fecha').val(result.fecha);
+                    if(result.fecha)
+                    {
+                        $('#modalestado-fecha').val(result.fecha);
+                    }
                 },
                 error: function (error) {
                     alert('Hubo un error.');

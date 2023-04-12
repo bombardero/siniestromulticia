@@ -53,7 +53,7 @@ class DenunciaAseguradoController extends Controller
             'status' => true,
             'estado' => $denuncia->estado,
             'observacion' => $denuncia->estado_observacion,
-            'fecha' => $denuncia->estado_fecha->toDateString()
+            'fecha' => $denuncia->estado_fecha ? $denuncia->estado_fecha->toDateString() : null
         ]);
     }
 
