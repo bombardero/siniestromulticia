@@ -15,6 +15,7 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('province_id')->nullable()->change();
+            $table->softDeletes()->after('updated_at');
         });
     }
 
