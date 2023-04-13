@@ -57,7 +57,7 @@ class LoginController extends Controller
         }
         elseif(Auth::user()->hasRole('productor'))
         {
-           return route('panel-productor',Auth::user());
+           return route('admin.index');
         }
         elseif(Auth::user()->hasRole('admin'))
         {

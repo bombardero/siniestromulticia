@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Events\EstadoSolicitudCambio;
-use App\Http\Livewire\RechazoLivewire;
 use App\Models\Rechazo;
 use App\Models\Solicitud;
 use Livewire\Component;
@@ -45,12 +44,12 @@ class RechazoLivewire extends Component
             'status' => 'Rechazada'
         ]);
         EstadoSolicitudCambio::dispatch($solicitud);
-      	
+
         session()->flash('message', 'Cambios guardados');
 
         return redirect()->route('panel-operario');
 
-       
+
 	}
     public function render()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Siniestro;
 
 use App\Mail\MailAsegurado;
 use App\Mail\MailAseguradoCompania;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use App\Models\DenunciaSiniestro;
@@ -92,7 +93,8 @@ class FormAsegurados extends Component
             "responsable_contacto_nombre" => $this->responsable_contacto,
             "responsable_contacto_domicilio" => $this->domicilio,
             "responsable_contacto_telefono" => '549'.$this->telefono,
-            "responsable_contacto_email" => $this->email
+            "responsable_contacto_email" => $this->email,
+            'estado_fecha' => Carbon::now()->toDateString()
         ]);
 
         //cliente

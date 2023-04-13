@@ -5,7 +5,6 @@
             <div class="row">
                 <div class="col-12 pt-5">
                     <div class="container">
-
                         <div class="row">
                             <div class="card card-show-denuncia col-12 px-0 mb-5">
                                 <div class="card-header container">

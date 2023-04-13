@@ -109,6 +109,8 @@ class DenunciaSiniestro extends Model
         "nro_denuncia",
         "nro_siniestro",
         "estado",
+        "estado_observacion",
+        "estado_fecha",
         "link_enviado",
 
         "certificado_cobertura_name",
@@ -159,7 +161,7 @@ class DenunciaSiniestro extends Model
         'finalized_at' => 'datetime'
     ];
 
-    protected $dates = ['fecha'];
+    protected $dates = ['fecha','estado_fecha'];
 
     public function pais()
     {
@@ -238,7 +240,7 @@ class DenunciaSiniestro extends Model
 
     public function canEdit()
     {
-        return Auth::check() || $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12);
+        return Auth::user()->hasRole('siniestros') || $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12);
     }
 
     public function storeCertificadoCobertura(string $url_cerificado)

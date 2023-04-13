@@ -5,9 +5,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="card mt-5 mb-1 bg-gray-light">
+                    <div class="card mt-5 mb-3 bg-gray-light">
                         <div class="card-body row">
                             <div class="col-md-6 mx-auto">
+                                {{--
                                 <a href="{{url('login/facebook'. '?state='.request()->get('state'))}}"
                                    class="text-left w-100 btn ingresar-redes-sociales-boton disabled">
                                     <img class="img-fluid pr-2" src="{{url('/images/mobile/facebook 1.svg')}}">
@@ -18,6 +19,7 @@
                                     <img class="img-fluid pr-2"src="{{url('/images/mobile/google-plus 1.svg')}}">
                                     Continuar con Google (Próximamente)
                                 </a>
+                                --}}
                                 <form method="POST" action="{{ route('login') }}" class="mt-3">
                                     @csrf
 
@@ -51,12 +53,9 @@
                                             </label>
                                         </div>
                                     </div>
-
                                     <div class="pt-3 text-center">
                                         @livewire('boton-azul',['name' => 'Iniciar Sesion', 'url' => '/'])
                                     </div>
-
-
                                 </form>
                                 @if (Route::has('password.request'))
                                     <p class="text-center">
@@ -66,6 +65,7 @@
                             </div>
                         </div>
                     </div>
+                    {{--
                     @if(request()->get('state') === 'productor')
                         <p class="registrarme text-center">No tengo una cuenta.
                             <u>
@@ -90,9 +90,9 @@
                             </u>
                         </p>
                     @endif
+                    --}}
                 </div>
             </div>
         </div>
-
     </section>
 @endsection

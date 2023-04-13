@@ -1516,6 +1516,20 @@ class DenunciaAseguradoController extends Controller
         return $denuncias;
     }
 
+    public function estadoStore(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'estado' => ['required',Rule::in(DenunciaSiniestro::ESTADOS)]
+        ])->validate();
+
+        $denuncia->estado = $request->estado;
+        $denuncia->estado_observacion = $request->observacion;
+        $denuncia->estado_fecha = Carbon::now()->toDateString();
+        $denuncia->save();
+
+        return back();
+    }
+
 
 
 }

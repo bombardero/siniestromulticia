@@ -19,10 +19,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(15);
-        return view('backoffice.users.index', ["users" => $users]);
+        $roles = Role::all();
+        if($request->rol)
+        {
+            $users = User::role($request->rol)->paginate(15);
+        } else
+        {
+            $users = User::paginate(15);
+        }
+        return view('backoffice.users.index', ['users' => $users, 'roles' => $roles]);
     }
 
     /**
@@ -56,11 +63,11 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
-            'telefono' => 'required',
-            'cuit' => 'required|unique:users',
-            'codigo_postal' => 'required',
-            'province_id' => 'required|exists:provinces,id',
-            'city_id' => 'required|exists:cities,id',
+            'telefono' => 'nullable',
+            'cuit' => 'nullable|unique:users',
+            'codigo_postal' => 'nullable',
+            'province_id' => 'nullable|exists:provinces,id',
+            'city_id' => 'nullable|exists:cities,id',
             'roles' => 'required|array',
             'role.*' => 'required|exists:roles,name',
         ];
@@ -73,8 +80,8 @@ class UserController extends Controller
             'telefono' => $request->telefono,
             'cuit' => $request->cuit,
             'codigo_postal' => $request->codigo_postal,
-            'province_id' => $request->province_id,
-            'city_id' => $request->city_id,
+            'province_id' => $request->province_id ? $request->province_id : null,
+            'city_id' => $request->city_id ? $request->city_id : null,
         ]);
 
         foreach ($request->roles as $role)
@@ -106,7 +113,7 @@ class UserController extends Controller
     {
         $provincias = Province::all();
         $province_id = old('province_id') ? old('province_id') : $user->province_id;
-        $localidades = City::where('province_id', $province_id)->orderBy('name')->get();
+        $localidades = $user->city_id ? City::where('province_id', $province_id)->orderBy('name')->get() : collect();
         $roles = Role::all();
 
         return view('backoffice.users.edit', [
@@ -130,11 +137,11 @@ class UserController extends Controller
             'name' => 'required',
             'email' => ['required',Rule::unique('users')->ignore($user)],
             'password' => 'nullable',
-            'telefono' => 'required',
-            'cuit' => ['required',Rule::unique('users')->ignore($user)],
-            'codigo_postal' => 'required',
-            'province_id' => 'required|exists:provinces,id',
-            'city_id' => 'required|exists:cities,id',
+            'telefono' => 'nullable',
+            'cuit' => ['nullable',Rule::unique('users')->ignore($user)],
+            'codigo_postal' => 'nullable',
+            'province_id' => 'nullable|exists:provinces,id',
+            'city_id' => 'nullable|exists:cities,id',
             'roles' => 'required|array',
             'role.*' => 'required|exists:roles,name',
         ];
@@ -166,7 +173,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->back();
     }
 
     public function permisosShow(User $user)
