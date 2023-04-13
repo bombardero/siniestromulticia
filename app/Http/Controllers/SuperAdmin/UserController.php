@@ -113,7 +113,7 @@ class UserController extends Controller
     {
         $provincias = Province::all();
         $province_id = old('province_id') ? old('province_id') : $user->province_id;
-        $localidades = City::where('province_id', $province_id)->orderBy('name')->get();
+        $localidades = $user->city_id ? City::where('province_id', $province_id)->orderBy('name')->get() : collect();
         $roles = Role::all();
 
         return view('backoffice.users.edit', [
@@ -137,11 +137,11 @@ class UserController extends Controller
             'name' => 'required',
             'email' => ['required',Rule::unique('users')->ignore($user)],
             'password' => 'nullable',
-            'telefono' => 'required',
-            'cuit' => ['required',Rule::unique('users')->ignore($user)],
-            'codigo_postal' => 'required',
-            'province_id' => 'required|exists:provinces,id',
-            'city_id' => 'required|exists:cities,id',
+            'telefono' => 'nullable',
+            'cuit' => ['nullable',Rule::unique('users')->ignore($user)],
+            'codigo_postal' => 'nullable',
+            'province_id' => 'nullable|exists:provinces,id',
+            'city_id' => 'nullable|exists:cities,id',
             'roles' => 'required|array',
             'role.*' => 'required|exists:roles,name',
         ];
@@ -173,7 +173,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->back();
     }
 
     public function permisosShow(User $user)

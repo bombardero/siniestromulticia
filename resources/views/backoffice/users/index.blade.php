@@ -70,10 +70,16 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{route('admin.users.destroy',$user->id)}}"
-                                                   class="dropdown-item disabled" title="Ver">
-                                                    <i class="fa-solid fa-file-lines"></i><span>Borrar</span>
+                                                <a href="{{ route('admin.users.destroy',$user->id) }}"
+                                                   class="dropdown-item btn-eliminar" title="Borrar"
+                                                   onclick="event.preventDefault();document.getElementById('form-borrar').submit();"
+                                                >
+                                                    <i class="fa-solid fa-file-lines text-danger"></i><span>Borrar</span>
                                                 </a>
+                                                <form id="form-borrar" action="{{ route('admin.users.destroy',$user->id) }}" method="POST" class="d-none">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
                                             </li>
                                         </ul>
                                     </div>
@@ -95,5 +101,14 @@
     {
         document.getElementById("buscador").submit();
     }
+
+    $('.btn-eliminar').click(function (event) {
+        let result = confirm('¿Confirma desea eliminar la denuncia?');
+        if (!result) {
+            event.preventDefault();
+            return false;
+        }
+        showLoading();
+    })
 </script>
 @endsection
