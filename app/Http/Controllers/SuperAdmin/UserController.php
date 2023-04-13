@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $roles = Role::all();
-        if($request->rol)
+        if($request->rol && $request->rol != 'todos')
         {
             $users = User::role($request->rol)->paginate(15);
         } else
