@@ -240,7 +240,7 @@ class DenunciaSiniestro extends Model
 
     public function canEdit()
     {
-        return Auth::user()->hasRole('siniestros') || $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12);
+        return $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12) || (Auth::user() && Auth::user()->hasRole('siniestros')) ;
     }
 
     public function storeCertificadoCobertura(string $url_cerificado)
