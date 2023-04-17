@@ -105,6 +105,7 @@ class ReclamoTerceroController extends Controller
             'otro_pais_provincia_localidad' => 'required_if:pais,otro',
             'otra_localidad'=>'required_with:check_otra_localidad',
             'telefono' => 'required',
+            'fecha_nacimiento' => 'required',
             'conductor' => 'required_if:reclamo_lesiones,1',
             'lesiones' => 'required_if:reclamo_lesiones,1'
         ];
@@ -131,6 +132,7 @@ class ReclamoTerceroController extends Controller
                 'city_id' => $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id,
                 'otro_pais_provincia_localidad' => $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null ),
                 'telefono' => $request->telefono,
+                'fecha_nacimiento' => $request->fecha_nacimiento,
                 'conductor' => $reclamo->reclamo_vehicular ? $request->conductor : false,
                 'lesiones' => $reclamo->reclamo_lesiones ? $request->lesiones : false
             ]);
@@ -145,6 +147,7 @@ class ReclamoTerceroController extends Controller
             $reclamo->reclamante->city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
             $reclamo->reclamante->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
             $reclamo->reclamante->telefono = $request->telefono;
+            $reclamo->reclamante->fecha_nacimiento = $request->fecha_nacimiento;
             $reclamo->reclamante->conductor = $reclamo->reclamo_vehicular ? $request->conductor : false;
             $reclamo->reclamante->lesiones = $reclamo->reclamo_lesiones ? $request->lesiones : false;
             $reclamo->reclamante->save();

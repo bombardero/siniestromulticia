@@ -8,12 +8,12 @@
 
         <div class="row">
 
-            <div class="col-12 ">
+            <div class="col-12 mb-3">
                 <span style="color:#6e4697;font-size: 24px;"><b>Paso 2 </b>de 8 | Datos del Reclamante</span>
                 <hr style="border:1px solid lightgray;">
             </div>
 
-            <div class="col-12 mt-3">
+            <div class="col-12 col-md-8">
                 <div class="form-group">
                     <label for="nombre">Nombre y Apellido</label>
                     <input type="text" name="nombre" placeholder="Nombre completo"
@@ -21,6 +21,16 @@
                            value="{{ $reclamo->reclamante ? $reclamo->reclamante->nombre : '' }}"
                     >
                     @error('nombre') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono"
+                           class="form-control @error('telefono') is-invalid @enderror"
+                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}">
+                    @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -49,11 +59,12 @@
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" id="telefono" name="telefono"
-                               class="form-control @error('telefono') is-invalid @enderror"
-                           value="{{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}">
-                    @error('telefono') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                    <label for="lesionado_fecha_nacimiento">Fecha de Nacimiento</label>
+                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
+                           class="form-control @error('fecha_nacimiento') is-invalid @enderror"
+                           value="{{ old('fecha_nacimiento') ? old('fecha_nacimiento') : ($reclamo->reclamante ? $reclamo->reclamante->fecha_nacimiento : '') }}"
+                    >
+                    @error('fecha_nacimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 
