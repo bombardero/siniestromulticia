@@ -334,16 +334,16 @@ class ReclamoTerceroController extends Controller
 
         if($reclamo->reclamo_vehicular)
         {
-            $reclamo->vehiculo->conductor_nombre = $request->conductor == '0' ? $request->nombre : null;
-            $reclamo->vehiculo->conductor_telefono = $request->conductor == '0' ? $request->telefono : null;
-            $reclamo->vehiculo->conductor_tipo_documento_id = $request->conductor == '0' ? $request->tipo_documento_id : null;
-            $reclamo->vehiculo->conductor_documento_numero = $request->conductor == '0' ? $request->documento_numero : null;
-            $reclamo->vehiculo->conductor_domicilio = $request->conductor == '0' ? $request->domicilio : null;
-            $reclamo->vehiculo->conductor_codigo_postal = $request->conductor == '0' ? $request->codigo_postal : null;
-            $reclamo->vehiculo->conductor_pais_id = $request->conductor == '0' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null) : null;
-            $reclamo->vehiculo->conductor_province_id = $request->conductor == '0' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null) : null;
-            $reclamo->vehiculo->conductor_city_id = $request->conductor == '0' ? ($request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id) : null;
-            $reclamo->vehiculo->conductor_otro_pais_provincia_localidad = $request->conductor == '0' ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )) : null;
+            $reclamo->vehiculo->conductor_nombre = $request->conductor == '1' ? $request->nombre : null;
+            $reclamo->vehiculo->conductor_telefono = $request->conductor == '1' ? $request->telefono : null;
+            $reclamo->vehiculo->conductor_tipo_documento_id = $request->conductor == '1' ? $request->tipo_documento_id : null;
+            $reclamo->vehiculo->conductor_documento_numero = $request->conductor == '1' ? $request->documento_numero : null;
+            $reclamo->vehiculo->conductor_domicilio = $request->conductor == '1' ? $request->domicilio : null;
+            $reclamo->vehiculo->conductor_codigo_postal = $request->conductor == '1' ? $request->codigo_postal : null;
+            $reclamo->vehiculo->conductor_pais_id = $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null) : null;
+            $reclamo->vehiculo->conductor_province_id = $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null) : null;
+            $reclamo->vehiculo->conductor_city_id = $request->conductor == '1' ? ($request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id) : null;
+            $reclamo->vehiculo->conductor_otro_pais_provincia_localidad = $request->conductor == '1' ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )) : null;
             $reclamo->vehiculo->licencia_numero = $request->licencia_numero;
             $reclamo->vehiculo->licencia_clase = $request->licencia_clase;
             $reclamo->vehiculo->alcoholemia = $request->alcoholemia;
