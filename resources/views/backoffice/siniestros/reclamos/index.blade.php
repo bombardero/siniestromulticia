@@ -271,7 +271,7 @@
                                             <td>
                                                 <a target="_blank" class="btn-link"
                                                    href="https://api.whatsapp.com/send?phone={{ $reclamo->responsable_contacto_telefono}}&text=Inicia tu reclamo ingresando a este link: {{ route('siniestros.terceros.paso1.create',['id' => $reclamo->identificador])}}"
-                                                   style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-denuncia-id="{{ $reclamo->id }}"
+                                                   style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-reclamo-id="{{ $reclamo->id }}"
                                                    data-placement="top" title="Enviar link">
                                                     <i class="fa-solid fa-link {{ $reclamo->link_enviado ? 'text-success' : '' }}"></i>
                                                 </a>
@@ -403,8 +403,8 @@
     $('.btn-link').click(function (event) {
         event.preventDefault();
         let btn_link = $(this);
-        let url = '{{ route('admin.siniestros.denuncia.link-enviado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-        url = url.replace(':denuncia_siniestro_id', btn_link.data('denuncia-id'));
+        let url = '{{ route('ajax.admin.siniestros.reclamos.link-enviado', ['reclamo' =>  ":reclamo_tercero_id"]) }}';
+        url = url.replace(':reclamo_tercero_id', btn_link.data('reclamo-id'));
         let link = btn_link.attr('href');
 
         $.ajax(

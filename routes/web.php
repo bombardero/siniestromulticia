@@ -15,6 +15,7 @@ use App\Http\Controllers\ReclamoTerceroController;
 use App\Http\Controllers\Siniestros\ReclamoTerceroController as SiniestroReclamoTerceroController;
 use App\Http\Controllers\DenunciaSiniestro\DenunciaSiniestroAseguradoController;
 use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
+use App\Http\Controllers\Ajax\ReclamoTerceroController as ReclamoTerceroAjaxController;
 use App\Http\Controllers\FormularioProductorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InmobiliariaController;
@@ -349,8 +350,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 });
 
 // Ajax
-Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros'], function () {
-    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.admin.siniestros.denuncia.observaciones.index');
-    Route::post('denuncias/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('ajax.admin.siniestros.denuncia.enviar-compania');
+Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros', 'as' => 'ajax.admin.siniestros.'], function () {
+
+    Route::group(['prefix' => 'denuncias', 'as' => 'denuncia.'], function () {
+        Route::get('/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('observaciones.index');
+        Route::post('/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('enviar-compania');
+    });
+
+    Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
+        Route::post('/{reclamo}/link-enviado', [ReclamoTerceroAjaxController::class,'updateLinkEnviado'])->name('link-enviado');
+    });
 });
 
