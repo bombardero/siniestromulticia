@@ -378,7 +378,7 @@ class ReclamoTerceroController extends Controller
         $validator = Validator::make($request->all(),[]);
 
         $validator->after(function ($validator) use ($request, $reclamo) {
-            if ($reclamo->reclamo_lesiones && ($reclamo->lesionados()->count() == 0 || !$reclamo->reclamante->lesiones) ) {
+            if ($reclamo->reclamo_lesiones && !$reclamo->reclamante->lesiones && $reclamo->lesionados()->count() == 0) {
                 $validator->errors()->add('lesionados', 'Debe agregar al menos un lesionado');
             }
         });

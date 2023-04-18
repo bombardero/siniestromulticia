@@ -41,12 +41,6 @@
             </div>
         </div>
 
-        <div class="row mb-2">
-            <div class="col-12">
-                @error('danios_materiales') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-12">
                 <a href="{{ route('siniestros.terceros.paso6.daniomaterial.create', ['id' => request('id')] )}}"
