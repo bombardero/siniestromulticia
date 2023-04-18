@@ -140,4 +140,54 @@ class ReclamoTercero extends Model
         return $this->hasMany(DocumentosReclamo::class);
     }
 
+    public function documentosVehicularCompleto()
+    {
+        if($this->documentos->where('type', 'dni')->count() < 2 )
+        {
+            return false;
+        }
+
+        if($this->documentos->where('type','cedula')->count() < 2 )
+        {
+            return false;
+        }
+
+        if($this->documentos->where('type','carnet')->count() < 2 )
+        {
+            return false;
+        }
+
+        if($this->vehiculo && $this->vehiculo->en_transferencia && $this->documentos->where('type','formulario_08')->count() < 1 )
+        {
+            return false;
+        }
+
+        if($this->vehiculo && $this->vehiculo->con_seguro && $this->documentos->where('type','denuncia_administrativa')->count() < 1 )
+        {
+            return false;
+        }
+
+        if($this->vehiculo && $this->vehiculo->con_seguro && $this->documentos->where('type','certificado_cobertura')->count() < 1 )
+        {
+            return false;
+        }
+
+        if($this->vehiculo && !$this->vehiculo->con_seguro && $this->documentos->where('type','declaracion_jurada')->count() < 1 )
+        {
+            return false;
+        }
+
+        if($this->documentos->where('type','vehiculo')->count() < 4 )
+        {
+            return false;
+        }
+
+        if($this->documentos->where('type','presupuesto')->count() < 1)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 }

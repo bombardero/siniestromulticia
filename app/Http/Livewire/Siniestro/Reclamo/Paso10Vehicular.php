@@ -12,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Image;
 
-class Paso10 extends Component
+class Paso10Vehicular extends Component
 {
     use WithFileUploads;
 
@@ -47,69 +47,83 @@ class Paso10 extends Component
 
     public function render()
     {
-        return view('livewire.siniestro.reclamo.paso10');
+        return view('livewire.siniestro.reclamo.paso10-vehicular');
     }
 
     public function submit()
     {
-        if($this->reclamo->reclamo_vehicular)
+        $error = false;
+
+        if($this->reclamo->documentos->where('type', 'dni')->count() < 2 )
         {
-            if($this->reclamo->documentos->where('type', 'dni')->count() < 2 )
-            {
-                return $this->addError('dni', 'Debe cargar 2 fotos del DNI, frente y reverso.');
-            }
+            $error = true;
+            $this->addError('dni', 'Debe cargar 2 fotos del DNI, frente y reverso.');
+        }
 
-            if($this->reclamo->documentos->where('type','cedula')->count() < 2 )
-            {
-                return $this->addError('cedula', 'Debe cargar 2 fotos de la cédula, frente y reverso.');
-            }
+        if($this->reclamo->documentos->where('type','cedula')->count() < 2 )
+        {
+            $error = true;
+            $this->addError('cedula', 'Debe cargar 2 fotos de la cédula, frente y reverso.');
+        }
 
-            if($this->reclamo->documentos->where('type','carnet')->count() < 2 )
-            {
-                return $this->addError('carnet', 'Debe cargar 2 fotos del carnet, frente y reverso.');
-            }
+        if($this->reclamo->documentos->where('type','carnet')->count() < 2 )
+        {
+            $error = true;
+            $this->addError('carnet', 'Debe cargar 2 fotos del carnet, frente y reverso.');
+        }
 
-            if($this->reclamo->vehiculo && $this->reclamo->vehiculo->en_transferencia && $this->reclamo->documentos->where('type','formulario_08')->count() < 1 )
-            {
-                return $this->addError('formulario_08', 'Debe cargar el formulario 08.');
-            }
+        if($this->reclamo->vehiculo && $this->reclamo->vehiculo->en_transferencia && $this->reclamo->documentos->where('type','formulario_08')->count() < 1 )
+        {
+            $error = true;
+            $this->addError('formulario_08', 'Debe cargar el formulario 08.');
+        }
 
-            if($this->reclamo->vehiculo && $this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','denuncia_administrativa')->count() < 1 )
-            {
-                return $this->addError('denuncia_administrativa', 'Debe cargar la denuncia administrativa.');
-            }
+        if($this->reclamo->vehiculo && $this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','denuncia_administrativa')->count() < 1 )
+        {
+            $error = true;
+            $this->addError('denuncia_administrativa', 'Debe cargar la denuncia administrativa.');
+        }
 
-            if($this->reclamo->vehiculo && $this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','certificado_cobertura')->count() < 1 )
-            {
-                return $this->addError('certificado_cobertura', 'Debe cargar el certificado de cobertura.');
-            }
+        if($this->reclamo->vehiculo && $this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','certificado_cobertura')->count() < 1 )
+        {
+            $error = true;
+            $this->addError('certificado_cobertura', 'Debe cargar el certificado de cobertura.');
+        }
 
-            if($this->reclamo->vehiculo && !$this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','declaracion_jurada')->count() < 1 )
-            {
-                return $this->addError('declaracion_jurada', 'Debe cargar la declaración jurada de no seguro.');
-            }
+        if($this->reclamo->vehiculo && !$this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','declaracion_jurada')->count() < 1 )
+        {
+            $error = true;
+            $this->addError('declaracion_jurada', 'Debe cargar la declaración jurada de no seguro.');
+        }
 
-            if($this->reclamo->documentos->where('type','vehiculo')->count() < 4 )
-            {
-                return $this->addError('vehiculo', 'Debe que cargar 4 fotos del vehículo');
-            }
+        if($this->reclamo->documentos->where('type','vehiculo')->count() < 4 )
+        {
+            $error = true;
+            $this->addError('vehiculo', 'Debe que cargar 4 fotos del vehículo');
+        }
 
-            if($this->reclamo->documentos->where('type','presupuesto')->count() < 1)
-            {
-                return $this->addError('presupuesto', 'Debe cargar el presupuesto.');
-            }
+        if($this->reclamo->documentos->where('type','presupuesto')->count() < 1)
+        {
+            $error = true;
+            $this->addError('presupuesto', 'Debe cargar el presupuesto.');
+        }
+
+        if($error)
+        {
+            return $error;
         }
 
 
         // TODO: $this->reclamo->canEdit()
+        /*
         if($this->reclamo->estado_carga == '7')
         {
             $this->reclamo->estado_carga = '8';
             $this->reclamo->finalized_at = Carbon::now()->toDateTimeString();
             $this->reclamo->save();
-        }
+        }*/
 
-        return redirect()->route('siniestros.terceros.gracias', ['id' => $this->reclamo->identificador]);
+        return redirect()->route('siniestros.terceros.paso10.create', ['id' => $this->reclamo->identificador]);
     }
 
     private function getDocumentoPathAndName($type, $format = 'jpg')

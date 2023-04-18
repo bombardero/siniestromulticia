@@ -960,9 +960,42 @@ class ReclamoTerceroController extends Controller
     public function paso10create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $vehicular_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosVehicularCompleto() : true;
+
         $data = [
             'reclamo' => $reclamo,
-            'paso' => 10
+            'paso' => 10,
+            'vehicular_completo' => $vehicular_completo
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso10vehicularCreate(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '10-vehicular'
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso10daniosMaterialesCreate(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '10-daniosmateriales'
+        ];
+        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso10lesionadosCreate(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $data = [
+            'reclamo' => $reclamo,
+            'paso' => '10-lesionados'
         ];
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }

@@ -303,6 +303,10 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::get('paso-10',[ReclamoTerceroController::class,'paso10create'])->name('paso10.create');
     Route::post('paso-10',[ReclamoTerceroController::class,'paso10store'])->name('paso10.store');
 
+    Route::get('paso-10-vehicular',[ReclamoTerceroController::class,'paso10vehicularCreate'])->name('paso10.vehicular.create');
+    Route::get('paso-10-daniosmateriales',[ReclamoTerceroController::class,'paso10daniosMaterialesCreate'])->name('paso10.daniosmateriales.create');
+    Route::get('paso-10-lesionados',[ReclamoTerceroController::class,'paso10lesionadosCreate'])->name('paso10.lesionados.create');
+
     Route::post('croquis', [ReclamoTerceroController::class,'storeCroquis'])->name('storeCroquis');
 
     Route::get('{id}',[ReclamoTerceroController::class,'show'])->name('show');
