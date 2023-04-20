@@ -12,13 +12,13 @@ class ProductorController extends Controller
     {
         if($request->tipo == 'id' && $request->busqueda)
         {
-            $denuncia = DenunciaSiniestro::find($request->busqueda);
+            $denuncias = DenunciaSiniestro::where('id',$request->busqueda)->get();
         } else if ($request->tipo == 'dominio' && $request->busqueda) {
-            $denuncia = DenunciaSiniestro::where('dominio_vehiculo_asegurado',$request->busqueda)->first();
+            $denuncias = DenunciaSiniestro::where('dominio_vehiculo_asegurado',$request->busqueda)->get();
         } else {
-            $denuncia = null;
+            $denuncias = collect([]);
         }
-        return view('backoffice.productores.siniestros.denuncias.index', ['denuncia' => $denuncia]);
+        return view('backoffice.productores.siniestros.denuncias.index', ['denuncias' => $denuncias]);
     }
 
     public function show(Request $request, DenunciaSiniestro $denuncia)
