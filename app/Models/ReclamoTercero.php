@@ -190,4 +190,14 @@ class ReclamoTercero extends Model
         return true;
     }
 
+    public function documentosDaniosMaterialesCompleto()
+    {
+        return false;
+    }
+
+    public function documentosLesionadosCompleto()
+    {
+        return false;
+    }
+
 }

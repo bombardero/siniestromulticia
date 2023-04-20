@@ -961,11 +961,15 @@ class ReclamoTerceroController extends Controller
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
         $vehicular_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosVehicularCompleto() : true;
+        $danios_materiales_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosDaniosMaterialesCompleto() : true;
+        $lesionados_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosLesionadosCompleto() : true;
 
         $data = [
             'reclamo' => $reclamo,
             'paso' => 10,
-            'vehicular_completo' => $vehicular_completo
+            'vehicular_completo' => $vehicular_completo,
+            'danios_materiales_completo' => $danios_materiales_completo,
+            'lesionados_completo' => $lesionados_completo
         ];
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
@@ -998,6 +1002,42 @@ class ReclamoTerceroController extends Controller
             'paso' => '10-lesionados'
         ];
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso10store(Request $request)
+    {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+
+        $validator = Validator::make($request->all(),[]);
+
+        $validator->after(function ($validator) use ($request, $reclamo) {
+            if (!$reclamo->documentosVehicularCompleto())
+            {
+                $validator->errors()->add('reclamo_vehicular', 'Debe completar la documentación.');
+            }
+            if(!$reclamo->documentosDaniosMaterialesCompleto())
+            {
+                $validator->errors()->add('reclamo_danios_materiales', 'Debe completar la documentación.');
+            }
+            if(!$reclamo->documentosLesionadosCompleto())
+            {
+                $validator->errors()->add('reclamo_lesiones', 'Debe completar la documentación.');
+            }
+        });
+
+        if ($validator->fails())
+        {
+            return redirect()->route('siniestros.terceros.paso10.create',['id'=> $request->id])->withErrors($validator)->withInput();
+        }
+
+        if($reclamo->estado_carga == '9')
+        {
+            $reclamo->estado_carga = '10';
+            $reclamo->finalized_at = Carbon::now()->toDateTimeString();
+            $reclamo->save();
+        }
+
+        return redirect()->route('siniestros.terceros.gracias', ['id' => $reclamo->identificador]);
     }
 
     private function checkIfRedirect(ReclamoTercero $reclamo)

@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\Siniestro\Reclamo;
 
-use App\Models\DenunciaSiniestro;
-use App\Models\DocumentosDenuncia;
 use App\Models\DocumentosReclamo;
+use App\Models\ReclamoTercero;
 use App\Services\FileUploadService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -39,7 +38,7 @@ class Paso10Vehicular extends Component
         $this->fileUploadService = new FileUploadService();
     }
 
-    public function mount($reclamo)
+    public function mount(ReclamoTercero $reclamo)
     {
         $this->reclamo = $reclamo;
     }
@@ -113,15 +112,7 @@ class Paso10Vehicular extends Component
             return $error;
         }
 
-
         // TODO: $this->reclamo->canEdit()
-        /*
-        if($this->reclamo->estado_carga == '7')
-        {
-            $this->reclamo->estado_carga = '8';
-            $this->reclamo->finalized_at = Carbon::now()->toDateTimeString();
-            $this->reclamo->save();
-        }*/
 
         return redirect()->route('siniestros.terceros.paso10.create', ['id' => $this->reclamo->identificador]);
     }
@@ -281,6 +272,6 @@ class Paso10Vehicular extends Component
             $archivo->delete();
         }
 
-        return redirect()->route('siniestros.terceros.paso8.create', ['id'=> $this->reclamo->identificador]);
+        return redirect()->route('siniestros.terceros.paso8.vehicular.create', ['id'=> $this->reclamo->identificador]);
     }
 }
