@@ -994,6 +994,11 @@ class ReclamoTerceroController extends Controller
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
     }
 
+    public function paso10daniosMaterialesStore(Request $request)
+    {
+        dd('paso10daniosMaterialesStore');
+    }
+
     public function paso10lesionadosCreate(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
@@ -1002,6 +1007,11 @@ class ReclamoTerceroController extends Controller
             'paso' => '10-lesionados'
         ];
         return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
+    }
+
+    public function paso10lesionadosStore(Request $request)
+    {
+        dd('paso10lesionadosStore');
     }
 
     public function paso10store(Request $request)

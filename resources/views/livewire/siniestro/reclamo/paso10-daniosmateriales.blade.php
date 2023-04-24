@@ -1,154 +1,164 @@
-<form wire:submit.prevent="submit" method="post">
-    @csrf
-    <input type="hidden" name="id" value="{{request('id')}}">
-
-    @include('partial.archivos_simultaneos')
-
-    <div class="row">
-        <div class="text-center col-12 col-md-4 ">
-            <p class="documentos-denuncia-title">Denuncia o Exposición Policial *</p>
-            <p class="ambos-lados">Foto</p>
-            <input type="file" id="denuncia_policial" name="denuncia_policial"
-                   wire:change="$emit('input_denuncia_policial', $event)" accept="image/png,image/jpeg">
-            <label for="denuncia_policial">
-                <div class="row">
-                    <div class="col-12  subir-archivo-bg-morado py-3">
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col" colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color: rgba(0,0,0,.05);">
+                <td>
+                    Denuncia o Exposición Policial
+                    <p class="ambos-lados text-left">Foto</p>
+                </td>
+                <td>
+                    <ul class="list-group">
+                    @foreach($reclamo->documentos()->where('type', 'dm_denuncia_policial')->get() as $archivo)
+                        <li class="list-group-item border-0 bg-transparent p-0">
+                            <a target="_blank" class="documento-formato-texto pt-2"
+                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                            <button
+                                style="border:none;background: none;" id="confirmacion-popupa"
+                                wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                    class="fas fa-trash-alt"></i>
+                            </button>
+                        </li>
+                    @endforeach
+                    </ul>
+                    @error('dm_denuncia_policial')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                </td>
+                <td class="text-center">
+                    <input type="file" id="denuncia_policial" name="denuncia_policial"
+                           wire:change="$emit('input_denuncia_policial', $event)" accept="image/png,image/jpeg">
+                    <label for="denuncia_policial" class="mt-1">
                         <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                        <p class="subir-archivo-morado mb-0">Subir denuncia</p>
-                    </div>
-                </div>
-            </label>
-            @foreach($reclamo->documentos()->where('type', 'dm_denuncia_policial')->get() as $archivo)
-                <p>
-                    <a target="_blank" class="documento-formato-texto pt-2"
-                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                    <button
-                        style="border:none;background: none;" id="confirmacion-popupa"
-                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
-                            class="fas fa-trash-alt"></i>
-                    </button>
-                </p>
-            @endforeach
-            @error('denuncia_policial') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-        </div>
-        <div class="text-center col-12 col-md-4 ">
-            <p class="documentos-denuncia-title">DNI del Propietario *</p>
-            <p class="ambos-lados">Foto de ambos lados</p>
-            <input type="file" id="dni_propietario" name="dni_propietario"
-                   wire:change="$emit('input_dni_propietario', $event)" accept="image/png,image/jpeg">
-            <label for="dni_propietario">
-                <div class="row">
-                    <div class="col-12  subir-archivo-bg-morado py-3">
+                        <span class="subir-archivo-morado mb-0">Agregar</span>
+                    </label>
+                </td>
+            </tr>
+            <tr style="background-color: rgba(0,0,0,.05);">
+                <td>
+                    DNI del Propietario
+                    <p class="ambos-lados text-left">Foto de ámbos lados</p>
+                </td>
+                <td>
+                    <ul class="list-group list-group-flush">
+                        @foreach($reclamo->documentos()->where('type', 'dm_dni_propietario')->get() as $archivo)
+                            <li class="list-group-item border-0 bg-transparent p-0">
+                                <a target="_blank" class="documento-formato-texto pt-2"
+                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                <button
+                                    style="border:none;background: none;" id="confirmacion-popupa"
+                                    wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                        class="fas fa-trash-alt"></i>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @error('dm_dni_propietario') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                </td>
+                <td class="text-center">
+                    <input type="file" id="dni_propietario" name="dni_propietario"
+                           wire:change="$emit('input_dni_propietario', $event)" accept="image/png,image/jpeg">
+                    <label for="dni_propietario" class="mt-1">
                         <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                        <p class="subir-archivo-morado mb-0">Subir documento</p>
-                    </div>
-                </div>
-            </label>
-            @foreach($reclamo->documentos()->where('type', 'dm_dni_propietario')->get() as $archivo)
-                <p>
-                    <a target="_blank" class="documento-formato-texto pt-2"
-                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                    <button
-                        style="border:none;background: none;" id="confirmacion-popupa"
-                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
-                            class="fas fa-trash-alt"></i>
-                    </button>
-                </p>
-            @endforeach
-            @error('dni_propietario') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-        </div>
-        <div class="text-center col-12 col-md-4 ">
-            <p class="documentos-denuncia-title">Escritura de la propiedad o Contrato de alquiler *</p>
-            <p class="ambos-lados">Archivo PDF</p>
-            <input type="file" id="escritura_contrato_alquiler" name="escritura_contrato_alquiler"
-                   wire:change="$emit('input_escritura_contrato_alquiler', $event)" accept="application/pdf">
-            <label for="escritura_contrato_alquiler">
-                <div class="row">
-                    <div class="col-12  subir-archivo-bg-morado py-3">
+                        <span class="subir-archivo-morado mb-0">Agregar</span>
+                    </label>
+                </td>
+            </tr>
+            <tr style="background-color: rgba(0,0,0,.05);">
+                <td>
+                    Escritura de la propiedad o Contrato de alquiler *
+                    <p class="ambos-lados text-left">Archivo PDF</p>
+                </td>
+                <td>
+                    <ul class="list-group list-group-flush">
+                        @foreach($reclamo->documentos()->where('type', 'dm_escritura_contrato_alquiler')->get() as $archivo)
+                            <li class="list-group-item border-0 bg-transparent p-0">
+                                <a target="_blank" class="documento-formato-texto pt-2"
+                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                <button
+                                    style="border:none;background: none;" id="confirmacion-popupa"
+                                    wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                        class="fas fa-trash-alt"></i>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @error('dm_escritura_contrato_alquiler') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                </td>
+                <td class="text-center">
+                    <input type="file" id="escritura_contrato_alquiler" name="escritura_contrato_alquiler"
+                           wire:change="$emit('input_escritura_contrato_alquiler', $event)" accept="application/pdf">
+                    <label for="escritura_contrato_alquiler" class="mt-1">
                         <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                        <p class="subir-archivo-morado mb-0">Subir denuncia</p>
-                    </div>
-                </div>
-            </label>
-            @foreach($reclamo->documentos()->where('type', 'dm_escritura_contrato_alquiler')->get() as $archivo)
-                <p>
-                    <a target="_blank" class="documento-formato-texto pt-2"
-                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                    <button
-                        style="border:none;background: none;" id="confirmacion-popupa"
-                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
-                            class="fas fa-trash-alt"></i>
-                    </button>
-                </p>
-            @endforeach
-            @error('escritura_contrato_alquiler') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-        </div>
-        <div class="text-center col-12 col-md-4 ">
-            <p class="documentos-denuncia-title">Fotos de los daños *</p>
-            <p class="ambos-lados">Fotos</p>
-            <input type="file" id="fotos_danios" name="fotos_danios"
-                   wire:change="$emit('input_fotos_danios', $event)" accept="image/png,image/jpeg">
-            <label for="fotos_danios">
-                <div class="row">
-                    <div class="col-12  subir-archivo-bg-morado py-3">
+                        <span class="subir-archivo-morado mb-0">Agregar</span>
+                    </label>
+                </td>
+            </tr>
+            <tr style="background-color: rgba(0,0,0,.05);">
+                <td>
+                    Fotos de los daños
+                    <p class="ambos-lados text-left"></p>
+                </td>
+                <td>
+                    <ul class="list-group list-group-flush">
+                        @foreach($reclamo->documentos()->where('type', 'dm_fotos_danios')->get() as $archivo)
+                            <li class="list-group-item border-0 bg-transparent p-0">
+                                <a target="_blank" class="documento-formato-texto pt-2"
+                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                <button
+                                    style="border:none;background: none;" id="confirmacion-popupa"
+                                    wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                        class="fas fa-trash-alt"></i>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @error('dm_fotos_danios') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                </td>
+                <td class="text-center">
+                    <input type="file" id="fotos_danios" name="fotos_danios"
+                           wire:change="$emit('input_fotos_danios', $event)" accept="image/png,image/jpeg">
+                    <label for="fotos_danios" class="mt-1">
                         <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                        <p class="subir-archivo-morado mb-0">Subir denuncia</p>
-                    </div>
-                </div>
-            </label>
-            @foreach($reclamo->documentos()->where('type', 'dm_fotos_danios')->get() as $archivo)
-                <p>
-                    <a target="_blank" class="documento-formato-texto pt-2"
-                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                    <button
-                        style="border:none;background: none;" id="confirmacion-popupa"
-                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
-                            class="fas fa-trash-alt"></i>
-                    </button>
-                </p>
-            @endforeach
-            @error('fotos_danios') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-        </div>
-        <div class="text-center col-12 col-md-4">
-            <p class="documentos-denuncia-title">Presupuesto *</p>
-            <p class="ambos-lados">Con detalle de reparación y costo de mano de obra.</p>
-            <input type="file" id="presupuesto" name="presupuesto"
-                   wire:change="$emit('input_presupuesto', $event)" accept="image/png,image/jpeg">
-            <label for="presupuesto">
-                <div class="row">
-                    <div class="col-12  subir-archivo-bg-morado py-3">
+                        <span class="subir-archivo-morado mb-0">Agregar</span>
+                    </label>
+                </td>
+            </tr>
+            <tr style="background-color: rgba(0,0,0,.05);">
+                <td>
+                    Presupuesto *
+                    <p class="ambos-lados text-left">Foto. Con detalle de reparación y costo de mano de obra.</p>
+                </td>
+                <td>
+                    <ul class="list-group list-group-flush">
+                        @foreach($reclamo->documentos()->where('type', 'dm_presupuesto')->get() as $archivo)
+                            <li class="list-group-item border-0 bg-transparent p-0">
+                                <a target="_blank" class="documento-formato-texto pt-2"
+                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                <button
+                                    style="border:none;background: none;" id="confirmacion-popupa"
+                                    wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                        class="fas fa-trash-alt"></i>
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @error('dm_presupuesto') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                </td>
+                <td class="text-center">
+                    <input type="file" id="presupuesto" name="presupuesto"
+                           wire:change="$emit('input_presupuesto', $event)" accept="image/png,image/jpeg">
+                    <label for="presupuesto" class="mt-1">
                         <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                        <p class="subir-archivo-morado mb-0">Subir fotos</p>
-                    </div>
-                </div>
-            </label>
-            @foreach($reclamo->documentos()->where('type', 'dm_presupuesto')->get() as $archivo)
-                <p>
-                    <a target="_blank" class="documento-formato-texto pt-2"
-                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                    <button
-                        style="border:none;background: none;" id="confirmacion-popupa"
-                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
-                            class="fas fa-trash-alt"></i>
-                    </button>
-                </p>
-            @endforeach
-            @error('presupuesto') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <a class="mt-3 boton-enviar-siniestro btn"
-               style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-               href='{{ route('siniestros.terceros.paso10.create', ['id' => request('id')])}}'>ANTERIOR</a>
-            <input type="submit" class="mt-3 boton-enviar-siniestro btn" value='SIGUIENTE' style="background:#6e4697;font-weight: bold;"/>
-        </div>
-    </div>
-
-</form>
-
-@include('components.loading')
+                        <span class="subir-archivo-morado mb-0">Agregar</span>
+                    </label>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 @section('scripts')
 <script>

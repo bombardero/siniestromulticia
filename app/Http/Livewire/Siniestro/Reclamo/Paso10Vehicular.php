@@ -26,6 +26,7 @@ class Paso10Vehicular extends Component
         'upload_formulario_08' => 'uploadFileFormulario08',
         'upload_denuncia_administrativa' => 'uploadFileDenunciaAdministrativa',
         'upload_certificado_cobertura' => 'uploadFileCertificadoCobertura',
+        'upload_declaracion_jurada' => 'uploadFileDeclaracionJurada',
         'upload_carta_franquicia' => 'uploadFileCartaFranquicia',
         'upload_vehiculo' => 'uploadFileVehiculo',
         'upload_presupuesto' => 'uploadFilePresupuesto',
@@ -241,6 +242,11 @@ class Paso10Vehicular extends Component
         $this->uploadFile($file,'certificado_cobertura', 1);
     }
 
+    public function uploadFileDeclaracionJurada($file)
+    {
+        $this->uploadFile($file,'declaracion_jurada', 1);
+    }
+
     public function uploadFileCartaFranquicia($file)
     {
         $this->uploadFile($file,'carta_franquicia', 1);
@@ -272,6 +278,6 @@ class Paso10Vehicular extends Component
             $archivo->delete();
         }
 
-        return redirect()->route('siniestros.terceros.paso8.vehicular.create', ['id'=> $this->reclamo->identificador]);
+        return redirect()->route('siniestros.terceros.paso10.vehicular.create', ['id'=> $this->reclamo->identificador]);
     }
 }

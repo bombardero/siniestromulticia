@@ -93,7 +93,6 @@ class Paso10Daniosmateriales extends Component
         $extension = $this->getExtensionFile($file);
         $formato = $this->getFormatoFile($file);
 
-
         if($this->reclamo->documentos()->where('type', $type)->count() >= $max)
         {
             $this->addError($type, "No puede cargar más de $max archivos.");
