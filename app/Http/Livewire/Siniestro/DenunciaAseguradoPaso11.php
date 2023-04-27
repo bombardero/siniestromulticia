@@ -156,7 +156,7 @@ class DenunciaAseguradoPaso11 extends Component
 
     public function uploadFilePolicial($file)
     {
-        $this->uploadFile($file,'exposicion_policial');
+        $this->uploadFile($file,'exposicion_policial',5);
     }
 
     public function uploadFileHabilitacion($file)
