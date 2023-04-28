@@ -165,7 +165,7 @@ class Paso10Vehicular extends Component
         $extension = $this->getExtensionFile($file);
         $formato = $this->getFormatoFile($file);
 
-        if($this->reclamo->documentos()->where('type', $type)->count() >= $max)
+        if($this->reclamo->vehiculo->documentos()->where('type', $type)->count() >= $max)
         {
             $this->addError($type, "No puede cargar más de $max archivos.");
             return ;
@@ -195,19 +195,14 @@ class Paso10Vehicular extends Component
             $url = FileUploadService::upload(file_get_contents($file),$data['path']);
         }
 
-        $this->reclamo->documentos()->create([
+        $this->reclamo->vehiculo->documentos()->create([
             'nombre' => $data['name'],
             'type' => $type,
             'formato' => $formato,
             'url' => $url,
             'path' => $data['path'],
+            'reclamo_tercero_id' => $this->reclamo->id
         ]);
-
-        $documents_number = $this->reclamo->documentos()->where('type', $type)->count();
-        if(!$documents_number > 0)
-        {
-            $this->validate();
-        }
     }
 
     public function uploadFileDNI($file)

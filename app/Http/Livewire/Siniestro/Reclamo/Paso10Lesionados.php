@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Siniestro\Reclamo;
 
 use App\Models\DocumentosReclamo;
+use App\Models\LesionadoReclamo;
 use App\Models\ReclamoTercero;
 use App\Services\FileUploadService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Image;
@@ -15,24 +17,26 @@ class Paso10Lesionados extends Component
     use WithFileUploads;
 
     public $reclamo;
-    protected $fileUploadService;
+    public $lesionado;
+    public $orden;
 
-    public $listeners = [
-        'upload_dni' => 'uploadFileDni',
-        'upload_dni_tutor' => 'uploadFileDniTutor',
-        'upload_denuncia_policial' => 'uploadFileDenunciaPolicial',
-        'upload_historia_clinica' => 'uploadFileHistoriaClinica',
-        'upload_gastos_medicos' => 'uploadFileGastosMedicos',
-    ];
+    public $dni;
+    public $dni_tutor;
+    public $denuncia_policial;
+    public $historia_clinica;
+    public $gastos_medicos;
+    protected $fileUploadService;
 
     public function __construct()
     {
         $this->fileUploadService = new FileUploadService();
     }
 
-    public function mount(ReclamoTercero $reclamo)
+    public function mount(ReclamoTercero $reclamo, LesionadoReclamo $lesionado, string $orden)
     {
         $this->reclamo = $reclamo;
+        $this->lesionado = $lesionado;
+        $this->orden = $orden;
     }
 
     public function render()
@@ -48,51 +52,68 @@ class Paso10Lesionados extends Component
     private function getDocumentoPathAndName($type, $format = 'jpg')
     {
         $name = $type.'_'.Carbon::now()->format('Ymd_His').'.'.$format;
-        return ['path' => 'reclamo_tercero/'.$this->reclamo->id.'/documentos/lesionados/'.$name, 'name' => $name];
+        return ['path' => 'reclamo_tercero/'.$this->reclamo->id.'/documentos/lesionados', 'name' => $name];
     }
 
-    private function getFormatoFile($file)
+    private function getDataFile($file)
     {
-        $typemime = explode(':', explode(';', $file)[0])[1];
-        switch ($typemime)
+        $data = [];
+        switch ($file->getMimeType())
         {
             case 'image/png':
+                $data['extension'] = 'png';
+                $data['formato'] = 'imagen';
             case 'image/jpeg':
-                $format = 'imagen';
+                $data['extension'] = 'jpg';
+                $data['formato'] = 'imagen';
                 break;
             case 'application/pdf':
-                $format = 'pdf';
+                $data['extension'] = 'pdf';
+                $data['formato'] = 'pdf';
                 break;
             default:
-                $format = null;
+                $data['extension'] = '';
         }
-        return $format;
+        return $data;
     }
 
-    private function getExtensionFile($file)
+    public function updatedDni()
     {
-        $typemime = explode(':', explode(';', $file)[0])[1];
-        switch ($typemime)
-        {
-            case 'image/png':
-            case 'image/jpeg':
-                $format = 'jpg';
-                break;
-            case 'application/pdf':
-                $format = 'pdf';
-                break;
-            default:
-                $format = '';
-        }
-        return $format;
+        $this->uploadFile($this->dni, 'dl_dni', 2);
+        $this->reset('dni');
+    }
+
+    public function updatedDniTutor()
+    {
+        $this->uploadFile($this->dni_tutor, 'dl_dni_tutor', 2);
+        $this->reset('dni_tutor');
+    }
+
+    public function updatedDenunciaPolicial()
+    {
+        $this->uploadFile($this->denuncia_policial, 'dl_denuncia_policial', 1);
+        $this->reset('denuncia_policial');
+    }
+
+    public function updatedHistoriaClinica()
+    {
+        $this->uploadFile($this->historia_clinica, 'dl_historia_clinica', 4);
+        $this->reset('historia_clinica');
+    }
+
+    public function updatedGastosMedicos()
+    {
+        $this->uploadFile($this->gastos_medicos, 'dl_gastos_medicos', 4);
+        $this->reset('gastos_medicos');
     }
 
     public function uploadFile($file,$type, $max = 1)
     {
-        $extension = $this->getExtensionFile($file);
-        $formato = $this->getFormatoFile($file);
+        $data = $this->getDataFile($file);
+        $formato = $data['formato'];
+        $extension = $data['extension'];
 
-        if($this->reclamo->documentos()->where('type', $type)->count() >= $max)
+        if($this->lesionado->documentos()->where('type', $type)->count() >= $max)
         {
             $this->addError($type, "No puede cargar más de $max archivos.");
             return ;
@@ -107,59 +128,36 @@ class Paso10Lesionados extends Component
         // TODO: if($this->denuncia_siniestro->canEdit())
 
         $data = $this->getDocumentoPathAndName($type, $extension);
-
+        $name = $data['name'];
+        $path = $data['path'];
 
         if($formato == 'imagen')
         {
-            $file = Image::make($file);
-
-            if($file->width() > 2100)
+            $file = Image::make($file->getRealPath());
+            if($file->width() > 2100 || $file->height() > 2100)
             {
-                $file->widen(2100);
+                if($file->width() > $file->height())
+                {
+                    $file->widen(2100);
+                } else {
+                    $file->heighten(2100);
+                }
             }
-            $url = FileUploadService::upload($file->stream($extension),$data['path']);
+            $url = FileUploadService::upload($file->stream($extension),$data['path'].'/'.$name);
+
         } else {
-            $url = FileUploadService::upload(file_get_contents($file),$data['path']);
+            $path = $file->storePubliclyAs($path, $name, 's3');
+            $url = Storage::disk('s3')->url($path);
         }
 
-        $this->reclamo->documentos()->create([
-            'nombre' => $data['name'],
+        $this->lesionado->documentos()->create([
+            'nombre' => $name,
             'type' => $type,
             'formato' => $formato,
             'url' => $url,
-            'path' => $data['path'],
+            'path' => $path,
+            'reclamo_tercero_id' => $this->reclamo->id
         ]);
-
-        $documents_number = $this->reclamo->documentos()->where('type', $type)->count();
-        if(!$documents_number > 0)
-        {
-            $this->validate();
-        }
-    }
-
-    public function uploadFileDni($file)
-    {
-        $this->uploadFile($file,'dl_dni',2);
-    }
-
-    public function uploadFileDniTutor($file)
-    {
-        $this->uploadFile($file,'dl_dni_tutor',2);
-    }
-
-    public function uploadFileDenunciaPolicial($file)
-    {
-        $this->uploadFile($file,'dl_denuncia_policial',1);
-    }
-
-    public function uploadFileHistoriaClinica($file)
-    {
-        $this->uploadFile($file,'dl_historia_clinica',4);
-    }
-
-    public function uploadFileGastosMedicos($file)
-    {
-        $this->uploadFile($file,'dl_gastos_medicos',4);
     }
 
     public function eliminarArchivo($id)

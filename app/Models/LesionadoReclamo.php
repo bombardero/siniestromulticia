@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class LesionadoReclamo extends Model
 {
@@ -61,5 +62,10 @@ class LesionadoReclamo extends Model
     public function localidad()
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function documentos(): MorphMany
+    {
+        return $this->morphMany(DocumentosReclamo::class, 'documentable');
     }
 }

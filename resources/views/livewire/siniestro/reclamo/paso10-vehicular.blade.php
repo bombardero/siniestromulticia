@@ -6,7 +6,9 @@
         <table class="table table-sm">
             <thead class="thead-dark">
             <tr>
-                <th scope="col" colspan="3"></th>
+                <th scope="col" colspan="3">
+                    Vehículo: {{ $reclamo->vehiculo->dominio }}
+                </th>
             </tr>
             </thead>
             <tbody>

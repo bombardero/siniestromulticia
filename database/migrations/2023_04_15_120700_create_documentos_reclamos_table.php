@@ -21,6 +21,8 @@ class CreateDocumentosReclamosTable extends Migration
             $table->string('formato');
             $table->string('url');
             $table->string('path');
+            $table->unsignedBigInteger('documentable_id');
+            $table->string('documentable_type');
             $table->timestamps();
         });
     }

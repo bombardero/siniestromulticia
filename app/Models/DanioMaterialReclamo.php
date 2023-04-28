@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class DanioMaterialReclamo extends Model
 {
@@ -26,5 +27,10 @@ class DanioMaterialReclamo extends Model
     public function reclamo()
     {
         return $this->belongsTo(ReclamoTercero::class, 'reclamo_tercero_id');
+    }
+
+    public function documentos(): MorphMany
+    {
+        return $this->morphMany(DocumentosReclamo::class, 'documentable');
     }
 }

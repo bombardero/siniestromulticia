@@ -7,7 +7,9 @@
         </div>
     </div>
 
-    @livewire('siniestro.reclamo.paso10-daniosmateriales', ['reclamo' => $reclamo])
+    @foreach($reclamo->daniosMateriales as $key => $danio_material)
+        <livewire:siniestro.reclamo.paso10-daniosmateriales :reclamo="$reclamo" :daniomaterial="$danio_material" :orden="$key+1" :wire:key="$danio_material->id">
+    @endforeach
 
     <form action="{{ route('siniestros.terceros.paso10.daniosmateriales.store') }}" method="post">
         @csrf
