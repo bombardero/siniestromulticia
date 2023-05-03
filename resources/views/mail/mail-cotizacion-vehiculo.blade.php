@@ -18,8 +18,8 @@
         }
 
         .columnImage{
-            width:12.83; 
-            height:16; 
+            width:12.83;
+            height:16;
             width:100% !important;
         }
 
@@ -41,12 +41,12 @@
         .mobile-desaparece {
             display:none !important;
         }
-    }    
+    }
     .body {
        font-family: 'Lato', sans-serif;
         text-align: center !important;
     }
-    .saludo-mail {        
+    .saludo-mail {
         font-family: 'Lato', sans-serif;
         font-style: normal;
         font-weight: normal;
@@ -56,7 +56,7 @@
         color: #6165D7 !important;
     }
     .recibido {
-        font-family: 'Lato', sans-serif;        
+        font-family: 'Lato', sans-serif;
         font-style: normal !important;
         font-weight: normal !important;
         font-size: 18px !important;
@@ -66,7 +66,7 @@
         color: #545358 !important;
     }
     .datos {
-        font-family: 'Lato', sans-serif;        
+        font-family: 'Lato', sans-serif;
         font-style: normal !important;
         font-weight: normal !important;
         font-size: 14px !important;
@@ -78,8 +78,8 @@
     .bg-mail {
         background: linear-gradient(180deg, rgba(190, 184, 242, 0.62) 0%, rgba(190, 184, 242, 0) 95.31%, rgba(85, 66, 133, 0.0104167) 99.99%, rgba(84, 65, 132, 0) 100%, rgba(84, 65, 132, 0) 100%);
     }
-    .titulo {     
-        font-family: 'Lato', sans-serif;   
+    .titulo {
+        font-family: 'Lato', sans-serif;
         font-style: normal;
         font-weight: 700;
         font-size: 18px;
@@ -89,7 +89,7 @@
         color: #2D2D7B;
     }
 
-    .gestion {     
+    .gestion {
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
@@ -100,7 +100,7 @@
 
     p.recibido {
     margin-block-start: 0 !important;
-    margin-block-end: 0 !important; 
+    margin-block-end: 0 !important;
 }
 
 
@@ -110,8 +110,8 @@
         font-weight: bold;
         font-size: 14px;
         line-height: 25px;
-        text-align: center;     
-        color: #545358 !important;  
+        text-align: center;
+        color: #545358 !important;
     }
     .mensual {
         font-style: normal;
@@ -140,11 +140,11 @@
         color: #545358;
     }
     .caja {
-        background: #E6E3FA;        
+        background: #E6E3FA;
         height: 150px;
     }
     .caja-destacada {
-        background: #A5A8FA;        
+        background: #A5A8FA;
         height: 183px;
     }
     .planes-coberturas {
@@ -179,11 +179,11 @@
     border-radius: 2px;
     font-family: Lato;
     font-size: 14px;
-    color: #ffffff; 
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    display: inline-block;  
-}    
+    display: inline-block;
+}
 .interesa {
         font-family: Lato;
         font-style: normal;
@@ -201,13 +201,13 @@
     line-height: 25px;
     text-align: center;
     text-transform: uppercase;
-    color: #FF9400;    
+    color: #FF9400;
     padding: 0px !important;
 }
 .noPadding {
     padding-top:11.8px;
 }
-.precio-caja 
+.precio-caja
 {
     padding-top: 15px;
     color:#2D2D7B;
@@ -223,12 +223,12 @@
     </div>
     <div>
     <p class="recibido">Hemos recibido tu pedido de cotización.</p>
-    <p style="padding-top:20px; padding-bottom: 5px;" class="datos">Los datos que nos brindaste son los siguientes:</p>    
-    <p style="padding-top: 20px;" class="titulo">{{$marcaNombre}} {{$modeloNombre}}, Año {{$data['año']}}</p> 
+    <p style="padding-top:20px; padding-bottom: 5px;" class="datos">Los datos que nos brindaste son los siguientes:</p>
+    <p style="padding-top: 20px;" class="titulo">{{$marcaNombre}} {{$modeloNombre}}, Año {{$data['año']}}</p>
     <center><p style="width: 50%; border: 2px solid #BF4019; padding-top: 20px;" class="gestion">NRO. DE GESTIÓN
     <br>
     <span class="gestion" style="font-weight: bold;">{{$gestion}}</span>
-    </p> 
+    </p>
     </center>
     <p class="datos planes-coberturas">Los Planes de cobertura que te recomendamos son:</p>
     @for( $i = 0; $i<sizeof($coberturaNombres); $i++)
@@ -260,7 +260,7 @@
     @endfor
 <center>
      <p style="padding-top:40px;" class="planes">Para tomar alguno de éstos planes, o si querés consultar sobre algún aspecto no mencionado, podés solicitar un asesor en tu zona, al comunicarte brindales el siguente <span class="gestion" style="font-weight: bold;">Nro. de Gestión: {{$gestion}}</span></p>
-</center>    
+</center>
 <center>
  <table style="padding-top:20px;" align="center" cellspacing="0" cellpadding="0" width="100%">
    <tr>
@@ -271,7 +271,7 @@
            <!--[if mso]>&nbsp;<![endif]-->
                <a href="{{route('contacto')}}" target="_blank" style="font-size:16px; font-family: Lato; color: #ffffff; font-weight:normal; text-align:center; background-color: #6165d7; text-decoration: none; border: none; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; display: inline-block;">
                    <span style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:normal; line-height:1.5em; text-align:center;">Solicitar Asesor</span>
-                </a>              
+                </a>
            <!--[if mso]>&nbsp;<![endif]-->
            </td>
          </tr>
@@ -280,13 +280,13 @@
          <tr>
            <td align="center" bgcolor="#E6E3FA" style="background-color: #E6E3FA; margin: auto; max-width: 600px; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; padding: 5px 20px; " width="100%">
            <!--[if mso]>&nbsp;<![endif]-->
-               <a href="{{route('productor.alta',['state' => 'productor'])}}" target="_blank" style="font-size:16px; font-family: Lato; color:#6165D7; font-weight:normal; text-align:center; background-color: #E6E3FA; text-decoration: none; border: none; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; display: inline-block;">
+               <a href="{{route('productores.index')}}" target="_blank" style="font-size:16px; font-family: Lato; color:#6165D7; font-weight:normal; text-align:center; background-color: #E6E3FA; text-decoration: none; border: none; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; display: inline-block;">
                    <span style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #6165D7; font-weight:normal; line-height:1.5em; text-align:center;">Unirse como PAS</span>
-                </a>                
+                </a>
            <!--[if mso]>&nbsp;<![endif]-->
            </td>
          </tr>
-       </table>            
+       </table>
      </td>
    </tr>
  </table>

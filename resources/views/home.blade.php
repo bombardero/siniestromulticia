@@ -447,13 +447,13 @@
                         <img src="{{url('/images/finisterre-seguros_home_Unite-a-nuestro-equipo.png')}}"
                              class="img-fluid ">
                         <a id="hablemos" class="d-none d-md-block position-absolute"
-                           href="{{route('productor.alta',['state' => 'productor'])}}">
+                           href="{{route('productores.index')}}">
                             <button type="button" class="imagen-boton-chateamos btn btn-produci-con-nosotros">Producí
                                 con nosotros
                             </button>
                         </a>
                     </div>
-                    <a id="hablemosw" class="d-md-none" href="{{route('productor.alta',['state' => 'productor'])}}">
+                    <a id="hablemosw" class="d-md-none" href="{{route('productores.index')}}">
                         <button type="button" class="imagen-boton-chateamos btn btn-produci-con-nosotros">Producí con
                             nosotros
                         </button>

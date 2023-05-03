@@ -44,13 +44,12 @@
         	<div class="col-12 pt-4 ">
 	            <p class="si-quieres-ser-productor-text text-center">
 	            	Sumate a la experiencia Finisterre Seguros
-
-				</p>	
+				</p>
 			</div>
 
 			<div class="col-12 mt-4 mb-5">
-				<a id="hablemos" class="" href="{{route('productor.alta',['state' => 'productor'])}}">     
-		        	<button type="button" class="boton-chatear-asesor btn btn-success">                		
+				<a id="hablemos" class="" href="{{route('productores.index')}}">
+		        	<button type="button" class="boton-chatear-asesor btn btn-success">
 		                Gestionar alta de Productor
 		            </button>
 	            </a>

@@ -35,7 +35,7 @@
                         Alquileres</p></a>
                 <a class="enlace-footer" href="{{ route('preguntas-frecuentes') }}"><p class="lista-footer">• Preguntas
                         Frecuentes</p></a>
-                <a class="enlace-footer" href="{{route('productor.alta',['state' => 'productor'])}}"><p
+                <a class="enlace-footer" href="{{route('productores.index')}}"><p
                         class="lista-footer">• Producí con nosotros</p></a>
             </div>
             <div class="col-12 col-md-3 pt-4 text-center text-md-left">

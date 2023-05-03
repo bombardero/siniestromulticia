@@ -13,7 +13,6 @@ use App\Http\Controllers\CotizaVehiculoController;
 use App\Http\Controllers\DenunciaAseguradoController;
 use App\Http\Controllers\DenunciaSiniestro\DenunciaSiniestroAseguradoController;
 use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
-use App\Http\Controllers\FormularioProductorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InmobiliariaController;
 use App\Http\Controllers\OperarioController;
@@ -112,9 +111,8 @@ Route::get('/preguntas-frecuentes',function () {
 Route::get('/contacto', [ContactoController::class,'index'])->name('contacto');
 Route::post('/contacto', [ContactoController::class,'mail'])->name('contacto.mail');
 
-Route::get('/productor/alta', [FormularioProductorController::class,'index'])->name('productor.alta');
-Route::post('/productor/alta', [FormularioProductorController::class,'mail'])->name('productor.mail');
-Route::get('/panel-productor/{user}', [ProductorController::class,'index'])->name('panel-productor')->middleware('check.productor');
+Route::get('productores', [ProductorController::class,'index'])->name('productores.index');
+Route::post('productores', [ProductorController::class,'mail'])->name('productores.mail');
 
 Route::get('/sepelio/solicitud/alta', [SepelioController::class,'index'])->name('sepelio.index')->middleware('auth');
 Route::post('/sepelio/solicitud/firma/{firma}', [FormSepelio::class,'setFirma'])->name('sepelio.setFirma')->middleware('auth');
