@@ -21,12 +21,10 @@ class Reclamante extends Model
         'otro_pais_provincia_localidad',
         'tipo_documento_id',
         'documento_numero',
-        'lesiones',
         'conductor'
     ];
 
     protected $casts = [
-        'lesiones' => 'boolean',
         'conductor' => 'boolean'
     ];
 

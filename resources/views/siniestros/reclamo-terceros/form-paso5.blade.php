@@ -19,13 +19,25 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Teléfono</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
+                @if($reclamo->conductor && $reclamo->conductor->lesiones)
+                    <tr style="background-color: rgba(0,0,0,.05);">
+                        <td>{{ $reclamo->conductor->nombre }}</td>
+                        <td>{{ $reclamo->conductor->documento_numero }}</td>
+                        <td>Conductor</td>
+                        <td class="text-right">
+                            <a title="Editar" class="mr-1" href="{{ route('siniestros.terceros.paso4.create',['id'=> request('id')]) }}"><i class="fa-solid fa-pen-to-square text-primary"></i></a>
+                        </td>
+                    </tr>
+                @endif
                 @foreach($reclamo->lesionados as $lesionado)
                     <tr style="background-color: rgba(0,0,0,.05);">
                         <td>{{ $lesionado->nombre }}</td>
                         <td>{{ $lesionado->documento_numero }}</td>
+                        <td>{{ $lesionado->tipo }}</td>
                         <td class="text-right">
                             <a title="Editar" class="mr-1" href="{{ route('siniestros.terceros.paso5.lesionado.edit',['id'=> request('id'),'lesionado'=> $lesionado->id]) }}"><i class="fa-solid fa-pen-to-square text-primary"></i></a>
                             <a title="Borrar" href="{{ route('siniestros.terceros.paso5.lesionado.delete',['id'=> request('id'),'lesionado'=> $lesionado->id]) }}"><i class="fa-solid fa-trash-can text-danger"></i></a>

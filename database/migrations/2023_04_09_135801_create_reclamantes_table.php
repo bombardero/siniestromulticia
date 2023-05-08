@@ -27,7 +27,6 @@ class CreateReclamantesTable extends Migration
             $table->string('otro_pais_provincia_localidad')->nullable();
             $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
             $table->string('documento_numero',8);
-            $table->boolean('lesiones')->default(false);
             $table->boolean('conductor')->default(false);
             $table->timestamps();
         });

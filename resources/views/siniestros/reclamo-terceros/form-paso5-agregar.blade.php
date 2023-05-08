@@ -174,13 +174,6 @@
             </div>
             <div class="col-6 col-md-4">
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="form-check-input" id="tipo_conductor"
-                           name="tipo" value="conductor">
-                    <label for="conductor">Conductor</label>
-                </div>
-            </div>
-            <div class="col-6 col-md-4">
-                <div class="custom-control custom-radio">
                     <input type="radio" class="form-check-input" id="tipo_pasajero"
                            name="tipo" value="pasajero">
                     <label for="pasajero_otro_vehiculo">Pasajero</label>

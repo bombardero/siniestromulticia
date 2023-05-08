@@ -181,37 +181,6 @@
             </div>
         @endif
 
-        @if($reclamo->reclamo_lesiones)
-            <div class="row mb-2">
-                <div class="col-12 col-md-4">
-                    <label>¿Sufrió lesiones?</label>
-                </div>
-                <div class="col-12 col-md-1">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" class="form-check-input" id="lesiones_si"
-                               name="lesiones"
-                               value="1"
-                            {{ old('lesiones') === '1' || ($reclamo->reclamante && $reclamo->reclamante->lesiones) ? 'checked' : '' }}
-                        >
-                        <label for="lesiones_si" class="form-check-label">Si</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-7">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" class="form-check-input" id="lesiones_no"
-                               name="lesiones"
-                               value="0"
-                            {{ old('lesiones') === '0' || ($reclamo->reclamante && $reclamo->reclamante->lesiones === false) ? 'checked' : '' }}
-                        >
-                        <label for="lesiones_no" class="form-check-label">No</label>
-                    </div>
-                </div>
-                <div class="col-12 col-md-8 offset-md-4">
-                    @error('lesiones') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                </div>
-            </div>
-        @endif
-
         <div class="row">
             <div class="col-12">
                 <a class="mt-3 boton-enviar-siniestro btn"

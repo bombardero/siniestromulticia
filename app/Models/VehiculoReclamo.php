@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class VehiculoReclamante extends Model
+class VehiculoReclamo extends Model
 {
     use HasFactory;
 
-    protected $table = 'reclamo_vehiculo_terceros';
+    protected $table = 'reclamo_vehiculos';
 
     protected $fillable = [
         'dominio',
@@ -26,29 +26,11 @@ class VehiculoReclamante extends Model
         'numero_poliza',
         'tipo_cobertura',
         'franquicia',
-        'reclamante_conductor',
-        'conductor_nombre',
-        'conductor_telefono',
-        'conductor_tipo_documento_id',
-        'conductor_documento_numero',
-        'conductor_domicilio',
-        'conductor_codigo_postal',
-        'conductor_pais_id',
-        'conductor_province_id',
-        'conductor_city_id',
-        'conductor_otro_pais_provincia_localidad',
-        'licencia_numero',
-        'licencia_clase',
-        'alcoholemia',
-        'alcoholemia_se_nego'
     ];
 
     protected $casts = [
         'en_transferencia' => 'boolean',
         'con_seguro' => 'boolean',
-        'reclamante_conductor' => 'boolean',
-        'alcoholemia' => 'boolean',
-        'alcoholemia_se_nego' => 'boolean',
     ];
 
     public function reclamo()

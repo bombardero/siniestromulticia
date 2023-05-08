@@ -87,7 +87,12 @@ class ReclamoTercero extends Model
 
     public function vehiculo()
     {
-        return $this->hasOne(VehiculoReclamante::class);
+        return $this->hasOne(VehiculoReclamo::class);
+    }
+
+    public function conductor()
+    {
+        return $this->hasOne(ConductorReclamo::class);
     }
 
     public function pais()

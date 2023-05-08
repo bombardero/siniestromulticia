@@ -106,14 +106,12 @@ class ReclamoTerceroController extends Controller
             'otra_localidad'=>'required_with:check_otra_localidad',
             'telefono' => 'required',
             'fecha_nacimiento' => 'required',
-            'conductor' => 'required_if:reclamo_lesiones,1',
-            'lesiones' => 'required_if:reclamo_lesiones,1'
+            'conductor' => 'required_if:reclamo_lesiones,1'
         ];
         $messages = [
             'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
             'otra_localidad.required_with' => 'El campo localidad es requerido',
             'conductor.required_if' => 'El campo conductor es requerido',
-            'lesiones.required_if' => 'El campo lesiones es requerido',
         ];
         Validator::make($request->all(),$rules,$messages)->validate();
 
@@ -134,7 +132,6 @@ class ReclamoTerceroController extends Controller
                 'telefono' => $request->telefono,
                 'fecha_nacimiento' => $request->fecha_nacimiento,
                 'conductor' => $reclamo->reclamo_vehicular ? $request->conductor : false,
-                'lesiones' => $reclamo->reclamo_lesiones ? $request->lesiones : false
             ]);
         } else {
             $reclamo->reclamante->nombre = $request->nombre;
@@ -149,7 +146,6 @@ class ReclamoTerceroController extends Controller
             $reclamo->reclamante->telefono = $request->telefono;
             $reclamo->reclamante->fecha_nacimiento = $request->fecha_nacimiento;
             $reclamo->reclamante->conductor = $reclamo->reclamo_vehicular ? $request->conductor : false;
-            $reclamo->reclamante->lesiones = $reclamo->reclamo_lesiones ? $request->lesiones : false;
             $reclamo->reclamante->save();
         }
 
@@ -258,31 +254,11 @@ class ReclamoTerceroController extends Controller
         return redirect()->route('siniestros.terceros.paso4.create', ['id'=> $request->id]);
     }
 
-
-    public function paso3createOld(Request $request)
-    {
-        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
-        $tiposDocumentos = TipoDocumento::all();
-        $provincias = Province::orderBy('name')->get();
-        $provincia_id = $reclamo->vehiculo->conductor_province_id != null ? $reclamo->vehiculo->conductor_province_id : $provincias->first()->id;
-        $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
-
-        $data = [
-            'reclamo' => $reclamo,
-            'paso' => 3,
-            'provincias' => $provincias,
-            'localidades' => $localidades,
-            'tipo_documentos' => $tiposDocumentos
-        ];
-
-        return view('siniestros.reclamo-terceros.reclamo-terceros', $data);
-    }
-
     public function paso4create(Request $request)
     {
         $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
         $provincias = Province::orderBy('name')->get();
-        $provincia_id = $reclamo->vehiculo && $reclamo->vehiculo->conductor_province_id != null ? $reclamo->vehiculo->conductor_province_id : $provincias->first()->id;
+        $provincia_id = $reclamo->conductor && $reclamo->conductor->province_id != null ? $reclamo->conductor->province_id : $provincias->first()->id;
         $localidades = City::where('province_id', $provincia_id)->orderBy('name')->get();
         $tiposDocumentos = TipoDocumento::all();
         $conductor =  $reclamo->reclamo_vehicular && $reclamo->reclamante && !$reclamo->reclamante->conductor;
@@ -313,9 +289,10 @@ class ReclamoTerceroController extends Controller
             'licencia_numero' => 'required_if:reclamo_vehicular,1',
             'licencia_clase' => 'required_if:reclamo_vehicular,1',
             'alcoholemia'=>'required_if:reclamo_vehicular,1',
+            'lesiones'=>'required_if:reclamo_lesiones,1',
+            'gravedad_lesion'=>'required_if:lesiones,1',
         ];
         $messages = [
-            'reclamante_conductor.required_if' => 'El campo es obligatorio.',
             'nombre.required_if' => 'El campo nombre completo es obligatorio.',
             'tipo_documento_id.required_if' => 'El campo tipo de documento es obligatorio.',
             'documento_numero.required_if' => 'El campo número de documento es obligatorio.',
@@ -327,6 +304,8 @@ class ReclamoTerceroController extends Controller
             'licencia_numero.required_if' => 'El campo número de licencia es obligatorio.',
             'licencia_clase.required_if' => 'El campo clase de licencia es obligatorio.',
             'alcoholemia.required_if' => 'El campo alcoholemia es obligatorio.',
+            'lesiones.required_if' => 'El campo lesiones es obligatorio.',
+            'gravedad_lesion.required_if' => 'El campo gravedad de lesiones es obligatorio.',
         ];
         Validator::make($request->all(),$rules,$messages)->validate();
 
@@ -334,21 +313,49 @@ class ReclamoTerceroController extends Controller
 
         if($reclamo->reclamo_vehicular)
         {
-            $reclamo->vehiculo->conductor_nombre = $request->conductor == '1' ? $request->nombre : null;
-            $reclamo->vehiculo->conductor_telefono = $request->conductor == '1' ? $request->telefono : null;
-            $reclamo->vehiculo->conductor_tipo_documento_id = $request->conductor == '1' ? $request->tipo_documento_id : null;
-            $reclamo->vehiculo->conductor_documento_numero = $request->conductor == '1' ? $request->documento_numero : null;
-            $reclamo->vehiculo->conductor_domicilio = $request->conductor == '1' ? $request->domicilio : null;
-            $reclamo->vehiculo->conductor_codigo_postal = $request->conductor == '1' ? $request->codigo_postal : null;
-            $reclamo->vehiculo->conductor_pais_id = $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null) : null;
-            $reclamo->vehiculo->conductor_province_id = $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null) : null;
-            $reclamo->vehiculo->conductor_city_id = $request->conductor == '1' ? ($request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id) : null;
-            $reclamo->vehiculo->conductor_otro_pais_provincia_localidad = $request->conductor == '1' ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )) : null;
-            $reclamo->vehiculo->licencia_numero = $request->licencia_numero;
-            $reclamo->vehiculo->licencia_clase = $request->licencia_clase;
-            $reclamo->vehiculo->alcoholemia = $request->alcoholemia;
-            $reclamo->vehiculo->alcoholemia_se_nego = $request->alcoholemia_nego == 'on';
-            $reclamo->vehiculo->save();
+            if(!$reclamo->conductor)
+            {
+                $reclamo->conductor()->create([
+                    'nombre' => $request->conductor == '1' ? $request->nombre : null,
+                    'telefono' => $request->conductor == '1' ? $request->telefono : null,
+                    'fecha_nacimiento' => $request->conductor == '1' ? $request->fecha_nacimiento : null,
+                    'tipo_documento_id' => $request->conductor == '1' ? $request->tipo_documento_id : null,
+                    'documento_numero' => $request->conductor == '1' ? $request->documento_numero : null,
+                    'domicilio' => $request->conductor == '1' ? $request->domicilio : null,
+                    'codigo_postal' => $request->conductor == '1' ? $request->codigo_postal : null,
+                    'pais_id' => $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null) : null,
+                    'province_id' => $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null) : null,
+                    'city_id' => $request->conductor == '1' ? ($request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id) : null,
+                    'otro_pais_provincia_localidad' => $request->conductor == '1' ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )) : null,
+                    'licencia_numero' => $request->licencia_numero,
+                    'licencia_clase' => $request->licencia_clase,
+                    'alcoholemia' => $request->alcoholemia,
+                    'alcoholemia_se_nego' => $request->alcoholemia_nego == 'on',
+                    'lesiones' => $request->reclamo_lesiones == '1' ? $request->lesiones : false,
+                    'gravedad_lesion' => $request->lesiones == '1' ? $request->gravedad_lesion : null,
+                    'centro_asistencial' => $request->lesiones == '1' ? $request->centro_asistencial : null,
+                ]);
+            } else {
+                $reclamo->conductor->nombre = $request->conductor == '1' ? $request->nombre : null;
+                $reclamo->conductor->telefono = $request->conductor == '1' ? $request->telefono : null;
+                $reclamo->conductor->fecha_nacimiento = $request->conductor == '1' ? $request->fecha_nacimiento : null;
+                $reclamo->conductor->tipo_documento_id = $request->conductor == '1' ? $request->tipo_documento_id : null;
+                $reclamo->conductor->documento_numero = $request->conductor == '1' ? $request->documento_numero : null;
+                $reclamo->conductor->domicilio = $request->conductor == '1' ? $request->domicilio : null;
+                $reclamo->conductor->codigo_postal = $request->conductor == '1' ? $request->codigo_postal : null;
+                $reclamo->conductor->pais_id = $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->pais : null) : null;
+                $reclamo->conductor->province_id = $request->conductor == '1' ? ($request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null) : null;
+                $reclamo->conductor->city_id = $request->conductor == '1' ? ($request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id) : null;
+                $reclamo->conductor->otro_pais_provincia_localidad = $request->conductor == '1' ? ($request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null )) : null;
+                $reclamo->conductor->licencia_numero = $request->licencia_numero;
+                $reclamo->conductor->licencia_clase = $request->licencia_clase;
+                $reclamo->conductor->alcoholemia = $request->alcoholemia;
+                $reclamo->conductor->alcoholemia_se_nego = $request->alcoholemia_nego == 'on';
+                $reclamo->conductor->lesiones = $request->reclamo_lesiones == '1' ? $request->lesiones : false;
+                $reclamo->conductor->gravedad_lesion = $request->lesiones == '1' ? $request->gravedad_lesion : null;
+                $reclamo->conductor->centro_asistencial = $request->lesiones == '1' ? $request->centro_asistencial : null;
+                $reclamo->conductor->save();
+            }
         }
 
         if($reclamo->estado_carga === '3')
@@ -378,7 +385,7 @@ class ReclamoTerceroController extends Controller
         $validator = Validator::make($request->all(),[]);
 
         $validator->after(function ($validator) use ($request, $reclamo) {
-            if ($reclamo->reclamo_lesiones && !$reclamo->reclamante->lesiones && $reclamo->lesionados()->count() == 0) {
+            if ($reclamo->reclamo_lesiones && (!$reclamo->conductor->lesiones && $reclamo->lesionados()->count() == 0)) {
                 $validator->errors()->add('lesionados', 'Debe agregar al menos un lesionado');
             }
         });
