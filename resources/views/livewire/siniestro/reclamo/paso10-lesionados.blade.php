@@ -3,7 +3,7 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col" colspan="3">
-                {{ $orden }} - {{ $lesionado->nombre }}
+                {{ $orden }} - {{ $lesionado->nombre }} [{{ $tipo }}]
             </th>
         </tr>
         </thead>

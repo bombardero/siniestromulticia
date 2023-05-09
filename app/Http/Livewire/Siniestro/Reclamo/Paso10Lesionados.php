@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Siniestro\Reclamo;
 
+use App\Models\ConductorReclamo;
 use App\Models\DocumentosReclamo;
 use App\Models\LesionadoReclamo;
 use App\Models\ReclamoTercero;
@@ -18,6 +19,7 @@ class Paso10Lesionados extends Component
 
     public $reclamo;
     public $lesionado;
+    public $tipo;
     public $orden;
 
     public $dni;
@@ -32,11 +34,12 @@ class Paso10Lesionados extends Component
         $this->fileUploadService = new FileUploadService();
     }
 
-    public function mount(ReclamoTercero $reclamo, LesionadoReclamo $lesionado, string $orden)
+    public function mount(ReclamoTercero $reclamo, string $orden,  $lesionado)
     {
         $this->reclamo = $reclamo;
-        $this->lesionado = $lesionado;
         $this->orden = $orden;
+        $this->lesionado = $lesionado;
+        $this->tipo = get_class($lesionado) == 'App\Models\ConductorReclamo' ? 'Conductor' : 'Lesionado';
     }
 
     public function render()
