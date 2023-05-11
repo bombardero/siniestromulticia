@@ -13,6 +13,7 @@
 
     <form action="{{ route('siniestros.terceros.paso10.daniosmateriales.store') }}" method="post">
         @csrf
+        <input type="hidden" name="id" value="{{request('id')}}">
         <div class="row">
             <div class="col-12">
                 <a class="mt-3 boton-enviar-siniestro btn"

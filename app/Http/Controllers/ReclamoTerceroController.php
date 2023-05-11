@@ -1003,7 +1003,48 @@ class ReclamoTerceroController extends Controller
 
     public function paso10daniosMaterialesStore(Request $request)
     {
-        dd('paso10daniosMaterialesStore');
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $validator = Validator::make($request->all(),[]);
+
+        if($reclamo->reclamo_danios_materiales)
+        {
+            $validator->after(function ($validator) use ($request, $reclamo) {
+
+                foreach ($reclamo->daniosMateriales as $key => $danio_material)
+                {
+                    $orden = $key+1;
+                    if($danio_material->documentos()->where('type', 'dm_denuncia_policial')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_denuncia_policial', 'Debe cargar la Denuncia o Exposición Policial.');
+                    }
+                    if($danio_material->documentos()->where('type', 'dm_dni_propietario')->count() < 2)
+                    {
+                        $validator->errors()->add($orden.'_dni_propietario', 'Debe cargar el Documento del Propietario.');
+                    }
+                    if($danio_material->documentos()->where('type', 'dm_escritura_contrato_alquiler')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_escritura_contrato_alquiler', 'Debe cargar la Escritura de la propiedad o Contrato de alquiler.');
+                    }
+                    if($danio_material->documentos()->where('type', 'dm_fotos_danios')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_fotos_danios', 'Debe cargar al menos una foto de los daños.');
+                    }
+                    if($danio_material->documentos()->where('type', 'dm_presupuesto')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_presupuesto', 'Debe cargar el presupuesto.');
+                    }
+                }
+
+            });
+
+            if ($validator->fails())
+            {
+                return redirect()->route('siniestros.terceros.paso10.daniosmateriales.create',['id'=> $request->id])
+                    ->withErrors($validator)->withInput();
+            }
+        }
+
+        return redirect()->route('siniestros.terceros.paso10.create', ['id'=> $request->id]);
     }
 
     public function paso10lesionadosCreate(Request $request)
@@ -1018,6 +1059,8 @@ class ReclamoTerceroController extends Controller
 
     public function paso10lesionadosStore(Request $request)
     {
+
+
         dd('paso10lesionadosStore');
     }
 

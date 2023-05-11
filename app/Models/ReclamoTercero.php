@@ -200,7 +200,37 @@ class ReclamoTercero extends Model
 
     public function documentosDaniosMaterialesCompleto()
     {
-        return false;
+
+        if($this->reclamo_danios_materiales && !$this->daniosMateriales)
+        {
+            return false;
+        }
+
+        foreach ($this->daniosMateriales as $danio_material)
+        {
+            if($danio_material->documentos()->where('type', 'dm_denuncia_policial')->count() < 1)
+            {
+                return false;
+            }
+            if($danio_material->documentos()->where('type', 'dm_dni_propietario')->count() < 2)
+            {
+                return false;
+            }
+            if($danio_material->documentos()->where('type', 'dm_escritura_contrato_alquiler')->count() < 1)
+            {
+                return false;
+            }
+            if($danio_material->documentos()->where('type', 'dm_fotos_danios')->count() < 1)
+            {
+                return false;
+            }
+            if($danio_material->documentos()->where('type', 'dm_presupuesto')->count() < 1)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function documentosLesionadosCompleto()

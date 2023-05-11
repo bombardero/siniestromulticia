@@ -27,7 +27,7 @@
                         </li>
                     @endforeach
                     </ul>
-                    @error('dm_denuncia_policial')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    @error($orden.'_denuncia_policial')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
                 </td>
                 <td class="text-center">
                     <input type="file" id="{{$orden}}_denuncia_policial" name="denuncia_policial"
@@ -57,7 +57,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    @error('dm_dni_propietario') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    @error($orden.'_dni_propietario') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
                 </td>
                 <td class="text-center">
                     <input type="file" id="{{$orden}}_dni_propietario" name="dni_propietario"
@@ -87,7 +87,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    @error('dm_escritura_contrato_alquiler') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    @error($orden.'_escritura_contrato_alquiler') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
                 </td>
                 <td class="text-center">
                     <input type="file" id="{{$orden}}_escritura_contrato_alquiler" name="escritura_contrato_alquiler"
@@ -117,7 +117,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    @error('dm_fotos_danios') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    @error($orden.'_fotos_danios') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
                 </td>
                 <td class="text-center">
                     <input type="file" id="{{$orden}}_fotos_danios" name="fotos_danios"
@@ -147,7 +147,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    @error('dm_presupuesto') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    @error($orden.'_presupuesto') <span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
                 </td>
                 <td class="text-center">
                     <input type="file" id="{{$orden}}_presupuesto" name="presupuesto"
