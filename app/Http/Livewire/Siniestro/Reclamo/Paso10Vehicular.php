@@ -54,55 +54,55 @@ class Paso10Vehicular extends Component
     {
         $error = false;
 
-        if($this->reclamo->documentos->where('type', 'dni')->count() < 2 )
+        if($this->reclamo->vehiculo->documentos->where('type', 'dv_dni_titular')->count() < 2 )
         {
             $error = true;
             $this->addError('dni', 'Debe cargar 2 fotos del DNI, frente y reverso.');
         }
 
-        if($this->reclamo->documentos->where('type','cedula')->count() < 2 )
+        if($this->reclamo->vehiculo->documentos->where('type','dv_cedula')->count() < 2 )
         {
             $error = true;
             $this->addError('cedula', 'Debe cargar 2 fotos de la cédula, frente y reverso.');
         }
 
-        if($this->reclamo->documentos->where('type','carnet')->count() < 2 )
+        if($this->reclamo->vehiculo->documentos->where('type','dv_carnet')->count() < 2 )
         {
             $error = true;
             $this->addError('carnet', 'Debe cargar 2 fotos del carnet, frente y reverso.');
         }
 
-        if($this->reclamo->vehiculo && $this->reclamo->vehiculo->en_transferencia && $this->reclamo->documentos->where('type','formulario_08')->count() < 1 )
+        if($this->reclamo->vehiculo->en_transferencia && $this->reclamo->vehiculo->documentos->where('type','dv_formulario_08')->count() < 1 )
         {
             $error = true;
             $this->addError('formulario_08', 'Debe cargar el formulario 08.');
         }
 
-        if($this->reclamo->vehiculo && $this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','denuncia_administrativa')->count() < 1 )
+        if($this->reclamo->vehiculo->con_seguro && $this->reclamo->vehiculo->documentos->where('type','dv_denuncia_administrativa')->count() < 1 )
         {
             $error = true;
             $this->addError('denuncia_administrativa', 'Debe cargar la denuncia administrativa.');
         }
 
-        if($this->reclamo->vehiculo && $this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','certificado_cobertura')->count() < 1 )
+        if($this->reclamo->vehiculo->con_seguro && $this->reclamo->vehiculo->documentos->where('type','dv_certificado_cobertura')->count() < 1 )
         {
             $error = true;
             $this->addError('certificado_cobertura', 'Debe cargar el certificado de cobertura.');
         }
 
-        if($this->reclamo->vehiculo && !$this->reclamo->vehiculo->con_seguro && $this->reclamo->documentos->where('type','declaracion_jurada')->count() < 1 )
+        if(!$this->reclamo->vehiculo->con_seguro && $this->reclamo->vehiculo->documentos->where('type','dv_declaracion_jurada')->count() < 1 )
         {
             $error = true;
             $this->addError('declaracion_jurada', 'Debe cargar la declaración jurada de no seguro.');
         }
 
-        if($this->reclamo->documentos->where('type','vehiculo')->count() < 4 )
+        if($this->reclamo->vehiculo->documentos->where('type','dv_vehiculo')->count() < 4 )
         {
             $error = true;
             $this->addError('vehiculo', 'Debe que cargar 4 fotos del vehículo');
         }
 
-        if($this->reclamo->documentos->where('type','presupuesto')->count() < 1)
+        if($this->reclamo->vehiculo->documentos->where('type','dv_presupuesto')->count() < 1)
         {
             $error = true;
             $this->addError('presupuesto', 'Debe cargar el presupuesto.');
@@ -207,59 +207,59 @@ class Paso10Vehicular extends Component
 
     public function uploadFileDNI($file)
     {
-        $this->uploadFile($file,'dni',2);
+        $this->uploadFile($file,'dv_dni_titular',2);
     }
 
     // Controlar
 
     public function uploadFileCedula($file)
     {
-        $this->uploadFile($file,'cedula', 2);
+        $this->uploadFile($file,'dv_cedula', 2);
     }
 
     public function uploadFileCarnet($file)
     {
-        $this->uploadFile($file,'carnet', 2);
+        $this->uploadFile($file,'dv_carnet', 2);
     }
 
     public function uploadFileFormulario08($file)
     {
-        $this->uploadFile($file,'formulario_08', 2);
+        $this->uploadFile($file,'dv_formulario_08', 2);
     }
 
     public function uploadFileDenunciaAdministrativa($file)
     {
-        $this->uploadFile($file,'denuncia_administrativa', 1);
+        $this->uploadFile($file,'dv_denuncia_administrativa', 1);
     }
 
     public function uploadFileCertificadoCobertura($file)
     {
-        $this->uploadFile($file,'certificado_cobertura', 1);
+        $this->uploadFile($file,'dv_certificado_cobertura', 1);
     }
 
     public function uploadFileDeclaracionJurada($file)
     {
-        $this->uploadFile($file,'declaracion_jurada', 1);
+        $this->uploadFile($file,'dv_declaracion_jurada', 1);
     }
 
     public function uploadFileCartaFranquicia($file)
     {
-        $this->uploadFile($file,'carta_franquicia', 1);
+        $this->uploadFile($file,'dv_carta_franquicia', 1);
     }
 
     public function uploadFileVehiculo($file)
     {
-        $this->uploadFile($file,'vehiculo', 4);
+        $this->uploadFile($file,'dv_vehiculo', 4);
     }
 
     public function uploadFilePresupuesto($file)
     {
-        $this->uploadFile($file,'presupuesto', 2);
+        $this->uploadFile($file,'dv_presupuesto', 2);
     }
 
     public function uploadFileDescripcionRepuestos($file)
     {
-        $this->uploadFile($file,'descripcion_repuestos', 1);
+        $this->uploadFile($file,'dv_descripcion_repuestos', 1);
     }
 
     public function eliminarArchivo($id)

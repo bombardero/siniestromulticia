@@ -19,7 +19,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'dni')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_dni_titular')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -49,7 +49,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'cedula')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_cedula')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -79,7 +79,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'carnet')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_carnet')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -110,7 +110,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'formulario_08')->get() as $archivo)
+                            @foreach($reclamo->documentos()->where('type', 'dv_formulario_08')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -142,7 +142,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'denuncia_administrativa')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_denuncia_administrativa')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -165,15 +165,14 @@
                         </label>
                     </td>
                 </tr>
-                @else
                 <tr style="background-color: rgba(0,0,0,.05);">
                     <td>
-                        Declaración Jurada de No Seguro *
-                        <p class="ambos-lados text-left">Exposición Policial dónde declare que no tiene cobertura</p>
+                        Certificado de Cobertura *
+                        <p class="ambos-lados text-left">Archivo PDF</p>
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'declaracion_jurada')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_certificado_cobertura')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -185,7 +184,68 @@
                                 </li>
                             @endforeach
                         </ul>
-                        @error('denuncia_administrativa')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                        @error('certificado_cobertura')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    </td>
+                    <td class="text-center">
+                        <input type="file" id="certificado_cobertura" name="certificado_cobertura"
+                               wire:change="$emit('input_certificado_cobertura', $event)" accept="application/pdf">
+                        <label for="certificado_cobertura" class="mt-1">
+                            <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
+                            <span class="subir-archivo-morado mb-0">Agregar</span>
+                        </label>
+                    </td>
+                </tr>
+                <tr style="background-color: rgba(0,0,0,.05);">
+                    <td>
+                        Carta de Franquicia
+                        <p class="ambos-lados text-left">Archivo PDF</p>
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_carta_franquicia')->get() as $archivo)
+                                <li class="list-group-item border-0 bg-transparent p-0">
+                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                    <button
+                                        style="border:none;background: none;" id="confirmacion-popupa"
+                                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                            class="fas fa-trash-alt"></i>
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @error('carta_franquicia')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    </td>
+                    <td class="text-center">
+                        <input type="file" id="carta_franquicia" name="carta_franquicia"
+                               wire:change="$emit('input_carta_franquicia', $event)" accept="application/pdf">
+                        <label for="carta_franquicia" class="mt-1">
+                            <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
+                            <span class="subir-archivo-morado mb-0">Agregar</span>
+                        </label>
+                    </td>
+                </tr>
+                @else
+                <tr style="background-color: rgba(0,0,0,.05);">
+                    <td>
+                        Declaración Jurada de No Seguro *
+                        <p class="ambos-lados text-left">Exposición Policial dónde declare que no tiene cobertura</p>
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_declaracion_jurada')->get() as $archivo)
+                                <li class="list-group-item border-0 bg-transparent p-0">
+                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                    <button
+                                        style="border:none;background: none;" id="confirmacion-popupa"
+                                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                            class="fas fa-trash-alt"></i>
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @error('declaracion_jurada')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
                     </td>
                     <td class="text-center">
                         <input type="file" id="declaracion_jurada" name="declaracion_jurada"
@@ -204,7 +264,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'vehiculo')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_vehiculo')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -234,7 +294,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'presupuesto')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_presupuesto')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
@@ -259,12 +319,12 @@
                 </tr>
                 <tr style="background-color: rgba(0,0,0,.05);">
                     <td>
-                        Descripción de repuestos *
+                        Descripción de repuestos
                         <p class="ambos-lados text-left">En caso de necesitar cambios de piezas.</p>
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'descripcion_repuestos')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_descripcion_repuestos')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>

@@ -140,56 +140,59 @@ class ReclamoTercero extends Model
         return $this->hasMany(DanioMaterialReclamo::class, 'reclamo_tercero_id');
     }
 
-    public function documentos()
-    {
-        return $this->hasMany(DocumentosReclamo::class);
-    }
-
     public function documentosVehicularCompleto()
     {
-        if($this->documentos->where('type', 'dni')->count() < 2 )
+        if($this->reclamo_vehicular && !$this->vehiculo)
         {
             return false;
         }
 
-        if($this->documentos->where('type','cedula')->count() < 2 )
+        if($this->reclamo_vehicular && $this->vehiculo)
         {
-            return false;
-        }
+            if($this->vehiculo->documentos->where('type', 'dv_dni_titular')->count() < 2 )
+            {
+                return false;
+            }
 
-        if($this->documentos->where('type','carnet')->count() < 2 )
-        {
-            return false;
-        }
+            if($this->vehiculo->documentos->where('type','dv_cedula')->count() < 2 )
+            {
+                return false;
+            }
 
-        if($this->vehiculo && $this->vehiculo->en_transferencia && $this->documentos->where('type','formulario_08')->count() < 1 )
-        {
-            return false;
-        }
+            if($this->vehiculo->documentos->where('type','dv_carnet')->count() < 2 )
+            {
+                return false;
+            }
 
-        if($this->vehiculo && $this->vehiculo->con_seguro && $this->documentos->where('type','denuncia_administrativa')->count() < 1 )
-        {
-            return false;
-        }
+            if($this->vehiculo->en_transferencia && $this->vehiculo->documentos->where('type','dv_formulario_08')->count() < 1 )
+            {
+                return false;
+            }
 
-        if($this->vehiculo && $this->vehiculo->con_seguro && $this->documentos->where('type','certificado_cobertura')->count() < 1 )
-        {
-            return false;
-        }
+            if($this->vehiculo->con_seguro && $this->vehiculo->documentos->where('type','dv_denuncia_administrativa')->count() < 1 )
+            {
+                return false;
+            }
 
-        if($this->vehiculo && !$this->vehiculo->con_seguro && $this->documentos->where('type','declaracion_jurada')->count() < 1 )
-        {
-            return false;
-        }
+            if($this->vehiculo->con_seguro && $this->vehiculo->documentos->where('type','dv_certificado_cobertura')->count() < 1 )
+            {
+                return false;
+            }
 
-        if($this->documentos->where('type','vehiculo')->count() < 4 )
-        {
-            return false;
-        }
+            if(!$this->vehiculo->con_seguro && $this->vehiculo->documentos->where('type','dv_declaracion_jurada')->count() < 1 )
+            {
+                return false;
+            }
 
-        if($this->documentos->where('type','presupuesto')->count() < 1)
-        {
-            return false;
+            if($this->vehiculo->documentos->where('type','dv_vehiculo')->count() < 4 )
+            {
+                return false;
+            }
+
+            if($this->vehiculo->documentos->where('type','dv_presupuesto')->count() < 1)
+            {
+                return false;
+            }
         }
 
         return true;
