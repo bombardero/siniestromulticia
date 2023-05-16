@@ -1059,9 +1059,75 @@ class ReclamoTerceroController extends Controller
 
     public function paso10lesionadosStore(Request $request)
     {
+        $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
+        $validator = Validator::make($request->all(),[]);
 
+        if($reclamo->reclamo_lesiones)
+        {
+            $validator->after(function ($validator) use ($request, $reclamo) {
 
-        dd('paso10lesionadosStore');
+                $orden = 1;
+                $step = 1;
+                if($reclamo->conductor->lesiones)
+                {
+                    if($reclamo->conductor->documentos()->where('type', 'dl_dni')->count() < 2)
+                    {
+                        $validator->errors()->add($orden.'_dni', 'Debe cargar el documento.');
+                    }
+                    if($reclamo->conductor->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+                    {
+                        $validator->errors()->add($orden.'_dni_tutor', 'Debe cargar el Documento del Tutor.');
+                    }
+                    if($reclamo->conductor->documentos()->where('type', 'dl_denuncia_policial')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_denuncia_policial', 'Debe cargar la Denuncia o Exposición Policial.');
+                    }
+                    if($reclamo->conductor->documentos()->where('type', 'dl_historia_clinica')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_historia_clinica', 'Debe cargar la historia clínica.');
+                    }
+                    if($reclamo->conductor->documentos()->where('type', 'dl_gastos_medicos')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_gastos_medicos', 'Debe cargar gastos médicos.');
+                    }
+                    $step = 2;
+                }
+
+                foreach ($reclamo->lesionados as $key => $lesionado)
+                {
+                    $orden = $key + $step;
+                    if($lesionado->documentos()->where('type', 'dl_dni')->count() < 2)
+                    {
+                        $validator->errors()->add($orden.'_dni', 'Debe cargar el documento.');
+                    }
+                    if($lesionado->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+                    {
+                        $validator->errors()->add($orden.'_dni_tutor', 'Debe cargar el Documento del Tutor.');
+                    }
+                    if($lesionado->documentos()->where('type', 'dl_denuncia_policial')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_denuncia_policial', 'Debe cargar la Denuncia o Exposición Policial.');
+                    }
+                    if($lesionado->documentos()->where('type', 'dl_historia_clinica')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_historia_clinica', 'Debe cargar la historia clínica.');
+                    }
+                    if($lesionado->documentos()->where('type', 'dl_gastos_medicos')->count() < 1)
+                    {
+                        $validator->errors()->add($orden.'_gastos_medicos', 'Debe cargar gastos médicos.');
+                    }
+                }
+
+            });
+
+            if ($validator->fails())
+            {
+                return redirect()->route('siniestros.terceros.paso10.lesionados.create',['id'=> $request->id])
+                    ->withErrors($validator)->withInput();
+            }
+        }
+
+        return redirect()->route('siniestros.terceros.paso10.create', ['id'=> $request->id]);
     }
 
     public function paso10store(Request $request)

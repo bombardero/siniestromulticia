@@ -235,7 +235,60 @@ class ReclamoTercero extends Model
 
     public function documentosLesionadosCompleto()
     {
-        return false;
+        if($this->reclamo_lesiones && (!$this->conductor->lesiones || !$this->lesionados))
+        {
+            return false;
+        }
+
+        if($this->conductor && $this->conductor->lesiones)
+        {
+            if($this->conductor->documentos()->where('type', 'dl_dni')->count() < 2)
+            {
+                return false;
+            }
+            if($this->conductor->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+            {
+                return false;
+            }
+            if($this->conductor->documentos()->where('type', 'dl_denuncia_policial')->count() < 1)
+            {
+                return false;
+            }
+            if($this->conductor->documentos()->where('type', 'dl_historia_clinica')->count() < 1)
+            {
+                return false;
+            }
+            if($this->conductor->documentos()->where('type', 'dl_gastos_medicos')->count() < 1)
+            {
+                return false;
+            }
+        }
+
+        foreach ($this->lesionados as $lesionado)
+        {
+            if($lesionado->documentos()->where('type', 'dl_dni')->count() < 2)
+            {
+                return false;
+            }
+            if($lesionado->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+            {
+                return false;
+            }
+            if($lesionado->documentos()->where('type', 'dl_denuncia_policial')->count() < 1)
+            {
+                return false;
+            }
+            if($lesionado->documentos()->where('type', 'dl_historia_clinica')->count() < 1)
+            {
+                return false;
+            }
+            if($lesionado->documentos()->where('type', 'dl_gastos_medicos')->count() < 1)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
