@@ -68,20 +68,17 @@
 
   <script>
     document.querySelector("#file").onchange = function(){
-    document.querySelector("#file-name").textContent = this.files[0].name;
-  }
-  </script>
-
-  <script>
+        document.querySelector("#file-name").textContent = this.files[0].name;
+    }
     document.querySelector("#file-two").onchange = function(){
-    document.querySelector("#file-manual-suscripcion-auto").textContent = this.files[0].name;
-  }
-  </script>
-
-  <script>
+        document.querySelector("#file-manual-suscripcion-auto").textContent = this.files[0].name;
+    }
     document.querySelector("#file-three").onchange = function(){
-    document.querySelector("#file-suscripcion-moto").textContent = this.files[0].name;
-  }
+        document.querySelector("#file-suscripcion-moto").textContent = this.files[0].name;
+    }
+    document.querySelector("#file-condiciones-uso-grua").onchange = function(){
+        document.querySelector("#file-name-condiciones-uso-grua").textContent = this.files[0].name;
+    }
   </script>
 @endsection
 

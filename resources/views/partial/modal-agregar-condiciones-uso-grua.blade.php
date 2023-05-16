@@ -13,7 +13,7 @@
         	   				@csrf
         	   				<div class="form-group row ">
 					        	<div class="text-center col-12">
-					        		<label for="file-two">
+					        		<label for="file-condiciones-uso-grua">
 					        			<div class="row">
 					        				<div class="col-12">
         	   									<img src="{{url('/images/admin/cloud-computing 1.svg')}}" class="pt-5 img-fluid ">
@@ -21,8 +21,8 @@
 					        				</div>
 					        			</div>
 					        		</label>
-                                    <p class="panel-admin-table-title" id="file-manual-suscripcion-auto"></p>
-					        		<input type="file" id="file-two" name="file" />
+                                    <p class="panel-admin-table-title" id="file-name-condiciones-uso-grua"></p>
+					        		<input type="file" id="file-condiciones-uso-grua" name="file" />
 					        		<input type="hidden" value="4" id="tipo" name="tipo">
 					        		<span></span>
 					        	</div>
