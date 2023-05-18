@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 mt-5 pb-5">
-                    <form action="{{ route('admin.siniestros.buscador') }}" method="get" class="container-fluid" id="buscador">
+                    <form action="{{ route('admin.siniestros.reclamos.index') }}" method="get" class="container-fluid" id="buscador">
                         <div class="row mb-3">
                             <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0 pr-xl-1">
                                 <div class="input-group">
@@ -41,49 +41,9 @@
                                             value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
                                             Todos
                                         </option>
-                                        <option
-                                            value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>
-                                            Ingresado
-                                        </option>
-                                        <option
-                                            value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>
-                                            Aceptado
-                                        </option>
-                                        <option
-                                            value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>
-                                            Rechazado
-                                        </option>
-                                        <option
-                                            value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>
-                                            Cerrado
-                                        </option>
-                                        <option
-                                            value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>
-                                            Legales
-                                        </option>
-                                        <option
-                                            value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
-                                            Investigación
-                                        <option
-                                            value="derivado-proveedor" {{(request()->estado && request()->estado == 'derivado-proveedor') ? 'selected' : ''}}>
-                                            Derivado a proveedor
-                                        </option>
-                                        <option
-                                            value="solicitud-documentacion" {{(request()->estado && request()->estado == 'solicitud-documentacion') ? 'selected' : ''}}>
-                                            Solicitud de documentación
-                                        </option>
-                                        <option
-                                            value="informe-pericial" {{(request()->estado && request()->estado == 'informe-pericial') ? 'selected' : ''}}>
-                                            Informe Pericial
-                                        </option>
-                                        <option
-                                            value="pendiente-de-pago" {{(request()->estado && request()->estado == 'pendiente-de-pago') ? 'selected' : ''}}>
-                                            Pendiente de pago
-                                        </option>
-                                        <option
-                                            value="esperando-baja-de-unidad" {{(request()->estado && request()->estado == 'esperando-baja-de-unidad') ? 'selected' : ''}}>
-                                            Esperando baja de unidad
-                                        </option>
+                                        @foreach($estados as $key => $estado)
+                                            <option value="{{ $key }}" {{ (request()->estado && request()->estado == $key) ? 'selected' : ''}}>{{ $estado }}</option>
+                                        @endforeach
                                     </select>
                                     <label for="estado">Estado</label>
                                 </div>
@@ -210,50 +170,9 @@
                                             <td>
                                                 <select id="estado" class="form-select form-select-sm"
                                                         onchange="cambiarEstado(this, {{ $reclamo->id  }})">
-                                                    <option
-                                                        value="ingresado" {{( $reclamo->estado == 'ingresado') ? 'selected' : '' }}>
-                                                        INGRESADO
-                                                    </option>
-                                                    <option
-                                                        value="aceptado" {{( $reclamo->estado == 'aceptado') ? 'selected' : '' }}>
-                                                        ACEPTADO
-                                                    </option>
-                                                    <option
-                                                        value="rechazado" {{( $reclamo->estado == 'rechazado') ? 'selected' : '' }}>
-                                                        RECHAZADO
-                                                    </option>
-                                                    <option
-                                                        value="cerrado" {{( $reclamo->estado == 'cerrado') ? 'selected' : '' }}>
-                                                        CERRADO
-                                                    </option>
-                                                    <option
-                                                        value="legales" {{( $reclamo->estado == 'legales') ? 'selected' : '' }}>
-                                                        LEGALES
-                                                    </option>
-                                                    <option
-                                                        value="investigacion" {{( $reclamo->estado == 'investigacion') ? 'selected' : '' }}>
-                                                        INVESTIGACIÓN
-                                                    </option>
-                                                    <option
-                                                        value="derivado-proveedor" {{( $reclamo->estado == 'derivado-proveedor') ? 'selected' : '' }}>
-                                                        DERIVADO A PROVEEDOR
-                                                    </option>
-                                                    <option
-                                                        value="solicitud-documentacion" {{( $reclamo->estado == 'solicitud-documentacion') ? 'selected' : '' }}>
-                                                        SOLICITUD DE DOCUMENTACIÓN
-                                                    </option>
-                                                    <option
-                                                        value="informe-pericial" {{( $reclamo->estado == 'informe-pericial') ? 'selected' : '' }}>
-                                                        INFORME PERICIAL
-                                                    </option>
-                                                    <option
-                                                        value="pendiente-de-pago" {{( $reclamo->estado == 'pendiente-de-pago') ? 'selected' : '' }}>
-                                                        PENDIENTE DE PAGO
-                                                    </option>
-                                                    <option
-                                                        value="esperando-baja-de-unidad" {{( $reclamo->estado == 'esperando-baja-de-unidad') ? 'selected' : '' }}>
-                                                        ESPERANDO BAJA DE UNIDAD
-                                                    </option>
+                                                    @foreach($estados as $key => $estado)
+                                                        <option value="{{ $key }}" {{( $reclamo->estado == $key) ? 'selected' : '' }}>{{ $estado }}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             <td></td>
@@ -435,10 +354,9 @@
         let desde = $('#desde');
         let hasta = $('#hasta');
         let estado = $('#estado');
-        let cobertura = $('#cobertura');
         let carga = $('#carga');
-        let nro_denuncia = $('#nro_denuncia');
-        console.log(tipo);
+        let responsable = $('#responsable');
+        let link_enviado = $('#link_enviado');
         if(tipo == 'id')
         {
             fechas.attr('checked', false);
@@ -448,12 +366,12 @@
             hasta.val('');
             estado.attr('disabled', true);
             estado.val('todos');
-            cobertura.attr('disabled', true);
-            cobertura.val('todos');
             carga.attr('disabled', true);
             carga.val('todos');
-            nro_denuncia.attr('disabled', true);
-            nro_denuncia.val('todos');
+            responsable.attr('disabled', true);
+            responsable.val('todos');
+            link_enviado.attr('disabled', true);
+            link_enviado.val('todos');
         } else {
             fechas.attr('checked', true);
             desde.attr('disabled', false);
@@ -461,44 +379,15 @@
             hasta.attr('disabled', false);
             hasta.val('{{ Carbon\Carbon::now()->toDateString() }}');
             estado.attr('disabled', false);
-            cobertura.attr('disabled', false);
             carga.attr('disabled', false);
-            nro_denuncia.attr('disabled', false);
+            responsable.attr('disabled', false);
+            link_enviado.attr('disabled', false);
         }
     })
 
-
-    $('.form-update-denuncia').submit(function (event) {
-        event.preventDefault();
-        let url = $(this).attr('action')
-        let value = $(this).find('input[name="value"]').val() ? $(this).find('input[name="value"]').val() : null;
-        showLoading();
-        $.ajax(
-            {
-                url: url,
-                type: 'post',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "value": value
-                },
-                success: function (result) {
-                    //console.log(result);
-                    location.reload();
-                },
-                error: function (error) {
-                    //console.log(error);
-                    alert('Hubo un error.');
-                },
-                complete: function (jqXHR, textStatus) {
-                    hideLoading();
-                }
-            })
-
-    })
-
-    function cambiarEstado(estado, denuncia_siniestro_id) {
-        let url = '{{ route('admin.siniestros.denuncia.cambiar-estado', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-        url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id)
+    function cambiarEstado(estado, reclamo_id) {
+        let url = '{{ route('ajax.admin.siniestros.reclamos.cambiar-estado', ['reclamo' =>  ":reclamo_id"]) }}';
+        url = url.replace(':reclamo_id', reclamo_id)
         showLoading();
         $.ajax(
             {
@@ -507,31 +396,6 @@
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "estado": estado.value
-                },
-                success: function (result) {
-                    //console.log(result);
-                },
-                error: function (error) {
-                    //console.log(error);
-                    alert('Hubo un error.');
-                },
-                complete: function (jqXHR, textStatus) {
-                    hideLoading();
-                }
-            })
-    }
-
-    function cambiarCoberturaActiva(cobertura, denuncia_siniestro_id) {
-        let url = '{{ route('admin.siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
-        url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
-        showLoading();
-        $.ajax(
-            {
-                url: url,
-                type: 'post',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "cobertura_activa": cobertura.value
                 },
                 success: function (result) {
                     //console.log(result);
@@ -599,47 +463,6 @@
         showLoading()
     });
 
-    $('#modalEnviarACompania').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget)
-        let denuncia_id = button.data('denuncia-id')
-        let url = '{{ route('ajax.admin.siniestros.denuncia.enviar-compania', ['denuncia' =>  ':denuncia_id']) }}'
-        url = url.replace(':denuncia_id',denuncia_id)
-        console.log(url);
-        $('#modalEnviarACompania').find('form').attr('action',url);
-    })
-
-    $("#modalEnviarACompania form").submit(function (e) {
-        e.preventDefault();
-        showLoading();
-        let tipo_vehiculo = $(this).find('select').val()
-        let url = $(this).attr('action')
-
-        $.ajax(
-            {
-                url: url,
-                type: 'post',
-                data: { "_token": "{{ csrf_token() }}", 'tipo_vehiculo': tipo_vehiculo },
-                timeout: 0,
-                async: true,
-                success: function (result) {
-                    //console.log(result);
-                    if(result.mensaje)
-                    {
-                        alert(result.mensaje);
-                    } else {
-                        location.reload();
-                    }
-                },
-                error: function (error) {
-                    //console.log(error);
-                    alert('Hubo un error.');
-                },
-                complete: function (jqXHR, textStatus) {
-                    hideLoading();
-                    $('#modalEnviarACompania').find('button.close').click();
-                }
-            })
-    });
 
     $('#check-fechas').change(function () {
         if($(this).prop('checked'))

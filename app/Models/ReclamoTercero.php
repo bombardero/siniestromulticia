@@ -11,21 +11,20 @@ class ReclamoTercero extends Model
     use HasFactory, SoftDeletes;
 
     const ESTADOS = [
-        'ingresado',
-        'aceptado',
-        'rechazado',
-        'cerrado',
-        'legales',
-        'investigacion',
-        'derivado-proveedor',
-        'solicitud-documentacion',
-        'informe-pericial',
-        'pendiente-de-pago',
-        'esperando-baja-de-unidad'
+        'ingresado' => 'Ingresado',
+        'aceptado' => 'Aceptado',
+        'rechazado' => 'Rechazado',
+        'cerrado' => 'Cerrado',
+        'legales' => 'Legales',
+        'investigacion' => 'Investigación',
+        'derivado-proveedor' => 'Derivado a proveedor',
+        'solicitud-documentacion' => 'Solicitud de documentación',
+        'informe-pericial' => 'Informe Pericial',
     ];
 
     protected $fillable = [
         'identificador',
+        'estado',
         'estado_carga',
         'vehiculo_asegurado_dominio',
         'vehiculo_tercero_dominio',

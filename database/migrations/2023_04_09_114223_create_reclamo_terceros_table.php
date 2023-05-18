@@ -16,6 +16,7 @@ class CreateReclamoTercerosTable extends Migration
         Schema::create('reclamo_terceros', function (Blueprint $table) {
             $table->id();
             $table->string('identificador');
+            $table->string('estado')->default('ingresado');
             $table->string('estado_carga');
             $table->string('vehiculo_asegurado_dominio');
             $table->string('vehiculo_tercero_dominio')->nullable();
@@ -67,6 +68,8 @@ class CreateReclamoTercerosTable extends Migration
             $table->unsignedBigInteger('monto_lesiones')->nullable();
 
             $table->string('comisaria')->nullable();
+
+            $table->foreignId('user_id')->nullable()->constrained();
 
             $table->timestamps();
             $table->timestamp('finalized_at')->nullable();

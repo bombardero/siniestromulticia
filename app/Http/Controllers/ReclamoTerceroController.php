@@ -1176,6 +1176,6 @@ class ReclamoTerceroController extends Controller
     public function show(Request $request, $id)
     {
         $reclamo = ReclamoTercero::where('identificador',$id)->firstOrFail();
-        return view('siniestros.reclamo-terceros.show',['reclamo' => $reclamo]);
+        return view('siniestros.reclamo-terceros.show',['reclamo' => $reclamo, 'estados' => ReclamoTercero::ESTADOS]);
     }
 }

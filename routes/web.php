@@ -365,6 +365,7 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admi
 
     Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
         Route::post('/{reclamo}/link-enviado', [ReclamoTerceroAjaxController::class,'updateLinkEnviado'])->name('link-enviado');
+        Route::post('/{reclamo}/cambiar-estado', [ReclamoTerceroAjaxController::class,'cambiarEstado'])->name('cambiar-estado');
     });
 });
 
