@@ -175,7 +175,9 @@
                                                     @endforeach
                                                 </select>
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                {{ implode(', ',$reclamo->tiposReclamos) }}
+                                            </td>
                                             <td>
                                                 @if($reclamo->estado_carga == 'precarga')
                                                     <span>PRECARGA</span>
@@ -215,7 +217,7 @@
                                                         </li>
                                                         <li>
                                                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalObservaciones" data-denuncia-id="{{ $reclamo->id }}"
-                                                               class="dropdown-item" title="Observaciones">
+                                                               class="dropdown-item disabled" title="Observaciones">
                                                                 <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
                                                             </a>
                                                         </li>
