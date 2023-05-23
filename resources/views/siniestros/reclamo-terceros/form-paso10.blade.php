@@ -81,7 +81,7 @@
             <div class="col-12">
                 <a class="mt-3 boton-enviar-siniestro btn"
                    style="border:1px solid #6e4697;font-weight: bold;background: transparent;color: #6e4697;"
-                   href='{{route('siniestros.terceros.paso8.create',['id' => request('id')])}}'>ANTERIOR</a>
+                   href='{{route('siniestros.terceros.paso9.create',['id' => request('id')])}}'>ANTERIOR</a>
                 <input type="submit" class="mt-3 boton-enviar-siniestro btn " value='SIGUIENTE'
                        style="background:#6e4697;font-weight: bold;"/>
             </div>

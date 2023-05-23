@@ -73,12 +73,12 @@
 
             <div class="col-12 col-md-4">
                 <div class="form-group">
-                    <label for="dominio">Calle o Ruta</label>
-                    <input type="text" id="calle" name="calle"
-                           class="form-control @error('calle') is-invalid @enderror"
+                    <label for="dominio">Dirección</label>
+                    <input type="text" id="direccion" name="direccion"
+                           class="form-control @error('direccion') is-invalid @enderror"
                            maxlength="255"
-                           value="{{ $reclamo->calle }}">
-                    @error('calle') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                           value="{{ old('direccion') ? old('direccion') : $reclamo->direccion }}">
+                    @error('direccion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
             </div>
 

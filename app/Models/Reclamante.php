@@ -28,6 +28,13 @@ class Reclamante extends Model
         'conductor' => 'boolean'
     ];
 
+    protected $dates = ['fecha_nacimiento'];
+
+    public function getEsMenorEnSiniestroAttribute()
+    {
+        return $this->fecha_nacimiento->diffInYears($this->reclamo->fecha) < 18;
+    }
+
     public function reclamo()
     {
         return $this->belongsTo(ReclamoTercero::class, 'reclamo_tercero_id');

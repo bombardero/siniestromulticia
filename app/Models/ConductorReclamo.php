@@ -39,9 +39,17 @@ class ConductorReclamo extends Model
         'lesiones' => 'boolean',
     ];
 
+    protected $dates = ['fecha_nacimiento'];
+
+    public function getEsMenorEnSiniestroAttribute()
+    {
+        $edad = $this->fecha_nacimiento != null ? $this->fecha_nacimiento->diffInYears($this->reclamo->fecha) : $this->reclamo->reclamante->fecha_nacimiento->diffInYears($this->reclamo->fecha);
+        return $edad < 18;
+    }
+
     public function reclamo()
     {
-        return $this->belongsTo(ReclamoTercero::class);
+        return $this->belongsTo(ReclamoTercero::class, 'reclamo_tercero_id');
     }
 
     public function tipoDocumento()

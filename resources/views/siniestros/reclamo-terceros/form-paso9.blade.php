@@ -12,7 +12,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-sm">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre</th>
@@ -38,6 +38,7 @@
         <div class="row">
             <div class="col-12">
                 <a href="{{route('siniestros.terceros.paso9.testigo.create',['id'=> request('id')])}}"
+                   class="btn"
                    style="color:#6E4697;">
                     <i class="fa-solid fa-circle-plus fa-xl mr-2"></i>Agregar testigo
                 </a>

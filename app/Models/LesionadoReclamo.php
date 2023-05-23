@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -40,6 +41,11 @@ class LesionadoReclamo extends Model
     ];
 
     protected $dates = ['fecha_nacimiento'];
+
+    public function getEsMenorEnSiniestroAttribute()
+    {
+        return $this->fecha_nacimiento->diffInYears($this->reclamo->fecha) < 18;
+    }
 
     public function reclamo()
     {

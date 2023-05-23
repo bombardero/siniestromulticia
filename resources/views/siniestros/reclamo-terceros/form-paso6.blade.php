@@ -44,6 +44,7 @@
         <div class="row">
             <div class="col-12">
                 <a href="{{ route('siniestros.terceros.paso6.daniomaterial.create', ['id' => request('id')] )}}"
+                   class="btn {{ !$reclamo->reclamo_danios_materiales ? 'disabled' : '' }}"
                    style="color:#6E4697;">
                     <i class="fa-solid fa-circle-plus fa-xl mr-2"></i>Agregar daño material
                 </a>

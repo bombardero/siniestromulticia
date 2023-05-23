@@ -7,12 +7,12 @@
         </div>
     </div>
 
-    @if($reclamo->conductor->lesiones)
+    @if($reclamo->conductor && $reclamo->conductor->lesiones)
         <livewire:siniestro.reclamo.paso10-lesionados :reclamo="$reclamo" :lesionado="$reclamo->conductor" :orden="1" :wire:key="Illuminate\Support\Str::uuid()">
     @endif
 
     @foreach($reclamo->lesionados as $key => $lesionado)
-        <livewire:siniestro.reclamo.paso10-lesionados :reclamo="$reclamo" :lesionado="$lesionado" :orden="$key + ($reclamo->conductor->lesiones ? 2 : 1)" :wire:key="Illuminate\Support\Str::uuid()">
+        <livewire:siniestro.reclamo.paso10-lesionados :reclamo="$reclamo" :lesionado="$lesionado" :orden="$key + ($reclamo->conductor && $reclamo->conductor->lesiones ? 2 : 1)" :wire:key="Illuminate\Support\Str::uuid()">
     @endforeach
 
     <form action="{{ route('siniestros.terceros.paso10.lesionados.store') }}" method="post">

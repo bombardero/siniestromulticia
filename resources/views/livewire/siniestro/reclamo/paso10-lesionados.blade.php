@@ -38,35 +38,37 @@
                     </label>
                 </td>
             </tr>
-            <tr style="background-color: rgba(0,0,0,.05);">
-                <td>
-                    DNI Tutor *
-                    <p class="ambos-lados text-left">Fotos de ámbos lados</p>
-                </td>
-                <td>
-                    <ul class="list-group">
-                        @foreach($lesionado->documentos()->where('type', 'dl_dni_tutor')->get() as $archivo)
-                            <li class="list-group-item border-0 bg-transparent p-0">
-                                <a target="_blank" class="documento-formato-texto pt-2"
-                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                <button
-                                    style="border:none;background: none;" id="confirmacion-popupa"
-                                    wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
-                                        class="fas fa-trash-alt"></i>
-                                </button>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @error($orden.'_dni_tutor')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
-                </td>
-                <td class="text-center">
-                    <input type="file" id="{{$orden}}_dni_tutor" name="dni_tutor" wire:model="dni_tutor" accept="image/png,image/jpeg">
-                    <label for="{{$orden}}_dni_tutor" class="mt-1">
-                        <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                        <span class="subir-archivo-morado mb-0">Agregar</span>
-                    </label>
-                </td>
-            </tr>
+            @if($lesionado->es_menor_en_siniestro)
+                <tr style="background-color: rgba(0,0,0,.05);">
+                    <td>
+                        DNI Tutor *
+                        <p class="ambos-lados text-left">Fotos de ámbos lados</p>
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach($lesionado->documentos()->where('type', 'dl_dni_tutor')->get() as $archivo)
+                                <li class="list-group-item border-0 bg-transparent p-0">
+                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                    <button
+                                        style="border:none;background: none;" id="confirmacion-popupa"
+                                        wire:click.prevent="eliminarArchivo({{$archivo->id}})"><i
+                                            class="fas fa-trash-alt"></i>
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @error($orden.'_dni_tutor')<span class="invalid-feedback pl-2" style="font-size: .75rem">{{ $message }}</span> @enderror
+                    </td>
+                    <td class="text-center">
+                        <input type="file" id="{{$orden}}_dni_tutor" name="dni_tutor" wire:model="dni_tutor" accept="image/png,image/jpeg">
+                        <label for="{{$orden}}_dni_tutor" class="mt-1">
+                            <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
+                            <span class="subir-archivo-morado mb-0">Agregar</span>
+                        </label>
+                    </td>
+                </tr>
+            @endif
             <tr style="background-color: rgba(0,0,0,.05);">
                 <td>
                     Denuncia o Exposición Policial

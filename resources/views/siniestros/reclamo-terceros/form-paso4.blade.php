@@ -72,6 +72,7 @@
                     <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
                            class="form-control @error('fecha_nacimiento') is-invalid @enderror"
                            value="{{ old('fecha_nacimiento') ? old('fecha_nacimiento') : ($reclamo->conductor ? $reclamo->conductor->fecha_nacimiento : '') }}"
+                            {{ !$conductor ? 'disabled' : '' }}
                     >
                     @error('fecha_nacimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -83,7 +84,7 @@
                     <input type="text" name="domicilio" id="domicilio"
                            class="form-control @error('domicilio') is-invalid @enderror"
                            value="{{ old('domicilio') ? old('domicilio') : ($reclamo->conductor ? $reclamo->conductor->domicilio : '') }}"
-                        {{ !$conductor ? 'disabled' : '' }}
+                          {{ !$conductor ? 'disabled' : '' }}
                     >
                     @error('domicilio') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
@@ -240,7 +241,7 @@
             </div>
         </div>
 
-        @if($reclamo->reclamo_lesiones)
+        @if($reclamo->reclamo_vehicular && $reclamo->reclamo_lesiones)
             <div class="row mb-2">
                 <div class="col-12 col-md-4">
                     <label>¿Sufrió lesiones?</label>

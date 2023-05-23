@@ -234,7 +234,7 @@ class ReclamoTercero extends Model
 
     public function documentosLesionadosCompleto()
     {
-        if($this->reclamo_lesiones && (!$this->conductor->lesiones || !$this->lesionados))
+        if($this->reclamo_lesiones && (($this->conductor && !$this->conductor->lesiones) || !$this->lesionados))
         {
             return false;
         }
@@ -245,7 +245,7 @@ class ReclamoTercero extends Model
             {
                 return false;
             }
-            if($this->conductor->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+            if($this->conductor->es_menor_en_siniestro && $this->conductor->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
             {
                 return false;
             }
@@ -265,11 +265,11 @@ class ReclamoTercero extends Model
 
         foreach ($this->lesionados as $lesionado)
         {
-            if($lesionado->documentos()->where('type', 'dl_dni')->count() < 2)
+            if($lesionado->es_menor_en_siniestro && $lesionado->documentos()->where('type', 'dl_dni')->count() < 2)
             {
                 return false;
             }
-            if($lesionado->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+            if($lesionado->es_menor_en_siniestro && $lesionado->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
             {
                 return false;
             }

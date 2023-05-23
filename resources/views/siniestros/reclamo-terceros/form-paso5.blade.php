@@ -57,6 +57,7 @@
         <div class="row">
             <div class="col-12">
                 <a href="{{ route('siniestros.terceros.paso5.lesionado.create', ['id' => request('id')] )}}"
+                   class="btn {{ !$reclamo->reclamo_lesiones ? 'disabled' : '' }}"
                    style="color:#6E4697;">
                     <i class="fa-solid fa-circle-plus fa-xl mr-2"></i>Agregar lesionado
                 </a>

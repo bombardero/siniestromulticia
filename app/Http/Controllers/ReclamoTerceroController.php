@@ -106,7 +106,7 @@ class ReclamoTerceroController extends Controller
             'otra_localidad'=>'required_with:check_otra_localidad',
             'telefono' => 'required',
             'fecha_nacimiento' => 'required',
-            'conductor' => 'required_if:reclamo_lesiones,1'
+            'conductor' => 'required_if:reclamo_vehicular,1'
         ];
         $messages = [
             'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
@@ -277,6 +277,7 @@ class ReclamoTerceroController extends Controller
 
     public function paso4store(Request $request)
     {
+        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
         $rules = [
             'nombre' => 'required_if:conductor,1',
             'tipo_documento_id' => 'required_if:conductor,1',
@@ -288,9 +289,9 @@ class ReclamoTerceroController extends Controller
             'otra_localidad' => 'required_with:check_otra_localidad',
             'licencia_numero' => 'required_if:reclamo_vehicular,1',
             'licencia_clase' => 'required_if:reclamo_vehicular,1',
-            'alcoholemia'=>'required_if:reclamo_vehicular,1',
-            'lesiones'=>'required_if:reclamo_lesiones,1',
-            'gravedad_lesion'=>'required_if:lesiones,1',
+            'alcoholemia' => 'required_if:reclamo_vehicular,1',
+            'lesiones' => Rule::requiredIf($reclamo->reclamo_vehicular && $reclamo->reclamo_lesiones),
+            'gravedad_lesion' => 'required_if:lesiones,1',
         ];
         $messages = [
             'nombre.required_if' => 'El campo nombre completo es obligatorio.',
@@ -308,8 +309,6 @@ class ReclamoTerceroController extends Controller
             'gravedad_lesion.required_if' => 'El campo gravedad de lesiones es obligatorio.',
         ];
         Validator::make($request->all(),$rules,$messages)->validate();
-
-        $reclamo = ReclamoTercero::where("identificador",$request->id)->firstOrFail();
 
         if($reclamo->reclamo_vehicular)
         {
@@ -385,7 +384,10 @@ class ReclamoTerceroController extends Controller
         $validator = Validator::make($request->all(),[]);
 
         $validator->after(function ($validator) use ($request, $reclamo) {
-            if ($reclamo->reclamo_lesiones && (!$reclamo->conductor->lesiones && $reclamo->lesionados()->count() == 0)) {
+            if ($reclamo->reclamo_lesiones &&  $reclamo->lesionados()->count() == 0) {
+                $validator->errors()->add('lesionados', 'Debe agregar al menos un lesionado');
+            }
+            if ($reclamo->reclamo_lesiones && $reclamo->conductor && !$reclamo->conductor->lesiones && $reclamo->lesionados()->count() == 0) {
                 $validator->errors()->add('lesionados', 'Debe agregar al menos un lesionado');
             }
         });
@@ -687,7 +689,7 @@ class ReclamoTerceroController extends Controller
             'pais' => 'required',
             'otro_pais_provincia_localidad' => 'required_if:pais,otro',
             'otra_localidad'=>'required_with:check_otra_localidad',
-            'calle'=>'required',
+            'direccion'=>'required',
         ];
         $messages = [
             'otro_pais_provincia_localidad.required_if' => 'El campo localidad/provincia/pais es requerido',
@@ -701,7 +703,7 @@ class ReclamoTerceroController extends Controller
         $reclamo->province_id = $request->pais != 'otro' && is_numeric($request->pais) ? $request->provincia_id : null;
         $reclamo->city_id = $request->pais == 'otro' || $request->check_otra_localidad ? null : $request->localidad_id;
         $reclamo->otro_pais_provincia_localidad = $request->pais == 'otro' ? $request->otro_pais_provincia_localidad : ($request->check_otra_localidad == 'on' ? $request->otra_localidad : null );
-        $reclamo->calle = $request->calle;
+        $reclamo->direccion = $request->direccion;
         $reclamo->tipo_calzada_id = $request->calzada_id;
         $reclamo->calzada_detalle = $request->calzada_detalle;
         $reclamo->interseccion = $request->interseccion;
@@ -754,7 +756,7 @@ class ReclamoTerceroController extends Controller
         if(!$reclamo->croquis_url && !$request->hasFile('graficoManual') )
         {
             $validator->errors()->add('graficoManual', 'Debe crear un croquis o cargar una imagen.');
-            return redirect()->route("siniestros.terceros.paso6.create",['id'=> $request->id])
+            return redirect()->route("siniestros.terceros.paso8.create",['id'=> $request->id])
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -968,8 +970,8 @@ class ReclamoTerceroController extends Controller
     {
         $reclamo = ReclamoTercero::where("identificador", $request->id)->firstOrFail();
         $vehicular_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosVehicularCompleto() : true;
-        $danios_materiales_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosDaniosMaterialesCompleto() : true;
-        $lesionados_completo = $reclamo->reclamo_vehicular ? $reclamo->documentosLesionadosCompleto() : true;
+        $danios_materiales_completo = $reclamo->reclamo_danios_materiales ? $reclamo->documentosDaniosMaterialesCompleto() : true;
+        $lesionados_completo = $reclamo->reclamo_lesiones ? $reclamo->documentosLesionadosCompleto() : true;
 
         $data = [
             'reclamo' => $reclamo,
@@ -1068,13 +1070,13 @@ class ReclamoTerceroController extends Controller
 
                 $orden = 1;
                 $step = 1;
-                if($reclamo->conductor->lesiones)
+                if($reclamo->conductor && $reclamo->conductor->lesiones)
                 {
                     if($reclamo->conductor->documentos()->where('type', 'dl_dni')->count() < 2)
                     {
                         $validator->errors()->add($orden.'_dni', 'Debe cargar el documento.');
                     }
-                    if($reclamo->conductor->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+                    if($reclamo->conductor->es_menor_en_siniestro && $reclamo->conductor->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
                     {
                         $validator->errors()->add($orden.'_dni_tutor', 'Debe cargar el Documento del Tutor.');
                     }
@@ -1100,7 +1102,7 @@ class ReclamoTerceroController extends Controller
                     {
                         $validator->errors()->add($orden.'_dni', 'Debe cargar el documento.');
                     }
-                    if($lesionado->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
+                    if($lesionado->es_menor_en_siniestro && $lesionado->documentos()->where('type', 'dl_dni_tutor')->count() < 2)
                     {
                         $validator->errors()->add($orden.'_dni_tutor', 'Debe cargar el Documento del Tutor.');
                     }
@@ -1117,7 +1119,6 @@ class ReclamoTerceroController extends Controller
                         $validator->errors()->add($orden.'_gastos_medicos', 'Debe cargar gastos médicos.');
                     }
                 }
-
             });
 
             if ($validator->fails())
