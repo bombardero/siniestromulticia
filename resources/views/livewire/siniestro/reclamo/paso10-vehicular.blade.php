@@ -110,7 +110,7 @@
                     </td>
                     <td>
                         <ul class="list-group">
-                            @foreach($reclamo->documentos()->where('type', 'dv_formulario_08')->get() as $archivo)
+                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_formulario_08')->get() as $archivo)
                                 <li class="list-group-item border-0 bg-transparent p-0">
                                     <a target="_blank" class="documento-formato-texto pt-2"
                                        href={{$archivo->url}}>{{$archivo->nombre}}</a>
