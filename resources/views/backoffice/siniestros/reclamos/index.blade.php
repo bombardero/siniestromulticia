@@ -176,7 +176,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                {{ implode(', ',$reclamo->tiposReclamos) }}
+                                                {{ implode(', ',$reclamo->tipos_reclamos) }}
                                             </td>
                                             <td>
                                                 @if($reclamo->estado_carga == 'precarga')

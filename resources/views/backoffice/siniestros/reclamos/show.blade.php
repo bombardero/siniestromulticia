@@ -79,6 +79,13 @@
                                         </div>
                                     @endif
 
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <p>Tipo: {{ implode(', ',$reclamo->tipos_reclamos) }}</p>
+                                        </div>
+                                    </div>
+
+
                                     @if($reclamo->estado_carga == 'precarga')
                                         <div class="row">
                                             <div class="col-12">
@@ -235,6 +242,8 @@
                                             @endif
                                         </div>
 
+                                        <!-- DATOS DEL VEHÍCULO -->
+                                        <!-- ------------------ -->
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Vehículo</b>
                                             <a href="{{ route('siniestros.terceros.paso3.create',['id' => $reclamo->identificador]) }}"
@@ -281,6 +290,9 @@
                                             </div>
                                         </div>
 
+
+                                        <!-- CONDUCTOR DEL VEHÍCULO -->
+                                        <!-- ---------------------- -->
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Conductor del Vehículo</b>
                                             <a href="{{ route('siniestros.terceros.paso4.create',['id' => $reclamo->identificador]) }}"
@@ -288,7 +300,7 @@
                                                     class="fa-solid fa-pen-to-square"></i>Editar</a>
                                         </div>
 
-                                        @if($reclamo->vehiculo && $reclamo->vehiculo->reclamante_conductor)
+                                        @if($reclamo->reclamante && $reclamo->reclamante->conductor)
                                             <div class="row">
                                                 <div class="col-12">
                                                     <p>El conductor es el reclamante</p>
@@ -297,45 +309,45 @@
                                         @else
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <p>Nombre: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_nombre : '' }}</p>
+                                                    <p>Nombre: {{ $reclamo->conductor ? $reclamo->vehiculo->nombre : '' }}</p>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <p>Tipo de Documento: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipoDocumento->nombre : '' }}</p>
+                                                    <p>Tipo de Documento: {{ $reclamo->conductor ? $reclamo->conductor->tipoDocumento->nombre : '' }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>N° de Documento: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_documento_numero : '' }}</p>
+                                                    <p>N° de Documento: {{ $reclamo->conductor ? $reclamo->conductor->documento_numero : '' }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>Teléfono: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_telefono : '' }}</p>
+                                                    <p>Teléfono: {{ $reclamo->conductor ? $reclamo->conductor->telefono : '' }}</p>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <p>Domicilio: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_domicilio : '' }}</p>
+                                                    <p>Domicilio: {{ $reclamo->conductor ? $reclamo->conductor->domicilio : '' }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>Código Postal: {{ $reclamo->vehiculo ? $reclamo->vehiculo->conductor_codigo_postal : '' }}</p>
+                                                    <p>Código Postal: {{ $reclamo->conductor ? $reclamo->conductor->codigo_postal : '' }}</p>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                @if($reclamo->vehiculo && $reclamo->vehiculo->conductor_pais_id && $reclamo->vehiculo->conductor_province_id)
+                                                @if($reclamo->vehiculo && $reclamo->conductor->pais_id && $reclamo->conductor->province_id)
                                                     <div class="col-md-4">
-                                                        <p>País: {{ $reclamo->vehiculo->pais->nombre }}</p>
+                                                        <p>País: {{ $reclamo->conductor->pais->nombre }}</p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <p>Provincia: {{ $reclamo->vehiculo->provincia->name }}</p>
+                                                        <p>Provincia: {{ $reclamo->conductor->provincia->name }}</p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <p>Localidad: {{ $reclamo->vehiculo->conductor_city_id != null ? $reclamo->vehiculo->localidad->name : $reclamo->vehiculo->conductor_otro_pais_provincia_localidad }}</p>
+                                                        <p>Localidad: {{ $reclamo->conductor->city_id != null ? $reclamo->conductor->localidad->name : $reclamo->conductor->otro_pais_provincia_localidad }}</p>
                                                     </div>
-                                                @elseif($reclamo->vehiculo && $reclamo->vehiculo->conductor_otro_pais_provincia_localidad)
+                                                @elseif($reclamo->conductor && $reclamo->conductor->otro_pais_provincia_localidad)
                                                     <div class="col-12">
-                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->vehiculo->conductor_otro_pais_provincia_localidad }}</p>
+                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
                                                     </div>
                                                 @else
                                                     <div class="col-12 col-md-4">
@@ -353,16 +365,19 @@
 
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <p>Número de Licencia: {{ $reclamo->vehiculo ? $reclamo->vehiculo->licencia_numero : '' }}</p>
+                                                <p>Número de Licencia: {{ $reclamo->conductor ? $reclamo->conductor->licencia_numero : '' }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <p>Licencia Clase: {{ $reclamo->vehiculo ? $reclamo->vehiculo->licencia_clase : '' }}</p>
+                                                <p>Licencia Clase: {{ $reclamo->conductor ? $reclamo->conductor->licencia_clase : '' }}</p>
                                             </div>
                                         </div>
 
+
+                                        <!-- LUGAR DEL SINIESTRO -->
+                                        <!-- ------------------- -->
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Lugar del Siniestro</b>
-                                            <a href="{{ route('siniestros.terceros.paso5.create',['id' => $reclamo->identificador]) }}"
+                                            <a href="{{ route('siniestros.terceros.paso7.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
                                                     class="fa-solid fa-pen-to-square"></i>Editar</a>
                                         </div>
@@ -452,9 +467,12 @@
                                             @endif
                                         </div>
 
+                                        <!-- CROQUIS DEL SINIESTRO -->
+                                        <!-- --------------------- -->
+
                                         <div class="alert alert-secondary mt-3 " role="alert">
-                                            <b>Detalles del Siniestro</b>
-                                            <a href="{{ route('siniestros.terceros.paso6.create',['id' => $reclamo->identificador]) }}"
+                                            <b>Croquis del Siniestro</b>
+                                            <a href="{{ route('siniestros.terceros.paso8.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
                                                     class="fa-solid fa-pen-to-square"></i>Editar</a>
                                         </div>
@@ -479,21 +497,30 @@
                                             </div>
                                         </div>
 
-                                        <div class="row pt-0">
-                                            <div class="col-12 col-md-4">
-                                                <p>Detalle Calzada: $ {{ $reclamo->monto_vehicular != null ? $reclamo->monto_vehicular : '0'}}</p>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <p>Intersección: $ {{ $reclamo->monto_danios_materiales != null ? $reclamo->monto_danios_materiales : '0' }}</p>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <p>Cruce Señalizado: $ {{ $reclamo->monto_lesiones != null ? $reclamo->monto_lesiones : '0' }}</p>
+                                        <div class="row pt-2">
+                                            <div class="col-12">
+                                                <p>Montos que reclama</p>
                                             </div>
                                         </div>
 
+                                        <div class="row pt-0">
+                                            <div class="col-12 col-md-4">
+                                                <p>Daño Vehicular: $ {{ $reclamo->monto_vehicular != null ? $reclamo->monto_vehicular : '0'}}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Daños Materiales: $ {{ $reclamo->monto_danios_materiales != null ? $reclamo->monto_danios_materiales : '0' }}</p>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <p>Lesiones: $ {{ $reclamo->monto_lesiones != null ? $reclamo->monto_lesiones : '0' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- TESTIGOS -->
+                                        <!-- -------- -->
+
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Testigos</b>
-                                            <a href="{{ route('siniestros.terceros.paso7.create',['id' => $reclamo->identificador]) }}"
+                                            <a href="{{ route('siniestros.terceros.paso9.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
                                                     class="fa-solid fa-pen-to-square"></i>Editar</a>
                                         </div>
@@ -532,9 +559,475 @@
                                             </table>
                                         </div>
 
+                                        <!-- DOCUMENTOS -->
+                                        <!-- ---------- -->
 
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Documentos</b>
+                                            <a href="{{ route('siniestros.terceros.paso9.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+
+
+                                        @if($reclamo->reclamo_vehicular)
+                                        <div class="row pt-0">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-sm">
+                                                        <thead class="table-dark">
+                                                        <tr>
+                                                            <th scope="col" colspan="2">
+                                                                Vehículo
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>DNI Titular</td>
+                                                            <td>
+                                                                <ul class="list-group">
+                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_dni_titular')->get() as $archivo)
+                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cédula verde o Título</td>
+                                                            <td>
+                                                                <ul class="list-group">
+                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_cedula')->get() as $archivo)
+                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Carnet de conducir</td>
+                                                            <td>
+                                                                <ul class="list-group">
+                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_carnet')->get() as $archivo)
+                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        @if($reclamo->vehiculo && $reclamo->vehiculo->en_transferencia)
+                                                            <tr>
+                                                                <td>Formulario 08</td>
+                                                                <td>
+                                                                    <ul class="list-group">
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_formulario_08')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                        @if($reclamo->vehiculo && $reclamo->vehiculo->con_seguro)
+                                                            <tr>
+                                                                <td>Denuncia Administrativa</td>
+                                                                <td>
+                                                                    <ul class="list-group">
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_denuncia_administrativa')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Certificado de Cobertura</td>
+                                                                <td>
+                                                                    <ul class="list-group">
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_certificado_cobertura')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Carta de Franquicia</td>
+                                                                <td>
+                                                                    <ul class="list-group">
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_carta_franquicia')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        @else
+                                                            <tr>
+                                                                <td>Declaración Jurada de No Seguro</td>
+                                                                <td>
+                                                                    <ul class="list-group">
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_declaracion_jurada')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                        <tr>
+                                                            <td>Fotos del Vehículo</td>
+                                                            <td>
+                                                                <ul class="list-group">
+                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_vehiculo')->get() as $archivo)
+                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Presupuesto</td>
+                                                            <td>
+                                                                <ul class="list-group">
+                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_presupuesto')->get() as $archivo)
+                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Descripción de repuestos</td>
+                                                            <td>
+                                                                <ul class="list-group">
+                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_descripcion_repuestos')->get() as $archivo)
+                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        @if($reclamo->reclamo_danios_materiales)
+                                            @foreach($reclamo->daniosMateriales as $key => $danio_material)
+                                            <div class="row pt-0">
+                                                <div class="col-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-sm">
+                                                            <thead class="table-dark">
+                                                            <tr>
+                                                                <th scope="col" colspan="2">
+                                                                    {{ $key+1 }} - {{ $danio_material->tipo }}
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>Denuncia o Exposición Policial</td>
+                                                                <td>
+                                                                    <ul class="list-group">
+                                                                        @foreach($danio_material->documentos()->where('type', 'dm_denuncia_policial')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>DNI del Propietario</td>
+                                                                <td>
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach($danio_material->documentos()->where('type', 'dm_dni_propietario')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Escritura de la propiedad o Contrato de alquiler *
+                                                                    <p class="ambos-lados text-left">Archivo PDF</p>
+                                                                </td>
+                                                                <td>
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach($danio_material->documentos()->where('type', 'dm_escritura_contrato_alquiler')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Fotos de los daños</td>
+                                                                <td>
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach($danio_material->documentos()->where('type', 'dm_fotos_danios')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Presupuesto</td>
+                                                                <td>
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach($danio_material->documentos()->where('type', 'dm_presupuesto')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        @endif
+
+                                        @if($reclamo->reclamo_lesiones)
+                                            @if($reclamo->conductor && $reclamo->conductor->lesiones)
+                                                <div class="row pt-0">
+                                                    <div class="col-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-sm">
+                                                                <thead class="table-dark">
+                                                                <tr>
+                                                                    <th scope="col" colspan="3">
+                                                                        1 - {{ $reclamo->conductor->nombre }} [Conductor]
+                                                                    </th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>DNI</td>
+                                                                    <td>
+                                                                        <ul class="list-group">
+                                                                            @foreach($reclamo->conductor->documentos()->where('type', 'dl_dni')->get() as $archivo)
+                                                                                <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                                @if($reclamo->conductor->es_menor_en_siniestro)
+                                                                    <tr>
+                                                                        <td>DNI Tutor</td>
+                                                                        <td>
+                                                                            <ul class="list-group">
+                                                                                @foreach($reclamo->conductor->documentos()->where('type', 'dl_dni_tutor')->get() as $archivo)
+                                                                                    <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <input type="file" id="{{$orden}}_dni_tutor" name="dni_tutor" wire:model="dni_tutor" accept="image/png,image/jpeg">
+                                                                            <label for="{{$orden}}_dni_tutor" class="mt-1">
+                                                                                <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
+                                                                                <span class="subir-archivo-morado mb-0">Agregar</span>
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                                <tr>
+                                                                    <td>Denuncia o Exposición Policial</td>
+                                                                    <td>
+                                                                        <ul class="list-group">
+                                                                            @foreach($reclamo->conductor->documentos()->where('type', 'dl_denuncia_policial')->get() as $archivo)
+                                                                                <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Historia clínica</td>
+                                                                    <td>
+                                                                        <ul class="list-group">
+                                                                            @foreach($reclamo->conductor->documentos()->where('type', 'dl_historia_clinica')->get() as $archivo)
+                                                                                <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        Comprobantes de gastos médicos
+                                                                        <p class="ambos-lados text-left">Foto o PDF</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ul class="list-group">
+                                                                            @foreach($reclamo->conductor->documentos()->where('type', 'dl_gastos_medicos')->get() as $archivo)
+                                                                                <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @foreach($reclamo->lesionados as $key => $lesionado)
+                                                    <div class="row pt-0">
+                                                        <div class="col-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-sm">
+                                                                    <thead class="table-dark">
+                                                                    <tr>
+                                                                        <th scope="col" colspan="3">
+                                                                            {{ $key + ($reclamo->conductor && $reclamo->conductor->lesiones ? 2 : 1) }} - {{ $lesionado->nombre }} [Lesionado]
+                                                                        </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>DNI</td>
+                                                                        <td>
+                                                                            <ul class="list-group">
+                                                                                @foreach($lesionado->documentos()->where('type', 'dl_dni')->get() as $archivo)
+                                                                                    <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @if($lesionado->es_menor_en_siniestro)
+                                                                        <tr>
+                                                                            <td>DNI Tutor</td>
+                                                                            <td>
+                                                                                <ul class="list-group">
+                                                                                    @foreach($lesionado->documentos()->where('type', 'dl_dni_tutor')->get() as $archivo)
+                                                                                        <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                            <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                        </li>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <input type="file" id="{{$orden}}_dni_tutor" name="dni_tutor" wire:model="dni_tutor" accept="image/png,image/jpeg">
+                                                                                <label for="{{$orden}}_dni_tutor" class="mt-1">
+                                                                                    <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
+                                                                                    <span class="subir-archivo-morado mb-0">Agregar</span>
+                                                                                </label>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
+                                                                    <tr>
+                                                                        <td>Denuncia o Exposición Policial</td>
+                                                                        <td>
+                                                                            <ul class="list-group">
+                                                                                @foreach($lesionado->documentos()->where('type', 'dl_denuncia_policial')->get() as $archivo)
+                                                                                    <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Historia clínica</td>
+                                                                        <td>
+                                                                            <ul class="list-group">
+                                                                                @foreach($lesionado->documentos()->where('type', 'dl_historia_clinica')->get() as $archivo)
+                                                                                    <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            Comprobantes de gastos médicos
+                                                                            <p class="ambos-lados text-left">Foto o PDF</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <ul class="list-group">
+                                                                                @foreach($lesionado->documentos()->where('type', 'dl_gastos_medicos')->get() as $archivo)
+                                                                                    <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                        <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                           href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            @endforeach
+                                        @endif
 
                                         {{--
+
+                                        <!-- OBSERVACIONES -->
+                                        <!-- ------------- -->
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Observaciones

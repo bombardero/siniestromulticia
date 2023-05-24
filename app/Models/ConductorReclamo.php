@@ -54,22 +54,22 @@ class ConductorReclamo extends Model
 
     public function tipoDocumento()
     {
-        return $this->belongsTo(TipoDocumento::class, 'conductor_tipo_documento_id');
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento_id');
     }
 
     public function pais()
     {
-        return $this->belongsTo(Pais::class, 'conductor_pais_id');
+        return $this->belongsTo(Pais::class, 'pais_id');
     }
 
     public function provincia()
     {
-        return $this->belongsTo(Province::class, 'conductor_province_id');
+        return $this->belongsTo(Province::class, 'province_id');
     }
 
     public function localidad()
     {
-        return $this->belongsTo(City::class, 'conductor_city_id');
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function documentos(): MorphMany
