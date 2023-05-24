@@ -132,22 +132,30 @@
 
                                     @else
 
-                                        <div class="alert alert-secondary mt-3 " role="alert"><b>Datos del Contacto</b></div>
+                                        <!-- DATOS DE CONTACTO -->
+                                        <!-- ------------------- -->
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <p class="mb-1"><b>Datos del Contacto</b></p>
+                                        </div>
 
                                         <div class="row">
                                             <div class="col-12">
-                                                <p>Nombre: {{ $reclamo->responsable_contacto_nombre }}</p>
+                                                <p class="mb-1">Nombre: {{ $reclamo->responsable_contacto_nombre }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <p>Teléfono: {{ $reclamo->responsable_contacto_telefono }}</p>
+                                                <p class="mb-1">Teléfono: {{ $reclamo->responsable_contacto_telefono }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Email: {{ $reclamo->responsable_contacto_email }}</p>
+                                                <p class="mb-1">Email: {{ $reclamo->responsable_contacto_email }}</p>
                                             </div>
                                         </div>
+
+                                        <!-- DATOS DEL ASEGURADO -->
+                                        <!-- ------------------- -->
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Datos del Asegurado</b>
@@ -158,27 +166,30 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                <p>Nombre: {{ $reclamo->asegurado_nombre }}</p>
+                                                <p class="mb-1">Nombre: {{ $reclamo->asegurado_nombre }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <p>Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                                <p class="mb-1">Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Número de Póliza: {{ $reclamo->vehiculo_asegurado_nro_poliza }}</p>
+                                                <p class="mb-1">Número de Póliza: {{ $reclamo->vehiculo_asegurado_nro_poliza }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <p>Marca: {{ $reclamo->marcaVehiculoAsegurado ? $reclamo->marcaVehiculoAsegurado->nombre : $reclamo->vehiculo_asegurado_otra_marca }}</p>
+                                                <p class="mb-1">Marca: {{ $reclamo->marcaVehiculoAsegurado ? $reclamo->marcaVehiculoAsegurado->nombre : $reclamo->vehiculo_asegurado_otra_marca }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Modelo: {{ $reclamo->modeloVehiculoAsegurado ? $reclamo->modeloVehiculoAsegurado->nombre : $reclamo->vehiculo_asegurado_otro_modelo }}</p>
+                                                <p class="mb-1">Modelo: {{ $reclamo->modeloVehiculoAsegurado ? $reclamo->modeloVehiculoAsegurado->nombre : $reclamo->vehiculo_asegurado_otro_modelo }}</p>
                                             </div>
                                         </div>
+
+                                        <!-- RECLAMANTE -->
+                                        <!-- ---------- -->
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Reclamante</b>
@@ -189,61 +200,62 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                <p>Nombre: {{ $reclamo->reclamante ? $reclamo->reclamante->nombre : '' }}</p>
+                                                <p class="mb-1">Nombre: {{ $reclamo->reclamante ? $reclamo->reclamante->nombre : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <p>Tipo de Documento: {{ $reclamo->reclamante ? $reclamo->reclamante->tipoDocumento->nombre : '' }}</p>
+                                                <p class="mb-1">Tipo de Documento: {{ $reclamo->reclamante ? $reclamo->reclamante->tipoDocumento->nombre : '' }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <p>N° de Documento: {{ $reclamo->reclamante ? $reclamo->reclamante->documento_numero : '' }}</p>
+                                                <p class="mb-1">N° de Documento: {{ $reclamo->reclamante ? $reclamo->reclamante->documento_numero : '' }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <p>Teléfono: {{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}</p>
+                                                <p class="mb-1">Teléfono: {{ $reclamo->reclamante ? $reclamo->reclamante->telefono : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <p>Domicilio: {{ $reclamo->reclamante ? $reclamo->reclamante->domicilio : '' }}</p>
+                                                <p class="mb-1">Domicilio: {{ $reclamo->reclamante ? $reclamo->reclamante->domicilio : '' }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <p>Código Postal: {{ $reclamo->reclamante ? $reclamo->reclamante->codigo_postal : '' }}</p>
+                                                <p class="mb-1">Código Postal: {{ $reclamo->reclamante ? $reclamo->reclamante->codigo_postal : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             @if($reclamo->reclamante && $reclamo->reclamante->pais_id && $reclamo->reclamante->province_id)
                                                 <div class="col-md-4">
-                                                    <p>País: {{ $reclamo->reclamante->pais->nombre }}</p>
+                                                    <p class="mb-1">País: {{ $reclamo->reclamante->pais->nombre }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>Provincia: {{ $reclamo->reclamante->provincia->name }}</p>
+                                                    <p class="mb-1">Provincia: {{ $reclamo->reclamante->provincia->name }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>Localidad: {{ $reclamo->reclamante->city_id != null ? $reclamo->reclamante->localidad->name : $reclamo->reclamante->otro_pais_provincia_localidad }}</p>
+                                                    <p class="mb-1">Localidad: {{ $reclamo->reclamante->city_id != null ? $reclamo->reclamante->localidad->name : $reclamo->reclamante->otro_pais_provincia_localidad }}</p>
                                                 </div>
                                             @elseif($denuncia->reclamante && $denuncia->reclamante->otro_pais_provincia_localidad)
                                                 <div class="col-12">
-                                                    <p>Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
+                                                    <p class="mb-1">Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
                                                 </div>
                                             @else
                                                 <div class="col-12 col-md-4">
-                                                    <p>País:</p>
+                                                    <p class="mb-1">País:</p>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                    <p>Provincia:</p>
+                                                    <p class="mb-1">Provincia:</p>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                    <p>Localidad:</p>
+                                                    <p class="mb-1">Localidad:</p>
                                                 </div>
                                             @endif
                                         </div>
 
                                         <!-- DATOS DEL VEHÍCULO -->
                                         <!-- ------------------ -->
+
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Vehículo</b>
                                             <a href="{{ route('siniestros.terceros.paso3.create',['id' => $reclamo->identificador]) }}"
@@ -253,40 +265,40 @@
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p>Marca: {{ $reclamo->vehiculo ? ($reclamo->vehiculo->marca ? $reclamo->vehiculo->marca->nombre : $reclamo->vehiculo->otra_marca) : '' }}</p>
+                                                <p class="mb-1">Marca: {{ $reclamo->vehiculo ? ($reclamo->vehiculo->marca ? $reclamo->vehiculo->marca->nombre : $reclamo->vehiculo->otra_marca) : '' }}</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Modelo: {{ $reclamo->vehiculo ? ($reclamo->vehiculo->modelo ? $reclamo->vehiculo->modelo->nombre : $reclamo->vehiculo->otro_modelo) : '' }}</p>
+                                                <p class="mb-1">Modelo: {{ $reclamo->vehiculo ? ($reclamo->vehiculo->modelo ? $reclamo->vehiculo->modelo->nombre : $reclamo->vehiculo->otro_modelo) : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-4">
-                                                <p>Tipo: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipo : '' }}</p>
+                                                <p class="mb-1">Tipo: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipo : '' }}</p>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <p>Año: {{ $reclamo->vehiculo ? $reclamo->vehiculo->anio : '' }}</p>
+                                                <p class="mb-1">Año: {{ $reclamo->vehiculo ? $reclamo->vehiculo->anio : '' }}</p>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <p>Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                                <p class="mb-1">Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <p>Compañía de Seguro: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
+                                                <p class="mb-1">Compañía de Seguro: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Número de Póliza: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
+                                                <p class="mb-1">Número de Póliza: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-md-6">
-                                                <p>Tipo de Cobertura: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipo_cobertura : '' }}</p>
+                                                <p class="mb-1">Tipo de Cobertura: {{ $reclamo->vehiculo ? $reclamo->vehiculo->tipo_cobertura : '' }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p>Franquicia: {{ $reclamo->vehiculo ? $reclamo->vehiculo->franquicia : '' }}</p>
+                                                <p class="mb-1">Franquicia: {{ $reclamo->vehiculo ? $reclamo->vehiculo->franquicia : '' }}</p>
                                             </div>
                                         </div>
 
@@ -303,61 +315,61 @@
                                         @if($reclamo->reclamante && $reclamo->reclamante->conductor)
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <p>El conductor es el reclamante</p>
+                                                    <p class="mb-1">El conductor es el reclamante</p><p>
                                                 </div>
                                             </div>
                                         @else
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <p>Nombre: {{ $reclamo->conductor ? $reclamo->vehiculo->nombre : '' }}</p>
+                                                    <p class="mb-1">Nombre: {{ $reclamo->conductor ? $reclamo->conductor->nombre : '' }}</p>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <p>Tipo de Documento: {{ $reclamo->conductor ? $reclamo->conductor->tipoDocumento->nombre : '' }}</p>
+                                                    <p class="mb-1">Tipo de Documento: {{ $reclamo->conductor ? $reclamo->conductor->tipoDocumento->nombre : '' }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>N° de Documento: {{ $reclamo->conductor ? $reclamo->conductor->documento_numero : '' }}</p>
+                                                    <p class="mb-1">N° de Documento: {{ $reclamo->conductor ? $reclamo->conductor->documento_numero : '' }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>Teléfono: {{ $reclamo->conductor ? $reclamo->conductor->telefono : '' }}</p>
+                                                    <p class="mb-1">Teléfono: {{ $reclamo->conductor ? $reclamo->conductor->telefono : '' }}</p>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <p>Domicilio: {{ $reclamo->conductor ? $reclamo->conductor->domicilio : '' }}</p>
+                                                    <p class="mb-1">Domicilio: {{ $reclamo->conductor ? $reclamo->conductor->domicilio : '' }}</p>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <p>Código Postal: {{ $reclamo->conductor ? $reclamo->conductor->codigo_postal : '' }}</p>
+                                                    <p class="mb-1">Código Postal: {{ $reclamo->conductor ? $reclamo->conductor->codigo_postal : '' }}</p>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 @if($reclamo->vehiculo && $reclamo->conductor->pais_id && $reclamo->conductor->province_id)
                                                     <div class="col-md-4">
-                                                        <p>País: {{ $reclamo->conductor->pais->nombre }}</p>
+                                                        <p class="mb-1">País: {{ $reclamo->conductor->pais->nombre }}</p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <p>Provincia: {{ $reclamo->conductor->provincia->name }}</p>
+                                                        <p class="mb-1">Provincia: {{ $reclamo->conductor->provincia->name }}</p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <p>Localidad: {{ $reclamo->conductor->city_id != null ? $reclamo->conductor->localidad->name : $reclamo->conductor->otro_pais_provincia_localidad }}</p>
+                                                        <p class="mb-1">Localidad: {{ $reclamo->conductor->city_id != null ? $reclamo->conductor->localidad->name : $reclamo->conductor->otro_pais_provincia_localidad }}</p>
                                                     </div>
                                                 @elseif($reclamo->conductor && $reclamo->conductor->otro_pais_provincia_localidad)
                                                     <div class="col-12">
-                                                        <p>Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
+                                                        <p class="mb-1">Localidad/Provincia/Pais: {{ $denuncia->conductor->otro_pais_provincia_localidad }}</p>
                                                     </div>
                                                 @else
                                                     <div class="col-12 col-md-4">
-                                                        <p>País:</p>
+                                                        <p class="mb-1">País:</p>
                                                     </div>
                                                     <div class="col-12 col-md-4">
-                                                        <p>Provincia:</p>
+                                                        <p class="mb-1">Provincia:</p>
                                                     </div>
                                                     <div class="col-12 col-md-4">
-                                                        <p>Localidad:</p>
+                                                        <p class="mb-1">Localidad:</p>
                                                     </div>
                                                 @endif
                                             </div>
@@ -369,6 +381,173 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <p>Licencia Clase: {{ $reclamo->conductor ? $reclamo->conductor->licencia_clase : '' }}</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- LESIONADOS -->
+                                        <!-- ---------- -->
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Lesionados</b>
+                                            <a href="{{ route('siniestros.terceros.paso10.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+                                        <div class="row pt-0">
+                                            <div class="col">
+                                                @if($reclamo->lesionados || ($reclamo->conductor && $reclamo->conductor->lesiones))
+                                                    @if($reclamo->conductor && $reclamo->conductor->lesiones)
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <p class="mb-1"><b>Tipo: Conductor</b></p>
+                                                            </div>
+                                                        </div>
+                                                        @if($reclamo->reclamante && $reclamo->reclamante->conductor)
+                                                            <div class="row">
+                                                                <div class="col mb-1">
+                                                                    <p class="mb-1">El conductor es el reclamante</p>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                        <div class="row">
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Gravedad: {{ $reclamo->conductor->gravedad_lesion }}</p>
+                                                            </div>
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Alcoholemia: {{ $reclamo->conductor->alcoholemia ? 'Si' : 'No' }}</p>
+                                                            </div>
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Se negó: {{ $reclamo->conductor->alcoholemia_se_nego ? 'Si' : 'No' }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-2">
+                                                            <div class="col">
+                                                                <p class="mb-1">Centro Asistencial: {{ $reclamo->conductor->centro_asistencial }}</p>
+                                                            </div>
+                                                        </div>
+
+                                                    @endif
+                                                    @foreach($reclamo->lesionados as $lesionado)
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <p class="mb-1"><b>Tipo: <span class="text-capitalize">{{ $lesionado->tipo }}</span></b></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col col-md-8 mb-1">
+                                                                Nombre: {{ $lesionado->nombre }}
+                                                            </div>
+                                                            <div class="col col-md-4">
+                                                                Teléfono: {{ $lesionado->telefono }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col col-md-4 mb-1">
+                                                                Tipo Documento: {{ $lesionado->tipoDocumento->nombre }}
+                                                            </div>
+                                                            <div class="col col-md-4 mb-1">
+                                                                Número de Documento: {{ $lesionado->documento_numero }}
+                                                            </div>
+                                                            <div class="col col-md-4 mb-1">
+                                                                Fecha de Nacimiento: {{ $lesionado->fecha_nacimiento->toDateString() }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col col-md-8">
+                                                                <p class="mb-1">Domicilio: {{ $lesionado->domicilio }}</p>
+                                                            </div>
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Código Postal: {{ $lesionado->codigo_postal }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            @if($lesionado->pais_id && $lesionado->province_id)
+                                                                <div class="col col-md-4">
+                                                                    <p class="mb-1">País: {{ $lesionado->pais->nombre }}</p>
+                                                                </div>
+
+                                                                <div class="col col-md-4">
+                                                                    <p class="mb-1">Provincia: {{ $lesionado->provincia->name }}</p>
+                                                                </div>
+                                                                <div class="col-12 col-md-4">
+                                                                    <p class="mb-1">
+                                                                        Localidad:
+                                                                        {{ $lesionado->city_id != null ? $lesionado->localidad->name : $lesionado->otro_pais_provincia_localidad }}
+                                                                    </p>
+                                                                </div>
+                                                            @elseif($lesionado->otro_pais_provincia_localidad)
+                                                                <div class="col">
+                                                                    <p class="mb-1">Localidad/Provincia/Pais: {{ $lesionado->otro_pais_provincia_localidad }}</p>
+                                                                </div>
+                                                            @else
+                                                                <div class="col col-md-4">
+                                                                    <p class="mb-1">País:</p>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4">
+                                                                    <p class="mb-1">Provincia:</p>
+                                                                </div>
+                                                                <div class="col-12 col-md-4">
+                                                                    <p class="mb-1">Localidad:</p>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Gravedad: {{ $lesionado->gravedad_lesion }}</p>
+                                                            </div>
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Alcoholemia: {{ $lesionado->alcoholemia ? 'Si' : 'No' }}</p>
+                                                            </div>
+                                                            <div class="col col-md-4">
+                                                                <p class="mb-1">Se negó: {{ $lesionado->alcoholemia_se_nego ? 'Si' : 'No' }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-2">
+                                                            <div class="col">
+                                                                <p class="mb-1">Centro Asistencial: {{ $lesionado->centro_asistencial }}</p>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    Sin lesionados
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <!-- DAÑOS MATERIALES -->
+                                        <!-- ---------------- -->
+
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            <b>Daños Materiales</b>
+                                            <a href="{{ route('siniestros.terceros.paso10.create',['id' => $reclamo->identificador]) }}"
+                                               class="badge text-bg-secondary float-end"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                        </div>
+                                        <div class="row pt-0">
+                                            <div class="col-12">
+                                                @if($reclamo->daniosMateriales)
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-sm">
+                                                            <thead class="table-dark">
+                                                            <tr>
+                                                                <th scope="col">Tipo</th>
+                                                                <th scope="col">Detalles</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($reclamo->daniosMateriales as $danio_material)
+                                                                <tr>
+                                                                    <td>{{ $danio_material->tipo }}</td>
+                                                                    <td>{{ $danio_material->detalles }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                @else
+                                                    Sin daños materiales
+                                                @endif
                                             </div>
                                         </div>
 
@@ -384,49 +563,49 @@
 
                                         <div class="row pt-0">
                                             <div class="col-12">
-                                                <p>Lugar: {{ $reclamo->lugar_nombre }}</p>
+                                                <p class="mb-1">Lugar: {{ $reclamo->lugar_nombre }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row pt-0">
                                             @if($reclamo->pais_id && $reclamo->province_id)
                                                 <div class="col-12 col-md-4">
-                                                    <p>País: {{ $reclamo->pais->nombre }}</p>
+                                                    <p class="mb-1">País: {{ $reclamo->pais->nombre }}</p>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">
-                                                    <p>Provincia: {{ $reclamo->provincia->name }}</p>
+                                                    <p class="mb-1">Provincia: {{ $reclamo->provincia->name }}</p>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                    <p>
+                                                    <p class="mb-1">
                                                         Localidad:
                                                         {{ $reclamo->city_id != null ? $reclamo->localidad->name : $reclamo->otro_pais_provincia_localidad }}
                                                     </p>
                                                 </div>
                                             @elseif($reclamo->otro_pais_provincia_localidad)
                                                 <div class="col-12">
-                                                    <p>Localidad/Provincia/Pais: {{ $reclamo->otro_pais_provincia_localidad }}</p>
+                                                    <p class="mb-1">Localidad/Provincia/Pais: {{ $reclamo->otro_pais_provincia_localidad }}</p>
                                                 </div>
                                             @else
                                                 <div class="col-12 col-md-4">
-                                                    <p>País:</p>
+                                                    <p class="mb-1">País:</p>
                                                 </div>
 
                                                 <div class="col-12 col-md-4">
-                                                    <p>Provincia:</p>
+                                                    <p class="mb-1">Provincia:</p>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                    <p>Localidad:</p>
+                                                    <p class="mb-1">Localidad:</p>
                                                 </div>
                                             @endif
                                         </div>
 
                                         <div class="row pt-0">
                                             <div class="col-12 col-md-4">
-                                                <p>Calle/Ruta: {{ $reclamo->calle }}</p>
+                                                <p class="mb-1">Calle/Ruta: {{ $reclamo->calle }}</p>
                                             </div>
                                             <div class="col-12 col-md-8">
-                                                <p>Tipo
+                                                <p class="mb-1">Tipo
                                                     Calzada: {{ $reclamo->tipo_calzada_id != null ? $reclamo->tipoCalzada->nombre : ''}}</p>
                                             </div>
 
@@ -434,35 +613,35 @@
 
                                         <div class="row pt-0">
                                             <div class="col-12 col-md-4">
-                                                <p>Detalle Calzada: {{ $reclamo->calzada_detalle }}</p>
+                                                <p class="mb-1">Detalle Calzada: {{ $reclamo->calzada_detalle }}</p>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <p>Intersección: {{ $reclamo->interseccion }}</p>
+                                                <p class="mb-1">Intersección: {{ $reclamo->interseccion }}</p>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <p>Cruce Señalizado: {{ $reclamo->cruce_senalizado ? 'Si' : 'No' }}</p>
+                                                <p class="mb-1">Cruce Señalizado: {{ $reclamo->cruce_senalizado ? 'Si' : 'No' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row pt-0">
                                             <div class="col-12">
-                                                <p>Barrera de tren señalizado: {{ $reclamo->tren != null ? ($reclamo->tren ? 'Si' : 'No') : '' }}</p>
+                                                <p class="mb-1">Barrera de tren señalizado: {{ $reclamo->tren != null ? ($reclamo->tren ? 'Si' : 'No') : '' }}</p>
                                             </div>
                                         </div>
 
                                         <div class="row pt-0">
                                             <div class="col-12 col-md-3">
-                                                <p>Semaforo: {{ $reclamo->semaforo ? 'Si' : 'No' }}</p>
+                                                <p class="mb-1">Semaforo: {{ $reclamo->semaforo ? 'Si' : 'No' }}</p>
                                             </div>
                                             @if($reclamo->semaforo)
                                                 <div class="col-12 col-md-3">
-                                                    <p>Funciona: {{ $reclamo->semaforo_funciona ? 'Si' : 'No' }}</p>
+                                                    <p class="mb-1">Funciona: {{ $reclamo->semaforo_funciona ? 'Si' : 'No' }}</p>
                                                 </div>
                                                 <div class="col-12 col-md-3">
-                                                    <p>Intermitente: {{ $reclamo->semaforo_funciona ? 'Si' : 'No' }}</p>
+                                                    <p class="mb-1">Intermitente: {{ $reclamo->semaforo_funciona ? 'Si' : 'No' }}</p>
                                                 </div>
                                                 <div class="col-12 col-md-3">
-                                                    <p>Color: {{ $reclamo->semaforo_color }}</p>
+                                                    <p class="mb-1">Color: {{ $reclamo->semaforo_color }}</p>
                                                 </div>
                                             @endif
                                         </div>
@@ -534,8 +713,8 @@
                                         @endif
 
                                         <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="thead-dark">
+                                            <table class="table table-hover table-sm">
+                                                <thead class="table-dark">
                                                 <tr>
                                                     <th scope="col">Nombre</th>
                                                     <th scope="col">Teléfono</th>
@@ -564,7 +743,7 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Documentos</b>
-                                            <a href="{{ route('siniestros.terceros.paso9.create',['id' => $reclamo->identificador]) }}"
+                                            <a href="{{ route('siniestros.terceros.paso10.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
                                                     class="fa-solid fa-pen-to-square"></i>Editar</a>
                                         </div>
