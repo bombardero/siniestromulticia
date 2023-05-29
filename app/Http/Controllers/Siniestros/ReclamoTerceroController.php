@@ -15,6 +15,7 @@ use App\Models\TipoDocumento;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -91,6 +92,16 @@ class ReclamoTerceroController extends Controller
     public function show(ReclamoTercero $reclamo)
     {
         return view('backoffice.siniestros.reclamos.show', ['reclamo' => $reclamo, 'estados' => ReclamoTercero::ESTADOS]);
+    }
+
+    public function observacionesStore(Request $request, ReclamoTercero $reclamo)
+    {
+        $rules =  [
+            'observacion' => 'required'
+        ];
+        Validator::make($request->all(),$rules)->validate();
+        $reclamo->observaciones()->create(['detalle' => $request->observacion, 'user_id' => Auth::user()->id ]);
+        return back();
     }
 
 }

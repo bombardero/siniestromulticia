@@ -374,7 +374,7 @@
                                                     <span>{{ $denuncia->estado_carga.'/12' }}</span>
                                                 @endif</td>
                                             <td>
-                                                {{ $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : '' }}
+                                                {{ $denuncia->observaciones->count() > 0 ? Illuminate\Support\Str::limit($denuncia->observaciones()->latest()->first()->detalle, 150, ' (...)') : '' }}
                                             </td>
                                             <td>
                                                 <a target="_blank" class="btn-link"

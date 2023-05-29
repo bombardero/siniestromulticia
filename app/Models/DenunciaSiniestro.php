@@ -228,7 +228,7 @@ class   DenunciaSiniestro extends Model
 
     public function observaciones()
     {
-        return $this->hasMany(Observacion::class);
+        return $this->morphMany(Observacion::class, 'observacionable');
     }
 
     public function responsable()

@@ -11,7 +11,13 @@ class Observacion extends Model
     protected $fillable = ['detalle','user_id'];
     protected $table = "observaciones";
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function observacionable()
+    {
+        return $this->morphTo();
     }
 }

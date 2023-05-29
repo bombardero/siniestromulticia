@@ -139,6 +139,11 @@ class ReclamoTercero extends Model
         return $this->hasMany(DanioMaterialReclamo::class, 'reclamo_tercero_id');
     }
 
+    public function observaciones()
+    {
+        return $this->morphMany(Observacion::class, 'observacionable');
+    }
+
     public function documentosVehicularCompleto()
     {
         if($this->reclamo_vehicular && !$this->vehiculo)

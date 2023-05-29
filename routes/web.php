@@ -349,6 +349,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
             Route::get('/', [SiniestroReclamoTerceroController::class,'index'])->name('index');
             Route::get('{reclamo}', [SiniestroReclamoTerceroController::class,'show'])->name('show');
+            Route::post('{reclamo}/observaciones', [SiniestroReclamoTerceroController::class,'observacionesStore'])->name('observaciones.store');
         });
     });
 
@@ -366,6 +367,7 @@ Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admi
     Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
         Route::post('/{reclamo}/link-enviado', [ReclamoTerceroAjaxController::class,'updateLinkEnviado'])->name('link-enviado');
         Route::post('/{reclamo}/cambiar-estado', [ReclamoTerceroAjaxController::class,'cambiarEstado'])->name('cambiar-estado');
+        Route::get('/{reclamo}/observaciones', [ReclamoTerceroAjaxController::class,'observaciones'])->name('observaciones.index');
     });
 });
 

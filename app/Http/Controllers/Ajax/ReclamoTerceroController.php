@@ -29,4 +29,19 @@ class ReclamoTerceroController extends Controller
         return response()->json(['status' => true]);
     }
 
+    public function observaciones(Request $request, ReclamoTercero $reclamo)
+    {
+        $observaciones = [];
+        foreach ($reclamo->observaciones()->oldest()->get() as $obs)
+        {
+            $observaciones[] = [
+                'id' => $obs->id,
+                'fecha_hora' => $obs->created_at->format('d-m-Y H:i:s'),
+                'detalle' => $obs->detalle,
+                'user_name' => $obs->user->name,
+            ];
+        }
+        return response()->json(['status' => true, 'observaciones' => $observaciones]);
+    }
+
 }

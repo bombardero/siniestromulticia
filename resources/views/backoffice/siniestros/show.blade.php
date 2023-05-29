@@ -1180,7 +1180,10 @@
                                                     </div>
                                                 </div>
                                             @endforeach
+
                                         @endif
+
+                                    @endif
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             Observaciones
@@ -1216,7 +1219,7 @@
                                                 <button type="submit" class="btn btn-primary">Agregar</button>
                                             </div>
                                         </form>
-                                    @endif
+
                                 </div>
                             </div>
                         </div>

@@ -12,7 +12,6 @@ class DenunciaAseguradoController extends Controller
 
     public function observaciones(DenunciaSiniestro $denuncia)
     {
-        //return view('siniestro_backoffice.denuncias.index-observaciones',['denuncia'=>$denuncia]);
         $observaciones = [];
         foreach ($denuncia->observaciones()->oldest()->get() as $obs)
         {

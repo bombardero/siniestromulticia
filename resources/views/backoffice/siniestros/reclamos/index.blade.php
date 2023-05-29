@@ -187,7 +187,7 @@
                                                     <span>{{ $reclamo->estado_carga.'/10' }}</span>
                                                 @endif</td>
                                             <td>
-                                                {{-- $reclamo->observaciones->count() > 0 ? $reclamo->observaciones()->latest()->first()->detalle : '' --}}
+                                                {{ $reclamo->observaciones->count() > 0 ? Illuminate\Support\Str::limit($reclamo->observaciones()->latest()->first()->detalle, 150, ' (...)') : '' }}
                                             </td>
                                             <td>
                                                 <a target="_blank" class="btn-link"
@@ -216,8 +216,8 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalObservaciones" data-denuncia-id="{{ $reclamo->id }}"
-                                                               class="dropdown-item disabled" title="Observaciones">
+                                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalObservaciones" data-reclamo-id="{{ $reclamo->id }}"
+                                                               class="dropdown-item" title="Observaciones">
                                                                 <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
                                                             </a>
                                                         </li>
@@ -418,11 +418,11 @@
 
     $('#modalObservaciones').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget)
-        let denuncia_id = button.data('denuncia-id')
-        let url = '{{ route('ajax.admin.siniestros.denuncia.observaciones.index', ['denuncia' =>  ':denuncia_id']) }}'
-        let url_store = '{{ route('admin.siniestros.denuncia.observaciones.store', ['denuncia' =>  ':denuncia_id']) }}'
-        url = url.replace(':denuncia_id',denuncia_id)
-        url_store = url_store.replace(':denuncia_id',denuncia_id)
+        let reclamo_id = button.data('reclamo-id')
+        let url = '{{ route('ajax.admin.siniestros.reclamos.observaciones.index', ['reclamo' =>  ':reclamo_id']) }}'
+        let url_store = '{{ route('admin.siniestros.reclamos.observaciones.store', ['reclamo' =>  ':reclamo_id']) }}'
+        url = url.replace(':reclamo_id',reclamo_id)
+        url_store = url_store.replace(':reclamo_id',reclamo_id)
         $(this).find('tbody').append('<tr><td colspan="3" class="text-center"><i class="fas fa-spinner fa-pulse"></i> Cargando</td></tr>')
         $(this).find('form').attr('action',url_store)
         $.ajax({
