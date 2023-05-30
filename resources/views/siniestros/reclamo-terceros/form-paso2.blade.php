@@ -64,7 +64,7 @@
                     <label for="lesionado_fecha_nacimiento">Fecha de Nacimiento</label>
                     <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
                            class="form-control @error('fecha_nacimiento') is-invalid @enderror"
-                           value="{{ old('fecha_nacimiento') ? old('fecha_nacimiento') : ($reclamo->reclamante ? $reclamo->reclamante->fecha_nacimiento : '') }}"
+                           value="{{ old('fecha_nacimiento') ? old('fecha_nacimiento') : ($reclamo->reclamante ? $reclamo->reclamante->fecha_nacimiento->toDateString() : '') }}"
                     >
                     @error('fecha_nacimiento') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                 </div>
