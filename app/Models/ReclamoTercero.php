@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class ReclamoTercero extends Model
 {
@@ -77,6 +78,11 @@ class ReclamoTercero extends Model
             array_push($tiposReclamos,'Lesiones');
         }
         return $tiposReclamos;
+    }
+
+    public function canEdit()
+    {
+        return $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 10) || (Auth::check() && Auth::user()->hasRole('siniestros')) ;
     }
 
     public function reclamante()

@@ -18,7 +18,6 @@ class Paso10Vehicular extends Component
     public $reclamo;
     protected $fileUploadService;
 
-
     public $listeners = [
         'upload_dni' => 'uploadFileDNI',
         'upload_cedula' => 'uploadFileCedula',
@@ -113,8 +112,6 @@ class Paso10Vehicular extends Component
             return $error;
         }
 
-        // TODO: $this->reclamo->canEdit()
-
         return redirect()->route('siniestros.terceros.paso10.create', ['id' => $this->reclamo->identificador]);
     }
 
@@ -177,40 +174,38 @@ class Paso10Vehicular extends Component
             return ;
         }
 
-        // TODO: if($this->denuncia_siniestro->canEdit())
-
-        $data = $this->getDocumentoPathAndName($type, $extension);
-
-
-        if($formato == 'imagen')
+        if($this->reclamo->canEdit())
         {
-            $file = Image::make($file);
+            $data = $this->getDocumentoPathAndName($type, $extension);
 
-            if($file->width() > 2100)
+            if($formato == 'imagen')
             {
-                $file->widen(2100);
-            }
-            $url = FileUploadService::upload($file->stream($extension),$data['path']);
-        } else {
-            $url = FileUploadService::upload(file_get_contents($file),$data['path']);
-        }
+                $file = Image::make($file);
 
-        $this->reclamo->vehiculo->documentos()->create([
-            'nombre' => $data['name'],
-            'type' => $type,
-            'formato' => $formato,
-            'url' => $url,
-            'path' => $data['path'],
-            'reclamo_tercero_id' => $this->reclamo->id
-        ]);
+                if($file->width() > 2100)
+                {
+                    $file->widen(2100);
+                }
+                $url = FileUploadService::upload($file->stream($extension),$data['path']);
+            } else {
+                $url = FileUploadService::upload(file_get_contents($file),$data['path']);
+            }
+
+            $this->reclamo->vehiculo->documentos()->create([
+                'nombre' => $data['name'],
+                'type' => $type,
+                'formato' => $formato,
+                'url' => $url,
+                'path' => $data['path'],
+                'reclamo_tercero_id' => $this->reclamo->id
+            ]);
+        }
     }
 
     public function uploadFileDNI($file)
     {
         $this->uploadFile($file,'dv_dni_titular',2);
     }
-
-    // Controlar
 
     public function uploadFileCedula($file)
     {
@@ -264,13 +259,14 @@ class Paso10Vehicular extends Component
 
     public function eliminarArchivo($id)
     {
-        // TODO: if($this->reclamo->canEdit())
-
-        $archivo = DocumentosReclamo::find($id);
-        if($archivo && $archivo->reclamo_tercero_id == $this->reclamo->id)
+        if($this->reclamo->canEdit())
         {
-            FileUploadService::delete($archivo->path);
-            $archivo->delete();
+            $archivo = DocumentosReclamo::find($id);
+            if($archivo && $archivo->reclamo_tercero_id == $this->reclamo->id)
+            {
+                FileUploadService::delete($archivo->path);
+                $archivo->delete();
+            }
         }
 
         return redirect()->route('siniestros.terceros.paso10.vehicular.create', ['id'=> $this->reclamo->identificador]);

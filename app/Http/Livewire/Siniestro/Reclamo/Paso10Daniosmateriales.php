@@ -46,11 +46,6 @@ class Paso10Daniosmateriales extends Component
         return view('livewire.siniestro.reclamo.paso10-daniosmateriales');
     }
 
-    public function submit()
-    {
-        dd('submit');
-    }
-
     private function getDocumentoPathAndName($type, $format = 'jpg')
     {
         $name = $type.'_'.Carbon::now()->format('Ymd_His').'.'.$format;
@@ -128,49 +123,52 @@ class Paso10Daniosmateriales extends Component
             return ;
         }
 
-        // TODO: if($this->denuncia_siniestro->canEdit())
-
-        $data = $this->getDocumentoPathAndName($type, $extension);
-        $name = $data['name'];
-        $path = $data['path'];
-
-        if($formato == 'imagen')
+        if($this->reclamo->canEdit())
         {
-            $file = Image::make($file->getRealPath());
-            if($file->width() > 2100 || $file->height() > 2100)
+            $data = $this->getDocumentoPathAndName($type, $extension);
+            $name = $data['name'];
+            $path = $data['path'];
+
+            if($formato == 'imagen')
             {
-                if($file->width() > $file->height())
+                $file = Image::make($file->getRealPath());
+                if($file->width() > 2100 || $file->height() > 2100)
                 {
-                    $file->widen(2100);
-                } else {
-                    $file->heighten(2100);
+                    if($file->width() > $file->height())
+                    {
+                        $file->widen(2100);
+                    } else {
+                        $file->heighten(2100);
+                    }
                 }
+                $url = FileUploadService::upload($file->stream($extension),$data['path'].'/'.$name);
+            } else {
+                $path = $file->storePubliclyAs($path, $name, 's3');
+                $url = Storage::disk('s3')->url($path);
             }
-            $url = FileUploadService::upload($file->stream($extension),$data['path'].'/'.$name);
-        } else {
-            $path = $file->storePubliclyAs($path, $name, 's3');
-            $url = Storage::disk('s3')->url($path);
+
+            $this->danio_material->documentos()->create([
+                'nombre' => $name,
+                'type' => $type,
+                'formato' => $formato,
+                'url' => $url,
+                'path' => $path,
+                'reclamo_tercero_id' => $this->reclamo->id
+            ]);
         }
 
-        $this->danio_material->documentos()->create([
-            'nombre' => $name,
-            'type' => $type,
-            'formato' => $formato,
-            'url' => $url,
-            'path' => $path,
-            'reclamo_tercero_id' => $this->reclamo->id
-        ]);
     }
 
     public function eliminarArchivo($id)
     {
-        // TODO: if($this->reclamo->canEdit())
-
-        $archivo = DocumentosReclamo::find($id);
-        if($archivo && $archivo->reclamo_tercero_id == $this->reclamo->id)
+        if($this->reclamo->canEdit())
         {
-            FileUploadService::delete($archivo->path);
-            $archivo->delete();
+            $archivo = DocumentosReclamo::find($id);
+            if($archivo && $archivo->reclamo_tercero_id == $this->reclamo->id)
+            {
+                FileUploadService::delete($archivo->path);
+                $archivo->delete();
+            }
         }
 
         return redirect()->route('siniestros.terceros.paso10.daniosmateriales.create', ['id'=> $this->reclamo->identificador]);
