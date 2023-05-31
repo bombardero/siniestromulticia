@@ -16,7 +16,7 @@ class CreateReclamoConductoresTable extends Migration
         Schema::create('reclamo_conductores', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reclamo_tercero_id')->constrained('reclamo_terceros');
-            $table->string('nombre');
+            $table->string('nombre')->nullable();
             $table->string('telefono',15)->nullable();
             $table->date('fecha_nacimiento');
             $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
