@@ -28,6 +28,12 @@
                         <div class="mb-3">
                             <label class="form-label">Siniestros</label>
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="editar_denuncias" value="1" id="editar-denuncias" {{ $user->hasPermissionTo('editar denuncias') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="editar-denuncias">
+                                    Editar Denuncia
+                                </label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="borrar_denuncias" value="1" id="borrar-denuncias" {{ $user->hasPermissionTo('borrar denuncias') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="borrar-denuncias">
                                     Borrar Denuncia

@@ -184,6 +184,13 @@ class UserController extends Controller
 
     public function permisosStore(Request  $request,User $user)
     {
+        if($request->editar_denuncias)
+        {
+            $user->givePermissionTo('editar denuncias');
+        } else {
+            $user->revokePermissionTo('editar denuncias');
+        }
+
         if($request->borrar_denuncias)
         {
             $user->givePermissionTo('borrar denuncias');
