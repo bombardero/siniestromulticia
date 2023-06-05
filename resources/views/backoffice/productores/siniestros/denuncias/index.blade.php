@@ -65,7 +65,8 @@
                                     </td>
                                     <td>
                                         {{ $denuncia->estado_observacion != null ? $denuncia->estado_observacion : 'Sin observación.' }}
-                                        {{ $denuncia->estado_fecha ? '[Actualizado el '.$denuncia->estado_fecha->format('d/m/y').']' : '' }}</td>
+                                        {{ $denuncia->estado_fecha ? '[Actualizado el '.$denuncia->estado_fecha->format('d/m/y').']' : '' }}
+                                    </td>
                                     <td>
                                         @if($denuncia->estado_carga == 'precarga')
                                             <span>PRECARGA</span>

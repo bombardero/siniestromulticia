@@ -89,6 +89,7 @@
                             </div>
                         </div>
 
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                         <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-md-0 px-xl-1">
                             <div class="form-floating">
                                 <select class="form-select" name="cobertura" id="cobertura"
@@ -119,6 +120,7 @@
                                 <label for="">Cobertura</label>
                             </div>
                         </div>
+                        @endif
 
                         <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pl-md-0 px-xl-1">
                             <div class="form-floating">
@@ -147,6 +149,7 @@
                             </div>
                         </div>
 
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                         <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1 pr-lg-0">
                             <div class="form-floating">
                                 <select class="form-select" name="nro_denuncia" id="nro_denuncia"
@@ -169,6 +172,7 @@
                                 <label for="nro_denuncia">N° Denuncia</label>
                             </div>
                         </div>
+                        @endif
 
                         <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
                             <div class="form-floating">
@@ -193,6 +197,7 @@
                             </div>
                         </div>
 
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                         <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
                             <div class="form-floating">
                                 <select class="form-select" name="responsable" id="responsable"
@@ -214,9 +219,10 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <label for="link_enviado">Responsable</label>
+                                <label for="responsable">Responsable</label>
                             </div>
                         </div>
+                        @endif
 
                         <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
                             <div class="input-group">
@@ -248,14 +254,28 @@
                                 <th scope="col">FECHA SINIESTRO</th>
                                 <th scope="col">ASEGURADO</th>
                                 <th scope="col">DOMINIO</th>
+                                @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                 <th scope="col">N° POLIZA</th>
                                 <th scope="col">N° DENUNCIA</th>
                                 <th scope="col">N° SINIESTRO</th>
                                 <th scope="col">COBERTURA</th>
-                                <th scope="col">ESTADO</th>
+                                @endif
                                 <th scope="col">PASO</th>
-                                <th scope="col">ÚLT. OBSERVACIÓN</th>
-                                <th scope="col">LINK</th>
+                                <th scope="col">ESTADO</th>
+                                <th scope="col">
+                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                        ÚLT. OBSERVACIÓN
+                                    @else
+                                        OBSERVACIÓN
+                                    @endif
+                                </th>
+                                <th scope="col">
+                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                        LINK
+                                    @else
+                                        LINK ENVIADO
+                                    @endif
+                                </th>
                                 <th scope="col">OPERACIONES</th>
                             </tr>
                             </thead>
@@ -268,6 +288,7 @@
                                         <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
                                         <td>{{ $denuncia->asegurado ? $denuncia->asegurado->nombre : ''}}</td>
                                         <td>{{$denuncia->dominio_vehiculo_asegurado}}</td>
+                                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                         <td>
                                             <form
                                                 action="{{ route('admin.siniestros.denuncia.update.nropoliza',$denuncia->id) }}"
@@ -279,7 +300,6 @@
                                                         <i class="fa-solid fa-rotate"></i>
                                                     </button>
                                                 </div>
-
                                             </form>
                                         </td>
                                         <td>
@@ -329,6 +349,16 @@
                                                 </option>
                                             </select>
                                         </td>
+                                        @endif
+                                        <td>
+                                            @if($denuncia->estado_carga == 'precarga')
+                                                <span>PRECARGA</span>
+                                            @elseif($denuncia->estado_carga == '12')
+                                                <span>COMPLETO</span>
+                                            @else
+                                                <span>{{ $denuncia->estado_carga.'/12' }}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if($denuncia->estado == 'ingresado') INGRESADO @endif
                                             @if($denuncia->estado == 'aceptado') ACEPTADO @endif
@@ -343,24 +373,26 @@
                                             @if($denuncia->estado == 'esperando-baja-de-unidad') ESPERANDO BAJA DE UNIDAD @endif
                                         </td>
                                         <td>
-                                            @if($denuncia->estado_carga == 'precarga')
-                                                <span>PRECARGA</span>
-                                            @elseif($denuncia->estado_carga == '12')
-                                                <span>COMPLETO</span>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                                {{ $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : '' }}
                                             @else
-                                                <span>{{ $denuncia->estado_carga.'/12' }}</span>
-                                            @endif</td>
-                                        <td>
-                                            {{ $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : '' }}
+                                                {{ $denuncia->estado_observacion != null ? $denuncia->estado_observacion : 'Sin observación.' }}
+                                                {{ $denuncia->estado_fecha ? '[Actualizado el '.$denuncia->estado_fecha->format('d/m/y').']' : '' }}
+                                            @endif
+
                                         </td>
                                         <td>
-                                            <a target="_blank" class="btn-link"
-                                               href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia (dominio: {{$denuncia->dominio_vehiculo_asegurado}}) ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
-                                               style="color:#3366BB; font-weight: bold; " data-toggle="tooltip"
-                                               data-denuncia-id="{{ $denuncia->id }}"
-                                               data-placement="top" title="Enviar link">
-                                                <i class="fa-solid fa-link {{ $denuncia->link_enviado ? 'text-success' : '' }}"></i>
-                                            </a>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                                <a target="_blank" class="btn-link"
+                                                   href="https://api.whatsapp.com/send?phone={{$denuncia->responsable_contacto_telefono}}&text=Inicia tu denuncia (dominio: {{$denuncia->dominio_vehiculo_asegurado}}) ingresando a este link: {{route('asegurados-denuncias-paso1.create',['id' => $denuncia->identificador])}}"
+                                                   style="color:#3366BB; font-weight: bold; " data-toggle="tooltip"
+                                                   data-denuncia-id="{{ $denuncia->id }}"
+                                                   data-placement="top" title="Enviar link">
+                                                    <i class="fa-solid fa-link {{ $denuncia->link_enviado ? 'text-success' : '' }}"></i>
+                                                </a>
+                                            @else
+                                                {{ $denuncia->link_enviado ? 'Si' : 'No' }}
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="dropstart position-static">
@@ -369,6 +401,7 @@
                                                     <i class="fa-solid fa-gear"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
+                                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                                     <li>
                                                         <a href="#"
                                                            class="dropdown-item {{ $denuncia->estado_carga == '12' && $denuncia->nro_poliza !== null && $denuncia->nro_denuncia === null ? '' : 'disabled' }}"
@@ -379,25 +412,18 @@
                                                             <i class="fa-solid fa-file-export"></i><span>Enviar a compañía</span>
                                                         </a>
                                                     </li>
+                                                    @endif
                                                     <li>
                                                         <a href="{{route('admin.siniestros.denuncia.show',$denuncia->id)}}"
                                                            class="dropdown-item" title="Ver">
                                                             <i class="fa-solid fa-file-lines"></i><span>Ver</span>
                                                         </a>
                                                     </li>
+                                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                                     <li>
                                                         <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
                                                            class="dropdown-item" title="Editar">
                                                             <i class="fa-solid fa-file-pen"></i><span>Editar</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                           data-bs-target="#modalObservaciones"
-                                                           data-denuncia-id="{{ $denuncia->id }}"
-                                                           class="dropdown-item" title="Observaciones">
-                                                            <i class="fa-solid fa-inbox"></i>
-                                                            <span>Observaciones</span>
                                                         </a>
                                                     </li>
                                                     <li>
@@ -409,19 +435,33 @@
                                                             <span>Estado</span>
                                                         </a>
                                                     </li>
+                                                    @endif
                                                     <li>
                                                         <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
                                                            class="dropdown-item" title="Descargar" target="_blank">
                                                             <i class="fa-solid fa-file-pdf"></i><span>Descargar</span>
                                                         </a>
                                                     </li>
+                                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                                    <li>
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                           data-bs-target="#modalObservaciones"
+                                                           data-denuncia-id="{{ $denuncia->id }}"
+                                                           class="dropdown-item" title="Observaciones">
+                                                            <i class="fa-solid fa-inbox"></i>
+                                                            <span>Observaciones</span>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('borrar denuncias'))
                                                     <li>
                                                         <a href="{{route('admin.siniestros.denuncia.delete',$denuncia->id)}}"
-                                                           class="dropdown-item btn-eliminar {{ auth()->user()->can('borrar denuncias') ? 'text-danger' : 'text-secondary disabled' }}"
+                                                           class="dropdown-item btn-eliminar text-danger"
                                                            title="Borrar">
                                                             <i class="fa-solid fa-trash"></i><span>Borrar</span>
                                                         </a>
                                                     </li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </td>
@@ -437,12 +477,14 @@
                         <div class="col">
                             {{ $denuncia_siniestros->appends(request()->input())->links('vendor.pagination.bootstrap-4') }}
                         </div>
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                         <div class="col">
                             <button class="btn btn-secondary" type="button" id="btn-exportar"
                                     data-query="{{ request()->getQueryString() }}">
                                 <i class="fa-solid fa-file-excel mr-2"></i> Exportar
                             </button>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -471,6 +513,7 @@
                         </tbody>
                     </table>
                 </div>
+                @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                 <div class="modal-footer ">
                     <form action="" method="post" id="formNuevaObservacion" class="w-100">
                         @csrf
@@ -485,6 +528,7 @@
                         </div>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
     </div>

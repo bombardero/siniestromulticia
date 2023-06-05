@@ -17,28 +17,30 @@
                                                 class="text-uppercase">{{$denuncia->estado_carga}}</span>
                                         </h5>
                                         <div class="col-6 col-md-5">
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                             <h5>Responsable:
-                                                @if($denuncia->responsable)
-                                                    <span>{{ $denuncia->responsable->name }}</span>
-                                                    @if($denuncia->user_id === auth()->user()->id)
-                                                        <a href="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
-                                                           type="button" class="btn btn-danger btn-sm btn-quitar"
-                                                           onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
-                                                        ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
-                                                        <form id="form-desasignar" action="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                    @if($denuncia->responsable)
+                                                        <span>{{ $denuncia->responsable->name }}</span>
+                                                        @if($denuncia->user_id === auth()->user()->id)
+                                                            <a href="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
+                                                               type="button" class="btn btn-danger btn-sm btn-quitar"
+                                                               onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
+                                                            ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
+                                                            <form id="form-desasignar" action="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                                @csrf
+                                                            </form>
+                                                        @endif
+                                                    @else
+                                                        <a href="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
+                                                           type="button" class="btn btn-primary btn-sm"
+                                                           onclick="event.preventDefault();document.getElementById('form-asignar').submit();"
+                                                        ><i class="fa-solid fa-user-plus"></i> Asignarme</a>
+                                                        <form id="form-asignar" action="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
                                                             @csrf
                                                         </form>
                                                     @endif
-                                                @else
-                                                    <a href="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
-                                                       type="button" class="btn btn-primary btn-sm"
-                                                       onclick="event.preventDefault();document.getElementById('form-asignar').submit();"
-                                                    ><i class="fa-solid fa-user-plus"></i> Asignarme</a>
-                                                    <form id="form-asignar" action="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
-                                                        @csrf
-                                                    </form>
-                                                @endif
                                             </h5>
+                                            @endif
                                         </div>
                                         <div class="col-6 col-md-2 text-right">
                                             <a href="{{route('asegurados-denuncias.pdf',$denuncia->id)}}"
@@ -47,10 +49,12 @@
                                             >
                                                 <i class="fa-solid fa-file-pdf"></i>
                                             </a>
-                                            <a href="{{ route('admin.siniestros.denuncia.delete',$denuncia->id) }}"
-                                               class="px-2 btn btn-danger btn-sm btn-eliminar @cannot('borrar denuncias') disabled @endcannot" title="Borrar">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('eliminar denuncias'))
+                                                <a href="{{ route('admin.siniestros.denuncia.delete',$denuncia->id) }}"
+                                                   class="px-2 btn btn-danger btn-sm btn-eliminar @cannot('borrar denuncias') disabled @endcannot" title="Borrar">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -1171,40 +1175,43 @@
                                             @endforeach
                                         @endif
 
-                                        <div class="alert alert-secondary mt-3 " role="alert">
-                                            Observaciones
-                                        </div>
 
-                                        <table class="table">
-                                            <thead class="thead tabla-panel">
-                                            <tr class="tabla-cabecera ">
-                                                <th class="th-padding" scope="col">FECHA</th>
-                                                <th class="th-padding" scope="col">COMENTARIO</th>
-                                                <th class="th-padding" scope="col">USER</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($denuncia->observaciones as $observacion )
-                                                <tr class="borde-tabla">
-                                                    <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
-                                                    <td>{{$observacion->detalle}}</td>
-                                                    <td>{{$observacion->user->name}}</td>
+                                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                            <div class="alert alert-secondary mt-3 " role="alert">
+                                                Observaciones
+                                            </div>
+
+                                            <table class="table">
+                                                <thead class="thead tabla-panel">
+                                                <tr class="tabla-cabecera ">
+                                                    <th class="th-padding" scope="col">FECHA</th>
+                                                    <th class="th-padding" scope="col">COMENTARIO</th>
+                                                    <th class="th-padding" scope="col">USER</th>
                                                 </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($denuncia->observaciones as $observacion )
+                                                    <tr class="borde-tabla">
+                                                        <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
+                                                        <td>{{$observacion->detalle}}</td>
+                                                        <td>{{$observacion->user->name}}</td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
 
-                                        <form action="{{ route('admin.siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="exampleFormControlTextarea1">Nueva observación</label>
-                                                <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
-                                                @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                                            </div>
-                                            <div class="float-right">
-                                                <button type="submit" class="btn btn-primary">Agregar</button>
-                                            </div>
-                                        </form>
+                                            <form action="{{ route('admin.siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Nueva observación</label>
+                                                    <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
+                                                    @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                                                </div>
+                                                <div class="float-right">
+                                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                                </div>
+                                            </form>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
