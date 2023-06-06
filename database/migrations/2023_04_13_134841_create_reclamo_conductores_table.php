@@ -18,7 +18,7 @@ class CreateReclamoConductoresTable extends Migration
             $table->foreignId('reclamo_tercero_id')->constrained('reclamo_terceros');
             $table->string('nombre')->nullable();
             $table->string('telefono',15)->nullable();
-            $table->date('fecha_nacimiento');
+            $table->date('fecha_nacimiento')->nullable();
             $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
             $table->string('documento_numero',8);
             $table->string('domicilio')->nullable();
@@ -28,10 +28,10 @@ class CreateReclamoConductoresTable extends Migration
             $table->foreign('province_id')->references('id')->on('provinces');
             $table->foreignId('city_id')->nullable()->constrained('cities');
             $table->string('otro_pais_provincia_localidad')->nullable();
-            $table->string('licencia_numero')->nullable();
-            $table->string('licencia_clase')->nullable();
-            $table->boolean('alcoholemia')->nullable();
-            $table->boolean('alcoholemia_se_nego')->nullable();
+            $table->string('licencia_numero');
+            $table->string('licencia_clase');
+            $table->boolean('alcoholemia');
+            $table->boolean('alcoholemia_se_nego');
             $table->boolean('lesiones')->default(false);
             $table->enum('gravedad_lesion',['leve','grave','mortal'])->nullable();
             $table->string('centro_asistencial')->nullable();
