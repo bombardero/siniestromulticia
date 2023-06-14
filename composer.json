@@ -25,6 +25,7 @@
         "mercadopago/dx-php": "2.1.1",
         "nesbot/carbon": "^2.41",
         "owen-it/laravel-auditing": "^11.0",
+        "spatie/laravel-backup": "^6.16",
         "spatie/laravel-permission": "^3.17"
     },
     "require-dev": {
