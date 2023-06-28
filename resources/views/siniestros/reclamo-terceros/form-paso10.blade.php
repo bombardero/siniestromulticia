@@ -18,7 +18,7 @@
         <div class="col-12 col-md-4">
             <a href="{{ route('siniestros.terceros.paso10.vehicular.create', ['id' => request('id')] )}}"
                style="color:#6E4697;">
-                <i class="fa-solid fa-file-circle-plus fa-xl mr-2"></i>Editar
+                <i class="fa-solid fa-file-circle-plus fa-xl mr-2"></i>Añadir
             </a>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="col-12 col-md-4">
             <a href="{{ route('siniestros.terceros.paso10.daniosmateriales.create', ['id' => request('id')] )}}"
                style="color:#6E4697;">
-                <i class="fa-solid fa-file-circle-plus fa-xl mr-2"></i>Ver
+                <i class="fa-solid fa-file-circle-plus fa-xl mr-2"></i>Añadir
             </a>
         </div>
     </div>
@@ -62,7 +62,7 @@
         <div class="col-12 col-md-4">
             <a href="{{ route('siniestros.terceros.paso10.lesionados.create', ['id' => request('id')] )}}"
                style="color:#6E4697;">
-                <i class="fa-solid fa-file-circle-plus fa-xl mr-2"></i>Ver
+                <i class="fa-solid fa-file-circle-plus fa-xl mr-2"></i>Añadir
             </a>
         </div>
     </div>
