@@ -19,8 +19,8 @@ class CreateReclamoConductoresTable extends Migration
             $table->string('nombre')->nullable();
             $table->string('telefono',15)->nullable();
             $table->date('fecha_nacimiento')->nullable();
-            $table->foreignId('tipo_documento_id')->constrained('tipo_documentos');
-            $table->string('documento_numero',8);
+            $table->foreignId('tipo_documento_id')->nullable()->constrained('tipo_documentos');
+            $table->string('documento_numero',8)->nullable();
             $table->string('domicilio')->nullable();
             $table->string('codigo_postal',8)->nullable();
             $table->foreignId('pais_id')->nullable()->constrained('paises');
