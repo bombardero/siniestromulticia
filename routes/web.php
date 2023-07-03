@@ -11,8 +11,12 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CotizaVehiculoController;
 use App\Http\Controllers\DenunciaAseguradoController;
+use App\Http\Controllers\ReclamoTerceroController;
+use App\Http\Controllers\Siniestros\ReclamoTerceroController as SiniestroReclamoTerceroController;
 use App\Http\Controllers\DenunciaSiniestro\DenunciaSiniestroAseguradoController;
 use App\Http\Controllers\Ajax\DenunciaAseguradoController as DenunciaAseguradoAjaxController;
+use App\Http\Controllers\Ajax\ReclamoTerceroController as ReclamoTerceroAjaxController;
+use App\Http\Controllers\FormularioProductorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InmobiliariaController;
 use App\Http\Controllers\OperarioController;
@@ -20,7 +24,7 @@ use App\Http\Controllers\PagoController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PrecioEstimativoController;
 use App\Http\Controllers\ProductorController;
-use  \App\Http\Controllers\Backoffice\ProductorController as BackofficeProductorController;
+use App\Http\Controllers\Backoffice\ProductorController as BackofficeProductorController;
 use App\Http\Controllers\SepelioController;
 use App\Http\Controllers\SiniestroController;
 use App\Http\Controllers\SolicitudController;
@@ -176,8 +180,8 @@ Route::get('render-tipos', [CotizaVehiculoController::class,'renderTipos'])->nam
 Route::get('/callcenter', [CallCenterController::class,'index'])->name('panel-callcenter')->middleware('check.callcenter');
 Route::get('/callcenter/{cotizacion}', [CallCenterController::class,'show'])->name('panel-callcenter.show')->middleware('check.callcenter');
 
-Route::get('siniestros/asegurados', [AseguradoController::class,'index'])->name('asegurado.index');
-Route::get('siniestros/terceros', [TerceroController::class,'index'])->name('tercero.index');
+Route::view('siniestros/asegurados', 'siniestros.asegurados')->name('asegurado.index');
+Route::view('siniestros/terceros', 'siniestros.terceros')->name('tercero.index');
 
 Route::group(['prefix' => 'denuncia-siniestros'], function () {
     Route::view('/gracias','gracias-denuncia')->name('gracias-denuncia');
@@ -246,14 +250,75 @@ Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () 
     Route::post('croquis/', [DenunciaAseguradoController::class,'storeCroquis'])->name('asegurados-denuncias.storeCroquis');
 });
 
+// Reclamos Terceros
+Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' ], function () {
+
+    Route::view('/gracias','gracias-reclamo')->name('gracias');
+
+    Route::get('paso-1',[ReclamoTerceroController::class,'paso1create'])->name('paso1.create');
+    Route::post('paso-1',[ReclamoTerceroController::class,'paso1store'])->name('paso1.store');
+
+    Route::get('paso-2',[ReclamoTerceroController::class,'paso2create'])->name('paso2.create');
+    Route::post('paso-2',[ReclamoTerceroController::class,'paso2store'])->name('paso2.store');
+
+    Route::get('paso-3',[ReclamoTerceroController::class,'paso3create'])->name('paso3.create');
+    Route::post('paso-3',[ReclamoTerceroController::class,'paso3store'])->name('paso3.store');
+
+    Route::get('paso-4',[ReclamoTerceroController::class,'paso4create'])->name('paso4.create');
+    Route::post('paso-4',[ReclamoTerceroController::class,'paso4store'])->name('paso4.store');
+
+    Route::get('paso-5',[ReclamoTerceroController::class,'paso5create'])->name('paso5.create');
+    Route::post('paso-5',[ReclamoTerceroController::class,'paso5store'])->name('paso5.store');
+
+    Route::get('paso-5/agregar',[ReclamoTerceroController::class,'paso5lesionadoCreate'])->name('paso5.lesionado.create');
+    Route::post('paso-5/agregar',[ReclamoTerceroController::class,'paso5lesionadoStore'])->name('paso5.lesionado.store');
+    Route::get('paso-5/editar',[ReclamoTerceroController::class,'paso5lesionadoEdit'])->name('paso5.lesionado.edit');
+    Route::post('paso-5/editar',[ReclamoTerceroController::class,'paso5lesionadoUpdate'])->name('paso5.lesionado.update');
+    Route::get('paso-5/delete',[ReclamoTerceroController::class,'paso5lesionadoDelete'])->name('paso5.lesionado.delete');
+
+    Route::get('paso-6',[ReclamoTerceroController::class,'paso6create'])->name('paso6.create');
+    Route::post('paso-6',[ReclamoTerceroController::class,'paso6store'])->name('paso6.store');
+
+    Route::get('paso-6/agregar',[ReclamoTerceroController::class,'paso6daniomaterialCreate'])->name('paso6.daniomaterial.create');
+    Route::post('paso-6/agregar',[ReclamoTerceroController::class,'paso6daniomaterialStore'])->name('paso6.daniomaterial.store');
+    Route::get('paso-6/editar',[ReclamoTerceroController::class,'paso6daniomaterialEdit'])->name('paso6.daniomaterial.edit');
+    Route::post('paso-6/editar',[ReclamoTerceroController::class,'paso6daniomaterialUpdate'])->name('paso6.daniomaterial.update');
+    Route::get('paso-6/delete',[ReclamoTerceroController::class,'paso6daniomaterialDelete'])->name('paso6.daniomaterial.delete');
+
+    Route::get('paso-7',[ReclamoTerceroController::class,'paso7create'])->name('paso7.create');
+    Route::post('paso-7',[ReclamoTerceroController::class,'paso7store'])->name('paso7.store');
+
+    Route::get('paso-8',[ReclamoTerceroController::class,'paso8create'])->name('paso8.create');
+    Route::post('paso-8',[ReclamoTerceroController::class,'paso8store'])->name('paso8.store');
+
+    Route::get('paso-9',[ReclamoTerceroController::class,'paso9create'])->name('paso9.create');
+    Route::post('paso-9',[ReclamoTerceroController::class,'paso9store'])->name('paso9.store');
+
+    Route::get('paso-9/agregar',[ReclamoTerceroController::class,'paso9testigoCreate'])->name('paso9.testigo.create');
+    Route::post('paso-9/agregar',[ReclamoTerceroController::class,'paso9testigoStore'])->name('paso9.testigo.store');
+    Route::get('paso-9/editar',[ReclamoTerceroController::class,'paso9testigoEdit'])->name('paso9.testigo.edit');
+    Route::post('paso-9/editar',[ReclamoTerceroController::class,'paso9testigoUpdate'])->name('paso9.testigo.update');
+    Route::get('paso-9/delete',[ReclamoTerceroController::class,'paso9testigoDelete'])->name('paso9.testigo.delete');
+
+
+    Route::get('paso-10',[ReclamoTerceroController::class,'paso10create'])->name('paso10.create');
+    Route::post('paso-10',[ReclamoTerceroController::class,'paso10store'])->name('paso10.store');
+
+    Route::get('paso-10-vehicular',[ReclamoTerceroController::class,'paso10vehicularCreate'])->name('paso10.vehicular.create');
+    Route::get('paso-10-daniosmateriales',[ReclamoTerceroController::class,'paso10daniosMaterialesCreate'])->name('paso10.daniosmateriales.create');
+    Route::post('paso-10-daniosmateriales',[ReclamoTerceroController::class,'paso10daniosMaterialesStore'])->name('paso10.daniosmateriales.store');
+    Route::get('paso-10-lesionados',[ReclamoTerceroController::class,'paso10lesionadosCreate'])->name('paso10.lesionados.create');
+    Route::post('paso-10-lesionados',[ReclamoTerceroController::class,'paso10lesionadosStore'])->name('paso10.lesionados.store');
+
+    Route::post('croquis', [ReclamoTerceroController::class,'storeCroquis'])->name('storeCroquis');
+
+    Route::get('{id}',[ReclamoTerceroController::class,'show'])->name('show');
+});
+
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
 Route::get('asegurados/denuncias/{denuncia}/pdf/{filename}', [DenunciaAseguradoController::class,'downloadPDF'])->name('asegurados-denuncias.pdf.filename');
 Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field');
-
-
-
-
-
+Route::get('terceros/reclamos/{reclamo}/pdf', [SiniestroReclamoTerceroController::class,'generarPDF'])->name('terceros-reclamos.pdf');
 
 
 // BackOffice
@@ -276,12 +341,22 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::post('update/denuncias/{denuncia}/nrosiniestro', [DenunciaAseguradoController::class,'updateDenunciaNroSiniestro'])->name('denuncia.update.nrosiniestro');
         Route::post('denuncias/{denuncia}/link-enviado', [DenunciaAseguradoController::class,'updateLinkEnviado'])->name('denuncia.link-enviado');
         Route::post('denuncias/{denuncia}/update-certificado-poliza', [DenunciaAseguradoController::class,'updateCertificadoPoliza'])->name('denuncia.update-certificado-poliza');
+
+        Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
+            Route::get('/', [SiniestroReclamoTerceroController::class,'index'])->name('index');
+            Route::get('{reclamo}', [SiniestroReclamoTerceroController::class,'show'])->name('show');
+            Route::post('{reclamo}/observaciones', [SiniestroReclamoTerceroController::class,'observacionesStore'])->name('observaciones.store');
+        });
+
         Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');
     });
 
     Route::group(['middleware' => ['check.productor'], 'prefix' => 'productores', 'as' => 'productores.'], function () {
         Route::get('siniestros/denuncias', [ BackofficeProductorController::class,'index' ])->name('siniestros.denuncias.index');
         Route::get('siniestros/denuncias/{denuncia}', [ BackofficeProductorController::class,'show' ])->name('siniestros.denuncias.show');
+        Route::get('/', [SiniestroReclamoTerceroController::class,'index'])->name('index');
+        Route::get('{reclamo}', [SiniestroReclamoTerceroController::class,'show'])->name('show');
+        Route::post('{reclamo}/observaciones', [SiniestroReclamoTerceroController::class,'observacionesStore'])->name('observaciones.store');
     });
 
     Route::resource('users', SuperAdminUserController::class)->except('show')->middleware('check.superadmin');
@@ -290,10 +365,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 });
 
 // Ajax
-Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros'], function () {
-    Route::get('denuncias/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('ajax.admin.siniestros.denuncia.observaciones.index');
-    Route::post('denuncias/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('ajax.admin.siniestros.denuncia.enviar-compania');
+Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros', 'as' => 'ajax.admin.siniestros.'], function () {
+    Route::group(['prefix' => 'denuncias', 'as' => 'denuncia.'], function () {
+        Route::get('/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('observaciones.index');
+        Route::post('/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('enviar-compania');
+        Route::get('/{denuncia}/estado', [DenunciaAseguradoAjaxController::class,'estado'])->name('estado.index');
+    });
 
-    Route::get('denuncias/{denuncia}/estado', [DenunciaAseguradoAjaxController::class,'estado'])->name('ajax.admin.siniestros.denuncia.estado.index');
+    Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {
+        Route::post('/{reclamo}/link-enviado', [ReclamoTerceroAjaxController::class,'updateLinkEnviado'])->name('link-enviado');
+        Route::post('/{reclamo}/cambiar-estado', [ReclamoTerceroAjaxController::class,'cambiarEstado'])->name('cambiar-estado');
+        Route::get('/{reclamo}/observaciones', [ReclamoTerceroAjaxController::class,'observaciones'])->name('observaciones.index');
+    });
 });
-

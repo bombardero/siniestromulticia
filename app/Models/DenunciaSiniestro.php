@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class DenunciaSiniestro extends Model
+class   DenunciaSiniestro extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -230,7 +230,7 @@ class DenunciaSiniestro extends Model
 
     public function observaciones()
     {
-        return $this->hasMany(Observacion::class);
+        return $this->morphMany(Observacion::class, 'observacionable');
     }
 
     public function responsable()

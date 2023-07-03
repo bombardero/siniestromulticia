@@ -1175,44 +1175,44 @@
                                             @endforeach
                                         @endif
 
-
-                                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                                            <div class="alert alert-secondary mt-3 " role="alert">
-                                                Observaciones
-                                            </div>
-
-                                            <table class="table">
-                                                <thead class="thead tabla-panel">
-                                                <tr class="tabla-cabecera ">
-                                                    <th class="th-padding" scope="col">FECHA</th>
-                                                    <th class="th-padding" scope="col">COMENTARIO</th>
-                                                    <th class="th-padding" scope="col">USER</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($denuncia->observaciones as $observacion )
-                                                    <tr class="borde-tabla">
-                                                        <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
-                                                        <td>{{$observacion->detalle}}</td>
-                                                        <td>{{$observacion->user->name}}</td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-
-                                            <form action="{{ route('admin.siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Nueva observación</label>
-                                                    <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
-                                                    @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                                                </div>
-                                                <div class="float-right">
-                                                    <button type="submit" class="btn btn-primary">Agregar</button>
-                                                </div>
-                                            </form>
-                                        @endif
                                     @endif
+
+                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Observaciones
+                                        </div>
+                                        <table class="table">
+                                            <thead class="thead tabla-panel">
+                                            <tr class="tabla-cabecera ">
+                                                <th class="th-padding" scope="col">FECHA</th>
+                                                <th class="th-padding" scope="col">COMENTARIO</th>
+                                                <th class="th-padding" scope="col">USER</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($denuncia->observaciones as $observacion )
+                                                <tr class="borde-tabla">
+                                                    <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
+                                                    <td>{{$observacion->detalle}}</td>
+                                                    <td>{{$observacion->user->name}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+
+                                        <form action="{{ route('admin.siniestros.denuncia.observaciones.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Nueva observación</label>
+                                                <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
+                                                @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                                            </div>
+                                            <div class="float-right">
+                                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                            </div>
+                                        </form>
+                                   @endif
+
                                 </div>
                             </div>
                         </div>
