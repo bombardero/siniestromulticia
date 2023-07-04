@@ -251,10 +251,7 @@ Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () 
 });
 
 // Reclamos Terceros
-Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' ], function () {
-
-    Route::view('/gracias','gracias-reclamo')->name('gracias');
-
+Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.', 'middleware' => ['canEditReclamoTercero'] ], function () {
     Route::get('paso-1',[ReclamoTerceroController::class,'paso1create'])->name('paso1.create');
     Route::post('paso-1',[ReclamoTerceroController::class,'paso1store'])->name('paso1.store');
 
@@ -300,7 +297,6 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::post('paso-9/editar',[ReclamoTerceroController::class,'paso9testigoUpdate'])->name('paso9.testigo.update');
     Route::get('paso-9/delete',[ReclamoTerceroController::class,'paso9testigoDelete'])->name('paso9.testigo.delete');
 
-
     Route::get('paso-10',[ReclamoTerceroController::class,'paso10create'])->name('paso10.create');
     Route::post('paso-10',[ReclamoTerceroController::class,'paso10store'])->name('paso10.store');
 
@@ -311,7 +307,10 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
     Route::post('paso-10-lesionados',[ReclamoTerceroController::class,'paso10lesionadosStore'])->name('paso10.lesionados.store');
 
     Route::post('croquis', [ReclamoTerceroController::class,'storeCroquis'])->name('storeCroquis');
+});
 
+Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' ], function () {
+    Route::view('/gracias','gracias-reclamo')->name('gracias');
     Route::get('{id}',[ReclamoTerceroController::class,'show'])->name('show');
 });
 
