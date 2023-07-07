@@ -28,15 +28,27 @@
                         <div class="mb-3">
                             <label class="form-label">Siniestros</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="editar_denuncias" value="1" id="editar-denuncias" {{ $user->hasPermissionTo('editar denuncias') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="permissions[]" value="editar denuncias" id="editar-denuncias" {{ $user->hasPermissionTo('editar denuncias') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="editar-denuncias">
                                     Editar Denuncia
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="borrar_denuncias" value="1" id="borrar-denuncias" {{ $user->hasPermissionTo('borrar denuncias') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="permissions[]" value="borrar denuncias" id="borrar-denuncias" {{ $user->hasPermissionTo('borrar denuncias') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="borrar-denuncias">
                                     Borrar Denuncia
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="permissions[]" value="editar-reclamos-terceros" id="editar-reclamos" {{ $user->hasPermissionTo('editar-reclamos-terceros') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="editar-reclamos">
+                                    Editar Reclamo
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="permissions[]" value="borrar-reclamos-terceros" id="borrar-reclamos" {{ $user->hasPermissionTo('borrar-reclamos-terceros') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="borrar-reclamos">
+                                    Borrar Reclamo
                                 </label>
                             </div>
                         </div>

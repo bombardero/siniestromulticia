@@ -182,22 +182,10 @@ class UserController extends Controller
         return view('backoffice.users.permisos', ['user' => $user]);
     }
 
-    public function permisosStore(Request  $request,User $user)
+    public function permisosStore(Request $request, User $user)
     {
-        if($request->editar_denuncias)
-        {
-            $user->givePermissionTo('editar denuncias');
-        } else {
-            $user->revokePermissionTo('editar denuncias');
-        }
-
-        if($request->borrar_denuncias)
-        {
-            $user->givePermissionTo('borrar denuncias');
-        } else {
-            $user->revokePermissionTo('borrar denuncias');
-        }
-
+        $permissions = $request->permissions;
+        $user->syncPermissions($permissions);
         return redirect()->route('admin.users.index');
     }
 
