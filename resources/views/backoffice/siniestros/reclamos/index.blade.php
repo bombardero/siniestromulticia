@@ -99,6 +99,7 @@
                                 </div>
                             </div>
 
+                            {{--
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
                                 <div class="form-floating">
                                     <select class="form-select" name="responsable" id="responsable"
@@ -123,6 +124,7 @@
                                     <label for="link_enviado">Responsable</label>
                                 </div>
                             </div>
+                            --}}
 
                             <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
                                 <div class="input-group">
@@ -149,11 +151,14 @@
                                         <th scope="col">FECHA CREACIÓN</th>
                                         <th scope="col">FECHA SINIESTRO</th>
                                         <th scope="col">RECLAMANTE</th>
+                                        <th scope="col">DOMINIO</th>
                                         <th scope="col">DOMINIO ASEGURADO</th>
-                                        <th scope="col">ESTADO</th>
                                         <th scope="col">TIPO</th>
                                         <th scope="col">PASO</th>
+                                        <th scope="col">ESTADO</th>
+                                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                         <th scope="col">ÚLT. OBSERVACIÓN</th>
+                                        @endif
                                         <th scope="col">LINK</th>
                                         <th scope="col">OPERACIONES</th>
                                     </tr>
@@ -166,15 +171,8 @@
                                             <td>{{ $reclamo->created_at->format('d/m/Y H:i') }}</td>
                                             <td>{{ $reclamo->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$reclamo->hora)->format('H:i') }}</td>
                                             <td>{{ $reclamo->reclamante ? $reclamo->reclamante->nombre : ''}}</td>
-                                            <td>{{ $reclamo->vehiculo_asegurado_dominio}}</td>
-                                            <td>
-                                                <select id="estado" class="form-select form-select-sm"
-                                                        onchange="cambiarEstado(this, {{ $reclamo->id  }})">
-                                                    @foreach($estados as $key => $estado)
-                                                        <option value="{{ $key }}" {{( $reclamo->estado == $key) ? 'selected' : '' }}>{{ $estado }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
+                                            <td>{{ $reclamo->vehiculo_tercero_dominio }}</td>
+                                            <td>{{ $reclamo->vehiculo_asegurado_dominio }}</td>
                                             <td>
                                                 {{ implode(', ',$reclamo->tipos_reclamos) }}
                                             </td>
@@ -185,10 +183,25 @@
                                                     <span>COMPLETO</span>
                                                 @else
                                                     <span>{{ $reclamo->estado_carga.'/10' }}</span>
-                                                @endif</td>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
+                                                    <select id="estado" class="form-select form-select-sm"
+                                                            onchange="cambiarEstado(this, {{ $reclamo->id  }})">
+                                                        @foreach($estados as $key => $estado)
+                                                            <option value="{{ $key }}" {{( $reclamo->estado == $key) ? 'selected' : '' }}>{{ $estado }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    {{ $estados[$reclamo->estado] }}
+                                                @endif
+                                            </td>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <td>
                                                 {{ $reclamo->observaciones->count() > 0 ? Illuminate\Support\Str::limit($reclamo->observaciones()->latest()->first()->detalle, 150, ' (...)') : '' }}
                                             </td>
+                                            @endif
                                             <td>
                                                 <a target="_blank" class="btn-link"
                                                    href="https://api.whatsapp.com/send?phone={{ $reclamo->responsable_contacto_telefono}}&text=Inicia tu reclamo ingresando a este link: {{ route('siniestros.terceros.paso1.create',['id' => $reclamo->identificador])}}"
@@ -204,11 +217,12 @@
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="{{route('admin.siniestros.reclamos.show',$reclamo->id)}}"
+                                                            <a href="{{ route('admin.siniestros.reclamos.show',$reclamo->id) }}"
                                                                class="dropdown-item" title="Ver">
                                                                 <i class="fa-solid fa-file-lines"></i><span>Ver</span>
                                                             </a>
                                                         </li>
+                                                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                                         <li>
                                                             <a href="{{ route('siniestros.terceros.paso1.create',[ 'id' => $reclamo->identificador]) }}"
                                                                class="dropdown-item" title="Editar">
@@ -221,6 +235,16 @@
                                                                 <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
                                                             </a>
                                                         </li>
+                                                        @endif
+                                                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('borrar-reclamos-terceros'))
+                                                        <li>
+                                                            <a href="{{route('admin.siniestros.reclamos.delete',$reclamo->id)}}"
+                                                               class="dropdown-item btn-eliminar text-danger"
+                                                               title="Borrar">
+                                                                <i class="fa-solid fa-trash"></i><span>Borrar</span>
+                                                            </a>
+                                                        </li>
+                                                        @endif
                                                     </ul>
                                                 </div>
                                             </td>
@@ -313,7 +337,7 @@
 <script>
 
     $('.btn-eliminar').click(function (event) {
-        let result = confirm('¿Confirma desea eliminar la denuncia?');
+        let result = confirm('¿Confirme que desea eliminar el Reclamo?');
         if (!result) {
             event.preventDefault();
             return false;

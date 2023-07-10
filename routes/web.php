@@ -251,7 +251,7 @@ Route::group(['middleware' => ['canEditDenuncia'], 'prefix' => ''], function () 
 });
 
 // Reclamos Terceros
-Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.', 'middleware' => ['canEditReclamoTercero'] ], function () {
+Route::group(['middleware' => ['canEditReclamoTercero'], 'prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' ], function () {
     Route::get('paso-1',[ReclamoTerceroController::class,'paso1create'])->name('paso1.create');
     Route::post('paso-1',[ReclamoTerceroController::class,'paso1store'])->name('paso1.store');
 
@@ -345,6 +345,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             Route::get('/', [SiniestroReclamoTerceroController::class,'index'])->name('index');
             Route::get('{reclamo}', [SiniestroReclamoTerceroController::class,'show'])->name('show');
             Route::post('{reclamo}/observaciones', [SiniestroReclamoTerceroController::class,'observacionesStore'])->name('observaciones.store');
+            Route::get('{reclamo}/delete', [SiniestroReclamoTerceroController::class,'delete'])->name('delete');
         });
 
         Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');

@@ -159,9 +159,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Datos del Asegurado</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso1.create',['id' => $reclamo->identificador]) }}"
                                                 class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         <div class="row">
@@ -193,9 +196,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Reclamante</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso2.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         <div class="row">
@@ -258,9 +264,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Vehículo</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso3.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         <div class="row">
@@ -307,9 +316,12 @@
                                         <!-- ---------------------- -->
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Conductor del Vehículo</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso4.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         @if($reclamo->reclamante && $reclamo->reclamante->conductor)
@@ -389,9 +401,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Lesionados</b>
-                                            <a href="{{ route('siniestros.terceros.paso10.create',['id' => $reclamo->identificador]) }}"
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
+                                            <a href="{{ route('siniestros.terceros.paso5.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
                                         <div class="row pt-0">
                                             <div class="col">
@@ -520,9 +535,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Daños Materiales</b>
-                                            <a href="{{ route('siniestros.terceros.paso10.create',['id' => $reclamo->identificador]) }}"
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
+                                            <a href="{{ route('siniestros.terceros.paso6.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
                                         <div class="row pt-0">
                                             <div class="col-12">
@@ -556,9 +574,12 @@
                                         <!-- ------------------- -->
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Lugar del Siniestro</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso7.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         <div class="row pt-0">
@@ -651,9 +672,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Croquis del Siniestro</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso8.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         <div class="row">
@@ -699,9 +723,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Testigos</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso9.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
                                         @if(!$reclamo->testigos)
@@ -743,9 +770,12 @@
 
                                         <div class="alert alert-secondary mt-3 " role="alert">
                                             <b>Documentos</b>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
                                             <a href="{{ route('siniestros.terceros.paso10.create',['id' => $reclamo->identificador]) }}"
                                                class="badge text-bg-secondary float-end"><i
-                                                    class="fa-solid fa-pen-to-square"></i>Editar</a>
+                                                    class="fa-solid fa-pen-to-square"></i>Editar
+                                            </a>
+                                            @endif
                                         </div>
 
 
@@ -1209,40 +1239,42 @@
                                     <!-- OBSERVACIONES -->
                                     <!-- ------------- -->
 
-                                    <div class="alert alert-secondary mt-3 " role="alert">
-                                        Observaciones
-                                    </div>
+                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar-reclamos-terceros'))
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Observaciones
+                                        </div>
 
-                                    <table class="table">
-                                        <thead class="thead tabla-panel">
-                                        <tr class="tabla-cabecera ">
-                                            <th class="th-padding" scope="col">FECHA</th>
-                                            <th class="th-padding" scope="col">COMENTARIO</th>
-                                            <th class="th-padding" scope="col">USER</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($reclamo->observaciones as $observacion )
-                                            <tr class="borde-tabla">
-                                                <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
-                                                <td>{{ $observacion->detalle }}</td>
-                                                <td>{{ $observacion->user->name }}</td>
+                                        <table class="table">
+                                            <thead class="thead tabla-panel">
+                                            <tr class="tabla-cabecera ">
+                                                <th class="th-padding" scope="col">FECHA</th>
+                                                <th class="th-padding" scope="col">COMENTARIO</th>
+                                                <th class="th-padding" scope="col">USER</th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($reclamo->observaciones as $observacion )
+                                                <tr class="borde-tabla">
+                                                    <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
+                                                    <td>{{ $observacion->detalle }}</td>
+                                                    <td>{{ $observacion->user->name }}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
 
-                                    <form action="{{ route('admin.siniestros.reclamos.observaciones.store',['reclamo' => $reclamo]) }}" method="post" class="w-100">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Nueva observación</label>
-                                            <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
-                                            @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
-                                        </div>
-                                        <div class="float-right">
-                                            <button type="submit" class="btn btn-primary">Agregar</button>
-                                        </div>
-                                    </form>
+                                        <form action="{{ route('admin.siniestros.reclamos.observaciones.store',['reclamo' => $reclamo]) }}" method="post" class="w-100">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Nueva observación</label>
+                                                <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
+                                                @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                                            </div>
+                                            <div class="float-right">
+                                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                            </div>
+                                        </form>
+                                    @endif
 
                                 </div>
                             </div>

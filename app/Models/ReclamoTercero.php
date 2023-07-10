@@ -82,7 +82,7 @@ class ReclamoTercero extends Model
 
     public function canEdit()
     {
-        return $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 10) || (Auth::check() && Auth::user()->hasRole('siniestros')) ;
+        return $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 10) || (Auth::check() && (Auth::user()->hasRole('superadmin') || (Auth::user()->hasRole('siniestros') && Auth::user()->can('editar-reclamos-terceros')))) ;
     }
 
     public function reclamante()

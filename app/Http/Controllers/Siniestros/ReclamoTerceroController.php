@@ -16,6 +16,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -101,6 +102,14 @@ class ReclamoTerceroController extends Controller
         ];
         Validator::make($request->all(),$rules)->validate();
         $reclamo->observaciones()->create(['detalle' => $request->observacion, 'user_id' => Auth::user()->id ]);
+        return back();
+    }
+
+    public function delete(Request $request, ReclamoTercero $reclamo)
+    {
+        Log::info("ReclamoTerceroController::delete() reclamo ". json_encode($reclamo));
+        Log::info("ReclamoTerceroController::delete() user ".json_encode(Auth::user()));
+        $reclamo->delete();
         return back();
     }
 
