@@ -190,7 +190,7 @@
                                                     <select id="estado" class="form-select form-select-sm"
                                                             onchange="cambiarEstado(this, {{ $reclamo->id  }})">
                                                         @foreach($estados as $key => $estado)
-                                                            <option value="{{ $key }}" {{ ( $reclamo->full_estado == $key) ? 'selected' : '' }}>{{ Str::contains($key,':') ? '- '.$estado : $estado }} [{{ $reclamo->full_estado }}]</option>
+                                                            <option value="{{ $key }}" {{ ( $reclamo->full_estado == $key) ? 'selected' : '' }}>{{ Str::contains($key,':') ? '- '.$estado : $estado }}</option>
                                                         @endforeach
                                                     </select>
                                                 @else
