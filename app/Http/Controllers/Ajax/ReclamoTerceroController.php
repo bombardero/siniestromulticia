@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ReclamoTercero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class ReclamoTerceroController extends Controller
@@ -20,11 +21,20 @@ class ReclamoTerceroController extends Controller
 
     public function cambiarEstado(Request $request, ReclamoTercero $reclamo)
     {
-
         Validator::make($request->all(), [
             'estado' => ['required',Rule::in(array_keys(ReclamoTercero::ESTADOS))]
         ])->validate();
-        $reclamo->estado = $request->estado;
+
+        if(Str::contains($request->estado,':'))
+        {
+            $estados = explode(':', $request->estado);
+            $reclamo->estado = $estados[0];
+            $reclamo->subestado = $estados[1];
+        } else {
+            $reclamo->estado = $request->estado;
+            $reclamo->subestado = null;
+        }
+
         $reclamo->save();
         return response()->json(['status' => true]);
     }

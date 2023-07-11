@@ -17,6 +17,9 @@ class ReclamoTercero extends Model
         'rechazado' => 'Rechazado',
         'cerrado' => 'Cerrado',
         'legales' => 'Legales',
+        'legales:mediacion' => 'Mediación',
+        'legales:juicio' => 'Juicio',
+        'legales:suspension-plazos' => 'Suspensión de Plazos',
         'investigacion' => 'Investigación',
         'derivado-proveedor' => 'Derivado a proveedor',
         'solicitud-documentacion' => 'Solicitud de documentación',
@@ -26,6 +29,9 @@ class ReclamoTercero extends Model
     protected $fillable = [
         'identificador',
         'estado',
+        'subestado',
+        'estado_observacion',
+        'estado_fecha',
         'estado_carga',
         'vehiculo_asegurado_dominio',
         'vehiculo_tercero_dominio',
@@ -57,6 +63,7 @@ class ReclamoTercero extends Model
         'reclamo_vehicular' => 'boolean',
         'reclamo_danios_materiales' => 'boolean',
         'reclamo_lesiones' => 'boolean',
+        'estado_fecha' => 'date',
         'finalized_at' => 'datetime'
     ];
 
@@ -78,6 +85,11 @@ class ReclamoTercero extends Model
             array_push($tiposReclamos,'Lesiones');
         }
         return $tiposReclamos;
+    }
+
+    public function getFullEstadoAttribute()
+    {
+        return $this->estado.($this->subestado != null ? ':'.$this->subestado : '');
     }
 
     public function canEdit()

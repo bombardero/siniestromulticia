@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class ReclamoTerceroController extends Controller
@@ -62,7 +63,8 @@ class ReclamoTerceroController extends Controller
             $reclamos = ReclamoTercero::where('id',$busqueda);
         } else {
             $reclamos = ReclamoTercero::when($busqueda, function ($query, $busqueda) {
-                return $query->where('vehiculo_asegurado_dominio', 'LIKE', "%{$busqueda}%");
+                return $query->where('vehiculo_asegurado_dominio', 'LIKE', "%{$busqueda}%")
+                    ->orWhere('vehiculo_tercero_dominio', 'LIKE', "%{$busqueda}%");
             })->when($carga, function ($query) use ($carga) {
                 if(is_array($carga))
                 {
@@ -70,7 +72,15 @@ class ReclamoTerceroController extends Controller
                 }
                 return $query->where('estado_carga', $carga);
             })->when($estado && $estado != 'todos', function ($query) use ($estado) {
-                return $query->where('estado', $estado);
+                if(Str::contains($estado,':'))
+                {
+                    $estados = explode(':',$estado);
+                    $estado = $estados[0];
+                    $subestado = $estados[1];
+                    return $query->where('estado', $estado)->where('subestado', $subestado);
+                } else {
+                    return $query->where('estado', $estado);
+                }
             })->when($link_enviado != null && $link_enviado != 'todos', function ($query) use ($link_enviado) {
                 return $query->where('link_enviado', $link_enviado);
             })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {

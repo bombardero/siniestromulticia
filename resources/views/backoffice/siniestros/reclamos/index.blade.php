@@ -42,7 +42,7 @@
                                             Todos
                                         </option>
                                         @foreach($estados as $key => $estado)
-                                            <option value="{{ $key }}" {{ (request()->estado && request()->estado == $key) ? 'selected' : ''}}>{{ $estado }}</option>
+                                            <option value="{{ $key }}" {{ (request()->estado && request()->estado == $key) ? 'selected' : ''}}>{{ Str::contains($key,':') ? '- '.$estado : $estado }}</option>
                                         @endforeach
                                     </select>
                                     <label for="estado">Estado</label>
@@ -190,7 +190,7 @@
                                                     <select id="estado" class="form-select form-select-sm"
                                                             onchange="cambiarEstado(this, {{ $reclamo->id  }})">
                                                         @foreach($estados as $key => $estado)
-                                                            <option value="{{ $key }}" {{( $reclamo->estado == $key) ? 'selected' : '' }}>{{ $estado }}</option>
+                                                            <option value="{{ $key }}" {{ ( $reclamo->full_estado == $key) ? 'selected' : '' }}>{{ Str::contains($key,':') ? '- '.$estado : $estado }} [{{ $reclamo->full_estado }}]</option>
                                                         @endforeach
                                                     </select>
                                                 @else
