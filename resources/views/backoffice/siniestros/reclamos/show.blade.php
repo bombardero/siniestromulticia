@@ -71,7 +71,7 @@
                                         </div>
                                     </div>
 
-                                    @if($reclamo->estado_carga == '8' && $reclamo->finalized_at)
+                                    @if($reclamo->estado_carga == '10' && $reclamo->finalized_at)
                                         <div class="row">
                                             <div class="col-12 col-md-12">
                                                 <p>Finalizado: {{ $reclamo->finalized_at->format('d/m/Y H:i:s') }}</p>
