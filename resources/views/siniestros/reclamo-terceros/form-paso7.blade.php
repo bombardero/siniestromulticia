@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 7 </b>de 10 | Lugar del Siniestro</span>
+                <h4 style="color:#6e4697;\"><b>Paso 7 </b>de 10 | Lugar del Siniestro</h4>
                 <hr style="border:1px solid lightgray;">
             </div>
 

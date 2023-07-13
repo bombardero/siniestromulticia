@@ -7,7 +7,8 @@
 
         <div class="row">
             <div class="col-12">
-                <span style="color:#6e4697;font-size: 24px;"><b>Paso 6 </b>de 8 | Daños Materiales</span>
+                <h4 style="color:#6e4697;"><b>Paso 6</b> de 10 | Daños a Cosas Materiales</h4>
+                <p style="color:#6e4697;font-size: .95rem">Puede tratarse de daños a una vivienda, bicicleta, carteles o frentes de negocios, por ejemplo. El reclamante es el <b>propietario</b> de la cosa reclamada.</p>
                 <hr style="border:1px solid lightgray;">
             </div>
         </div>
