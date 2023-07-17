@@ -123,4 +123,47 @@ class ReclamoTerceroController extends Controller
         return back();
     }
 
+    public function vincularShow(Request $request, ReclamoTercero $reclamo)
+    {
+
+        $busqueda = $request->busqueda !== null ? $request->busqueda : $reclamo->vehiculo_asegurado_dominio;
+        $tipo = $request->tipo !== null ? $request->tipo : 'dominio';
+
+        if($tipo === 'dominio')
+        {
+            $denuncia_siniestros = DenunciaSiniestro::where('dominio_vehiculo_asegurado','LIKE', '%'.$busqueda.'%')->get();
+        } else {
+            $denuncia_siniestros = DenunciaSiniestro::where('id', $busqueda)->get();
+        }
+
+        $data = [
+            'reclamo' => $reclamo,
+            'denuncia_siniestros' => $denuncia_siniestros,
+            'busqueda' => $busqueda
+        ];
+
+        return view('backoffice.siniestros.reclamos.vincular', $data);
+    }
+
+    public function vincularStore(Request $request, ReclamoTercero $reclamo)
+    {
+        $rules =  [
+            'denuncia_siniestro_id' => 'required|exists:denuncia_siniestros,id'
+        ];
+        Validator::make($request->all(),$rules)->validate();
+        $denuncia = DenunciaSiniestro::find($request->denuncia_siniestro_id);
+        $reclamo->denuncia()->associate($denuncia);
+        $reclamo->save();
+        return redirect()->route('admin.siniestros.reclamos.index');
+    }
+
+    public function desvincular(Request $request, ReclamoTercero $reclamo)
+    {
+        $reclamo->denuncia()->dissociate();
+        $reclamo->save();
+        return redirect()->route('admin.siniestros.reclamos.index');
+    }
+
+
+
 }

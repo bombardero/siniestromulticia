@@ -238,6 +238,11 @@ class   DenunciaSiniestro extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function reclamos()
+    {
+        return $this->hasMany(ReclamoTercero::class, 'denuncia_siniestro_id');
+    }
+
     public function canEdit()
     {
         return $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12) || (Auth::check() && (Auth::user()->hasRole('superadmin') || (Auth::user()->hasRole('siniestros') && Auth::user()->can('editar denuncias')))) ;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubestadoAndEstadoObservacionAndEstadoFechaToReclamoTerceros extends Migration
+class AddDenunciaSiniestroIdToReclamoTerceros extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddSubestadoAndEstadoObservacionAndEstadoFechaToReclamoTerceros extends Mi
     public function up()
     {
         Schema::table('reclamo_terceros', function (Blueprint $table) {
-            $table->string('subestado')->nullable()->after('estado');
-            $table->string('estado_observacion')->nullable()->after('subestado');
-            $table->date('estado_fecha')->nullable()->after('estado_observacion');
+            $table->foreignId('denuncia_siniestro_id')->nullable()->after('user_id')->constrained('denuncia_siniestros');
         });
     }
 
@@ -28,9 +26,8 @@ class AddSubestadoAndEstadoObservacionAndEstadoFechaToReclamoTerceros extends Mi
     public function down()
     {
         Schema::table('reclamo_terceros', function (Blueprint $table) {
-            $table->dropColumn('subestado');
-            $table->dropColumn('estado_observacion');
-            $table->dropColumn('estado_fecha');
+            $table->dropForeign(['denuncia_siniestro_id']);
+            $table->dropColumn(['denuncia_siniestro_id']);
         });
     }
 }

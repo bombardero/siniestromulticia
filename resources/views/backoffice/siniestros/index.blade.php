@@ -414,7 +414,7 @@
                                                     </li>
                                                     @endif
                                                     <li>
-                                                        <a href="{{route('admin.siniestros.denuncia.show',$denuncia->id)}}"
+                                                        <a href="{{ route('admin.siniestros.denuncia.show',$denuncia->id) }}"
                                                            class="dropdown-item" title="Ver">
                                                             <i class="fa-solid fa-file-lines"></i><span>Ver</span>
                                                         </a>
@@ -468,7 +468,7 @@
                                     </tr>
                                 @endforeach
                             @else
-                                <td> No hay denuncias cargadas todavia</td>
+                                <td colspan=""> No hay denuncias cargadas todavia</td>
                             @endif
                             </tbody>
                         </table>

@@ -60,6 +60,7 @@ class ReclamoTercero extends Model
     ];
 
     protected $casts = [
+        'fecha' => 'date',
         'reclamo_vehicular' => 'boolean',
         'reclamo_danios_materiales' => 'boolean',
         'reclamo_lesiones' => 'boolean',
@@ -160,6 +161,11 @@ class ReclamoTercero extends Model
     public function observaciones()
     {
         return $this->morphMany(Observacion::class, 'observacionable');
+    }
+
+    public function denuncia()
+    {
+        return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
     }
 
     public function documentosVehicularCompleto()
