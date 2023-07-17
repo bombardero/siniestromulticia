@@ -68,25 +68,25 @@
             <label class="form-check-label">Tipos de reclamos (*)</label>
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb-2">
             <div class="form-group mb-0 form-check">
                 <input type="checkbox" class="form-check-input"
                        id="reclamo_vehicular" name="reclamo_vehicular"
                        wire:model.defer="reclamo_vehicular"
                 >
-                <label class="form-check-label" for="reclamo_vehicular">Daño vehicular</label>
+                <label class="form-check-label" for="reclamo_vehicular">Daño Vehicular</label>
             </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 mb-2 col-md-4">
             <div class="form-group mb-0 form-check">
                 <input type="checkbox" class="form-check-input"
                        id="reclamo_danios_materiales" name="reclamo_danios_materiales"
                        wire:model.defer="reclamo_danios_materiales"
                 >
-                <label class="form-check-label" for="reclamo_danios_materiales">Daños materiales</label>
+                <label class="form-check-label" for="reclamo_danios_materiales">Daños a cosas materiales<br><span style="font-size: .85rem;">Cualquier daño a la propiedad sin considerar un vehículo</span></span></label>
             </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 mb-2 col-md-4">
             <div class="form-group mb-0 form-check">
                 <input type="checkbox" class="form-check-input"
                        id="reclamo_lesiones" name="reclamo_lesiones"
