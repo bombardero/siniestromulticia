@@ -6,6 +6,7 @@ use App\Mail\MailAsegurado;
 use App\Mail\MailAseguradoCompania;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use App\Models\DenunciaSiniestro;
 use DateTime;
@@ -29,6 +30,14 @@ class FormAsegurados extends Component
     public $direccion_siniestro;
     public $conductor_siniestro;
     public $descripcion_siniestro;
+    public $tipo_siniestro;
+
+    public $tipos_siniestros;
+
+    public function mount()
+    {
+        $this->tipos_siniestros = DenunciaSiniestro::TIPOS_SINIESTROS;
+    }
 
     private function validateAsegurado()
     {
@@ -44,6 +53,7 @@ class FormAsegurados extends Component
             'telefono' => 'required|numeric|digits_between:5,15|confirmed',
             'email' => 'required|email|max:50|confirmed',
             'descripcion_siniestro' => 'nullable|max:65535',
+            'tipo_siniestro' => ['required',Rule::in(DenunciaSiniestro::TIPOS_SINIESTROS)]
         ],
         [
             'responsable_contacto.required' => 'Responsable de contacto requerido',
@@ -58,6 +68,7 @@ class FormAsegurados extends Component
             'telefono.digits_between' => 'El telefono debe tener por lo menos 5 caracteres y como máximo 20' ,
             'email.required' => 'El email es requerido.',
             'email.email' => 'Escriba un formato valido de email',
+            'tipo_siniestro.in' => 'El tipo de siniestro seleccionado no es válido',
         ]);
 
     }
@@ -76,6 +87,7 @@ class FormAsegurados extends Component
                 'conductor_siniestro' => $this->setNoDeclarado($this->conductor_siniestro),
                 'descripcion_siniestro' => $this->setNoDeclarado($this->descripcion_siniestro),
                 'responsable_contacto' => $this->responsable_contacto,
+                'tipo_siniestro' => $this->tipo_siniestro,
                 'telefono' => '549'.$this->telefono
                 ];
 
@@ -90,6 +102,7 @@ class FormAsegurados extends Component
             "direccion" => $this->setNoDeclarado($this->direccion_siniestro),
             "nombre_conductor" => $this->setNoDeclarado($this->conductor_siniestro),
             "descripcion" => $this->setNoDeclarado($this->descripcion_siniestro),
+            'tipo_siniestro' => $this->tipo_siniestro,
             "responsable_contacto_nombre" => $this->responsable_contacto,
             "responsable_contacto_domicilio" => $this->domicilio,
             "responsable_contacto_telefono" => '549'.$this->telefono,

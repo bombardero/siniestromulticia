@@ -36,6 +36,7 @@ class DenunciaAseguradoController extends Controller
 
         $data['denuncia_siniestros'] = $denuncia_siniestros;
         $data['users'] = $users;
+        $data['tipos_siniestros'] = DenunciaSiniestro::TIPOS_SINIESTROS;
 
         return view('backoffice.siniestros.index',$data);
     }
@@ -1462,6 +1463,7 @@ class DenunciaAseguradoController extends Controller
 
             $busqueda = $request->busqueda;
             $tipo = $request->tipo;
+            $tipo_siniestro = $request->tipo_siniestro;
             $estado = $request->estado;
             $cobertura = $request->cobertura;
             $nro_denuncia = $request->nro_denuncia;
@@ -1495,8 +1497,10 @@ class DenunciaAseguradoController extends Controller
                         return $query->whereIn('estado_carga', $carga);
                     }
                     return $query->where('estado_carga', $carga);
+                })->when($tipo_siniestro && $tipo_siniestro != 'todos', function ($query) use ($tipo_siniestro) {
+                    return $query->where('tipo_siniestro', $tipo_siniestro != 'sin especificar' ? $tipo_siniestro : null);
                 })->when($estado && $estado != 'todos', function ($query) use ($estado) {
-                    return $query->where('estado', $estado);
+                    return $query->where('estado', $estado );
                 })->when($cobertura && $cobertura != 'todos', function ($query) use ($cobertura) {
                     return $cobertura == 'ninguna' ? $query->whereNull('cobertura_activa') : $query->where('cobertura_activa', $cobertura);
                 })->when($nro_denuncia && $nro_denuncia != 'todos', function ($query) use ($nro_denuncia) {

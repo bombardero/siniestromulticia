@@ -369,9 +369,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 // Ajax
 Route::group(['middleware' => ['auth','check.siniestro'], 'prefix' => 'ajax/admin/siniestros', 'as' => 'ajax.admin.siniestros.'], function () {
     Route::group(['prefix' => 'denuncias', 'as' => 'denuncia.'], function () {
-        Route::get('/{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('observaciones.index');
-        Route::post('/{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('enviar-compania');
-        Route::get('/{denuncia}/estado', [DenunciaAseguradoAjaxController::class,'estado'])->name('estado.index');
+        Route::get('{denuncia}/observaciones', [DenunciaAseguradoAjaxController::class,'observaciones'])->name('observaciones.index');
+        Route::post('{denuncia}/enviar-compania', [DenunciaAseguradoAjaxController::class,'enviarCompania'])->name('enviar-compania');
+        Route::get('{denuncia}/estado', [DenunciaAseguradoAjaxController::class,'estado'])->name('estado.index');
+        Route::post('{denuncia}/cambiar-tipo-siniestro', [DenunciaAseguradoAjaxController::class,'cambiarTipoSiniestro'])->name('cambiar-tipo-siniestro');
     });
 
     Route::group(['prefix' => 'reclamos', 'as' => 'reclamos.'], function () {

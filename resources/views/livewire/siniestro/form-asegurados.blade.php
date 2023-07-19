@@ -80,6 +80,20 @@
             </div>
         </div>
 
+        <div class="col-12 col-md-12 pt-3">
+            <div class="form-group">
+                <label for="tipo_siniestro">Tipo de Siniestro</label>
+                <select id="tipo_siniestro" class="form-control form-estilo"
+                        wire:model.defer="tipo_siniestro">
+                    <option value=""></option>
+                    @foreach($tipos_siniestros as $tipo_siniestro)
+                        <option value="{{ $tipo_siniestro }}">{{ $tipo_siniestro }}</option>
+                    @endforeach
+                </select>
+                @error('tipo_siniestro') <span class="pl-2 text-danger">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label for="responsable_contacto">Responsable de contacto (*)</label>

@@ -28,10 +28,20 @@ class   DenunciaSiniestro extends Model
     ];
     const COBERTURAS_ACTIVAS = ['RC', 'Casco', 'RC con Casco'];
 
+    const TIPOS_SINIESTROS = [
+        'Incendio',
+        'Robo total',
+        'Robo parcial',
+        'Daño parcial',
+        'Daño total',
+        'Franquicia'
+    ];
+
     protected $fillable = [
         "identificador",
         "estado_carga",
         "dominio_vehiculo_asegurado",
+        "tipo_siniestro",
         "fecha",
         "hora",
         "lugar_nombre",

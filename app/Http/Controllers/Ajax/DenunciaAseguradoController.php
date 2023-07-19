@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\CompaniaService;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class DenunciaAseguradoController extends Controller
 {
@@ -54,6 +56,18 @@ class DenunciaAseguradoController extends Controller
             'observacion' => $denuncia->estado_observacion,
             'fecha' => $denuncia->estado_fecha ? $denuncia->estado_fecha->toDateString() : null
         ]);
+    }
+
+    public function cambiarTipoSiniestro(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'tipo_siniestro' => ['required',Rule::in(DenunciaSiniestro::TIPOS_SINIESTROS)]
+        ])->validate();
+
+        $denuncia->tipo_siniestro = $request->tipo_siniestro;
+        $denuncia->save();
+
+        return response()->json(['status' => true]);
     }
 
 }

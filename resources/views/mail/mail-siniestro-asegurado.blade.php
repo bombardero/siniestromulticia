@@ -79,6 +79,8 @@
         <p class="campos">{{$data['conductor_siniestro']}}</p>
         <p class="recibido">Descripción del siniestro</p>
         <p class="campos">{{$data['descripcion_siniestro']}}</p>
+        <p class="recibido">Tipo de siniestro</p>
+        <p class="campos">{{$data['tipo_siniestro']}}</p>
         <p class="recibido">Responsable de contacto</p>
         <p class="campos">{{$data['responsable_contacto']}}</p>
         <p class="recibido">Domicilio</p>

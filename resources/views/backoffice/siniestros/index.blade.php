@@ -5,7 +5,7 @@
             <div class="col-12 mt-5 pb-5">
                 <form action="{{ route('admin.siniestros.index') }}" method="get" class="container-fluid" id="buscador">
                     <div class="row mb-3">
-                        <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0 pr-xl-1">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0">
                             <div class="input-group">
                                 <div class="input-group-text">
                                     <input class="form-check-input mt-0" type="checkbox"
@@ -29,194 +29,120 @@
                                     <label for="hasta">Hasta</label>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
+                            <div class="form-floating">
+                                <select class="form-select" name="tipo_siniestro" id="tipo_siniestro"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{ (request()->tipo_siniestro && request()->tipo_siniestro == 'Todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="sin especificar" {{ (request()->tipo_siniestro && request()->tipo_siniestro == 'sin especificar') ? 'selected' : ''}}>Sin especificar</option>
+                                    @foreach($tipos_siniestros as $tipo_siniestro)
+                                        <option value="{{ $tipo_siniestro }}" {{ (request()->tipo_siniestro && request()->tipo_siniestro == $tipo_siniestro) ? 'selected' : '' }}>{{ $tipo_siniestro }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="tipo_siniestro">Tipo</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
                             <div class="form-floating">
                                 <select class="form-select" name="estado" id="estado"
                                         onchange="buscar()"
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
-                                    <option
-                                        value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>
-                                        Todos
+                                    <option value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>Ingresado</option>
+                                    <option value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>Aceptado</option>
+                                    <option value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>Rechazado</option>
+                                    <option value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>Cerrado</option>
+                                    <option value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>Legales</option>
+                                    <option value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>Investigación</option>
+                                    <option value="derivado-proveedor" {{(request()->estado && request()->estado == 'derivado-proveedor') ? 'selected' : ''}}>Derivado a proveedor</option>
+                                    <option value="solicitud-documentacion" {{(request()->estado && request()->estado == 'solicitud-documentacion') ? 'selected' : ''}}>Solicitud de documentación</option>
+                                    <option value="informe-pericial" {{(request()->estado && request()->estado == 'informe-pericial') ? 'selected' : ''}}>Informe Pericial
                                     </option>
-                                    <option
-                                        value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>
-                                        Ingresado
-                                    </option>
-                                    <option
-                                        value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>
-                                        Aceptado
-                                    </option>
-                                    <option
-                                        value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>
-                                        Rechazado
-                                    </option>
-                                    <option
-                                        value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>
-                                        Cerrado
-                                    </option>
-                                    <option
-                                        value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>
-                                        Legales
-                                    </option>
-                                    <option
-                                        value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>
-                                        Investigación
-                                    <option
-                                        value="derivado-proveedor" {{(request()->estado && request()->estado == 'derivado-proveedor') ? 'selected' : ''}}>
-                                        Derivado a proveedor
-                                    </option>
-                                    <option
-                                        value="solicitud-documentacion" {{(request()->estado && request()->estado == 'solicitud-documentacion') ? 'selected' : ''}}>
-                                        Solicitud de documentación
-                                    </option>
-                                    <option
-                                        value="informe-pericial" {{(request()->estado && request()->estado == 'informe-pericial') ? 'selected' : ''}}>
-                                        Informe Pericial
-                                    </option>
-                                    <option
-                                        value="pendiente-de-pago" {{(request()->estado && request()->estado == 'pendiente-de-pago') ? 'selected' : ''}}>
-                                        Pendiente de pago
-                                    </option>
-                                    <option
-                                        value="esperando-baja-de-unidad" {{(request()->estado && request()->estado == 'esperando-baja-de-unidad') ? 'selected' : ''}}>
-                                        Esperando baja de unidad
-                                    </option>
+                                    <option value="pendiente-de-pago" {{(request()->estado && request()->estado == 'pendiente-de-pago') ? 'selected' : ''}}>Pendiente de pago</option>
+                                    <option value="esperando-baja-de-unidad" {{(request()->estado && request()->estado == 'esperando-baja-de-unidad') ? 'selected' : ''}}>Esperando baja de unidad</option>
                                 </select>
                                 <label for="estado">Estado</label>
                             </div>
                         </div>
 
                         @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-md-0 px-xl-1">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
                             <div class="form-floating">
                                 <select class="form-select" name="cobertura" id="cobertura"
                                         onchange="buscar()"
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
-                                    <option
-                                        value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>
-                                        Todas
-                                    </option>
-                                    <option
-                                        value="RC" {{(request()->cobertura && request()->cobertura == 'RC') ? 'selected' : ''}}>
-                                        RC
-                                    </option>
-                                    <option
-                                        value="Casco" {{(request()->cobertura && request()->cobertura == 'Casco') ? 'selected' : ''}}>
-                                        Casco
-                                    </option>
-                                    <option
-                                        value="RC con Casco" {{(request()->cobertura && request()->cobertura == 'RC con Casco') ? 'selected' : ''}}>
-                                        RC con Casco
-                                    </option>
-                                    <option
-                                        value="ninguna" {{(request()->cobertura && request()->cobertura == 'ninguna') ? 'selected' : ''}}>
-                                        Ninguna
-                                    </option>
+                                    <option value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>Todas</option>
+                                    <option value="RC" {{(request()->cobertura && request()->cobertura == 'RC') ? 'selected' : ''}}>RC</option>
+                                    <option value="Casco" {{(request()->cobertura && request()->cobertura == 'Casco') ? 'selected' : ''}}>Casco</option>
+                                    <option value="RC con Casco" {{(request()->cobertura && request()->cobertura == 'RC con Casco') ? 'selected' : ''}}>RC con Casco</option>
+                                    <option value="ninguna" {{(request()->cobertura && request()->cobertura == 'ninguna') ? 'selected' : ''}}>Ninguna</option>
                                 </select>
                                 <label for="">Cobertura</label>
                             </div>
                         </div>
                         @endif
 
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pl-md-0 px-xl-1">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
                             <div class="form-floating">
                                 <select class="form-select" name="carga" id="carga"
                                         onchange="buscar()"
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
-                                    <option
-                                        value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
-                                        Todos
-                                    </option>
-                                    <option
-                                        value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>
-                                        Precarga
-                                    </option>
-                                    <option
-                                        value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
-                                        Incompleto
-                                    </option>
-                                    <option
-                                        value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>
-                                        Completo
-                                    </option>
+                                    <option value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>Precarga</option>
+                                    <option value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>Incompleto</option>
+                                    <option value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>Completo</option>
                                 </select>
                                 <label for="carga">Paso</label>
                             </div>
                         </div>
 
                         @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 px-xl-1 pr-lg-0">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-xl-1">
                             <div class="form-floating">
                                 <select class="form-select" name="nro_denuncia" id="nro_denuncia"
                                         onchange="buscar()"
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
-                                    <option
-                                        value="todos" {{(request()->nro_denuncia && request()->nro_denuncia == 'todos') ? 'selected' : ''}}>
-                                        Todos
-                                    </option>
-                                    <option
-                                        value="si" {{(request()->nro_denuncia && request()->nro_denuncia == 'si') ? 'selected' : ''}}>
-                                        Si
-                                    </option>
-                                    <option
-                                        value="no" {{(request()->nro_denuncia && request()->nro_denuncia == 'no') ? 'selected' : ''}}>
-                                        No
-                                    </option>
+                                    <option value="todos" {{(request()->nro_denuncia && request()->nro_denuncia == 'todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="si" {{(request()->nro_denuncia && request()->nro_denuncia == 'si') ? 'selected' : ''}}>Si</option>
+                                    <option value="no" {{(request()->nro_denuncia && request()->nro_denuncia == 'no') ? 'selected' : ''}}>No</option>
                                 </select>
                                 <label for="nro_denuncia">N° Denuncia</label>
                             </div>
                         </div>
                         @endif
 
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
                             <div class="form-floating">
                                 <select class="form-select" name="link_enviado" id="link_enviado"
                                         onchange="buscar()"
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
-                                    <option
-                                        value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>
-                                        Todos
-                                    </option>
-                                    <option
-                                        value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>
-                                        Si
-                                    </option>
-                                    <option
-                                        value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>
-                                        No
-                                    </option>
+                                    <option value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>Todos</option>
+                                    <option value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>Si</option>
+                                    <option value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>No</option>
                                 </select>
                                 <label for="link_enviado">Link enviado</label>
                             </div>
                         </div>
 
                         @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
                             <div class="form-floating">
                                 <select class="form-select" name="responsable" id="responsable"
                                         onchange="buscar()"
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
-                                    <option
-                                        value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>
-                                        Todos
-                                    </option>
-                                    <option
-                                        value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>
-                                        Sin responsable
-                                    </option>
+                                    <option value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>Todos</option>
+                                    <option value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>Sin responsable</option>
                                     @foreach($users as $user)
-                                        <option
-                                            value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>
-                                            {{ $user->name }}
-                                        </option>
+                                        <option value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                                 <label for="responsable">Responsable</label>
@@ -224,7 +150,7 @@
                         </div>
                         @endif
 
-                        <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-3 px-0 ps-lg-1">
                             <div class="input-group">
                                 <div class="form-floating">
                                     <select class="form-select" name="tipo" id="tipo">
@@ -252,8 +178,8 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">FECHA CREACIÓN</th>
                                 <th scope="col">FECHA SINIESTRO</th>
-                                <th scope="col">ASEGURADO</th>
                                 <th scope="col">DOMINIO</th>
+                                <th scope="col">TIPO</th>
                                 @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                 <th scope="col">N° POLIZA</th>
                                 <th scope="col">N° DENUNCIA</th>
@@ -286,8 +212,20 @@
                                         <td>{{ $denuncia->id }}</td>
                                         <td>{{ $denuncia->created_at->format('d/m/Y H:i') }}</td>
                                         <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
-                                        <td>{{ $denuncia->asegurado ? $denuncia->asegurado->nombre : ''}}</td>
-                                        <td>{{$denuncia->dominio_vehiculo_asegurado}}</td>
+                                        <td>{{ $denuncia->dominio_vehiculo_asegurado}}</td>
+                                        <td>
+                                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                                <select id="tipo_siniestro" class="form-select form-select-sm"
+                                                        onchange="cambiarTipoSiniestro(this,{{ $denuncia->id  }})">
+                                                    <option value="" {{( $denuncia->tipo_siniestro == null) ? 'selected' : '' }}>Sin especificar</option>
+                                                    @foreach($tipos_siniestros as $tipo_siniestro)
+                                                        <option value="{{ $tipo_siniestro }}" {{( $denuncia->tipo_siniestro == $tipo_siniestro) ? 'selected' : '' }}>{{ $tipo_siniestro }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @else
+                                                {{ $denuncia->tipo_siniestro != null ? $denuncia->tipo_siniestro : 'Sin especificar' }}
+                                            @endif
+                                        </td>
                                         @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
                                         <td>
                                             <form
@@ -656,17 +594,21 @@
             let fechas = $('#check-fechas');
             let desde = $('#desde');
             let hasta = $('#hasta');
+            let tipo_siniestro = $('#tipo_siniestro');
             let estado = $('#estado');
             let cobertura = $('#cobertura');
             let carga = $('#carga');
             let nro_denuncia = $('#nro_denuncia');
-            console.log(tipo);
+            let link_enviado = $('#link_enviado');
+            let responsable = $('#responsable');
             if (tipo == 'id') {
                 fechas.attr('checked', false);
                 desde.attr('disabled', true);
                 desde.val('');
                 hasta.attr('disabled', true);
                 hasta.val('');
+                tipo_siniestro.attr('disabled', true);
+                tipo_siniestro.val('todos');
                 estado.attr('disabled', true);
                 estado.val('todos');
                 cobertura.attr('disabled', true);
@@ -675,16 +617,23 @@
                 carga.val('todos');
                 nro_denuncia.attr('disabled', true);
                 nro_denuncia.val('todos');
+                link_enviado.attr('disabled', true);
+                link_enviado.val('todos');
+                responsable.attr('disabled', true);
+                responsable.val('todos');
             } else {
                 fechas.attr('checked', true);
                 desde.attr('disabled', false);
                 desde.val('{{ Carbon\Carbon::now()->subMonth()->toDateString() }}');
                 hasta.attr('disabled', false);
                 hasta.val('{{ Carbon\Carbon::now()->toDateString() }}');
+                tipo_siniestro.attr('disabled', false);
                 estado.attr('disabled', false);
                 cobertura.attr('disabled', false);
                 carga.attr('disabled', false);
                 nro_denuncia.attr('disabled', false);
+                link_enviado.attr('disabled', false);
+                responsable.attr('disabled', false);
             }
         })
 
@@ -694,31 +643,47 @@
             let url = $(this).attr('action')
             let value = $(this).find('input[name="value"]').val() ? $(this).find('input[name="value"]').val() : null;
             showLoading();
-            $.ajax(
-                {
-                    url: url,
-                    type: 'post',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "value": value
-                    },
-                    success: function (result) {
-                        //console.log(result);
-                        location.reload();
-                    },
-                    error: function (error) {
-                        //console.log(error);
-                        alert('Hubo un error.');
-                    },
-                    complete: function (jqXHR, textStatus) {
-                        hideLoading();
-                    }
-                })
-
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "value": value
+                },
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (error) {
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
         })
 
         function cambiarCoberturaActiva(cobertura, denuncia_siniestro_id) {
             let url = '{{ route('admin.siniestros.denuncia.cambiar-cobertura-activa', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
+            url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
+            showLoading();
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "cobertura_activa": cobertura.value
+                },
+                error: function (error) {
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
+        }
+
+        function cambiarTipoSiniestro(tipo_siniestro, denuncia_siniestro_id) {
+            let url = '{{ route('ajax.admin.siniestros.denuncia.cambiar-tipo-siniestro', ['denuncia' =>  ":denuncia_siniestro_id"]) }}';
             url = url.replace(':denuncia_siniestro_id', denuncia_siniestro_id);
             showLoading();
             $.ajax(
@@ -727,16 +692,12 @@
                     type: 'post',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "cobertura_activa": cobertura.value
+                        "tipo_siniestro": tipo_siniestro.value
                     },
-                    success: function (result) {
-                        //console.log(result);
-                    },
-                    error: function (error) {
-                        //console.log(error);
+                    error: function () {
                         alert('Hubo un error.');
                     },
-                    complete: function (jqXHR, textStatus) {
+                    complete: function () {
                         hideLoading();
                     }
                 })
@@ -840,30 +801,27 @@
             let tipo_vehiculo = $(this).find('select').val()
             let url = $(this).attr('action')
 
-            $.ajax(
-                {
-                    url: url,
-                    type: 'post',
-                    data: {"_token": "{{ csrf_token() }}", 'tipo_vehiculo': tipo_vehiculo},
-                    timeout: 0,
-                    async: true,
-                    success: function (result) {
-                        //console.log(result);
-                        if (result.mensaje) {
-                            alert(result.mensaje);
-                        } else {
-                            location.reload();
-                        }
-                    },
-                    error: function (error) {
-                        //console.log(error);
-                        alert('Hubo un error.');
-                    },
-                    complete: function (jqXHR, textStatus) {
-                        hideLoading();
-                        $('#modalEnviarACompania').find('button.close').click();
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {"_token": "{{ csrf_token() }}", 'tipo_vehiculo': tipo_vehiculo},
+                timeout: 0,
+                async: true,
+                success: function (result) {
+                    if (result.mensaje) {
+                        alert(result.mensaje);
+                    } else {
+                        location.reload();
                     }
-                })
+                },
+                error: function (error) {
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                    $('#modalEnviarACompania').find('button.close').click();
+                }
+            })
         });
 
         $('#check-fechas').change(function () {
@@ -878,33 +836,29 @@
 
         $('#btn-exportar').click(function () {
             let url = '{{ route('admin.siniestros.export') }}' + '?' + $(this).data('query');
-
             showLoading();
-            $.ajax(
-                {
-                    url: url,
-                    type: 'get',
-                    timeout: 0,
-                    xhrFields: {
-                        responseType: 'blob'
-                    },
-                    success: function (result) {
-                        let link = document.createElement('a');
-                        link.href = window.URL.createObjectURL(result);
-                        link.download = `denuncias.xlsx`;
-                        link.click();
-                        link.remove();
+            $.ajax({
+                url: url,
+                type: 'get',
+                timeout: 0,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (result) {
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(result);
+                    link.download = `denuncias.xlsx`;
+                    link.click();
+                    link.remove();
 
-                    },
-                    error: function (error) {
-                        //console.log(error);
-                        alert('Hubo un error.');
-                    },
-                    complete: function (jqXHR, textStatus) {
-                        hideLoading();
-                    }
-                })
-            //console.log(url);
+                },
+                error: function (error) {
+                    alert('Hubo un error.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    hideLoading();
+                }
+            })
         });
 
     </script>
