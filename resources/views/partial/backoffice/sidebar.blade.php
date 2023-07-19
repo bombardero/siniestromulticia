@@ -1,5 +1,5 @@
 <div class="sidebar d-flex">
-    <div class="collapse collapse-horizontal show" id="collapseSideBar">
+    <div class="collapse collapse-horizontal {{ array_key_exists('sidebar-hide',$_COOKIE) ? '' : 'show' }}" id="collapseSideBar">
         <div class="sidebar-content d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <span class="fs-4">Finisterre Seguros</span>
@@ -66,6 +66,11 @@
         </div>
     </div>
     <button id="btn-collapse-sidebar" class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSideBar" aria-expanded="false" aria-controls="collapseSideBar">
-        <i class="fa-solid fa-less-than fa-2xs"></i>
+        @if(array_key_exists('sidebar-hide',$_COOKIE))
+            <i class="fa-solid fa-greater-than fa-2xs"></i>
+        @else
+            <i class="fa-solid fa-less-than fa-2xs"></i>
+        @endif
+
     </button>
 </div>

@@ -23,30 +23,32 @@
 
 </head>
 <body>
- <div class="d-flex">
-    @include('partial.backoffice.sidebar')
-     <main>
-         @yield('content')
-     </main>
-     @include('partial.loading')
- </div>
+    <div class="d-flex">
+        @include('partial.backoffice.sidebar')
+         <main>
+             @yield('content')
+         </main>
+        @include('partial.loading')
+    </div>
 
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+     <script>
+         const collapseSideBar = document.getElementById('collapseSideBar')
+         collapseSideBar.addEventListener('hidden.bs.collapse', event => {
+             document.getElementById('btn-collapse-sidebar').innerHTML = '<i class="fa-solid fa-greater-than fa-2xs"></i>';
+             Cookies.set('sidebar-hide', true);
+         })
+         collapseSideBar.addEventListener('shown.bs.collapse', event => {
+             document.getElementById('btn-collapse-sidebar').innerHTML = '</i><i class="fa-solid fa-less-than fa-2xs"></i>'
+             Cookies.remove('sidebar-hide');
+         })
+     </script>
 
- <script>
-     const collapseSideBar = document.getElementById('collapseSideBar')
-     collapseSideBar.addEventListener('hidden.bs.collapse', event => {
-         document.getElementById('btn-collapse-sidebar').innerHTML = '<i class="fa-solid fa-greater-than fa-2xs"></i>'
-     })
-     collapseSideBar.addEventListener('shown.bs.collapse', event => {
-         document.getElementById('btn-collapse-sidebar').innerHTML = '</i><i class="fa-solid fa-less-than fa-2xs"></i>'
-     })
- </script>
-
-@yield('scripts')
+    @yield('scripts')
 
 </body>
 </html>
