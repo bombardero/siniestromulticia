@@ -55,22 +55,10 @@
                                             onchange="buscar()"
                                             {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
-                                        <option
-                                            value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>
-                                            Todos
-                                        </option>
-                                        <option
-                                            value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>
-                                            Precarga
-                                        </option>
-                                        <option
-                                            value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>
-                                            Incompleto
-                                        </option>
-                                        <option
-                                            value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>
-                                            Completo
-                                        </option>
+                                        <option value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>Todos</option>
+                                        <option value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>Precarga</option>
+                                        <option value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>Incompleto</option>
+                                        <option value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>Completo</option>
                                     </select>
                                     <label for="carga">Paso</label>
                                 </div>
@@ -82,20 +70,25 @@
                                             onchange="buscar()"
                                         {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                     >
-                                        <option
-                                            value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>
-                                            Todos
-                                        </option>
-                                        <option
-                                            value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>
-                                            Si
-                                        </option>
-                                        <option
-                                            value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>
-                                            No
-                                        </option>
+                                        <option value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>Todos</option>
+                                        <option value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>Si</option>
+                                        <option value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>No</option>
                                     </select>
                                     <label for="link_enviado">Link enviado</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                                <div class="form-floating">
+                                    <select class="form-select" name="con_denuncia" id="con_denuncia"
+                                            onchange="buscar()"
+                                        {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                    >
+                                        <option value="todos" {{( isset(request()->con_denuncia) && request()->con_denuncia == "todos") ? 'selected' : ''}}>Todos</option>
+                                        <option value="si" {{( isset(request()->con_denuncia) && request()->con_denuncia == "si") ? 'selected' : ''}}>Si</option>
+                                        <option value="no" {{( isset(request()->con_denuncia) && request()->con_denuncia == 'no') ? 'selected' : ''}}>No</option>
+                                    </select>
+                                    <label for="con_denuncia">Con Denuncia</label>
                                 </div>
                             </div>
 
@@ -218,12 +211,16 @@
                                             </td>
                                             @endif
                                             <td>
-                                                <a target="_blank" class="btn-link"
-                                                   href="https://api.whatsapp.com/send?phone={{ $reclamo->responsable_contacto_telefono}}&text=Inicia tu reclamo ingresando a este link: {{ route('siniestros.terceros.paso1.create',['id' => $reclamo->identificador])}}"
-                                                   style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-reclamo-id="{{ $reclamo->id }}"
-                                                   data-placement="top" title="Enviar link">
-                                                    <i class="fa-solid fa-link {{ $reclamo->link_enviado ? 'text-success' : '' }}"></i>
-                                                </a>
+                                                @if($reclamo->denuncia_siniestro_id)
+                                                    <a target="_blank" class="btn-link"
+                                                       href="https://api.whatsapp.com/send?phone={{ $reclamo->responsable_contacto_telefono}}&text=Inicia tu reclamo ingresando a este link: {{ route('siniestros.terceros.paso1.create',['id' => $reclamo->identificador])}}"
+                                                       style="color:#3366BB; font-weight: bold; " data-toggle="tooltip" data-reclamo-id="{{ $reclamo->id }}"
+                                                       data-placement="top" title="Enviar link">
+                                                        <i class="fa-solid fa-link {{ $reclamo->link_enviado ? 'text-success' : '' }}"></i>
+                                                    </a>
+                                                @else
+                                                    <i class="fa-solid fa-link-slash text-secondary" title="No disponible"></i>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="dropstart position-static">

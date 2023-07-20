@@ -41,6 +41,7 @@ class ReclamoTerceroController extends Controller
         $tipo = $request->tipo;
         $estado = $request->estado;
         $link_enviado = $request->link_enviado;
+        $con_denuncia = $request->con_denuncia;
         $responsable = $request->responsable;
 
         switch ($request->carga)
@@ -83,6 +84,8 @@ class ReclamoTerceroController extends Controller
                 }
             })->when($link_enviado != null && $link_enviado != 'todos', function ($query) use ($link_enviado) {
                 return $query->where('link_enviado', $link_enviado);
+            })->when($con_denuncia != null && $con_denuncia != 'todos', function ($query) use ($con_denuncia) {
+                return $con_denuncia === 'si' ? $query->whereNotNull('denuncia_siniestro_id') : $query->whereNull('denuncia_siniestro_id');
             })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
                 return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
             });
