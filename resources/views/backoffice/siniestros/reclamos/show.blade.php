@@ -66,8 +66,7 @@
                                         </div>
 
                                         <div class="col-12 col-md-4">
-                                            <p>Hora del
-                                                Siniestro: {{ \Carbon\Carbon::createFromFormat('H:i:s',$reclamo->hora)->format('H:i') }}</p>
+                                            <p>Hora del Siniestro: {{ \Carbon\Carbon::createFromFormat('H:i:s',$reclamo->hora)->format('H:i') }}</p>
                                         </div>
                                     </div>
 
@@ -242,9 +241,9 @@
                                                 <div class="col-md-4">
                                                     <p class="mb-1">Localidad: {{ $reclamo->reclamante->city_id != null ? $reclamo->reclamante->localidad->name : $reclamo->reclamante->otro_pais_provincia_localidad }}</p>
                                                 </div>
-                                            @elseif($denuncia->reclamante && $denuncia->reclamante->otro_pais_provincia_localidad)
+                                            @elseif($reclamo->reclamante && $reclamo->reclamante->otro_pais_provincia_localidad)
                                                 <div class="col-12">
-                                                    <p class="mb-1">Localidad/Provincia/Pais: {{ $denuncia->otro_pais_provincia_localidad }}</p>
+                                                    <p class="mb-1">Localidad/Provincia/Pais: {{ $reclamo->otro_pais_provincia_localidad }}</p>
                                                 </div>
                                             @else
                                                 <div class="col-12 col-md-4">
@@ -298,7 +297,7 @@
                                                 <p class="mb-1">Compañía de Seguro: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
                                             </div>
                                             <div class="col-12 col-md-6">
-                                                <p class="mb-1">Número de Póliza: {{ $reclamo->vehiculo ? $reclamo->vehiculo->compania_seguros : '' }}</p>
+                                                <p class="mb-1">Número de Póliza: {{ $reclamo->vehiculo ? $reclamo->vehiculo->numero_poliza : '' }}</p>
                                             </div>
                                         </div>
 
@@ -440,7 +439,6 @@
                                                                 <p class="mb-1">Centro Asistencial: {{ $reclamo->conductor->centro_asistencial }}</p>
                                                             </div>
                                                         </div>
-
                                                     @endif
                                                     @foreach($reclamo->lesionados as $lesionado)
                                                         <div class="row">
@@ -629,7 +627,6 @@
                                                 <p class="mb-1">Tipo
                                                     Calzada: {{ $reclamo->tipo_calzada_id != null ? $reclamo->tipoCalzada->nombre : ''}}</p>
                                             </div>
-
                                         </div>
 
                                         <div class="row pt-0">

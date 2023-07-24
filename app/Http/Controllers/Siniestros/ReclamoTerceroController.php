@@ -4,30 +4,22 @@ namespace App\Http\Controllers\Siniestros;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Image;
-use App\Models\City;
 use App\Models\DenunciaSiniestro;
-use App\Models\Marca;
-use App\Models\Modelo;
-use App\Models\Province;
 use App\Models\ReclamoTercero;
-use App\Models\TipoCalzada;
-use App\Models\TipoDocumento;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use PDF;
 
 class ReclamoTerceroController extends Controller
 {
 
     public function index(Request $request)
     {
-
         if(count($request->all()) == 0)
         {
             $desde = Carbon::now()->startOfDay()->subMonth()->toDateTimeString();
@@ -165,6 +157,17 @@ class ReclamoTerceroController extends Controller
         $reclamo->denuncia()->dissociate();
         $reclamo->save();
         return redirect()->route('admin.siniestros.reclamos.index');
+    }
+
+    public function generarPDF(Request $request, ReclamoTercero $reclamo)
+    {
+        $data=[
+            'reclamo' => $reclamo
+        ];
+        PDF::setOptions(['dpi' => 150,'isPhpEnabled' => true, "isRemoteEnabled" => true]);
+        $pdf = PDF::loadView('siniestros.reclamo-terceros.pdf', $data);
+        $pdf->setPaper( 'a4' );
+        return $pdf->stream();
     }
 
 

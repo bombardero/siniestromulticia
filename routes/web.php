@@ -317,8 +317,6 @@ Route::group(['prefix' => 'siniestros/terceros', 'as' => 'siniestros.terceros.' 
 Route::get('asegurados/denuncias/{denuncia}/pdf', [DenunciaAseguradoController::class,'generarPDF'])->name('asegurados-denuncias.pdf');
 Route::get('asegurados/denuncias/{denuncia}/pdf/{filename}', [DenunciaAseguradoController::class,'downloadPDF'])->name('asegurados-denuncias.pdf.filename');
 Route::post('denuncias/{denuncia}/update-field', [DenunciaAseguradoController::class,'updateField'])->name('panel-siniestros.denuncia.update-field');
-Route::get('terceros/reclamos/{reclamo}/pdf', [SiniestroReclamoTerceroController::class,'generarPDF'])->name('terceros-reclamos.pdf');
-
 
 // BackOffice
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -348,6 +346,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             Route::get('{reclamo}/desvincular', [SiniestroReclamoTerceroController::class,'desvincular'])->name('desvincular');
             Route::post('{reclamo}/observaciones', [SiniestroReclamoTerceroController::class,'observacionesStore'])->name('observaciones.store');
             Route::get('{reclamo}/delete', [SiniestroReclamoTerceroController::class,'delete'])->name('delete');
+            Route::get('{reclamo}/pdf', [SiniestroReclamoTerceroController::class,'generarPDF'])->name('pdf');
         });
 
         Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');

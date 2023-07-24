@@ -258,6 +258,12 @@
                                                             </a>
                                                         </li>
                                                         <li>
+                                                            <a href="{{ route('admin.siniestros.reclamos.pdf',$reclamo->id) }}"
+                                                               class="dropdown-item" title="Descargar" target="_blank">
+                                                                <i class="fa-solid fa-file-pdf"></i><span>Descargar</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
                                                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalObservaciones" data-reclamo-id="{{ $reclamo->id }}"
                                                                class="dropdown-item" title="Observaciones">
                                                                 <i class="fa-solid fa-message"></i></i><span>Observaciones</span>
