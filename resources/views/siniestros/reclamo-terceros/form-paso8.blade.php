@@ -1,4 +1,4 @@
-<form class="" action='{{route("siniestros.terceros.paso8.store")}}' method="post">
+<form class="" action='{{route("siniestros.terceros.paso8.store")}}' method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="id" value="{{request('id')}}">
     <input type="hidden" name="reclamo_vehicular" value="{{ $reclamo->reclamo_vehicular ? '1' : '0' }}">
@@ -362,6 +362,16 @@
 
 
 <script type="text/javascript">
+
+    function getFileData(myFile) {
+        var file = myFile.files[0];
+        var filename = file.name;
+        document.getElementById('subidaReciente').innerHTML = filename;
+        document.getElementById('iconoReciente').style.display = "block";
+        if ($("#databaseIMG") != null) {
+            $("#databaseIMG").remove();
+        }
+    }
 
     $(document).ready(function () {
 
