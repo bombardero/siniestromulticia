@@ -50,18 +50,8 @@
                                     <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
                                     <td>{{ $denuncia->asegurado ? $denuncia->asegurado->nombre : ''}}</td>
                                     <td>{{ $denuncia->dominio_vehiculo_asegurado }}</td>
-                                    <td>
-                                        @if($denuncia->estado == 'ingresado') INGRESADO @endif
-                                        @if($denuncia->estado == 'aceptado') ACEPTADO @endif
-                                        @if($denuncia->estado == 'rechazado') RECHAZADO @endif
-                                        @if($denuncia->estado == 'cerrado') CERRADO @endif
-                                        @if($denuncia->estado == 'legales') LEGALES @endif
-                                        @if($denuncia->estado == 'investigacion') INVESTIGACIÓN @endif
-                                        @if($denuncia->estado == 'derivado-proveedor') DERIVADO A PROVEEDOR @endif
-                                        @if($denuncia->estado == 'solicitud-documentacion') SOLICITUD DE DOCUMENTACIÓN @endif
-                                        @if($denuncia->estado == 'informe-pericial') INFORME PERICIAL @endif
-                                        @if($denuncia->estado == 'pendiente-de-pago') PENDIENTE DE PAGO @endif
-                                        @if($denuncia->estado == 'esperando-baja-de-unidad') ESPERANDO BAJA DE UNIDAD @endif
+                                    <td class="text-uppercase">
+                                        {{ $estados[$denuncia->full_estado] }}
                                     </td>
                                     <td>
                                         {{ $denuncia->estado_observacion != null ? $denuncia->estado_observacion : 'Sin observación.' }}

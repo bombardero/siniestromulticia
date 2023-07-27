@@ -326,7 +326,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::get('/', [DenunciaAseguradoController::class,'index'])->name('index');
         Route::get('denuncias/export', [DenunciaAseguradoController::class,'export'])->name('export');
         Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('denuncia.show');
-        Route::post('denuncias/{denuncia}/cambiar-estado', [DenunciaAseguradoController::class,'cambiarEstado'])->name('denuncia.cambiar-estado');
+        Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');
         Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('denuncia.cambiar-cobertura-activa');
         Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('denuncia.observaciones.store');
         Route::post('denuncias/{denuncia}/asignar', [DenunciaAseguradoController::class,'asignar'])->name('denuncia.asignar');
@@ -348,8 +348,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             Route::get('{reclamo}/delete', [SiniestroReclamoTerceroController::class,'delete'])->name('delete');
             Route::get('{reclamo}/pdf', [SiniestroReclamoTerceroController::class,'generarPDF'])->name('pdf');
         });
-
-        Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');
     });
 
     Route::group(['middleware' => ['check.productor'], 'prefix' => 'productores', 'as' => 'productores.'], function () {

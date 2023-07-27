@@ -52,18 +52,9 @@
                                     {{ request()->tipo == 'id' ? 'disabled' : '' }}
                                 >
                                     <option value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>Todos</option>
-                                    <option value="ingresado" {{(request()->estado && request()->estado == 'ingresado') ? 'selected' : ''}}>Ingresado</option>
-                                    <option value="aceptado" {{(request()->estado && request()->estado == 'aceptado') ? 'selected' : ''}}>Aceptado</option>
-                                    <option value="rechazado" {{(request()->estado && request()->estado == 'rechazado') ? 'selected' : ''}}>Rechazado</option>
-                                    <option value="cerrado" {{(request()->estado && request()->estado == 'cerrado') ? 'selected' : ''}}>Cerrado</option>
-                                    <option value="legales" {{(request()->estado && request()->estado == 'legales') ? 'selected' : ''}}>Legales</option>
-                                    <option value="investigacion" {{(request()->estado && request()->estado == 'investigacion') ? 'selected' : ''}}>Investigación</option>
-                                    <option value="derivado-proveedor" {{(request()->estado && request()->estado == 'derivado-proveedor') ? 'selected' : ''}}>Derivado a proveedor</option>
-                                    <option value="solicitud-documentacion" {{(request()->estado && request()->estado == 'solicitud-documentacion') ? 'selected' : ''}}>Solicitud de documentación</option>
-                                    <option value="informe-pericial" {{(request()->estado && request()->estado == 'informe-pericial') ? 'selected' : ''}}>Informe Pericial
-                                    </option>
-                                    <option value="pendiente-de-pago" {{(request()->estado && request()->estado == 'pendiente-de-pago') ? 'selected' : ''}}>Pendiente de pago</option>
-                                    <option value="esperando-baja-de-unidad" {{(request()->estado && request()->estado == 'esperando-baja-de-unidad') ? 'selected' : ''}}>Esperando baja de unidad</option>
+                                    @foreach($estados as $key => $estado)
+                                        <option value="{{ $key }}" {{(request()->estado && request()->estado == $key) ? 'selected' : ''}}>{{ Str::contains($key,':') ? '- '.$estado : $estado }}</option>
+                                    @endforeach
                                 </select>
                                 <label for="estado">Estado</label>
                             </div>
@@ -297,18 +288,8 @@
                                                 <span>{{ $denuncia->estado_carga.'/12' }}</span>
                                             @endif
                                         </td>
-                                        <td>
-                                            @if($denuncia->estado == 'ingresado') INGRESADO @endif
-                                            @if($denuncia->estado == 'aceptado') ACEPTADO @endif
-                                            @if($denuncia->estado == 'rechazado') RECHAZADO @endif
-                                            @if($denuncia->estado == 'cerrado') CERRADO @endif
-                                            @if($denuncia->estado == 'legales') LEGALES @endif
-                                            @if($denuncia->estado == 'investigacion') INVESTIGACIÓN @endif
-                                            @if($denuncia->estado == 'derivado-proveedor') DERIVADO A PROVEEDOR @endif
-                                            @if($denuncia->estado == 'solicitud-documentacion') SOLICITUD DE DOCUMENTACIÓN @endif
-                                            @if($denuncia->estado == 'informe-pericial') INFORME PERICIAL @endif
-                                            @if($denuncia->estado == 'pendiente-de-pago') PENDIENTE DE PAGO @endif
-                                            @if($denuncia->estado == 'esperando-baja-de-unidad') ESPERANDO BAJA DE UNIDAD @endif
+                                        <td class="text-uppercase">
+                                            {{ $estados[$denuncia->full_estado] }}
                                         </td>
                                         <td>
                                             @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
@@ -317,7 +298,6 @@
                                                 {{ $denuncia->estado_observacion != null ? $denuncia->estado_observacion : 'Sin observación.' }}
                                                 {{ $denuncia->estado_fecha ? '[Actualizado el '.$denuncia->estado_fecha->format('d/m/y').']' : '' }}
                                             @endif
-
                                         </td>
                                         <td>
                                             @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
@@ -486,17 +466,9 @@
                         <div class="mb-3">
                             <label for="estado" class="form-label">Estado</label>
                             <select id="modalestado-estado" name="estado" class="form-select form-select-sm">
-                                <option value="ingresado">INGRESADO</option>
-                                <option value="aceptado">ACEPTADO</option>
-                                <option value="rechazado">RECHAZADO</option>
-                                <option value="cerrado">CERRADO</option>
-                                <option value="legales">LEGALES</option>
-                                <option value="investigacion">INVESTIGACIÓN</option>
-                                <option value="derivado-proveedor">DERIVADO A PROVEEDOR</option>
-                                <option value="solicitud-documentacion">SOLICITUD DE DOCUMENTACIÓN</option>
-                                <option value="informe-pericial">INFORME PERICIAL</option>
-                                <option value="pendiente-de-pago">PENDIENTE DE PAGO</option>
-                                <option value="esperando-baja-de-unidad">ESPERANDO BAJA DE UNIDAD</option>
+                                @foreach($estados as $key => $estado)
+                                    <option value="{{ $key }}">{{ Str::contains($key,':') ? '- '.$estado : $estado }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
@@ -769,6 +741,7 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function (result) {
+                    console.log(result);
                     $('#modalestado-estado').val(result.estado);
                     $('#modalestado-observacion').val(result.observacion);
                     if(result.fecha)

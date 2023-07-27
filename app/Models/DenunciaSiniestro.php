@@ -14,17 +14,20 @@ class   DenunciaSiniestro extends Model
     use HasFactory, SoftDeletes;
 
     const ESTADOS = [
-        'ingresado',
-        'aceptado',
-        'rechazado',
-        'cerrado',
-        'legales',
-        'investigacion',
-        'derivado-proveedor',
-        'solicitud-documentacion',
-        'informe-pericial',
-        'pendiente-de-pago',
-        'esperando-baja-de-unidad'
+        'ingresado' => 'Ingresado',
+        'aceptado' => 'Aceptado',
+        'rechazado' => 'Rechazado',
+        'cerrado' => 'Cerrado',
+        'legales' => 'Legales',
+        'legales:mediacion' => 'Mediación',
+        'legales:juicio' => 'Juicio',
+        'legales:suspension-plazos' => 'Suspensión de Plazos',
+        'investigacion' => 'Investigación',
+        'derivado-proveedor' => 'Derivado a proveedor',
+        'solicitud-documentacion' => 'Solicitud de documentación',
+        'informe-pericial' => 'Informe Pericial',
+        'pendiente-de-pago' => 'Pendiente de Pago',
+        'esperando-baja-de-unidad' => 'Esperando Baja de Unidad'
     ];
     const COBERTURAS_ACTIVAS = ['RC', 'Casco', 'RC con Casco'];
 
@@ -119,6 +122,7 @@ class   DenunciaSiniestro extends Model
         "nro_denuncia",
         "nro_siniestro",
         "estado",
+        "subestado",
         "estado_observacion",
         "estado_fecha",
         "link_enviado",
@@ -256,6 +260,11 @@ class   DenunciaSiniestro extends Model
     public function canEdit()
     {
         return $this->estado_carga == 'precarga' || (is_numeric($this->estado_carga) && $this->estado_carga < 12) || (Auth::check() && (Auth::user()->hasRole('superadmin') || (Auth::user()->hasRole('siniestros') && Auth::user()->can('editar denuncias')))) ;
+    }
+
+    public function getFullEstadoAttribute()
+    {
+        return $this->estado.($this->subestado != null ? ':'.$this->subestado : '');
     }
 
     public function storeCertificadoCobertura(string $url_cerificado)

@@ -18,7 +18,8 @@ class ProductorController extends Controller
         } else {
             $denuncias = collect([]);
         }
-        return view('backoffice.productores.siniestros.denuncias.index', ['denuncias' => $denuncias]);
+        $estados = DenunciaSiniestro::ESTADOS;
+        return view('backoffice.productores.siniestros.denuncias.index', ['denuncias' => $denuncias, 'estados' => $estados]);
     }
 
     public function show(Request $request, DenunciaSiniestro $denuncia)

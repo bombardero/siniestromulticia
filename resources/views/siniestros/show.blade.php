@@ -12,42 +12,7 @@
                     <h5 class="px-3 pt-2 text-white">
                         Estado:
                         @if($denuncia->estado_carga == '12')
-                            @switch($denuncia->estado)
-                                @case('ingresado')
-                                    Ingresado
-                                    @break
-                                @case('aceptado')
-                                    Aceptado
-                                    @break
-                                @case('rechazado')
-                                    Rechazado
-                                    @break
-                                @case('cerrado')
-                                    Cerrado
-                                    @break
-                                @case('legales')
-                                    Legales
-                                    @break
-                                @case('investigacion')
-                                    Investigación
-                                    @break
-                                @case('derivado-proveedor')
-                                    Derivado a proveedor
-                                    @break
-                                @case('solicitud-documentacion')
-                                    Solicitud de documentación
-                                    @break
-                                @case('informe-pericial')
-                                    Informe Pericial
-                                    @break
-                                @case('pendiente-de-pago')
-                                    Pendiente de pago
-                                    @break
-                                @case('esperando-baja-de-unidad')
-                                    Esperando baja de unidad
-                                    @break
-
-                            @endswitch
+                            {{$estados[$denuncia->full_estado]}}
                         @else
                             Carga Incompleta
                         @endif

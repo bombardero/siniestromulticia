@@ -107,47 +107,7 @@ class ReclamoTerceroController extends Controller
             $row['nro_siniestro'] = $denuncia->nro_siniestro != null ? $denuncia->nro_siniestro : '';
             $row['cobertura'] = $denuncia->cobertura_activa != null ? $denuncia->cobertura_activa : '';
             $row['paso'] = $denuncia->estado_carga == 'precarga' ? 'PRECARGA' : ($denuncia->estado_carga == '12' ? 'COMPLETO' : $denuncia->estado_carga.'/12');
-            $row['estado'] = $denuncia->id;
-
-            switch ($denuncia->estado)
-            {
-                case 'ingresado':
-                    $row['estado'] = 'Ingresado';
-                    break;
-                case 'aceptado':
-                    $row['estado'] = 'Aceptado';
-                    break;
-                case 'rechazado':
-                    $row['estado'] = 'Rechazado';
-                    break;
-                case 'cerrado':
-                    $row['estado'] = 'Cerrado';
-                    break;
-                case 'legales':
-                    $row['estado'] = 'Legales';
-                    break;
-                case 'investigacion':
-                    $row['estado'] = 'Investigación';
-                    break;
-                case 'derivado-proveedor':
-                    $row['estado'] = 'Dericado a proveedor';
-                    break;
-                case 'solicitud-documentacion':
-                    $row['estado'] = 'Solicitud de documentación';
-                    break;
-                case 'informe-pericial':
-                    $row['estado'] = 'Informe pericial';
-                    break;
-                case 'pendiente-de-pago':
-                    $row['estado'] = 'Pendiente de pago';
-                    break;
-                case 'esperando-baja-de-unidad':
-                    $row['estado'] = 'Esperando baja de unidad';
-                    break;
-                default:
-                    $row['estado'] = $denuncia->estado;
-            }
-
+            $row['estado'] = DenunciaSiniestro::ESTADOS[$denuncia->full_estado];
             $row['estado_observacion'] = $denuncia->estado_observacion != null ? $denuncia->estado_observacion : '' ;
             $denuncias[] = $row;
         }

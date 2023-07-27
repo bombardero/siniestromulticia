@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
@@ -36,6 +37,7 @@ class DenunciaAseguradoController extends Controller
 
         $data['denuncia_siniestros'] = $denuncia_siniestros;
         $data['users'] = $users;
+        $data['estados'] = DenunciaSiniestro::ESTADOS;
         $data['tipos_siniestros'] = DenunciaSiniestro::TIPOS_SINIESTROS;
 
         return view('backoffice.siniestros.index',$data);
@@ -1347,17 +1349,6 @@ class DenunciaAseguradoController extends Controller
         return redirect()->route('gracias-denuncia', ['id' => $denuncia_siniestro->identificador]);
     }
 
-
-    public function cambiarEstado(Request $request, DenunciaSiniestro $denuncia)
-    {
-        Validator::make($request->all(), [
-            'estado' => ['required',Rule::in(DenunciaSiniestro::ESTADOS)]
-        ])->validate();
-        $denuncia->estado = $request->estado;
-        $denuncia->save();
-        return response()->json(['status' => true]);
-    }
-
     public function cambiarCoberturaActiva(Request $request, DenunciaSiniestro $denuncia)
     {
         Validator::make($request->all(), [
@@ -1388,64 +1379,20 @@ class DenunciaAseguradoController extends Controller
         $denuncias = $denuncias->latest()->get();
 
         $denuncias = $denuncias->map(function ($denuncia) {
-
             $arreglo = [
                 'ID' => $denuncia->id,
                 'Fecha de Creación' => $denuncia->created_at->format('d/m/Y H:i'),
                 'Fecha del Siniestro' => $denuncia->fecha->format('d/m/Y').' '.Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i'),
                 'Dominio' => $denuncia->dominio_vehiculo_asegurado,
+                'Tipo' => $denuncia->tipo_siniestro,
                 'Nro de Denuncia' => $denuncia->nro_denuncia,
                 'Nro de Siniestro' => $denuncia->nro_siniestro,
                 'Cobertura' => $denuncia->cobertura_activa,
+                'Estado' => DenunciaSiniestro::ESTADOS[$denuncia->full_estado],
+                'Última Observación' => $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : null
             ];
-
-            switch ($denuncia->estado)
-            {
-                case 'ingresado':
-                    $arreglo['Estado'] = 'Ingresado';
-                    break;
-                case 'aceptado':
-                    $arreglo['Estado'] = 'Aceptado';
-                    break;
-                case 'rechazado':
-                    $arreglo['Estado'] = 'Rechazado';
-                    break;
-                case 'aceptado':
-                    $arreglo['Estado'] = 'Aceptado';
-                    break;
-                case 'cerrado':
-                    $arreglo['Estado'] = 'Cerrado';
-                    break;
-                case 'legales':
-                    $arreglo['Estado'] = 'Legales';
-                    break;
-                case 'investigacion':
-                    $arreglo['Estado'] = 'Investigación';
-                    break;
-                case 'derivado-proveedor':
-                    $arreglo['Estado'] = 'Derivado a proveedor';
-                    break;
-                case 'solicitud-documentacion':
-                    $arreglo['Estado'] = 'Solicitud de documentación';
-                    break;
-                case 'informe-pericial':
-                    $arreglo['Estado'] = 'Informe pericial';
-                    break;
-                case 'pendiente-de-pago':
-                    $arreglo['Estado'] = 'Pendiente de pago';
-                    break;
-                case 'esperando-baja-de-unidad':
-                    $arreglo['Estado'] = 'Esperando baja de unidad';
-                    break;
-                default:
-                    $arreglo['Estado'] = $denuncia->estado;
-            }
-            $arreglo['Última Observación'] = $denuncia->observaciones->count() > 0 ? $denuncia->observaciones()->latest()->first()->detalle : null;
-
             return collect($arreglo);
-
         });
-
 
         return $denuncias->downloadExcel('denuncias.xlsx', null, true);
     }
@@ -1523,10 +1470,19 @@ class DenunciaAseguradoController extends Controller
     public function estadoStore(Request $request, DenunciaSiniestro $denuncia)
     {
         Validator::make($request->all(), [
-            'estado' => ['required',Rule::in(DenunciaSiniestro::ESTADOS)]
+            'estado' => ['required',Rule::in(array_keys(DenunciaSiniestro::ESTADOS))]
         ])->validate();
 
-        $denuncia->estado = $request->estado;
+        if(Str::contains($request->estado,':'))
+        {
+            $estados = explode(':', $request->estado);
+            $denuncia->estado = $estados[0];
+            $denuncia->subestado = $estados[1];
+        } else {
+            $denuncia->estado = $request->estado;
+            $denuncia->subestado = null;
+        }
+
         $denuncia->estado_observacion = $request->observacion;
         $denuncia->estado_fecha = Carbon::now()->toDateString();
         $denuncia->save();

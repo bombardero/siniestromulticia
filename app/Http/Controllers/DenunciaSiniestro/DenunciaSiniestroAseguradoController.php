@@ -27,7 +27,8 @@ class DenunciaSiniestroAseguradoController extends Controller
     public function show(string $id)
     {
         $denuncia = DenunciaSiniestro::where('identificador',$id)->firstOrFail();
-        return view('siniestros.show',["denuncia" => $denuncia]);
+        $estados = DenunciaSiniestro::ESTADOS;
+        return view('siniestros.show',["denuncia" => $denuncia, 'estados' => $estados]);
     }
 
     public function storeBajaUnidad(Request $request,string $id)
