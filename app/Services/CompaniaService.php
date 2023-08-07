@@ -39,6 +39,39 @@ class CompaniaService
         return $response;
     }
 
+    public static function consultarCobertura(DenunciaSiniestro $denuncia)
+    {
+        $token = self::getToken();
+
+        $data = [
+            'token' => $token,
+            'data' => self::setConsultarPolizaXML($denuncia)
+        ];
+
+        $request = Http::withOptions(['curl' => [CURLOPT_POSTFIELDS => self::getCurlParams($data)]])->get(config('app.compania_url'));
+        $response = $request->body();
+        if(Str::contains($token, 'El token utilizado ya no es valido'))
+        {
+            Cache::forget('token-siniestro');
+            return false;
+        }
+
+        $response = str_replace("\n", '', $response);
+        Log::info('CompaniaService::consultarCobertura() response:'.$response);
+
+        if(Str::contains($response, 'No hay operaciones'))
+        {
+            return [];
+        }
+
+        $response = "<?xml version='1.0'?><response>$response</response>";
+        $response = simplexml_load_string($response);
+        $response = json_encode($response);
+        $response = json_decode($response,TRUE);
+
+        return $response['Consulta']['Polizas'];
+    }
+
     private function getToken()
     {
         /*
@@ -79,7 +112,7 @@ class CompaniaService
         return implode('&',$params);
     }
 
-    private function setDataXML(DenunciaSiniestro $denuncia, string $tipo_vehiculo)
+    private function setEnviarDenunciaXML(DenunciaSiniestro $denuncia, string $tipo_vehiculo)
     {
         $xml = '<Datos>
                     <Cod_Req>WS0090</Cod_Req>
@@ -167,7 +200,23 @@ class CompaniaService
         $urlpdf = route('asegurados-denuncias.pdf.filename', ['denuncia' => $denuncia, 'filename' => $filename]);
         $xml = str_replace(':url_pdf:', $urlpdf, $xml);
 
-        Log::info('CompaniaService $xml '.$xml);
+        Log::info('CompaniaService::setEnviarDenunciaXML $xml '.$xml);
+        return $xml;
+    }
+
+    private function setConsultarPolizaXML(DenunciaSiniestro $denuncia)
+    {
+        $xml = '<Consulta>
+                    <Cod-Req>WS105D</Cod-Req>
+                    <Veh-Pat>:dominio:</Veh-Pat>
+                    <Fec-Pro>:fecha:</Fec-Pro>
+                    <Indicadores><Ind-Vig>F</Ind-Vig></Indicadores>
+               </Consulta>';
+
+        $xml = str_replace(':dominio:', $denuncia->dominio_vehiculo_asegurado, $xml);
+        $xml = str_replace(':fecha:', $denuncia->fecha->format('d/m/Y'), $xml);
+
+        Log::info('CompaniaService::setConsultarPolizaXML $xml '.$xml);
         return $xml;
     }
 

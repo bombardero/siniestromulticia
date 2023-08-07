@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Siniestro;
 
+use App\Jobs\VerificarVigenciaPolizaDenuncia;
 use App\Mail\MailAsegurado;
 use App\Mail\MailAseguradoCompania;
 use Carbon\Carbon;
@@ -91,7 +92,7 @@ class FormAsegurados extends Component
                 'telefono' => '549'.$this->telefono
                 ];
 
-        DenunciaSiniestro::create([
+        $denuncia = DenunciaSiniestro::create([
             "estado_carga" => 'precarga',
             "identificador" => Str::uuid(),
             "dominio_vehiculo_asegurado" => strtoupper($this->dominio),
@@ -112,6 +113,8 @@ class FormAsegurados extends Component
 
         //cliente
         Mail::to($this->email)->send(new MailAsegurado($data));
+        VerificarVigenciaPolizaDenuncia::dispatch($denuncia);
+
         //compania
         Mail::to(config('app.mail_siniestro_asegurado'))->send(new MailAseguradoCompania($data));
 
