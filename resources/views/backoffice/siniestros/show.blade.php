@@ -1193,8 +1193,8 @@
                                             @foreach($denuncia->observaciones as $observacion )
                                                 <tr class="borde-tabla">
                                                     <td>{{ $observacion->created_at->format('d-m-Y H:i:s') }}</td>
-                                                    <td>{{$observacion->detalle}}</td>
-                                                    <td>{{$observacion->user->name}}</td>
+                                                    <td>{{ $observacion->detalle}}</td>
+                                                    <td>{{ $observacion->user->name}}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
