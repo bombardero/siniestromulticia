@@ -4,8 +4,135 @@
         <div class="row">
             <div class="col-12 mt-5 pb-5">
                 <form action="{{ route('admin.siniestros.index') }}" method="get" class="container-fluid" id="buscador">
-                    <div class="row mb-3">
-                        <div class="col-12 col-md-6 col-lg-4 col-xl-2 px-0">
+                    <div class="row">
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="tipo_siniestro" id="tipo_siniestro"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{ (request()->tipo_siniestro && request()->tipo_siniestro == 'Todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="sin especificar" {{ (request()->tipo_siniestro && request()->tipo_siniestro == 'sin especificar') ? 'selected' : ''}}>Sin especificar</option>
+                                    @foreach($tipos_siniestros as $tipo_siniestro)
+                                        <option value="{{ $tipo_siniestro }}" {{ (request()->tipo_siniestro && request()->tipo_siniestro == $tipo_siniestro) ? 'selected' : '' }}>{{ $tipo_siniestro }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="tipo_siniestro">Tipo</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-lg-1 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="estado" id="estado"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>Todos</option>
+                                    @foreach($estados as $key => $estado)
+                                        <option value="{{ $key }}" {{(request()->estado && request()->estado == $key) ? 'selected' : ''}}>{{ Str::contains($key,':') ? '- '.$estado : $estado }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="estado">Estado</label>
+                            </div>
+                        </div>
+
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-lg-1 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="cobertura" id="cobertura"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>Todas</option>
+                                    <option value="RC" {{(request()->cobertura && request()->cobertura == 'RC') ? 'selected' : ''}}>RC</option>
+                                    <option value="Casco" {{(request()->cobertura && request()->cobertura == 'Casco') ? 'selected' : ''}}>Casco</option>
+                                    <option value="RC con Casco" {{(request()->cobertura && request()->cobertura == 'RC con Casco') ? 'selected' : ''}}>RC con Casco</option>
+                                    <option value="ninguna" {{(request()->cobertura && request()->cobertura == 'ninguna') ? 'selected' : ''}}>Ninguna</option>
+                                </select>
+                                <label for="">Cobertura</label>
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-lg-1 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="carga" id="carga"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>Precarga</option>
+                                    <option value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>Incompleto</option>
+                                    <option value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>Completo</option>
+                                </select>
+                                <label for="carga">Paso</label>
+                            </div>
+                        </div>
+
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-xl-1 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="nro_denuncia" id="nro_denuncia"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{(request()->nro_denuncia && request()->nro_denuncia == 'todos') ? 'selected' : ''}}>Todos</option>
+                                    <option value="si" {{(request()->nro_denuncia && request()->nro_denuncia == 'si') ? 'selected' : ''}}>Si</option>
+                                    <option value="no" {{(request()->nro_denuncia && request()->nro_denuncia == 'no') ? 'selected' : ''}}>No</option>
+                                </select>
+                                <label for="nro_denuncia">N° Denuncia</label>
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-lg-1 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="link_enviado" id="link_enviado"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>Todos</option>
+                                    <option value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>Si</option>
+                                    <option value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>No</option>
+                                </select>
+                                <label for="link_enviado">Link enviado</label>
+                            </div>
+                        </div>
+
+                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-lg-1">
+                            <div class="form-floating">
+                                <select class="form-select" name="responsable" id="responsable"
+                                        onchange="buscar()"
+                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>Todos</option>
+                                    <option value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>Sin responsable</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="responsable">Responsable</label>
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="col-12 col-md-3 col-lg-3 col-xl-1 px-0 ps-lg-1 mb-2">
+                            <div class="form-floating">
+                                <select class="form-select" name="provincia" id="provincia"
+                                        onchange="buscar()"
+                                    {{ request()->provincia == 'id' ? 'disabled' : '' }}
+                                >
+                                    <option value="todas" {{ (request()->provincia && request()->provincia == 'todas') ? 'selected' : '' }}>Todas</option>
+                                    @foreach($provincias as $provincia)
+                                        <option value="{{ $provincia->id }}" {{ (request()->provincia && request()->provincia == $provincia->id) ? 'selected' : '' }}>{{ $provincia->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="provincia">Provincia</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-4 col-xl-4 px-0 mb-2">
                             <div class="input-group">
                                 <div class="input-group-text">
                                     <input class="form-check-input mt-0" type="checkbox"
@@ -30,118 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="tipo_siniestro" id="tipo_siniestro"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{ (request()->tipo_siniestro && request()->tipo_siniestro == 'Todos') ? 'selected' : ''}}>Todos</option>
-                                    <option value="sin especificar" {{ (request()->tipo_siniestro && request()->tipo_siniestro == 'sin especificar') ? 'selected' : ''}}>Sin especificar</option>
-                                    @foreach($tipos_siniestros as $tipo_siniestro)
-                                        <option value="{{ $tipo_siniestro }}" {{ (request()->tipo_siniestro && request()->tipo_siniestro == $tipo_siniestro) ? 'selected' : '' }}>{{ $tipo_siniestro }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="tipo_siniestro">Tipo</label>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="estado" id="estado"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{(request()->estado && request()->estado == 'todos') ? 'selected' : ''}}>Todos</option>
-                                    @foreach($estados as $key => $estado)
-                                        <option value="{{ $key }}" {{(request()->estado && request()->estado == $key) ? 'selected' : ''}}>{{ Str::contains($key,':') ? '- '.$estado : $estado }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="estado">Estado</label>
-                            </div>
-                        </div>
-
-                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="cobertura" id="cobertura"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{(request()->cobertura && request()->cobertura == 'todos') ? 'selected' : ''}}>Todas</option>
-                                    <option value="RC" {{(request()->cobertura && request()->cobertura == 'RC') ? 'selected' : ''}}>RC</option>
-                                    <option value="Casco" {{(request()->cobertura && request()->cobertura == 'Casco') ? 'selected' : ''}}>Casco</option>
-                                    <option value="RC con Casco" {{(request()->cobertura && request()->cobertura == 'RC con Casco') ? 'selected' : ''}}>RC con Casco</option>
-                                    <option value="ninguna" {{(request()->cobertura && request()->cobertura == 'ninguna') ? 'selected' : ''}}>Ninguna</option>
-                                </select>
-                                <label for="">Cobertura</label>
-                            </div>
-                        </div>
-                        @endif
-
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="carga" id="carga"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{(request()->carga && request()->carga == 'todos') ? 'selected' : ''}}>Todos</option>
-                                    <option value="precarga" {{(request()->carga && request()->carga == 'precarga') ? 'selected' : ''}}>Precarga</option>
-                                    <option value="incompleto" {{(request()->carga && request()->carga == 'incompleto') ? 'selected' : ''}}>Incompleto</option>
-                                    <option value="completo" {{(request()->carga && request()->carga == 'completo') ? 'selected' : ''}}>Completo</option>
-                                </select>
-                                <label for="carga">Paso</label>
-                            </div>
-                        </div>
-
-                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-xl-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="nro_denuncia" id="nro_denuncia"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{(request()->nro_denuncia && request()->nro_denuncia == 'todos') ? 'selected' : ''}}>Todos</option>
-                                    <option value="si" {{(request()->nro_denuncia && request()->nro_denuncia == 'si') ? 'selected' : ''}}>Si</option>
-                                    <option value="no" {{(request()->nro_denuncia && request()->nro_denuncia == 'no') ? 'selected' : ''}}>No</option>
-                                </select>
-                                <label for="nro_denuncia">N° Denuncia</label>
-                            </div>
-                        </div>
-                        @endif
-
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="link_enviado" id="link_enviado"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{( isset(request()->link_enviado) && request()->link_enviado == "todos") ? 'selected' : ''}}>Todos</option>
-                                    <option value="1" {{( isset(request()->link_enviado) && request()->link_enviado == "1") ? 'selected' : ''}}>Si</option>
-                                    <option value="0" {{( isset(request()->link_enviado) && request()->link_enviado == '0') ? 'selected' : ''}}>No</option>
-                                </select>
-                                <label for="link_enviado">Link enviado</label>
-                            </div>
-                        </div>
-
-                        @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                        <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 ps-lg-1">
-                            <div class="form-floating">
-                                <select class="form-select" name="responsable" id="responsable"
-                                        onchange="buscar()"
-                                    {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                >
-                                    <option value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>Todos</option>
-                                    <option value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>Sin responsable</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="responsable">Responsable</label>
-                            </div>
-                        </div>
-                        @endif
-
-                        <div class="col-12 col-md-12 col-lg-6 col-xl-3 px-0 ps-lg-1">
+                        <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 ps-lg-1 mb-2">
                             <div class="input-group">
                                 <div class="form-floating">
                                     <select class="form-select" name="tipo" id="tipo">
@@ -573,6 +589,7 @@
             let nro_denuncia = $('#nro_denuncia');
             let link_enviado = $('#link_enviado');
             let responsable = $('#responsable');
+            let provincia = $('#provincia');
             if (tipo == 'id') {
                 fechas.attr('checked', false);
                 desde.attr('disabled', true);
@@ -593,6 +610,8 @@
                 link_enviado.val('todos');
                 responsable.attr('disabled', true);
                 responsable.val('todos');
+                provincia.attr('disabled', true);
+                provincia.val('todas');
             } else {
                 fechas.attr('checked', true);
                 desde.attr('disabled', false);
@@ -606,6 +625,7 @@
                 nro_denuncia.attr('disabled', false);
                 link_enviado.attr('disabled', false);
                 responsable.attr('disabled', false);
+                provincia.attr('disabled', false);
             }
         })
 

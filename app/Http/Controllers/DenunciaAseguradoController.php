@@ -39,6 +39,7 @@ class DenunciaAseguradoController extends Controller
         $data['users'] = $users;
         $data['estados'] = DenunciaSiniestro::ESTADOS;
         $data['tipos_siniestros'] = DenunciaSiniestro::TIPOS_SINIESTROS;
+        $data['provincias'] = Province::all();
 
         return view('backoffice.siniestros.index',$data);
     }
@@ -1416,6 +1417,7 @@ class DenunciaAseguradoController extends Controller
             $nro_denuncia = $request->nro_denuncia;
             $link_enviado = $request->link_enviado;
             $responsable = $request->responsable;
+            $provincia = $request->provincia;
 
             switch ($request->carga)
             {
@@ -1456,6 +1458,8 @@ class DenunciaAseguradoController extends Controller
                     return $query->where('link_enviado', $link_enviado);
                 })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
                     return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
+                })->when($provincia !== null && $provincia !== 'todas', function ($query) use ($provincia) {
+                    return $query->where('province_id', $provincia );
                 });
 
                 if($desde && $hasta)

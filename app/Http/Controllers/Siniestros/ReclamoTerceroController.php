@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Siniestros;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Image;
 use App\Models\DenunciaSiniestro;
+use App\Models\Province;
 use App\Models\ReclamoTercero;
 use App\Models\User;
 use Carbon\Carbon;
@@ -35,6 +36,7 @@ class ReclamoTerceroController extends Controller
         $link_enviado = $request->link_enviado;
         $con_denuncia = $request->con_denuncia;
         $responsable = $request->responsable;
+        $provincia = $request->provincia;
 
         switch ($request->carga)
         {
@@ -80,6 +82,8 @@ class ReclamoTerceroController extends Controller
                 return $con_denuncia === 'si' ? $query->whereNotNull('denuncia_siniestro_id') : $query->whereNull('denuncia_siniestro_id');
             })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
                 return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
+            })->when($provincia !== null && $provincia !== 'todas', function ($query) use ($provincia) {
+                return $query->where('province_id', $provincia );
             });
 
             if($desde &&  $hasta)
@@ -91,6 +95,7 @@ class ReclamoTerceroController extends Controller
         $data['reclamos'] = $reclamos->latest()->paginate(10);
         $data['users'] = User::role('siniestros')->orderBy('name')->get();
         $data['estados'] = ReclamoTercero::ESTADOS;
+        $data['provincias'] = Province::all();
 
         return view('backoffice.siniestros.reclamos.index', $data);
     }
