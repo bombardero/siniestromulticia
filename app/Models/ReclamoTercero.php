@@ -24,6 +24,10 @@ class ReclamoTercero extends Model
         'derivado-proveedor' => 'Derivado a proveedor',
         'solicitud-documentacion' => 'Solicitud de documentación',
         'informe-pericial' => 'Informe Pericial',
+        'para-resolucion' => 'Para resolución',
+        'en-negociacion' => 'En negociación',
+        'sin-responsabilidad' => 'Sin responsabilidad',
+        'finalizado' => 'Finalizado'
     ];
 
     protected $fillable = [
