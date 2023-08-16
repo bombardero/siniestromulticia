@@ -52,15 +52,18 @@ class VerificarVigenciaPolizaDenuncia implements ShouldQueue
 
             if($this->denuncia->fecha->greaterThanOrEqualTo($vigencia_desde) && $this->denuncia->fecha->lessThanOrEqualTo($vigencia_hasta))
             {
-                $this->denuncia->nro_poliza = $nro_poliza;
-                $this->denuncia->link_enviado = true;
-                $this->denuncia->save();
                 $data = [
                     'dominio' => $this->denuncia->dominio_vehiculo_asegurado,
                     'nombre' => $this->denuncia->responsable_contacto_nombre,
                     'link_denuncia' => route('asegurados-denuncias-paso1.create',[ 'id' => $this->denuncia->identificador]),
                 ];
                 Mail::to($this->denuncia->responsable_contacto_email)->send(new LinkDenuncia($data));
+
+                $this->denuncia->nro_poliza = $nro_poliza;
+                $this->denuncia->link_enviado = true;
+                $this->denuncia->link_enviado_modo = 'automatico';
+                $this->denuncia->save();
+
             }
         }
     }

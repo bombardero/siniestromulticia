@@ -306,7 +306,7 @@
                                                    style="color:#3366BB; font-weight: bold; " data-toggle="tooltip"
                                                    data-denuncia-id="{{ $denuncia->id }}"
                                                    data-placement="top" title="Enviar link">
-                                                    <i class="fa-solid fa-link {{ $denuncia->link_enviado ? 'text-success' : '' }}"></i>
+                                                    <i class="fa-solid fa-link {{ $denuncia->link_enviado ? ($denuncia->link_enviado_modo == 'manual' ? 'text-success' : 'text-warning') : '' }}"></i>
                                                 </a>
                                             @else
                                                 {{ $denuncia->link_enviado ? 'Si' : 'No' }}
