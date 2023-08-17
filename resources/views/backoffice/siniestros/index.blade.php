@@ -801,13 +801,17 @@
                 timeout: 0,
                 async: true,
                 success: function (result) {
-                    if (result.mensaje) {
+                    if (result.mensaje)
+                    {
                         alert(result.mensaje);
-                    } else {
-                        location.reload();
                     }
+                    location.reload();
                 },
                 error: function (error) {
+                    if(error.status == 422)
+                    {
+                        return alert(error.responseJSON.error);
+                    }
                     alert('Hubo un error.');
                 },
                 complete: function (jqXHR, textStatus) {

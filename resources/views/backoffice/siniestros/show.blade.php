@@ -1174,7 +1174,26 @@
                                                 </div>
                                             @endforeach
                                         @endif
+                                    @endif
 
+                                    @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                        <div class="alert alert-secondary mt-3 " role="alert">
+                                            Otros detalles
+                                        </div>
+                                        <form action="{{ route('admin.siniestros.denuncia.hecho-generador.store',['denuncia' => $denuncia]) }}" method="post" class="w-100">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="hecho_generador_id">Hecho Generador</label>
+                                                <select class="form-select" name="hecho_generador_id" id="hecho_generador_id" onchange="updateHechoGenerador()">
+                                                    <option value="" {{ $denuncia->hecho_generador_id == null ? 'selected' : ''}}>Sin especificar</option>
+                                                    @foreach($hechos_generadores as $hecho_generador)
+                                                        <option value="{{ $hecho_generador->id }}" {{ $hecho_generador->id == $denuncia->hecho_generador_id ? 'selected' : '' }}>{{ $hecho_generador->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('hecho_generador_id') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+                                        </form>
                                     @endif
 
                                     @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
@@ -1207,9 +1226,7 @@
                                                 <textarea class="form-control @error('observacion') is-invalid @enderror" id="observacion" name="observacion" rows="3" required></textarea>
                                                 @error('observacion') <span class="invalid-feedback pl-2">{{ $message }}</span> @enderror
                                             </div>
-                                            <div class="float-right">
-                                                <button type="submit" class="btn btn-primary">Agregar</button>
-                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-2">Agregar</button>
                                         </form>
                                    @endif
 

@@ -111,6 +111,8 @@ class CompaniaService
                     <Les-Ter>:lesiones_terceros:</Les-Ter>
                     <Sin-Cod-Pos>:codigo_postal:</Sin-Cod-Pos>
                     <Fot-Rec-Con></Fot-Rec-Con>
+                    <hec-gen-cod>:codigo_hecho_generador:</hec-gen-cod>
+                    <veh-pat-nro>:dominio:</veh-pat-nro>
                     <path>:url_pdf:</path>
                 </Datos>';
 
@@ -118,6 +120,9 @@ class CompaniaService
         $xml = str_replace(':codigo_tipo:', $tipo_vehiculo === 'autos' ? '3' : '24', $xml);
         $xml = str_replace(':fecha_ocurrencia:', $denuncia->fecha->format('d/m/Y'), $xml);
         $xml = str_replace(':fecha_denuncia:', $denuncia->finalized_at->format('d/m/Y'), $xml);
+
+        $xml = str_replace(':codigo_hecho_generador:', $denuncia->hecho_generador->codigo_compania, $xml);
+        $xml = str_replace(':dominio:', $denuncia->dominio_vehiculo_asegurado, $xml);
 
         if($denuncia->conductor)
         {

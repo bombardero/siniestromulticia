@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DenunciasExport;
+use App\Models\HechoGenerador;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
@@ -40,6 +41,7 @@ class DenunciaAseguradoController extends Controller
         $data['estados'] = DenunciaSiniestro::ESTADOS;
         $data['tipos_siniestros'] = DenunciaSiniestro::TIPOS_SINIESTROS;
         $data['provincias'] = Province::all();
+        $data['hechos_generadores'] = HechoGenerador::all();
 
         return view('backoffice.siniestros.index',$data);
     }
@@ -88,7 +90,7 @@ class DenunciaAseguradoController extends Controller
 
     public function show(DenunciaSiniestro $denuncia)
     {
-        return view('backoffice.siniestros.show',["denuncia"=>$denuncia]);
+        return view('backoffice.siniestros.show',["denuncia" => $denuncia, 'hechos_generadores' => HechoGenerador::all()]);
     }
 
     public function agregarObservacionesStore(Request $request,DenunciaSiniestro $denuncia)
@@ -1489,6 +1491,18 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia->estado_observacion = $request->observacion;
         $denuncia->estado_fecha = Carbon::now()->toDateString();
+        $denuncia->save();
+
+        return back();
+    }
+
+    public function hechoGeneradorStore(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'hecho_generador_id' => 'nullable|exists:hechos_generadores,id'
+        ])->validate();
+
+        $denuncia->hecho_generador_id = $request->hecho_generador_id;
         $denuncia->save();
 
         return back();
