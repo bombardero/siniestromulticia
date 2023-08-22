@@ -92,6 +92,21 @@
                                 </div>
                             </div>
 
+                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                                <div class="form-floating">
+                                    <select class="form-select" name="provincia" id="provincia"
+                                            onchange="buscar()"
+                                        {{ request()->provincia == 'id' ? 'disabled' : '' }}
+                                    >
+                                        <option value="todas" {{ (request()->provincia && request()->provincia == 'todas') ? 'selected' : '' }}>Todas</option>
+                                        @foreach($provincias as $provincia)
+                                            <option value="{{ $provincia->id }}" {{ (request()->provincia && request()->provincia == $provincia->id) ? 'selected' : '' }}>{{ $provincia->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="provincia">Provincia</label>
+                                </div>
+                            </div>
+
                             {{--
                             <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
                                 <div class="form-floating">
@@ -476,6 +491,8 @@
         let carga = $('#carga');
         let responsable = $('#responsable');
         let link_enviado = $('#link_enviado');
+        let provincia = $('#provincia');
+        let con_denuncia = $('#con_denuncia');
         if(tipo == 'id')
         {
             fechas.attr('checked', false);
@@ -491,6 +508,10 @@
             responsable.val('todos');
             link_enviado.attr('disabled', true);
             link_enviado.val('todos');
+            con_denuncia.attr('disabled', true);
+            con_denuncia.val('todos');
+            provincia.attr('disabled', true);
+            provincia.val('todas');
         } else {
             fechas.attr('checked', true);
             desde.attr('disabled', false);
@@ -501,6 +522,8 @@
             carga.attr('disabled', false);
             responsable.attr('disabled', false);
             link_enviado.attr('disabled', false);
+            con_denuncia.attr('disabled', false);
+            provincia.attr('disabled', false);
         }
     })
 

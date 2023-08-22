@@ -327,6 +327,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::get('denuncias/export', [DenunciaAseguradoController::class,'export'])->name('export');
         Route::get('denuncias/{denuncia}', [DenunciaAseguradoController::class,'show'])->name('denuncia.show');
         Route::post('denuncias/{denuncia}/estado', [DenunciaAseguradoController::class,'estadoStore'])->name('denuncia.estado.store');
+        Route::post('denuncias/{denuncia}/hecho-generador', [DenunciaAseguradoController::class,'hechoGeneradorStore'])->name('denuncia.hecho-generador.store');
         Route::post('denuncias/{denuncia}/cambiar-cobertura-activa', [DenunciaAseguradoController::class,'cambiarCoberturaActiva'])->name('denuncia.cambiar-cobertura-activa');
         Route::post('denuncias/{denuncia}/observaciones', [DenunciaAseguradoController::class,'agregarObservacionesStore'])->name('denuncia.observaciones.store');
         Route::post('denuncias/{denuncia}/asignar', [DenunciaAseguradoController::class,'asignar'])->name('denuncia.asignar');

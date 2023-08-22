@@ -29,6 +29,11 @@ class DenunciaAseguradoController extends Controller
 
     public function enviarCompania(Request $request, DenunciaSiniestro $denuncia)
     {
+        if (!$denuncia->hecho_generador_id)
+        {
+            return response()->json(['error' => 'La denuncia no posee Hecho Generador.'], 422);
+        }
+
         $result = CompaniaService::enviarDenuncia($denuncia, $request->tipo_vehiculo);
 
         if(array_key_exists('Den-Nro',$result))

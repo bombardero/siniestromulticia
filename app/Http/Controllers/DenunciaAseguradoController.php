@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DenunciasExport;
+use App\Models\HechoGenerador;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DenunciaSiniestro;
@@ -39,6 +40,8 @@ class DenunciaAseguradoController extends Controller
         $data['users'] = $users;
         $data['estados'] = DenunciaSiniestro::ESTADOS;
         $data['tipos_siniestros'] = DenunciaSiniestro::TIPOS_SINIESTROS;
+        $data['provincias'] = Province::all();
+        $data['hechos_generadores'] = HechoGenerador::all();
 
         return view('backoffice.siniestros.index',$data);
     }
@@ -87,7 +90,7 @@ class DenunciaAseguradoController extends Controller
 
     public function show(DenunciaSiniestro $denuncia)
     {
-        return view('backoffice.siniestros.show',["denuncia"=>$denuncia]);
+        return view('backoffice.siniestros.show',["denuncia" => $denuncia, 'hechos_generadores' => HechoGenerador::all()]);
     }
 
     public function agregarObservacionesStore(Request $request,DenunciaSiniestro $denuncia)
@@ -1416,6 +1419,7 @@ class DenunciaAseguradoController extends Controller
             $nro_denuncia = $request->nro_denuncia;
             $link_enviado = $request->link_enviado;
             $responsable = $request->responsable;
+            $provincia = $request->provincia;
 
             switch ($request->carga)
             {
@@ -1456,6 +1460,8 @@ class DenunciaAseguradoController extends Controller
                     return $query->where('link_enviado', $link_enviado);
                 })->when($responsable !== null && $responsable !== 'todos', function ($query) use ($responsable) {
                     return $responsable === 'nadie' ? $query->whereNull('user_id') : $query->where('user_id', $responsable);
+                })->when($provincia !== null && $provincia !== 'todas', function ($query) use ($provincia) {
+                    return $query->where('province_id', $provincia );
                 });
 
                 if($desde && $hasta)
@@ -1485,6 +1491,18 @@ class DenunciaAseguradoController extends Controller
 
         $denuncia->estado_observacion = $request->observacion;
         $denuncia->estado_fecha = Carbon::now()->toDateString();
+        $denuncia->save();
+
+        return back();
+    }
+
+    public function hechoGeneradorStore(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'hecho_generador_id' => 'nullable|exists:hechos_generadores,id'
+        ])->validate();
+
+        $denuncia->hecho_generador_id = $request->hecho_generador_id;
         $denuncia->save();
 
         return back();
