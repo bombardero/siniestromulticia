@@ -19,7 +19,7 @@ class CompaniaService
 
         $data = [
             'token' => $token,
-            'data' => self::setDataXML($denuncia, $tipo_vehiculo)
+            'data' => self::setEnviarDenunciaXML($denuncia, $tipo_vehiculo)
         ];
 
         $request = Http::withOptions(['curl' => [CURLOPT_POSTFIELDS => self::getCurlParams($data)]])->get(config('app.compania_url'));
