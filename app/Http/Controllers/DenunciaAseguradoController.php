@@ -71,6 +71,7 @@ class DenunciaAseguradoController extends Controller
     public function updateLinkEnviado(Request $request, DenunciaSiniestro $denuncia)
     {
         $denuncia->link_enviado = true;
+        $denuncia->link_enviado_modo = 'manual';
         $denuncia->save();
         return response()->json([ 'status' => true]);
     }
