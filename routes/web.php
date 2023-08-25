@@ -348,6 +348,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
             Route::post('{reclamo}/observaciones', [SiniestroReclamoTerceroController::class,'observacionesStore'])->name('observaciones.store');
             Route::get('{reclamo}/delete', [SiniestroReclamoTerceroController::class,'delete'])->name('delete');
             Route::get('{reclamo}/pdf', [SiniestroReclamoTerceroController::class,'generarPDF'])->name('pdf');
+            Route::post('{reclamo}/asignar', [SiniestroReclamoTerceroController::class,'asignar'])->name('asignar');
+            Route::post('{reclamo}/desasignar', [SiniestroReclamoTerceroController::class,'desasignar'])->name('desasignar');
         });
     });
 

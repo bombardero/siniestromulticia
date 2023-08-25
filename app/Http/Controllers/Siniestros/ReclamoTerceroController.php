@@ -175,6 +175,20 @@ class ReclamoTerceroController extends Controller
         return $pdf->stream();
     }
 
+    public function asignar(Request $request, ReclamoTercero $reclamo)
+    {
+        $reclamo->responsable()->associate(Auth::user());
+        $reclamo->save();
+        return redirect()->back();
+    }
+
+    public function desasignar(Request $request, ReclamoTercero $reclamo)
+    {
+        $reclamo->responsable()->disassociate();
+        $reclamo->save();
+        return redirect()->back();
+    }
+
 
 
 }

@@ -106,33 +106,23 @@
                                     <label for="provincia">Provincia</label>
                                 </div>
                             </div>
-
-                            {{--
-                            <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
-                                <div class="form-floating">
-                                    <select class="form-select" name="responsable" id="responsable"
-                                            onchange="buscar()"
-                                        {{ request()->tipo == 'id' ? 'disabled' : '' }}
-                                    >
-                                        <option
-                                            value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>
-                                            Todos
-                                        </option>
-                                        <option
-                                            value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>
-                                            Sin responsable
-                                        </option>
-                                        @foreach($users as $user)
-                                            <option
-                                                value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>
-                                                {{ $user->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <label for="link_enviado">Responsable</label>
+                            @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
+                                <div class="col-12 col-md-3 col-lg-2 col-xl-1 px-0 pr-lg-1 pl-lg-0 px-xl-1">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="responsable" id="responsable"
+                                                onchange="buscar()"
+                                            {{ request()->tipo == 'id' ? 'disabled' : '' }}
+                                        >
+                                            <option value="todos" {{( isset(request()->responsable) && request()->responsable == "todos") ? 'selected' : ''}}>Todos</option>
+                                            <option value="nadie" {{( isset(request()->responsable) && request()->responsable == "nadie") ? 'selected' : ''}}>Sin responsable</option>
+                                            @foreach($users as $user)
+                                                <option value="{{ $user->id }}" {{( isset(request()->responsable) && request()->responsable == $user->id) ? 'selected' : ''}}>{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="responsable">Responsable</label>
+                                    </div>
                                 </div>
-                            </div>
-                            --}}
+                            @endif
 
                             <div class="col-12 col-md-12 col-lg-8 col-xl-4 px-0 pl-lg-0 px-xl-1">
                                 <div class="input-group">

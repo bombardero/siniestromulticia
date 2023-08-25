@@ -19,28 +19,26 @@
                                         </h5>
                                         <div class="col-6 col-md-5">
                                             <h5>Responsable:
-                                                {{--
                                                 @if($reclamo->responsable)
                                                     <span>{{ $reclamo->responsable->name }}</span>
                                                     @if($reclamo->user_id === auth()->user()->id)
-                                                        <a href="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}"
+                                                        <a href="{{ route('admin.siniestros.reclamos.desasignar', ['reclamo' => $reclamo]) }}"
                                                            type="button" class="btn btn-danger btn-sm btn-quitar"
                                                            onclick="event.preventDefault();document.getElementById('form-desasignar').submit();"
                                                         ><i class="fa-solid fa-user-xmark"></i> Quitarme</a>
-                                                        <form id="form-desasignar" action="{{ route('admin.siniestros.denuncia.desasignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                        <form id="form-desasignar" action="{{ route('admin.siniestros.reclamos.desasignar', ['reclamo' => $reclamo]) }}" method="POST" class="d-none">
                                                             @csrf
                                                         </form>
                                                     @endif
                                                 @else
-                                                    <a href="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}"
+                                                    <a href="{{ route('admin.siniestros.reclamos.asignar', ['reclamo' => $reclamo]) }}"
                                                        type="button" class="btn btn-primary btn-sm"
                                                        onclick="event.preventDefault();document.getElementById('form-asignar').submit();"
                                                     ><i class="fa-solid fa-user-plus"></i> Asignarme</a>
-                                                    <form id="form-asignar" action="{{ route('admin.siniestros.denuncia.asignar', ['denuncia' => $denuncia]) }}" method="POST" class="d-none">
+                                                    <form id="form-asignar" action="{{ route('admin.siniestros.reclamos.asignar', ['reclamo' => $reclamo]) }}" method="POST" class="d-none">
                                                         @csrf
                                                     </form>
                                                 @endif
-                                                --}}
                                             </h5>
                                         </div>
                                         <div class="col-6 col-md-2 text-right">

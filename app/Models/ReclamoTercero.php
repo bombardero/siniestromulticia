@@ -172,6 +172,11 @@ class ReclamoTercero extends Model
         return $this->belongsTo(DenunciaSiniestro::class, 'denuncia_siniestro_id');
     }
 
+    public function responsable()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function documentosVehicularCompleto()
     {
         if($this->reclamo_vehicular && !$this->vehiculo)
