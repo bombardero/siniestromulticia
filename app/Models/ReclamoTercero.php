@@ -272,7 +272,7 @@ class ReclamoTercero extends Model
 
     public function documentosLesionadosCompleto()
     {
-        if($this->reclamo_lesiones && (($this->conductor && !$this->conductor->lesiones) || !$this->lesionados))
+        if($this->reclamo_lesiones && (($this->conductor && !$this->conductor->lesiones) && !$this->lesionados))
         {
             return false;
         }
