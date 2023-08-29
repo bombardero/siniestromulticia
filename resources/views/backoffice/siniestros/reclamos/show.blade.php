@@ -753,7 +753,7 @@
                                                 @endforeach
                                                 @if($reclamo->testigos()->count() == 0)
                                                     <tr>
-                                                        <td class="text-center" colspan="3">Sin testigos</td>
+                                                        <td class="text-center" colspan="2">Sin testigos</td>
                                                     </tr>
                                                 @endif
                                                 </tbody>
@@ -1040,7 +1040,7 @@
                                                             <table class="table table-hover table-sm">
                                                                 <thead class="table-dark">
                                                                 <tr>
-                                                                    <th scope="col" colspan="3">
+                                                                    <th scope="col" colspan="2">
                                                                         1 - {{ $reclamo->conductor->nombre }} [Conductor]
                                                                     </th>
                                                                 </tr>
@@ -1071,13 +1071,6 @@
                                                                                     </li>
                                                                                 @endforeach
                                                                             </ul>
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            <input type="file" id="{{$orden}}_dni_tutor" name="dni_tutor" wire:model="dni_tutor" accept="image/png,image/jpeg">
-                                                                            <label for="{{$orden}}_dni_tutor" class="mt-1">
-                                                                                <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                                                                                <span class="subir-archivo-morado mb-0">Agregar</span>
-                                                                            </label>
                                                                         </td>
                                                                     </tr>
                                                                 @endif
@@ -1137,7 +1130,7 @@
                                                                 <table class="table table-hover table-sm">
                                                                     <thead class="table-dark">
                                                                     <tr>
-                                                                        <th scope="col" colspan="3">
+                                                                        <th scope="col" colspan="2">
                                                                             {{ $key + ($reclamo->conductor && $reclamo->conductor->lesiones ? 2 : 1) }} - {{ $lesionado->nombre }} [Lesionado]
                                                                         </th>
                                                                     </tr>
@@ -1168,13 +1161,6 @@
                                                                                         </li>
                                                                                     @endforeach
                                                                                 </ul>
-                                                                            </td>
-                                                                            <td class="text-center">
-                                                                                <input type="file" id="{{$orden}}_dni_tutor" name="dni_tutor" wire:model="dni_tutor" accept="image/png,image/jpeg">
-                                                                                <label for="{{$orden}}_dni_tutor" class="mt-1">
-                                                                                    <i class="fa-solid fa-upload fa-xl" style="color:#636393;"></i>
-                                                                                    <span class="subir-archivo-morado mb-0">Agregar</span>
-                                                                                </label>
                                                                             </td>
                                                                         </tr>
                                                                     @endif
