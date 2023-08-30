@@ -28,7 +28,7 @@
                 <a class="enlace-footer" href="{{ route('home') }}#seguros"><p class="lista-footer">• Seguros</p></a>
                 <a class="enlace-footer" href="{{ route('somos-finisterre') }}"><p class="lista-footer">• Quiénes
                         somos</p></a>
-                <a class="enlace-footer" href="http://insuransys.finisterreseguros.com/cot01/cotizador.html"
+                <a class="enlace-footer" href="http://web01.finisterreseguros.com/cot01/cotizador.html"
                    target="_blank"><p class="lista-footer">• Productor</p></a>
                 <a class="enlace-footer" href="{{ route('contacto') }}"><p class="lista-footer">• Contacto</p></a>
                 <a class="enlace-footer" href="{{ route('login', ['state' => 'cliente']) }}"><p class="lista-footer">•

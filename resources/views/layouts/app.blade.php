@@ -127,7 +127,7 @@
                             <a class="nav-link header-class" href="{{ route('siniestro.index') }}">SINIESTROS</a>
                           </li>
                           <li class="nav-item ">
-                            <a class="nav-link header-class" href="http://insuransys.finisterreseguros.com/cot01/cotizador.html" target="_blank">PRODUCTORES</a>
+                            <a class="nav-link header-class" href="http://web01.finisterreseguros.com/cot01/cotizador.html" target="_blank">PRODUCTORES</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link header-class" href="{{ route('contacto') }}">CONTACTO</a>
