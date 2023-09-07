@@ -227,11 +227,11 @@
     </div>
 
     <div class="panel panel-default mt-3">
-        <div class="panel-heading">Datos del conductor del vehículo asegurado</div>
+        <div class="panel-heading">Datos del vehículo</div>
         <table class="table tb-content pb-0">
             <tr>
                 <td colspan="3">
-                    <b>Dominio: </b>{{ $reclamo->vehiculo_asegurado_dominio }}
+                    <b>Dominio: </b>{{ $reclamo->vehiculo_tercero_dominio }}
                 </td>
             </tr>
             <tr>

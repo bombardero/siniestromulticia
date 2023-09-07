@@ -286,7 +286,7 @@
                                                 <p class="mb-1">Año: {{ $reclamo->vehiculo ? $reclamo->vehiculo->anio : '' }}</p>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <p class="mb-1">Dominio: {{ $reclamo->vehiculo_asegurado_dominio }}</p>
+                                                <p class="mb-1">Dominio: {{ $reclamo->vehiculo_tercero_dominio }}</p>
                                             </div>
                                         </div>
 
