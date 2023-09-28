@@ -791,12 +791,14 @@
                                                             <td>DNI Titular</td>
                                                             <td>
                                                                 <ul class="list-group">
-                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_dni_titular')->get() as $archivo)
-                                                                        <li class="list-group-item border-0 bg-transparent p-0">
-                                                                            <a target="_blank" class="documento-formato-texto pt-2"
-                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                        </li>
-                                                                    @endforeach
+                                                                    @if($reclamo->vehiculo)
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_dni_titular')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -804,12 +806,14 @@
                                                             <td>Cédula verde o Título</td>
                                                             <td>
                                                                 <ul class="list-group">
-                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_cedula')->get() as $archivo)
-                                                                        <li class="list-group-item border-0 bg-transparent p-0">
-                                                                            <a target="_blank" class="documento-formato-texto pt-2"
-                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                        </li>
-                                                                    @endforeach
+                                                                    @if($reclamo->vehiculo)
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_cedula')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -817,12 +821,14 @@
                                                             <td>Carnet de conducir</td>
                                                             <td>
                                                                 <ul class="list-group">
-                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_carnet')->get() as $archivo)
-                                                                        <li class="list-group-item border-0 bg-transparent p-0">
-                                                                            <a target="_blank" class="documento-formato-texto pt-2"
-                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                        </li>
-                                                                    @endforeach
+                                                                    @if($reclamo->vehiculo)
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_carnet')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -831,12 +837,14 @@
                                                                 <td>Formulario 08</td>
                                                                 <td>
                                                                     <ul class="list-group">
-                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_formulario_08')->get() as $archivo)
-                                                                            <li class="list-group-item border-0 bg-transparent p-0">
-                                                                                <a target="_blank" class="documento-formato-texto pt-2"
-                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                            </li>
-                                                                        @endforeach
+                                                                        @if($reclamo->vehiculo)
+                                                                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_formulario_08')->get() as $archivo)
+                                                                                <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        @endif
                                                                     </ul>
                                                                 </td>
                                                             </tr>
@@ -886,12 +894,14 @@
                                                                 <td>Declaración Jurada de No Seguro</td>
                                                                 <td>
                                                                     <ul class="list-group">
-                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_declaracion_jurada')->get() as $archivo)
-                                                                            <li class="list-group-item border-0 bg-transparent p-0">
-                                                                                <a target="_blank" class="documento-formato-texto pt-2"
-                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                            </li>
-                                                                        @endforeach
+                                                                        @if($reclamo->vehiculo)
+                                                                            @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_declaracion_jurada')->get() as $archivo)
+                                                                                <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                    <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                       href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        @endif
                                                                     </ul>
                                                                 </td>
                                                             </tr>
@@ -900,12 +910,14 @@
                                                             <td>Fotos del Vehículo</td>
                                                             <td>
                                                                 <ul class="list-group">
-                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_vehiculo')->get() as $archivo)
-                                                                        <li class="list-group-item border-0 bg-transparent p-0">
-                                                                            <a target="_blank" class="documento-formato-texto pt-2"
-                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                        </li>
-                                                                    @endforeach
+                                                                    @if($reclamo->vehiculo)
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_vehiculo')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -913,12 +925,14 @@
                                                             <td>Presupuesto</td>
                                                             <td>
                                                                 <ul class="list-group">
-                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_presupuesto')->get() as $archivo)
-                                                                        <li class="list-group-item border-0 bg-transparent p-0">
-                                                                            <a target="_blank" class="documento-formato-texto pt-2"
-                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                        </li>
-                                                                    @endforeach
+                                                                    @if($reclamo->vehiculo)
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_presupuesto')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>
                                                             </td>
                                                         </tr>
@@ -926,12 +940,14 @@
                                                             <td>Descripción de repuestos</td>
                                                             <td>
                                                                 <ul class="list-group">
-                                                                    @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_descripcion_repuestos')->get() as $archivo)
-                                                                        <li class="list-group-item border-0 bg-transparent p-0">
-                                                                            <a target="_blank" class="documento-formato-texto pt-2"
-                                                                               href={{$archivo->url}}>{{$archivo->nombre}}</a>
-                                                                        </li>
-                                                                    @endforeach
+                                                                    @if($reclamo->vehiculo)
+                                                                        @foreach($reclamo->vehiculo->documentos()->where('type', 'dv_descripcion_repuestos')->get() as $archivo)
+                                                                            <li class="list-group-item border-0 bg-transparent p-0">
+                                                                                <a target="_blank" class="documento-formato-texto pt-2"
+                                                                                   href={{$archivo->url}}>{{$archivo->nombre}}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </ul>
                                                             </td>
                                                         </tr>
