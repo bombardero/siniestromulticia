@@ -12,14 +12,15 @@
                     <li class="card-icon-six text-list-automotor">Responsabilidad Civil</li>
                     <li class="card-icon-six text-list-automotor">Daños a personas transportados y no transportados.</li>
                     <li class="card-icon-six text-list-automotor">Límite de Responsabilidad Civil:  $3.900.000</li>
+                    <li class="card-icon-six text-list-automotor">Hasta 45 años de antigüedad</li>
                 </ul>
             </div>
             <div class="col-12 col-lg-3 d-flex align-items-end justify-content-end">
                 <img src="{{url('/images/gruanoopcional.svg')}}" class="img-fluid">
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <p class="card-automotor-text">Solo cubre daños a cosas materiales dentro de zonas que corresponden a “campos petrolíferos”. Hasta la suma máxima de $100.000</p>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
