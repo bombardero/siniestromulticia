@@ -223,6 +223,20 @@
                         </div>
                     </div>
                 </div>
+                <p class="text-md-left subencabezado-texto-imagenes"><b>• COBERTURA AO RESPONSABILIDAD CIVIL LIMITADA </b>
+                    Protege al titular o conductor autorizado por los daños que pudiera producir el vehículo a personas 
+                    transportadas y no transportadas.
+                </p>
+                <ul style="list-style: none">
+                    <li class="text-md-left subencabezado-texto-imagenes">• Responsabilidad Civil</li>
+                    <li class="text-md-left subencabezado-texto-imagenes">• Lesiones a personas transportadas y no transportadas</li>
+                    <li class="text-md-left subencabezado-texto-imagenes">• Límite de Responsabilidad Civil $3.900.000</li>
+                </ul>
+                <div class="card-body text-center">
+                    <img
+                    src="{{url('/images/automotor/finisterre_no_grua_gris.svg')}}"
+                    class="img-fluid">
+                </div>
                 <div class="col-12 col-md-3 pt-2 pt-md-5  text-center text-md-right order-md-2">
                     <a href="tel:08103620700"><img src="{{url('/images/llamargrua.svg')}}" class="text-right img-fluid"></a>
                 </div>
