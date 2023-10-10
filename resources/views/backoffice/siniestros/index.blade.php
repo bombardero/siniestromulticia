@@ -354,21 +354,30 @@
                                                         </a>
                                                     </li>
                                                     @if(auth()->user()->hasRole('superadmin') || auth()->user()->can('editar denuncias'))
-                                                    <li>
-                                                        <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
-                                                           class="dropdown-item" title="Editar">
-                                                            <i class="fa-solid fa-file-pen"></i><span>Editar</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                           data-bs-target="#modalEstado"
-                                                           data-denuncia-id="{{ $denuncia->id }}"
-                                                           class="dropdown-item" title="Estado">
-                                                            <i class="fa-solid fa-message"></i></i>
-                                                            <span>Estado</span>
-                                                        </a>
-                                                    </li>
+                                                        <li>
+                                                            <a href="{{ route('asegurados-denuncias-paso1.create',[ 'id' => $denuncia->identificador]) }}"
+                                                               class="dropdown-item" title="Editar">
+                                                                <i class="fa-solid fa-file-pen"></i><span>Editar</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                               data-bs-target="#modalCorregirDatos"
+                                                               data-denuncia-id="{{ $denuncia->id }}"
+                                                               class="dropdown-item" title="Corregir Datos">
+                                                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                                                <span>Corregir Datos</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                               data-bs-target="#modalEstado"
+                                                               data-denuncia-id="{{ $denuncia->id }}"
+                                                               class="dropdown-item" title="Estado">
+                                                                <i class="fa-solid fa-message"></i>
+                                                                <span>Estado</span>
+                                                            </a>
+                                                        </li>
                                                     @endif
                                                     <li>
                                                         <a href="{{ route('asegurados-denuncias.pdf',$denuncia->id) }}"
@@ -529,6 +538,49 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" form="formEnviarACompania" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estado -->
+    <div class="modal fade" id="modalCorregirDatos" aria-labelledby="modalCorregirDatosLabel" tabindex="-1"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCorregirDatosLabel">Corregir Datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-corregirdatos-loading" class="text-center"><i class="fas fa-spinner fa-pulse"></i> Cargando</div>
+                    <form action="" method="post" id="formCorregirDatos" class="w-100 d-none">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="modal-corregirdatos-id" class="form-label">Denuncia ID</label>
+                            <input type="text" class="form-control" id="modal-corregirdatos-id" readonly/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modal-corregirdatos-dominio" class="form-label">Dominio</label>
+                            <input type="text" class="form-control" id="modal-corregirdatos-dominio" name="dominio" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modal-corregirdatos-codigopostal" class="form-label">Código Postal</label>
+                            <input type="text" class="form-control" id="modal-corregirdatos-codigopostal" name="codigo_postal" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modal-corregirdatos-fecha" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="modal-corregirdatos-fecha" name="fecha" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modal-corregirdatos-hora" class="form-label">Hora</label>
+                            <input type="time" class="form-control" id="modal-corregirdatos-hora" name="hora" required/>
+                        </div>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -778,6 +830,45 @@
         $("#modalEstado form").submit(function (e) {
             showLoading();
         });
+
+        $('#modalCorregirDatos').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget)
+            let denuncia_id = button.data('denuncia-id')
+            let url = '{{ route('ajax.admin.siniestros.denuncia.corregir-datos.index', ['denuncia' =>  ':denuncia_id']) }}'
+            let url_store = '{{ route('admin.siniestros.denuncia.corregir-datos.store', ['denuncia' =>  ':denuncia_id']) }}'
+            url = url.replace(':denuncia_id', denuncia_id)
+            url_store = url_store.replace(':denuncia_id', denuncia_id)
+            $(this).find('form').attr('action', url_store)
+            $.ajax({
+                url: url,
+                type: 'get',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function (result) {
+                    //console.log(result);
+                    $('#modal-corregirdatos-id').val(result.id);
+                    $('#modal-corregirdatos-dominio').val(result.dominio);
+                    $('#modal-corregirdatos-codigopostal').val(result.codigo_postal);
+                    $('#modal-corregirdatos-fecha').val(result.fecha);
+                    $('#modal-corregirdatos-hora').val(result.hora);
+                    $('#modal-corregirdatos-loading').hide();
+                    $("#modalCorregirDatos form").removeClass('d-none');
+                },
+                error: function (error) {
+                    alert('Hubo un error.');
+                }
+            })
+        })
+
+        $("#modalCorregirDatos form").submit(function (e) {
+            showLoading();
+        });
+
+        $('#modalCorregirDatos').on('hidden.bs.modal', function (event) {
+            $('#modal-corregirdatos-loading').show();
+            $("#modalCorregirDatos form").addClass('d-none');
+        })
 
         $('#modalEnviarACompania').on('show.bs.modal', function (event) {
             let button = $(event.relatedTarget)

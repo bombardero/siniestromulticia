@@ -75,4 +75,17 @@ class DenunciaAseguradoController extends Controller
         return response()->json(['status' => true]);
     }
 
+    public function corregirDatos(DenunciaSiniestro $denuncia)
+    {
+        return response()->json([
+            'status' => true,
+            'id' => $denuncia->id,
+            'dominio' => $denuncia->dominio_vehiculo_asegurado,
+            'codigo_postal' => $denuncia->codigo_postal,
+            'fecha' => $denuncia->fecha->toDateString(),
+            'hora' => $denuncia->hora,
+        ]);
+    }
+
+
 }

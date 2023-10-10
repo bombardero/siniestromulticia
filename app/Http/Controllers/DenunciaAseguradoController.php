@@ -1497,6 +1497,34 @@ class DenunciaAseguradoController extends Controller
         return back();
     }
 
+    public function corregirDatos(Request $request, DenunciaSiniestro $denuncia)
+    {
+        Validator::make($request->all(), [
+            'dominio' => ['required'],
+            'codigo_postal' => ['required'],
+            'fecha' => ['required','date'],
+            'hora' => ['required']
+        ])->validate();
+
+        if($denuncia->canEdit())
+        {
+            $denuncia->dominio_vehiculo_asegurado = $request->dominio;
+            if($denuncia->vehiculo)
+            {
+                $denuncia->vehiculo->dominio = $request->dominio;
+                $denuncia->vehiculo->save();
+            }
+
+            $denuncia->codigo_postal = $request->codigo_postal;
+            $denuncia->fecha = $request->fecha;
+            $denuncia->hora = $request->hora;
+            $denuncia->save();
+        }
+
+        return back();
+    }
+
+
     public function hechoGeneradorStore(Request $request, DenunciaSiniestro $denuncia)
     {
         Validator::make($request->all(), [
