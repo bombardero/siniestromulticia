@@ -20,7 +20,7 @@
                     <li class="card-icon-two text-list-automotor">Daños a personas transportados y no transportados.
                     </li>
                     <li class="card-icon-two text-list-automotor">Límite de Responsabilidad Civil: $39.000.000</li>
-                    <li class="card-icon-two text-list-automotor">Cobertura de Sepelio. Tope de reintegro hasta $100.000</li>
+                    <li class="card-icon-two text-list-automotor">Cobertura de Sepelio. Tope de reintegro hasta $200.000</li>
                     <li class="card-icon-two text-list-automotor">Hasta 35 años de antigüedad</li>
                 </ul>
 
