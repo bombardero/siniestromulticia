@@ -19,7 +19,7 @@
                         límite hasta $1.000.000 (pesos un millón); cubriendo Gastos Sanatoriales hasta $170.000 (pesos
                         ciento setenta mil), por persona, y Gastos por Sepelio hasta la suma de $200.000 (pesos doscientos mil).
                     </li>
-                    <li class="card-icon-ao-sepelio-plus text-list-automotor">Hasta 35 años de antigüedad</li>
+                    <li class="card-icon-ao-sepelio-plus text-list-automotor">Hasta 45 años de antigüedad</li>
                 </ul>
 
             </div>
