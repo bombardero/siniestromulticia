@@ -152,7 +152,7 @@
                                                                                            target="_blank" href="{{$manualSuscripcionAuto->url}}
                         ">VER MANUAL DE SUSCRIPCIÓN (Actualizado
                                     el {{\Carbon\Carbon::parse($manualSuscripcionAuto->updated_at)->format('d/m/Y')}}
-                                    )</a></p>
+                                    ). Los cambios entran en vigencia a partir del 06/11/2023</a></p>
                         @endif
                     </div>
                 </div>
@@ -294,7 +294,7 @@
                         @if($manualSuscripcionMoto)
                             <br>
                             <p class="pt-1 text-center text-uppercase anexos-automotor"><a  class="anexos-automotor" target="_blank" href="{{$manualSuscripcionMoto->url}}">
-                                VER MANUAL DE SUSCRIPCIóN (Actualizado el {{\Carbon\Carbon::parse($manualSuscripcionMoto->updated_at)->format('d/m/Y')}})</a>
+                                VER MANUAL DE SUSCRIPCIóN (Actualizado el {{\Carbon\Carbon::parse($manualSuscripcionMoto->updated_at)->format('d/m/Y')}}). Los cambios entran en vigencia a partir del 06/11/2023</a>
                             </p>
                         @endif
                     </div>
