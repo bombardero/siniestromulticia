@@ -15,7 +15,7 @@
                 <ul class="automotor">
                     <li class="card-icon-ao-sepelio-plus text-list-automotor">RESP/CIVIL OBLIGATORIA por lesiones y/o
                         incapacidad total y permanente y/o muerte de terceros transportados y no transportados, hasta la
-                        suma máxima de $3.900.000 (pesos tres millones novecientos mil); Daños Materiales a terceros con
+                        suma máxima de $8.000.000 (pesos ocho millones); Daños Materiales a terceros con
                         límite hasta $1.000.000 (pesos un millón); cubriendo Gastos Sanatoriales hasta $170.000 (pesos
                         ciento setenta mil), por persona, y Gastos por Sepelio hasta la suma de $200.000 (pesos doscientos mil).
                     </li>

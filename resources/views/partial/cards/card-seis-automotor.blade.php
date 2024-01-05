@@ -11,7 +11,7 @@
                 <ul class="automotor">
                     <li class="card-icon-six text-list-automotor">Responsabilidad Civil</li>
                     <li class="card-icon-six text-list-automotor">Daños a personas transportados y no transportados.</li>
-                    <li class="card-icon-six text-list-automotor">Límite de Responsabilidad Civil:  $3.900.000</li>
+                    <li class="card-icon-six text-list-automotor">Límite de Responsabilidad Civil:  $8.000.000</li>
                     <li class="card-icon-six text-list-automotor">Hasta 45 años de antigüedad</li>
                 </ul>
             </div>
