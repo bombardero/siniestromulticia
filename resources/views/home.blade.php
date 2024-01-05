@@ -200,7 +200,7 @@
                     </p>
                     <p class="text-md-left subencabezado-texto-imagenes"><b>• COBERTURA “A” </b>RESPONSABILIDAD CIVIL
                         por lesiones y/o muerte de terceros transportados y no transportados, y por daños materiales a
-                        cosas de terceros no transportados, hasta la suma máxima de $39.000.000 (incluye seguro de
+                        cosas de terceros no transportados, hasta la suma máxima de $80.000.000 (incluye seguro de
                         Responsabilidad Civil Obligatorio)</p>
                     <div class="container">
                         <div class="row">
@@ -229,7 +229,7 @@
                     <ul style="list-style: none">
                         <li class="text-md-left subencabezado-texto-imagenes">• Responsabilidad Civil</li>
                         <li class="text-md-left subencabezado-texto-imagenes">• Lesiones a personas transportadas y no transportadas</li>
-                        <li class="text-md-left subencabezado-texto-imagenes">• Límite de Responsabilidad Civil $3.900.000</li>
+                        <li class="text-md-left subencabezado-texto-imagenes">• Límite de Responsabilidad Civil $8.000.000</li>
                     </ul>
                     <div class="card-body text-center">
                         <img
