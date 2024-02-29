@@ -12,11 +12,6 @@
   }
 /* Estilos CELULAR y algunas tablet (xs-sm)*/
  @media (min-width: 0px) and (max-width: 767px) {
-  .text-help-line {
-    font-size: 12px; /* Ajusta el tamaño del texto para que se vea bien en dispositivos móviles */
-    text-align: center; /* Centra el texto si es necesario */
-    padding: 10px 0; /* Añade algo de padding para separarlo del resto de elementos */
-  }
   .card-width {
     width: auto !important;
     height: auto !important;

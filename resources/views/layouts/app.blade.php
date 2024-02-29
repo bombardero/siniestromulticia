@@ -57,6 +57,13 @@
         .padding-right-en-mobile{padding-right: 0px;}
 
         .margin-bottom-en-ambos{margin-bottom: 30px;}
+        .navbar-help-number {text-align: center;padding: 5px 0;}
+        .help-line-text {display: block;color: #E95E2A;font-weight: bold;}
+        .help-line-number {display: inline;color: #E95E2A;font-weight: bold;text-decoration: underline;}
+        .help-line-text {font-weight: bold;margin-bottom: 5px;}
+        @media only screen and (min-width: 768px) {
+            .navbar-help-number {text-align: right;padding-right: 15px;padding-left: 10px;}
+        }
 
     </style>
 
