@@ -138,6 +138,10 @@
 
                     </ul>
                 </div>
+                <div class="navbar-help-number">
+                    <div class="help-line-text">Mesa de ayuda 24 hs</div>
+                    <span class="help-line-number">0810 362 0700</span>
+                </div>
             </div>
 
         </nav>

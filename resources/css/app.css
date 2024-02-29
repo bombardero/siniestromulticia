@@ -12,6 +12,11 @@
   }
 /* Estilos CELULAR y algunas tablet (xs-sm)*/
  @media (min-width: 0px) and (max-width: 767px) {
+  .text-help-line {
+    font-size: 12px; /* Ajusta el tamaño del texto para que se vea bien en dispositivos móviles */
+    text-align: center; /* Centra el texto si es necesario */
+    padding: 10px 0; /* Añade algo de padding para separarlo del resto de elementos */
+  }
   .card-width {
     width: auto !important;
     height: auto !important;
@@ -133,6 +138,12 @@
 }
  @media (min-width: 768px) and (max-width: 1200px) {
 
+  .navbar-help-number {
+    text-align: right;
+    padding-right: 15px;
+    padding-left: 10px;
+}
+
   .texto-herramientas {
   width:100% !important;
 }
@@ -144,6 +155,29 @@
 
  }
     /* FIN CELULAR estilos*/
+.navbar-help-number {
+  text-align: center;
+  padding: 5px 0;
+}
+  
+.help-line-text {
+  display: block;
+  color: #E95E2A;
+  font-weight: bold;
+}
+
+.help-line-number {
+  display: inline; /* Asegura que solo tome el espacio de su contenido */
+  color: #E95E2A; /* El color para el número de teléfono */
+  font-weight: bold; /* Si quieres que el número sea más destacado */
+  text-decoration: underline; /* Aplica el subrayado directamente al número de teléfono */
+}
+  
+.help-line-text {
+  font-weight: bold; /* Hace que el texto de ayuda sea más grueso */
+  margin-bottom: 5px; /* Espacio entre el texto de ayuda y el número */
+}
+
 .header-class {
  color:#184071 !important;
  font-weight: bold !important;
