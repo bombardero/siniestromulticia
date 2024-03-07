@@ -8,8 +8,8 @@
 				<ul class="automotor">
 					<li class="card-icon-four text-list-automotor">Responsabilidad Civil. Límite de Responsabilidad Civil:  $80.000.000</li>
 					<li class="card-icon-four text-list-automotor">Daños a personas y bienes transportados y no transportados.</li>
-					<li class="card-icon-four text-list-automotor">Daños parciales por granizo, con límites </li>
-					<li class="card-icon-four text-list-automotor">Daños a cristales laterales, luneta  y parabrisas, con límites</li>
+					<li class="card-icon-four text-list-automotor">Daños parciales por granizo -con límites-</li>
+					<li class="card-icon-four text-list-automotor">Daños a luneta  y parabrisa -con límites-</li>
 				</ul>
 			</div>
 			<div class="col-12 col-lg-3 d-flex align-items-end justify-content-end">
