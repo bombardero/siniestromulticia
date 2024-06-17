@@ -4,12 +4,15 @@
 		<hr class="card-automotor-separador">
 		<div class="row">
 			<div class="col-12 col-lg-9">
-				<p class="card-automotor-text">Pérdida total por accidente, robo y/o hurto e incendio total y parcial, más adicionales de granizo y cristales</p>
+				<!-- <p class="card-automotor-text">Pérdida total por accidente, robo y/o hurto e incendio total y parcial, más adicionales de granizo y cristales</p> -->
 				<ul class="automotor">
+					<li class="card-icon-four text-list-automotor">Reposición de un 0 Km, en caso de destrucción total o robo/hurto, durante los 6 (seis) primeros meses, contados a partir de la fecha de la factura de compra del vehículo.</li>
 					<li class="card-icon-four text-list-automotor">Responsabilidad Civil. Límite de Responsabilidad Civil:  $80.000.000</li>
 					<li class="card-icon-four text-list-automotor">Daños a personas y bienes transportados y no transportados.</li>
-					<li class="card-icon-four text-list-automotor">Daños parciales por granizo -con límites-</li>
+					<li class="card-icon-four text-list-automotor">Cobertura por pérdidas totales y parciales: accidente, robo y/o hurto total/parcial e incendio total/parcial.</li>
+					<li class="card-icon-four text-list-automotor">Daños parciales por granizo</li>
 					<li class="card-icon-four text-list-automotor">Daños a luneta  y parabrisa -con límites-</li>
+					<li class="card-icon-four text-list-automotor">Daños a cristales laterales -con límites-</li>
 				</ul>
 			</div>
 			<div class="col-12 col-lg-3 d-flex align-items-end justify-content-end">
