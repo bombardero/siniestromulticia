@@ -94,6 +94,27 @@ class FormAsegurados extends Component
                 'telefono' => '549'.$this->telefono
                 ];
 
+        dd([
+    "estado_carga" => 'precarga',
+    "identificador" => Str::uuid(),
+    "dominio_vehiculo_asegurado" => strtoupper($this->dominio),
+    "fecha" => $this->fecha,
+    "hora" => $this->hora,
+    "lugar_nombre" => $this->lugar_siniestro,
+    "codigo_postal" => $this->codigo_postal,
+    "direccion" => $this->setNoDeclarado($this->direccion_siniestro),
+    "nombre_conductor" => $this->setNoDeclarado($this->conductor_siniestro),
+    "descripcion" => $this->setNoDeclarado($this->descripcion_siniestro),
+    'tipo_siniestro' => $this->tipo_siniestro,
+    "responsable_contacto_nombre" => $this->responsable_contacto,
+    "responsable_contacto_domicilio" => $this->domicilio,
+    "cia" => $this->cia,
+    "responsable_contacto_telefono" => '549'.$this->telefono,
+    "responsable_contacto_email" => $this->email,
+    'estado_fecha' => Carbon::now()->toDateString()
+]);
+
+
         $denuncia = DenunciaSiniestro::create([
             "estado_carga" => 'precarga',
             "identificador" => Str::uuid(),
