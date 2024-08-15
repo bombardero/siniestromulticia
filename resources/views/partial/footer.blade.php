@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-3 text-center text-md-left pt-4">
-                <img src="{{url('/images/mobile/logo finisterre blanco_footer.png')}}" class="img-fluid ">
-                <!--
+                <!--<img src="{{url('/images/mobile/logo finisterre blanco_footer.png')}}" class="img-fluid ">
+                
                         <a href="" target="_blank"><img src="{{url('/images/logo facebook.svg')}}" class="img-fluid pr-4 pr-md-3  pr-lg-4 px-md-auto pt-4"></a>
                         <a href="" target="_blank"><img src="{{url('/images/logo insta.svg')}}" class="img-fluid pr-4 pr-md-3 pr-lg-4 px-md-auto pt-4 "></a>
                     -->

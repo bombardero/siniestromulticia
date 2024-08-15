@@ -33,7 +33,7 @@
         </div>
     </section>
     <section id="seguros" class="py-5">
-        <div class="container">
+        <!--<div class="container">
             <div class="row">
                 <div class="col-12 text-center ">
                     <h2 class="conoce-nuestros-productos ">
@@ -79,19 +79,19 @@
 
             </div>
 
-        </div>
+        </div>-->
     </section>
 
     <section id="seguro-auto">
         <div class="productos-coberturas">
-            <p class="text-center productos-coberturas-title">Productos y coberturas</p>
+            <!--<p class="text-center productos-coberturas-title">Productos y coberturas</p>-->
 
         </div>
     </section>
 
 
     <section>
-        <div class="seguro-auto">
+        <!--<div class="seguro-auto">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -115,11 +115,11 @@
                     </div>
                     <div class="mt-4 col-12">
                         @include('partial.cards.card-seis-automotor')
-                    </div>
+                    </div>-->
                     <!-- <div class="mt-4 col-12">
                         @include('partial.cards.card-automotor-ao-sepelio')
                     </div> -->
-                    <div class="mt-4 col-12">
+                <!--    <div class="mt-4 col-12">
                         @include('partial.cards.card-automotor-ao-sepelio-plus')
                     </div>
                     <div class="mt-4 col-12">
@@ -183,11 +183,11 @@
                 </div>
             </div>
 
-        </div>
+        </div>-->
     </section>
 
     <section id="seguro-moto" class="img-fluid ">
-        <div class="container">
+        <!--<div class="container">
             <div class="row">
                 <div class="col-12 col-md-9 order-md-1">
                     <h1 class="pt-5 text-center text-md-left seguro-para-motos">
@@ -305,12 +305,12 @@
                 </div>
 
             </div>
-        </div>
+        </div>-->
     </section>
 
 
     <section id="caucion-alquileres" style="background-color: #EAF0FA;">
-        <div class="container">
+        <!--<div class="container">
             <div class="row">
                 <div class="col-12 offset-md-1  col-md-10 offset-md-1 text-center order-md-1">
                     <h1 class="pt-5 pb-5 pb-md-0 caucion-alquileres">Seguro de caución de alquileres</h1>
@@ -347,11 +347,11 @@
 
 
             </div>
-        </div>
+        </div>-->
     </section>
 
     <section id="caucion-empresas" class="" style="background-color: rgba(122, 162, 214, 0.5)">
-        <div class="container">
+        <!--<div class="container">
             <div class="row ">
                 <div class="col-12 col-md-6 text-center text-md-left">
                     <h1 class="pt-5 caucion-alquileres">Seguro de caución para empresas</h1>
@@ -397,11 +397,11 @@
 
 
             </div>
-        </div>
+        </div>-->
     </section>
 
     <section id="sepelio" class=" img-fluid fondo-sepelio">
-        <div class="container">
+        <!--<div class="container">
             <div class="row">
                 <div class="col-12 text-center">
                     <h1 class="pt-5 pb-4 sepelio-titulo">Seguro de Sepelio</h1>
@@ -444,11 +444,11 @@
 
 
             </div>
-        </div>
+        </div>-->
     </section>
 
     <section id="sepelio" class=" img-fluid fondo-unite-equipo">
-        <div class="container">
+        <!--<div class="container">
             <div class="row">
                 <div class="col-12 pt-md-5 pt-2 text-center">
                     <h1 class="pt-md-5 pt-2 pb-5 potencia-tu-carrera-titulo">¡Unite a nuestro equipo!</h1>
@@ -478,7 +478,7 @@
 
 
             </div>
-        </div>
+        </div>-->
     </section>
 
 @endsection
