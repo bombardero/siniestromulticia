@@ -1,17 +1,17 @@
 {
     "roboto": {
-        "normal": "roboto_normal_7bc701b343c10631f60048716b96e4f7",
-        "100_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_100_italic_71d4fad1ca0f22d70d8be7cc40bb76ab",
-        "300_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_300_italic_3d719d848a0b6b3f4f0918985ffd2db7",
-        "italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_italic_e3ef71c7d9eeac822fc7d92d4fc7ff6e",
-        "500_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_500_italic_e69cd621b57d68ed0b47f09bd22a3d7e",
-        "bold_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_bold_italic_76e4a6bfadf19fea9990a367967a3f96",
-        "900_italic": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_900_italic_7ad2e464d2e86e53eea8619bf6734bbe",
-        "100": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_100_1c4e32da7e6c8539dd3a51af38f413be",
-        "300": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_300_32acfcb296f555e063ebba2be7db9e2f",
-        "500": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_500_5774d6fb05eba3d096525f821dbe4137",
-        "bold": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_bold_8db5cb5d0586c1e891426d13097b1d04",
-        "900": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/roboto_900_7bf41cacaff90e7097ddd49fb9296601"
+        "normal": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_normal_e794639d941c5ae548beb5b53f96d8e5",
+        "100_italic": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_100_italic_559ac2b90f004b83f21d8500a4fda7c4",
+        "300_italic": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_300_italic_d317fa2237b7962a3fd66adfa8987f1e",
+        "italic": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_italic_322eb4a8c28cb60b9c1aea4b47a56aa3",
+        "500_italic": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_500_italic_bd56a7ae3eb165c15ffb40cbf80eb5dc",
+        "bold_italic": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_bold_italic_f52b3176ccea70da0d52f18e0938a607",
+        "900_italic": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_900_italic_cddf88f6c34a9ba52072143e639c8202",
+        "100": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_100_9234a3ac26ff1592485d2aabcb2c9d8e",
+        "300": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_300_cc4e76f50b66ce9ac2b3d8a19b5f276d",
+        "500": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_500_64eaa50e2bf35fe15f6cb55ada83a64e",
+        "bold": "\/home\/forge\/finisterreseguros.com.ar\/storage\/fonts\/\/roboto_bold_9420b318fa9b620e67bbd96e8ff529e0",
+        "900": "roboto_900_23e21dd11a29036fdf461b3dbe1796a8"
     },
     "fontawesome": {
         "normal": "\/home\/vagrant\/code\/finisterreseguros-web\/storage\/fonts\/\/fontawesome_normal_7ea195556637d817f455524c7885b526"

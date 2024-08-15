@@ -27,6 +27,7 @@ use App\Http\Controllers\ProductorController;
 use App\Http\Controllers\Backoffice\ProductorController as BackofficeProductorController;
 use App\Http\Controllers\SepelioController;
 use App\Http\Controllers\SiniestroController;
+use App\Http\Controllers\SiniestroSisUnicoController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\SuperAdmin\UserController as SuperAdminUserController;
 use App\Http\Controllers\TerceroController;
@@ -83,6 +84,10 @@ Route::get('/solicitar-seguro',function () {
 Route::get('/gracias',function () {
     return view('gracias');
 })->name('gracias');
+
+Route::get('/graciassisunico',function () {
+    return view('graciassisunico');
+})->name('graciassisunico');
 
 Route::get('/muchas-gracias',function (Request $request) {
     return view('muchas-gracias',['email' => $request->email]);
@@ -156,7 +161,9 @@ Route::post('notificacion/pago',[PagoController::class,'ipnNotificacion'])->name
 
 
 Route::get('siniestros', [SiniestroController::class,'index'])->name('siniestro.index');
-
+//modificacion siniestro unico
+Route::get('siniestrossisunico', [SiniestroSisUnicoController::class, 'index'])->name('siniestrossisunico.index');
+//fin siniestro unico
 // RUTA DE ADMIN
 Route::group(['middleware' =>'auth'], function () {
     Route::get('/panel-admin', PanelAdmin::class)->name('panel-admin')->middleware('check.admin');
@@ -182,7 +189,10 @@ Route::get('/callcenter/{cotizacion}', [CallCenterController::class,'show'])->na
 
 Route::view('siniestros/asegurados', 'siniestros.asegurados')->name('asegurado.index');
 Route::view('siniestros/terceros', 'siniestros.terceros')->name('tercero.index');
-
+//modificacion siniestro unico
+Route::view('siniestrossisunico/asegurados', 'siniestrossisunico.asegurados')->name('asegurados.index');
+Route::view('siniestrossisunico/terceros', 'siniestrossisunico.terceros')->name('terceros.index');
+//fin modificacion siniestro unico
 Route::group(['prefix' => 'denuncia-siniestros'], function () {
     Route::view('/gracias','gracias-denuncia')->name('gracias-denuncia');
     Route::get('/{id}',[DenunciaSiniestroAseguradoController::class,'show'])->name('denuncia-siniestros.asegurado.show');
