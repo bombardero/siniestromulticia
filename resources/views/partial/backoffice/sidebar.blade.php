@@ -2,7 +2,7 @@
     <div class="collapse collapse-horizontal {{ array_key_exists('sidebar-hide',$_COOKIE) ? '' : 'show' }}" id="collapseSideBar">
         <div class="sidebar-content d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <span class="fs-4">Finisterre Seguros</span>
+                <span class="fs-4">Sistema Unico de Siniestro</span>
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
