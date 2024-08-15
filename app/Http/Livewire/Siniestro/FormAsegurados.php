@@ -22,6 +22,7 @@ class FormAsegurados extends Component
     public $lugar_siniestro;
     public $responsable_contacto;
     public $domicilio;
+    public $cia;
     public $telefono;
     public $telefono_confirmation;
     public $email;
@@ -78,6 +79,7 @@ class FormAsegurados extends Component
         $this->validateAsegurado();
         $data = [
                 'domicilio' => $this->domicilio,
+                'cia' => $this->cia,
                 'email' => $this->email,
                 'dominio' => strtoupper($this->dominio),
                 'codigo_postal' => $this->codigo_postal,
@@ -106,6 +108,7 @@ class FormAsegurados extends Component
             'tipo_siniestro' => $this->tipo_siniestro,
             "responsable_contacto_nombre" => $this->responsable_contacto,
             "responsable_contacto_domicilio" => $this->domicilio,
+            "cia" => $this->cia,
             "responsable_contacto_telefono" => '549'.$this->telefono,
             "responsable_contacto_email" => $this->email,
             'estado_fecha' => Carbon::now()->toDateString()

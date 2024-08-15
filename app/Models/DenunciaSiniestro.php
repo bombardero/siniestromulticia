@@ -50,6 +50,7 @@ class   DenunciaSiniestro extends Model
         "lugar_nombre",
         "codigo_postal",
         "direccion",
+        "cia",
         "nombre_conductor",
         "descripcion",
         "responsable_contacto_nombre",
