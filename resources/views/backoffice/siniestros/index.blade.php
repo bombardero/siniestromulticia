@@ -183,6 +183,7 @@
                             <thead class="table-light">
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">CIA</th>
                                 <th scope="col">FECHA CREACIÓN</th>
                                 <th scope="col">FECHA SINIESTRO</th>
                                 <th scope="col">DOMINIO</th>
