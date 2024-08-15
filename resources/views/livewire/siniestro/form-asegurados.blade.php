@@ -4,6 +4,23 @@
     </div>
 
     <div class="row mt-3">
+         <div class="col-12 col-md-6">
+                <div class="form-group">
+                     <label for="dominio">Compania (*)</label>
+             <select id="cia" name="cia" class="form-control form-estilo">
+                <option value="">Seleccione una compañía</option>
+                <option value="1">Caledonia</option>
+                <option value="2">TCP</option>
+                <option value="3">Orbis</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select>
+
+
+                </div>
+         </div>
+    </div>
+
+    <div class="row mt-3">
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label for="dominio">Dominio (*)</label>
