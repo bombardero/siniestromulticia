@@ -5,7 +5,7 @@
 <td class="content-cell" align="center">
 <div style="text-align:center; "class="container-mail">
  
-  	<img src="{{url('/images/mobile/logo finisterre blanco_footer.png')}}" class="imagen-mail">
+  	<!--<img src="{{url('/images/mobile/logo finisterre blanco_footer.png')}}" class="imagen-mail">-->
   	<a style="text-decoration: none; display:block; margin-block-start: 1em; margin-block-end: 1em; padding-top:32px;" class="enlace-mail">www.sistemaunicosiniestros.com</a>
 
 
