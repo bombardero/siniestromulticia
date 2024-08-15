@@ -82,7 +82,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="img-fluid" src="/images/finisterre logo 5.svg" style="">
+                    <!--<img class="img-fluid" src="/images/finisterre logo 5.svg" style="">-->
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -97,10 +97,10 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item ">
+                        <!--<li class="nav-item ">
                           <a class="nav-link header-class" href="{{ route('somos-finisterre')}}">QUIENES SOMOS</a>
-                        </li>
-                        <li class="nav-item dropdown seguros">
+                        </li>-->
+                        <!--<li class="nav-item dropdown seguros">
                             <a id="navbarDropdown2 " class="header-class nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 SEGUROS
                             </a>
@@ -126,16 +126,16 @@
                                    Seguro de sepelio
                                 </a>
                             </div>
-                        </li>
-                        <li class="nav-item ">
+                        </li>-->
+                        <!--<li class="nav-item ">
                           <a class="nav-link header-class" href="{{ route('cotiza-vehiculo')}}">COTIZADOR</a>
-                        </li>
+                        </li>-->
                            <li class="nav-item ">
                             <a class="nav-link header-class" href="{{ route('siniestro.index') }}">SINIESTROS</a>
                           </li>
-                          <li class="nav-item ">
+                          <!--<li class="nav-item ">
                             <a class="nav-link header-class" href="http://web01.finisterreseguros.com/cot01/cotizador.html" target="_blank">PRODUCTORES</a>
-                          </li>
+                          </li>-->
                           <li class="nav-item">
                             <a class="nav-link header-class" href="{{ route('contacto') }}">CONTACTO</a>
                           </li>
