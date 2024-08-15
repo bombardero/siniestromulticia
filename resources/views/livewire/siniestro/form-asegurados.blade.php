@@ -6,8 +6,8 @@
     <div class="row mt-3">
          <div class="col-12 col-md-6">
                 <div class="form-group">
-                     <label for="dominio">Compania (*)</label>
-             <select id="cia" name="cia" class="form-control form-estilo">
+                     <label for="cia">Compania (*)</label>
+             <select id="cia" name="cia" class="form-control form-estilo" wire:model.defer="cia">
                 <option value="">Seleccione una compañía</option>
                 <option value="1">Caledonia</option>
                 <option value="2">TCP</option>
