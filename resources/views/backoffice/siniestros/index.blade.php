@@ -218,8 +218,8 @@
                                 @foreach($denuncia_siniestros as $denuncia)
                                     <tr>
                                         <td>{{ $denuncia->id }}</td>
+                                        <td>{{ $denuncia->cia }}</td>
                                         <td>{{ $denuncia->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $denuncia->id }}</td>
                                         <td>{{ $denuncia->fecha->format('d/m/Y') }} {{ \Carbon\Carbon::createFromFormat('H:i:s',$denuncia->hora)->format('H:i') }}</td>
                                         <td>{{ $denuncia->dominio_vehiculo_asegurado}}</td>
                                         <td>
