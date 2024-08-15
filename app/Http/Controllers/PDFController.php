@@ -13,7 +13,7 @@ class PDFController extends Controller
 
     	$data = 
     	[
-        	'titulo' => 'Finisterre',
+        	'titulo' => 'Siniestro',
         	'poliza' => $poliza,
         	'asegurable' => $poliza->asegurable,
         	'productor' => $poliza->productor,

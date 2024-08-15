@@ -78,7 +78,7 @@ class LoginController extends Controller
     {
 
        // return Socialite::driver($provider)->redirectUrl('http://localhost:8000/login/'.$provider.'/redirect?value=' .$request->value)->redirect();
-        return Socialite::driver($provider)->redirectUrl('https://finisterre.com.ar/login/'.urlencode($provider).'/redirect')->with(["access_type" => "offline", "state" => $request->state])->redirect();
+        return Socialite::driver($provider)->redirectUrl('https://sistemaunicosiniestros.com/login/'.urlencode($provider).'/redirect')->with(["access_type" => "offline", "state" => $request->state])->redirect();
 
 
     }

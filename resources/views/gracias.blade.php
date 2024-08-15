@@ -15,7 +15,7 @@
                         Tu solicitud fue enviada
                     </p>
                     <p class="pr-md-5 pl-md-5 pt-2 solicitud-enviada-subtitulo">
-                        Recibimos la información, próximamente un asesor de Finisterre te contactará por whatsapp o email para que
+                        Recibimos la información, próximamente un asesor te contactará por whatsapp o email para que
                         puedas iniciar la denuncia. Recordá revisar tu correo no deseado.
                     </p>
 
