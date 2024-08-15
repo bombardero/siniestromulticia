@@ -24,21 +24,21 @@
             </div>
 
             <div class="col-12 col-md-3 pt-4 text-center text-md-left">
-                <a class="enlace-footer" href="{{ route('home') }}"><p class="lista-footer">• Home</p></a>
+                <!--<a class="enlace-footer" href="{{ route('home') }}"><p class="lista-footer">• Home</p></a>
                 <a class="enlace-footer" href="{{ route('home') }}#seguros"><p class="lista-footer">• Seguros</p></a>
                 <a class="enlace-footer" href="{{ route('somos-finisterre') }}"><p class="lista-footer">• Quiénes
                         somos</p></a>
                 <a class="enlace-footer" href="http://web01.finisterreseguros.com/cot01/cotizador.html"
-                   target="_blank"><p class="lista-footer">• Productor</p></a>
+                   target="_blank"><p class="lista-footer">• Productor</p></a>-->
                 <a class="enlace-footer" href="{{ route('contacto') }}"><p class="lista-footer">• Contacto</p></a>
-                <a class="enlace-footer" href="{{ route('login', ['state' => 'cliente']) }}"><p class="lista-footer">•
+                <!--<a class="enlace-footer" href="{{ route('login', ['state' => 'cliente']) }}"><p class="lista-footer">•
                         Alquileres</p></a>
                 <a class="enlace-footer" href="{{ route('preguntas-frecuentes') }}"><p class="lista-footer">• Preguntas
                         Frecuentes</p></a>
                 <a class="enlace-footer" href="{{route('productores.index')}}"><p
-                        class="lista-footer">• Producí con nosotros</p></a>
+                        class="lista-footer">• Producí con nosotros</p></a>-->
             </div>
-            <div class="col-12 col-md-3 pt-4 text-center text-md-left">
+            <!--<div class="col-12 col-md-3 pt-4 text-center text-md-left">
                 <h3 class="legales">Legales</h3>
                 <a class="enlace-footer" href="{{ route('legales') }}">
                     <p class="subtitulo-footer lista-footer">• Privacidad y Legales</p></a>
@@ -51,8 +51,8 @@
                 <a class="enlace-footer" href="{{ route('legales.lavado-de-activos') }}">
                     <p class="subtitulo-footer lista-footer">• Lavado de activos</p>
                 </a>
-            </div>
-            <div class="col-12 col-md-3 pt-4 text-center text-md-left">
+            </div>-->
+            <!--<div class="col-12 col-md-3 pt-4 text-center text-md-left">
                 <h3 class="titulo-footer"><span style="font-weight: bold;">Mesa de Ayuda</span></h3>
                 {{--
                 <p class="subtitulo-footer"><strong>RESPONSABLE: ALDAZABAL FLORENCIA</strong> <br class="d-none d-md-block">0810 362 0700, INT 501, email: faldazabal@finisterreseguros.com</p>
@@ -77,9 +77,9 @@
                 <p class="texto-footer mb-2">
                     C1003ABL - C.A.B.A.
                 </p>
-            </div>
+            </div>-->
             {{--
-            <div class="col-12 col-md-9  text-center text-md-left pt-4">
+            <!--<div class="col-12 col-md-9  text-center text-md-left pt-4">
                 <hr style="border-top:1px solid white;">
                     <div class="row">
                         <div class="col-12 col-md-6 text-center text-md-left">
@@ -95,12 +95,12 @@
                         </div>
                     </div>
                 <hr style="border-top:1px solid white;">
-            </div>
+            </div>-->
             --}}
         </div>
 
         {{--
-        <div class="row pt-3 pt-md-5">
+        <!--<div class="row pt-3 pt-md-5">
             <div class="col-12 text-center text-md-left compañia-seguro">
                 <p>La compañía de seguros dispone de un Servicio de Atención al Asegurado que atenderá las consultas y reclamos que presenten los
                 tomadores de seguros, asegurados, beneficiarios y/o derechohabientes.
@@ -110,10 +110,10 @@
                 tomadores de seguros, asegurados, beneficiarios y/o derechohabientes.
                 </p>
             </div>
-        </div>
+        </div>-->
         --}}
         <div style="background: white;" class="mt-4">
-            <div class="row" style="padding-left:25px;padding-top:25px;padding-bottom:25px;">
+            <!--<div class="row" style="padding-left:25px;padding-top:25px;padding-bottom:25px;">
                 <div class="col-12 col-md-8">
                     <div class="row">
                         <div class="col-12 col-md-3" style="border-right: 1px solid #4A4A49;">
@@ -141,8 +141,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="padding-left:25px;margin-right:5px;">
+            </div>-->
+            <!--<div class="row" style="padding-left:25px;margin-right:5px;">
                 <div class="col-12 col-md-8"
                      style="background:#F1F1F1;padding-left: 60px;padding-top: 33px;padding-right: 55px;padding-bottom: 33px;margin-bottom: 33px;">
                     La entidad <b>Aseguradora del Finisterre Cia. Argentina de Seguros</b> dispone de un <strong>Servicio
@@ -165,7 +165,7 @@
                     jbustos@finisterreseguros.com<br><br>
 
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </footer>
