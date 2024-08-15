@@ -93,8 +93,8 @@ class FormAsegurados extends Component
                 'tipo_siniestro' => $this->tipo_siniestro,
                 'telefono' => '549'.$this->telefono
                 ];
-
-        dd([
+//codigo para ver si llega informacion
+/*dd([
     "estado_carga" => 'precarga',
     "identificador" => Str::uuid(),
     "dominio_vehiculo_asegurado" => strtoupper($this->dominio),
@@ -112,7 +112,9 @@ class FormAsegurados extends Component
     "responsable_contacto_telefono" => '549'.$this->telefono,
     "responsable_contacto_email" => $this->email,
     'estado_fecha' => Carbon::now()->toDateString()
-]);
+]);*/
+
+//fin codigo para ver informacion
 
 
         $denuncia = DenunciaSiniestro::create([
