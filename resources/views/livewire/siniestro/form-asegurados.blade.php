@@ -12,6 +12,7 @@
                 <option value="Caledonia">Caledonia</option>
                 <option value="TCP">TCP</option>
                 <option value="Orbis">Orbis</option>
+                <option value="Providencia">Providencia</option>
                 <!-- Agrega más opciones según sea necesario -->
             </select>
 
