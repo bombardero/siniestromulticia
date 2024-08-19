@@ -32,8 +32,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-siniestro-title card-title soy-asegurado">Soy un asegurado</h5>
                             <h6 class="card-subtitle mb-2 pt-2 soy-asegurado">Brinde todos sus datos al tercero.</h6>
-                            <p class="card-text">Si tuviste un siniestro y sos asegurado
-                                de Finisterre</p>
+                            <p class="card-text">Si tuviste un siniestro y sos asegurado</p>
                             <a href="{{route('asegurado.index')}}" type="button"
                                class="boton-siniestro-asegurado btn btn-success text-uppercase">Comenzar tramite</a>
                         </div>
@@ -44,8 +43,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-siniestro-title card-title soy-tercero">Soy un tercero</h5>
                             <h6 class="card-subtitle mb-2 pt-2 soy-tercero">Obtenga los datos de nuestro asegurado.</h6>
-                            <p class="card-text">Si tuviste un siniestro con un asegurado
-                                de Finisterre</p>
+                            <p class="card-text">Si tuviste un siniestro con un asegurado</p>
                             <a href="{{route('tercero.index')}}" type="button"
                                class="boton-siniestro-tercero btn  text-uppercase">Presentar reclamo</a>
                         </div>
