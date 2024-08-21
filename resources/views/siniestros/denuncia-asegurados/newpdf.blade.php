@@ -1182,7 +1182,7 @@
         @endif
         <tr>
             <td style="font-size: 10px">
-                Documento generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }} en <a href="https://finisterreseguros.com.ar/">finisterreseguros.com.ar</a>
+                Documento generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }} en <a href="https://sistemaunicosiniestros.com/">Sistena Unico de Siniestros</a>
             </td>
         </tr>
     </table>
