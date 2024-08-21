@@ -10,9 +10,10 @@
              <select id="cia" name="cia" class="form-control form-estilo" wire:model.defer="cia">
                 <option value="">Seleccione una compañía</option>
                 <option value="Caledonia">Caledonia</option>
-                <option value="TCP">TCP</option>
+                <option value="TPC">TPC</option>
                 <option value="Orbis">Orbis</option>
                 <option value="Providencia">Providencia</option>
+                <option value="Aurora">Aurora(NRE)</option>
                 <!-- Agrega más opciones según sea necesario -->
             </select>
 
