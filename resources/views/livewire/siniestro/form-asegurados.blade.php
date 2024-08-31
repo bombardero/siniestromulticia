@@ -14,6 +14,7 @@
                 <option value="Orbis">Orbis</option>
                 <option value="Providencia">Providencia</option>
                 <option value="Aurora">Aurora(NRE)</option>
+                <option value="Finisterre">Finisterre</option>
                 <!-- Agrega más opciones según sea necesario -->
             </select>
 
