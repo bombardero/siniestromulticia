@@ -69,7 +69,12 @@ class CompaniaService
         $response = json_encode($response);
         $response = json_decode($response,TRUE);
 
-        return $response['Consulta']['Polizas'];
+        //se modifico
+        //return $response['Consulta']['Polizas'];
+
+        return [];
+        
+        //fin modificacion
     }
 
     private function getToken()
