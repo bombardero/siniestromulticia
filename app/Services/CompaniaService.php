@@ -64,16 +64,17 @@ class CompaniaService
             return [];
         }
 
-        $response = "<?xml version='1.0'?><response>$response</response>";
-        $response = simplexml_load_string($response);
-        $response = json_encode($response);
-        $response = json_decode($response,TRUE);
+       
 
         //se modifico
+        /*$response = "<?xml version='1.0'?><response>$response</response>";
+        $response = simplexml_load_string($response);
+        $response = json_encode($response);
+        $response = json_decode($response,TRUE);*/
         //return $response['Consulta']['Polizas'];
 
         return [];
-        
+
         //fin modificacion
     }
 
