@@ -37,7 +37,7 @@
             window.open(url, '_blank').focus();
         }
 
-        setTimeout(function () {
+        /*setTimeout(function () {
             window.location.replace('{{ route('denuncia-siniestros.asegurado.show', ['id' => request()->get('id')]) }}');
         }, 5000);
         setInterval(function () {
@@ -47,7 +47,7 @@
                 document.getElementById('timer').innerHTML = --counter;
             }
 
-        }, 1000);
+        }, 1000);*/
     </script>
 
 @endsection
